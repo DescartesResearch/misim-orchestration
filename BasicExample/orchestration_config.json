@@ -1,0 +1,4 @@
+{
+  "orchestration_dir": "./BasicExample/orchestration",
+  "orchestrate": true
+}

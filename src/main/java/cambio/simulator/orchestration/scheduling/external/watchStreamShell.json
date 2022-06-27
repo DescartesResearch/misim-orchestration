@@ -1,0 +1,8 @@
+{
+  "type": "TEMPLATE_TYPE",
+  "object": {
+    "kind": "TEMPLATE_KIND",
+    "apiVersion": "v1",
+    TEMPLATE_K8_OBJECT
+  }
+}
