@@ -87,7 +87,7 @@ public class MicroserviceOrchestrationAdapter extends MicroserviceAdapter {
 
         @Override
         public Microservice createInstance(Type type) {
-            if(baseModel.getOrchestrationConfig().isOrchestrated()){
+            if(baseModel.getOrchestrationConfig().isOrchestrate()){
                 return new MicroserviceOrchestration(baseModel, microserviceName, true);
             } else {
                 return new Microservice(baseModel, microserviceName, true);

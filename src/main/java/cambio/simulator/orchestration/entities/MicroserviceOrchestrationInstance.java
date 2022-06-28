@@ -18,7 +18,7 @@ public class MicroserviceOrchestrationInstance extends MicroserviceInstance {
     @Override
     protected void submitProcessToCPU(CPUProcess newProcess) {
         MiSimOrchestrationModel model = (MiSimOrchestrationModel) getModel();
-        if (model.getOrchestrationConfig().isOrchestrated()){
+        if (model.getOrchestrationConfig().isOrchestrate()){
             MicroserviceOrchestration owner = (MicroserviceOrchestration) this.getOwner();
             MicroserviceInstance nextAvailableInstance = owner.getNextAvailableInstance();
             nextAvailableInstance.getCpu().submitProcess(newProcess);

@@ -29,10 +29,7 @@ public class OrchestrationExperimentCreator extends ExperimentCreator {
         File experimentDescription =
                 tryGetDescription(expDescLocation, "experiment/scenario");
 
-        File orchestrationDescription =
-                tryGetDescription(config.getOrchestrationConfigLocation(), "orchestration");
-
-        MiSimModel model = new MiSimOrchestrationModel(architectureDescription, experimentDescription, orchestrationDescription);
+        MiSimModel model = new MiSimOrchestrationModel(architectureDescription, experimentDescription, config.getOrchestrationConfigLocation());
         return setupExperiment(config, model);
     }
 }

@@ -117,7 +117,7 @@ public class ExtendedReporter {
         addEventsResult(directoryPerformance);
 
         if (model instanceof MiSimOrchestrationModel
-                && ((MiSimOrchestrationModel) model).getOrchestrationConfig().isOrchestrated()) {
+                && ((MiSimOrchestrationModel) model).getOrchestrationConfig().isOrchestrate()) {
             createOrchestrationReport(directorySpecificRun);
         }
         createPureMiSimReport(directorySpecificRun);

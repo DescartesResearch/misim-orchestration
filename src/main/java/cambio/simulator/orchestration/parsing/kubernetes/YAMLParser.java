@@ -9,7 +9,7 @@ import cambio.simulator.orchestration.entities.kubernetes.K8Object;
 import cambio.simulator.orchestration.loadbalancing.LoadBalancerType;
 import cambio.simulator.orchestration.management.DefaultValues;
 import cambio.simulator.orchestration.management.ManagementPlane;
-import cambio.simulator.orchestration.parsing.ConfigDto;
+import cambio.simulator.orchestration.models.OrchestrationConfig;
 import cambio.simulator.parsing.ParsingException;
 import cambio.simulator.orchestration.parsing.converter.*;
 import cambio.simulator.orchestration.scaling.HorizontalPodAutoscaler;
@@ -28,9 +28,7 @@ import java.util.stream.Collectors;
 public class YAMLParser {
 
     Set<String> remainingFilePaths = new HashSet<>();
-
-    ConfigDto configDto;
-
+    OrchestrationConfig configDto;
     ArchitectureModel architectureModel;
 
     private YAMLParser() {
@@ -41,7 +39,6 @@ public class YAMLParser {
     public static YAMLParser getInstance() {
         return instance;
     }
-
 
     public String getKindAsString(String src) {
         Yaml yaml = new Yaml();
@@ -253,25 +250,15 @@ public class YAMLParser {
         ManagementPlane.getInstance().getDeployments().add(deployment);
     }
 
-    public static ConfigDto parseConfigFile(String src) throws IOException, ParsingException {
-        ObjectMapper mapper = new ObjectMapper(new YAMLFactory());
-        mapper.findAndRegisterModules();
-        final ConfigDto configDto = mapper.readValue(new File(src), ConfigDto.class);
-        //Check values for validity and create default values
-        DefaultValues.getInstance().setDefaultValuesFromConfigFile(configDto);
-        return configDto;
-
-    }
-
     public Set<String> getRemainingFilePaths() {
         return remainingFilePaths;
     }
 
-    public ConfigDto getConfigDto() {
+    public OrchestrationConfig getConfigDto() {
         return configDto;
     }
 
-    public void setConfigDto(ConfigDto configDto) {
+    public void setConfigDto(OrchestrationConfig configDto) {
         this.configDto = configDto;
     }
 
@@ -283,4 +270,3 @@ public class YAMLParser {
         this.architectureModel = architectureModel;
     }
 }
-

@@ -12,7 +12,6 @@ import cambio.simulator.orchestration.entities.Node;
 import cambio.simulator.orchestration.management.ManagementPlane;
 import cambio.simulator.orchestration.management.ScaleTaskExecutor;
 import cambio.simulator.orchestration.export.StatsTasksExecutor;
-import cambio.simulator.orchestration.parsing.ConfigDto;
 import cambio.simulator.parsing.ParsingException;
 import cambio.simulator.orchestration.parsing.kubernetes.YAMLParser;
 import cambio.simulator.orchestration.scheduling.Scheduler;
@@ -28,11 +27,16 @@ import java.util.List;
 
 public class MiSimOrchestrationModel extends MiSimModel {
 
-    private final OrchestrationConfig orchestrationConfig;
+    private OrchestrationConfig orchestrationConfig;
 
-    public MiSimOrchestrationModel(File architectureModelLocation, File experimentModelOrScenarioLocation, File orchestrationConfigLocation) {
+    public MiSimOrchestrationModel(File architectureModelLocation, File experimentModelOrScenarioLocation, String orchestrationConfigLocation) {
         super(architectureModelLocation, experimentModelOrScenarioLocation);
-        this.orchestrationConfig = OrchestrationModelLoader.loadOrchestrationConfig(orchestrationConfigLocation);;
+        try {
+            this.orchestrationConfig = OrchestrationModelLoader.loadOrchestrationConfig(orchestrationConfigLocation);
+        } catch (IOException | ParsingException e) {
+            e.printStackTrace();
+            System.exit(1);
+        }
     }
 
     public OrchestrationConfig getOrchestrationConfig() {
@@ -48,7 +52,7 @@ public class MiSimOrchestrationModel extends MiSimModel {
 
     @Override
     public void doInitialSchedules() {
-        if (!orchestrationConfig.isOrchestrated()) {
+        if (!orchestrationConfig.isOrchestrate()) {
             super.doInitialSchedules();
         } else {
             this.experimentMetaData.markStartOfExperiment(System.nanoTime());
@@ -65,21 +69,14 @@ public class MiSimOrchestrationModel extends MiSimModel {
     private void initOrchestration() {
         System.out.println();
         System.out.println("### Initializing Container Orchestration ###");
-        String targetDir = orchestrationConfig.getOrchestrationDirectory() + "/k8_files";
-        ConfigDto configDto = null;
-        try {
-            configDto = YAMLParser.parseConfigFile(orchestrationConfig.getOrchestrationDirectory() + "/environment/config.yaml");
-        } catch (IOException | ParsingException e) {
-            e.printStackTrace();
-            System.exit(1);
-        }
-        Cluster cluster = new Cluster(createNodesFromConfigDto(configDto));
+        String targetDir = orchestrationConfig.getOrchestrationDir();
+        Cluster cluster = new Cluster(createNodesFromConfigDto(orchestrationConfig));
         ManagementPlane.getInstance().setModel(this);
         ManagementPlane.getInstance().setCluster(cluster);
 
         try {
-            assignPriosToSchedulers(configDto);
-            assignStartUpTimesToInstances(configDto);
+            assignPriosToSchedulers(orchestrationConfig);
+            assignStartUpTimesToInstances(orchestrationConfig);
         } catch (Exception e) {
             e.printStackTrace();
             System.exit(1);
@@ -87,7 +84,7 @@ public class MiSimOrchestrationModel extends MiSimModel {
 
         final YAMLParser yamlParser = YAMLParser.getInstance();
         yamlParser.setArchitectureModel(architectureModel);
-        yamlParser.setConfigDto(configDto);
+        yamlParser.setConfigDto(orchestrationConfig);
         try {
             yamlParser.initDeploymentsFromArchitectureAndYAMLFiles(targetDir);
         } catch (ParsingException e) {
@@ -95,7 +92,7 @@ public class MiSimOrchestrationModel extends MiSimModel {
             System.exit(1);
         }
 
-        final ScaleTaskExecutor scaleTaskExecutor = new ScaleTaskExecutor(getModel(), "MasterTaskExecutor", getModel().traceIsOn(), configDto.getScalingInterval());
+        final ScaleTaskExecutor scaleTaskExecutor = new ScaleTaskExecutor(getModel(), "MasterTaskExecutor", getModel().traceIsOn(), orchestrationConfig.getScalingInterval());
         scaleTaskExecutor.doInitialSelfSchedule();
         System.out.println("[INFO]: Orchestration Report will be created afterwards\n");
         final StatsTasksExecutor statsTasksExecutor = new StatsTasksExecutor(getModel(), "StatsExecutor", getModel().traceIsOn());
@@ -105,14 +102,14 @@ public class MiSimOrchestrationModel extends MiSimModel {
 
     }
 
-    private List<Node> createNodesFromConfigDto(ConfigDto configDto) {
+    private List<Node> createNodesFromConfigDto(OrchestrationConfig configDto) {
         List<Node> nodes = new ArrayList<>();
         for (int i = 0; i < configDto.getNodes().getAmount(); i++) {
             nodes.add(new Node(getModel(), "Node" + i, traceIsOn(), configDto.getNodes().getCpu()));
         }
 
         if (configDto.getCustomNodes() != null) {
-            for (ConfigDto.CustomNodes customNode : configDto.getCustomNodes()) {
+            for (OrchestrationConfig.CustomNodes customNode : configDto.getCustomNodes()) {
                 nodes.add(new Node(getModel(), customNode.getName(), traceIsOn(), customNode.getCpu()));
             }
         }
@@ -121,9 +118,9 @@ public class MiSimOrchestrationModel extends MiSimModel {
         return nodes;
     }
 
-    private void assignPriosToSchedulers(ConfigDto configDto) {
+    private void assignPriosToSchedulers(OrchestrationConfig configDto) {
         if (configDto.getSchedulerPrio() != null) {
-            for (ConfigDto.SchedulerPrio schedulerPrio : configDto.getSchedulerPrio()) {
+            for (OrchestrationConfig.SchedulerPrio schedulerPrio : configDto.getSchedulerPrio()) {
                 String name = schedulerPrio.getName();
                 SchedulerType schedulerType1 = SchedulerType.fromString(name);
                 Scheduler schedulerInstanceByType = Util.getInstance().getSchedulerInstanceByType(schedulerType1);
@@ -132,9 +129,9 @@ public class MiSimOrchestrationModel extends MiSimModel {
         }
     }
 
-    private void assignStartUpTimesToInstances(ConfigDto configDto) {
-        if (configDto.getStartUpTimeContainer() != null) {
-            for (ConfigDto.StartUpTimeContainer startUpTimeContainer : configDto.getStartUpTimeContainer()) {
+    private void assignStartUpTimesToInstances(OrchestrationConfig orchestrationConfig) {
+        if (orchestrationConfig.getStartUpTimeContainer() != null) {
+            for (OrchestrationConfig.StartUpTimeContainer startUpTimeContainer : orchestrationConfig.getStartUpTimeContainer()) {
                 String name = startUpTimeContainer.getName();
                 Microservice service = architectureModel.getMicroservices().stream().filter(microservice -> microservice.getPlainName().equals(name)).findAny().orElse(null);
                 if (service != null) {
