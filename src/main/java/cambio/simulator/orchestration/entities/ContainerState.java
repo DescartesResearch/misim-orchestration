@@ -1,4 +1,4 @@
-package cambio.simulator.orchestration.environment;
+package cambio.simulator.orchestration.entities;
 
 public enum ContainerState {
     WAITING,

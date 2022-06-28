@@ -1,4 +1,4 @@
-package cambio.simulator.orchestration.environment;
+package cambio.simulator.orchestration.entities;
 
 import java.util.List;
 import java.util.Optional;

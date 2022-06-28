@@ -2,7 +2,7 @@ package cambio.simulator.orchestration.events;
 
 import cambio.simulator.events.SelfScheduledExperimentAction;
 import cambio.simulator.misc.Priority;
-import cambio.simulator.orchestration.misc.Util;
+import cambio.simulator.orchestration.util.Util;
 import cambio.simulator.orchestration.entities.kubernetes.Deployment;
 import cambio.simulator.parsing.JsonTypeName;
 import co.paralleluniverse.fibers.SuspendExecution;

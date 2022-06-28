@@ -1,7 +1,7 @@
 package cambio.simulator.orchestration.scheduling.kubernetes;
 
 import cambio.simulator.orchestration.export.Stats;
-import cambio.simulator.orchestration.environment.Node;
+import cambio.simulator.orchestration.entities.Node;
 import cambio.simulator.orchestration.entities.kubernetes.Pod;
 import cambio.simulator.orchestration.management.ManagementPlane;
 import cambio.simulator.orchestration.scheduling.Scheduler;

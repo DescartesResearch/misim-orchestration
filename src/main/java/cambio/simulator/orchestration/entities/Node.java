@@ -1,4 +1,4 @@
-package cambio.simulator.orchestration.environment;
+package cambio.simulator.orchestration.entities;
 
 import cambio.simulator.entities.NamedEntity;
 import cambio.simulator.orchestration.export.Stats;

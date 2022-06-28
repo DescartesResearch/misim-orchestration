@@ -1,8 +1,8 @@
 package cambio.simulator.orchestration.events;
 
 import cambio.simulator.misc.Priority;
-import cambio.simulator.orchestration.environment.Container;
-import cambio.simulator.orchestration.environment.ContainerState;
+import cambio.simulator.orchestration.entities.Container;
+import cambio.simulator.orchestration.entities.ContainerState;
 import desmoj.core.simulator.Event;
 import desmoj.core.simulator.Model;
 

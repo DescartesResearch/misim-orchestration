@@ -1,8 +1,7 @@
-package cambio.simulator.orchestration.environment;
+package cambio.simulator.orchestration.entities;
 
 import cambio.simulator.entities.NamedEntity;
 import cambio.simulator.entities.microservice.MicroserviceInstance;
-import cambio.simulator.orchestration.entities.MicroserviceOrchestration;
 import cambio.simulator.orchestration.events.HealthCheckEvent;
 import cambio.simulator.orchestration.events.TryToRestartContainerEvent;
 import cambio.simulator.orchestration.events.StartContainerAndMicroserviceInstanceEvent;

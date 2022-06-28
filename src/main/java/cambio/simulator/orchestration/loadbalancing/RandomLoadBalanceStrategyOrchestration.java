@@ -2,8 +2,8 @@ package cambio.simulator.orchestration.loadbalancing;
 
 import cambio.simulator.entities.microservice.MicroserviceInstance;
 import cambio.simulator.entities.microservice.NoInstanceAvailableException;
-import cambio.simulator.orchestration.environment.Container;
-import cambio.simulator.orchestration.environment.ContainerState;
+import cambio.simulator.orchestration.entities.Container;
+import cambio.simulator.orchestration.entities.ContainerState;
 import cambio.simulator.orchestration.entities.kubernetes.Pod;
 import cambio.simulator.orchestration.entities.MicroserviceOrchestration;
 import cambio.simulator.orchestration.management.ManagementPlane;

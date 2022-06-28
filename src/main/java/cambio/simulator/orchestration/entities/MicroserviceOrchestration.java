@@ -4,7 +4,6 @@ import cambio.simulator.entities.microservice.*;
 import cambio.simulator.entities.patterns.InstanceOwnedPatternConfiguration;
 import cambio.simulator.orchestration.entities.kubernetes.Deployment;
 import cambio.simulator.orchestration.management.ManagementPlane;
-import cambio.simulator.orchestration.environment.Container;
 import cambio.simulator.orchestration.loadbalancing.LoadBalancerOrchestration;
 import desmoj.core.simulator.Model;
 

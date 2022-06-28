@@ -1,10 +1,12 @@
 package cambio.simulator.orchestration.entities.kubernetes;
 
 import cambio.simulator.entities.microservice.MicroserviceInstance;
+import cambio.simulator.orchestration.entities.Container;
+import cambio.simulator.orchestration.entities.ContainerState;
 import cambio.simulator.orchestration.entities.MicroserviceOrchestration;
-import cambio.simulator.orchestration.misc.Util;
+import cambio.simulator.orchestration.entities.Node;
+import cambio.simulator.orchestration.util.Util;
 import cambio.simulator.orchestration.management.ManagementPlane;
-import cambio.simulator.orchestration.environment.*;
 import cambio.simulator.orchestration.parsing.kubernetes.K8Kind;
 import cambio.simulator.orchestration.scaling.AutoScaler;
 import cambio.simulator.orchestration.scheduling.Scheduler;

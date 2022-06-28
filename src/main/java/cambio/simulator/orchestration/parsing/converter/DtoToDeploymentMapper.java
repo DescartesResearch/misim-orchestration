@@ -1,7 +1,7 @@
 package cambio.simulator.orchestration.parsing.converter;
 
 import cambio.simulator.entities.microservice.Microservice;
-import cambio.simulator.orchestration.misc.Util;
+import cambio.simulator.orchestration.util.Util;
 import cambio.simulator.orchestration.entities.kubernetes.Deployment;
 import cambio.simulator.orchestration.entities.MicroserviceOrchestration;
 import cambio.simulator.orchestration.management.ManagementPlane;

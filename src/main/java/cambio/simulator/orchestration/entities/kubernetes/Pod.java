@@ -1,9 +1,9 @@
 package cambio.simulator.orchestration.entities.kubernetes;
 
 import cambio.simulator.entities.NamedEntity;
-import cambio.simulator.orchestration.environment.Container;
-import cambio.simulator.orchestration.environment.ContainerState;
-import cambio.simulator.orchestration.environment.Node;
+import cambio.simulator.orchestration.entities.Container;
+import cambio.simulator.orchestration.entities.ContainerState;
+import cambio.simulator.orchestration.entities.Node;
 import desmoj.core.simulator.Model;
 
 import java.util.HashSet;

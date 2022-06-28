@@ -1,11 +1,12 @@
 package cambio.simulator.orchestration.management;
 
-
 import cambio.simulator.entities.microservice.MicroserviceInstance;
 import cambio.simulator.models.MiSimModel;
+import cambio.simulator.orchestration.entities.Cluster;
+import cambio.simulator.orchestration.entities.Container;
+import cambio.simulator.orchestration.entities.Node;
 import cambio.simulator.orchestration.entities.kubernetes.Pod;
-import cambio.simulator.orchestration.misc.Util;
-import cambio.simulator.orchestration.environment.*;
+import cambio.simulator.orchestration.util.Util;
 import cambio.simulator.orchestration.events.CheckPodRemovableEvent;
 import cambio.simulator.orchestration.entities.kubernetes.Deployment;
 import cambio.simulator.orchestration.scheduling.Scheduler;
@@ -16,8 +17,7 @@ import desmoj.core.simulator.TimeSpan;
 import java.util.*;
 import java.util.stream.Collectors;
 
-public class
-ManagementPlane {
+public class ManagementPlane {
     List<Deployment> deployments;
     Cluster cluster;
     Model model;

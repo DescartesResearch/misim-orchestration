@@ -3,7 +3,7 @@ package cambio.simulator.orchestration.parsing.kubernetes;
 import cambio.simulator.entities.microservice.Microservice;
 import cambio.simulator.models.ArchitectureModel;
 import cambio.simulator.orchestration.entities.MicroserviceOrchestration;
-import cambio.simulator.orchestration.misc.Util;
+import cambio.simulator.orchestration.util.Util;
 import cambio.simulator.orchestration.entities.kubernetes.Deployment;
 import cambio.simulator.orchestration.entities.kubernetes.K8Object;
 import cambio.simulator.orchestration.loadbalancing.LoadBalancerType;

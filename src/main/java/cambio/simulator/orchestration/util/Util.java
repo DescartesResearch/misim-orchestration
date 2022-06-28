@@ -1,4 +1,4 @@
-package cambio.simulator.orchestration.misc;
+package cambio.simulator.orchestration.util;
 
 import cambio.simulator.entities.patterns.*;
 import cambio.simulator.orchestration.entities.MicroserviceOrchestration;

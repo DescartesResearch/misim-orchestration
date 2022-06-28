@@ -3,7 +3,7 @@ package cambio.simulator.orchestration.events;
 import cambio.simulator.entities.microservice.MicroserviceInstance;
 import cambio.simulator.misc.Priority;
 import cambio.simulator.orchestration.entities.MicroserviceOrchestration;
-import cambio.simulator.orchestration.environment.Container;
+import cambio.simulator.orchestration.entities.Container;
 import desmoj.core.simulator.Event;
 import desmoj.core.simulator.Model;
 
