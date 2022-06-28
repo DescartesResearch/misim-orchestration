@@ -30,7 +30,7 @@ public class StatsMiSimEvent extends NamedExternalEvent {
     public void createScalingStats() {
         int time = (int) getModel().presentTime().getTimeAsDouble();
 
-        List<Microservice> microservices = ((MiSimModel) getModel()).getArchitectureModel().getMicroservices().stream().collect(Collectors.toList());
+        List<Microservice> microservices = new ArrayList<>(((MiSimModel) getModel()).getArchitectureModel().getMicroservices());
         for (Microservice microservice : microservices) {
             Stats.ScalingRecord scalingRecord = new Stats.ScalingRecord();
             scalingRecord.setTime(time);

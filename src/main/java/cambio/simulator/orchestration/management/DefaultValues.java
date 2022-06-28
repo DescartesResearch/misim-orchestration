@@ -27,11 +27,11 @@ public class DefaultValues {
         if (schedulerType != null) {
             scheduler = schedulerType.getName();
         } else {
-            final List<String> possibleValues = Arrays.stream(SchedulerType.values()).map(schedulerType1 -> schedulerType1.getName()).collect(Collectors.toList());
+            final List<String> possibleValues = Arrays.stream(SchedulerType.values()).map(SchedulerType::getName).collect(Collectors.toList());
             throw new ParsingException("Unknown SchedulerType in config file: " + configDto.getScheduler() + "\nPossible values are: " + possibleValues);
         }
         if (configDto.getHealthCheckDelay()!=null){
-            HealthCheckEvent.delay = Integer.valueOf(configDto.getHealthCheckDelay());
+            HealthCheckEvent.delay = Integer.parseInt(configDto.getHealthCheckDelay());
         }
     }
 

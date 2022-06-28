@@ -21,24 +21,21 @@ public class KubeJSONCreator {
         Gson gson = new Gson();
         // create a reader
         // convert JSON file to map
-        Map<String, String> map = gson.fromJson(jsonString, Map.class);
         // close reader
-        return map;
+        return gson.fromJson(jsonString, Map.class);
     }
 
     private static String getFileContent(String path) throws IOException {
-        String actual = new String(Files.readAllBytes(Paths.get(path)));
-        return actual;
+        return new String(Files.readAllBytes(Paths.get(path)));
     }
 
     public static String getPodListTemplate() throws IOException {
-        String podlistTemplateString = getFileContent("src/main/java/cambio/simulator/orchestration/scheduling/kubernetes/podlist.json");
-        return podlistTemplateString;
+        return getFileContent("src/main/java/cambio/simulator/orchestration/scheduling/kubernetes/podlist.json");
     }
 
 
     public static String createPod(Pod pod, boolean running) throws IOException, KubeSchedulerException {
-        List containers = new ArrayList<>();
+        List<String> containers = new ArrayList<>();
         for (Container container : pod.getContainers()) {
             String plainName = container.getMicroserviceInstance().getOwner().getPlainName();
             double requests = pod.getCPUDemand();
@@ -69,10 +66,9 @@ public class KubeJSONCreator {
             String runningStatus = getFileContent("src/main/java/cambio/simulator/orchestration/scheduling/kubernetes/status_running.json");
             Node nodeForPod = pod.getLastKnownNode();
             if (nodeForPod != null) {
-                Node node = nodeForPod;
-                runningStatus = runningStatus.replace("TEMPLATE_HOST_IP", node.getNodeIpAddress());
+                runningStatus = runningStatus.replace("TEMPLATE_HOST_IP", nodeForPod.getNodeIpAddress());
                 podTemplateString = podTemplateString.replace("TEMPLATE_STATUS", runningStatus);
-                podTemplateString = podTemplateString.replace("TEMPLATE_NODE_NAME", "\"nodeName\": \"" + node.getPlainName() + "\",");
+                podTemplateString = podTemplateString.replace("TEMPLATE_NODE_NAME", "\"nodeName\": \"" + nodeForPod.getPlainName() + "\",");
             } else {
                 throw new KubeSchedulerException("Could not find the node where " + pod.getName() + " is running on");
             }
@@ -88,15 +84,15 @@ public class KubeJSONCreator {
         if (affinity.getKey() != null && !nodeAffinities.isEmpty()) {
             String affinityTemplateString = getFileContent("src/main/java/cambio/simulator/orchestration/scheduling/kubernetes/affinity.json");
 
-            String nodeAffinitiesString = "[";
+            StringBuilder nodeAffinitiesString = new StringBuilder("[");
 
             for (String nodeAffinity : nodeAffinities) {
-                nodeAffinitiesString += '"' + nodeAffinity + '"' + ",";
+                nodeAffinitiesString.append('"').append(nodeAffinity).append('"').append(",");
             }
-            nodeAffinitiesString = nodeAffinitiesString.substring(0, nodeAffinitiesString.length() - 1);
-            nodeAffinitiesString += "]";
+            nodeAffinitiesString = new StringBuilder(nodeAffinitiesString.substring(0, nodeAffinitiesString.length() - 1));
+            nodeAffinitiesString.append("]");
 
-            affinityTemplateString = affinityTemplateString.replace("TEMPLATE_NODE_NAME", nodeAffinitiesString);
+            affinityTemplateString = affinityTemplateString.replace("TEMPLATE_NODE_NAME", nodeAffinitiesString.toString());
             affinityTemplateString = affinityTemplateString.replace("TEMPLATE_KEY", affinity.getKey());
 
             podTemplateString = podTemplateString.replace("TEMPLATE_NODE_AFFINITY", affinityTemplateString);
@@ -141,7 +137,7 @@ public class KubeJSONCreator {
 
     public static String createNode(Node node) throws IOException {
 
-        ArrayList<String> nodeList = new ArrayList<>();
+        // ArrayList<String> nodeList = new ArrayList<>();
 
 
         String name = node.getPlainName();
@@ -174,7 +170,7 @@ public class KubeJSONCreator {
 //        }
 
 
-            nodeList.add(nodeTemplateString);
+            // nodeList.add(nodeTemplateString);
             return nodeTemplateString;
         }
 
@@ -207,7 +203,7 @@ public class KubeJSONCreator {
             return nodeListTemplateString;
         }
 
-        public static void main (String[]args) throws FileNotFoundException {
+//        public static void main (String[]args) throws FileNotFoundException {
 //        String pendingPod = createPendingPod(null);
-        }
+//        }
     }

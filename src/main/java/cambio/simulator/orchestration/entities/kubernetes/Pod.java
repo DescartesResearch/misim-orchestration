@@ -15,7 +15,7 @@ public class Pod extends NamedEntity {
     private PodState podState;
     private Set<Container> containers;
     private Node lastKnownNode;
-    private Deployment owner;
+    private final Deployment owner;
 
     public Pod(Model model, String name, boolean showInTrace, Deployment deployment) {
         super(model, name, showInTrace);
@@ -70,7 +70,7 @@ public class Pod extends NamedEntity {
             getContainers().forEach(Container::die);
         } else if (podState == PodState.RUNNING) {
             List<Container> collect = getContainers().stream().filter(container -> !container.getContainerState().equals(ContainerState.RUNNING)).collect(Collectors.toList());
-            collect.forEach(container -> container.start());
+            collect.forEach(Container::start);
         }
     }
 

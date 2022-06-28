@@ -64,7 +64,6 @@ public class AimingChaosMonkeyForPodsEvent extends SelfScheduledExperimentAction
             deployment.killPodInstances(instances, retries, service);
 
             sendTraceNote("Aiming Chaos Monkey was applied on " + service + " from the "+ deployment.getQuotedName());
-            boolean hasServicesLeft = deployment.getCurrentRunningOrPendingReplicaCount() > 0;
         } else {
             sendTraceNote("Could not execute AimingChaosMonkeyForPodsEvent because the deployment from the " +
                     "given experiment file with the name '" + deploymentName + "' is unknown");

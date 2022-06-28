@@ -19,7 +19,6 @@ import com.google.gson.JsonParser;
 import com.google.gson.stream.JsonReader;
 import desmoj.core.dist.ContDistNormal;
 
-import java.io.IOException;
 import java.lang.reflect.Field;
 import java.lang.reflect.Type;
 import java.util.LinkedList;
@@ -30,7 +29,7 @@ public class MicroserviceOrchestrationAdapter extends MicroserviceAdapter {
     }
 
     @Override
-    public Microservice read(JsonReader in) throws IOException {
+    public Microservice read(JsonReader in) {
         JsonObject root = JsonParser.parseReader(in).getAsJsonObject();
         String microserviceName = root.get("name").getAsString();
 

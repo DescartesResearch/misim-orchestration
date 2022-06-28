@@ -133,10 +133,7 @@ public class MiSimOrchestrationModel extends MiSimModel {
         if (orchestrationConfig.getStartUpTimeContainer() != null) {
             for (OrchestrationConfig.StartUpTimeContainer startUpTimeContainer : orchestrationConfig.getStartUpTimeContainer()) {
                 String name = startUpTimeContainer.getName();
-                Microservice service = architectureModel.getMicroservices().stream().filter(microservice -> microservice.getPlainName().equals(name)).findAny().orElse(null);
-                if (service != null) {
-                    ((MicroserviceOrchestration) service).setStartTime(startUpTimeContainer.getTime());
-                }
+                architectureModel.getMicroservices().stream().filter(microservice -> microservice.getPlainName().equals(name)).findAny().ifPresent(service -> ((MicroserviceOrchestration) service).setStartTime(startUpTimeContainer.getTime()));
             }
         }
     }

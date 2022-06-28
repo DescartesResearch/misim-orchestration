@@ -5,8 +5,6 @@ import cambio.simulator.ExperimentStartupConfig;
 import cambio.simulator.export.ReportCollector;
 import cambio.simulator.misc.RNGStorage;
 import cambio.simulator.models.MiSimModel;
-import cambio.simulator.orchestration.OrchestrationExperimentCreator;
-import cambio.simulator.orchestration.OrchestrationStartupConfig;
 import cambio.simulator.orchestration.export.ExtendedReporter;
 import cambio.simulator.parsing.ParsingException;
 import com.google.gson.JsonParseException;
@@ -58,7 +56,6 @@ public class OrchestrationMain {
      * </table>
      *
      * @param args program options, see {@link ExperimentStartupConfig}
-     * @see #mainVarargs(String...)
      * @see #runExperiment(String)
      * @see #runExperiment(ExperimentStartupConfig)
      */
@@ -95,28 +92,6 @@ public class OrchestrationMain {
 
             System.exit(512);
         }
-    }
-
-    /**
-     * Varargs variant of {@link #main(String[])}.
-     *
-     *
-     * <p>
-     * This method will <b>always</b> call {@link System#exit(int)}! Be aware of that if you call it from other code. If
-     * you want to avoid this behavior, consider calling {@link #runExperiment(String[])} or {@link
-     * #runExperiment(ExperimentStartupConfig)} instead.
-     *
-     * <p>
-     * For exit code meanings, see {@link #main(String[])}.
-     *
-     * @param args program options, see {@link ExperimentStartupConfig#ExperimentStartupConfig(String, String, String,
-     *             String, boolean, boolean, boolean)}
-     * @see #main(String[])
-     * @see #runExperiment(String)
-     * @see #runExperiment(ExperimentStartupConfig)
-     */
-    public static void mainVarargs(final String... args) {
-        main(args);
     }
 
 
@@ -158,7 +133,6 @@ public class OrchestrationMain {
      *
      * @param cliString the cli argument string
      * @see #main(String[])
-     * @see #mainVarargs(String...)
      * @see #runExperiment(ExperimentStartupConfig)
      */
     public static Experiment runExperiment(final String cliString) {
@@ -172,7 +146,6 @@ public class OrchestrationMain {
      * @param startupConfig the experiment startup configuration
      * @see #runExperiment(String)
      * @see #main(String[])
-     * @see #mainVarargs(String...)
      */
     public static Experiment runExperiment(final ExperimentStartupConfig startupConfig) {
         Experiment experiment = new OrchestrationExperimentCreator().createSimulationExperiment(startupConfig);

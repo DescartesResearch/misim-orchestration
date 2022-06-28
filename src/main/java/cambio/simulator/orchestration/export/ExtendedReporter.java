@@ -71,8 +71,8 @@ public class ExtendedReporter {
                 // use directory.mkdirs(); here instead.
             }
 
-            ArrayList<String> removeFilters = new ArrayList<>();
-            removeFilters.add("scheduler");
+            // ArrayList<String> removeFilters = new ArrayList<>();
+            // removeFilters.add("scheduler");
 
             // copyDirectory("orchestration", directoryConfigFiles.getPath(), removeFilters);
             copyDirectory("BasicExample", directoryConfigFiles.getPath(), Arrays.asList(""));
@@ -156,7 +156,7 @@ public class ExtendedReporter {
                 content.add("NetworkRequestTimeoutEvent_" + microservice.getPlainName());
 
                 //Add individual cpuconsumption
-                List<MicroserviceInstance> collect = microservice.getInstancesSet().stream().collect(Collectors.toList());
+                List<MicroserviceInstance> collect = new ArrayList<>(microservice.getInstancesSet());
                 Collections.sort(collect, new Comparator<MicroserviceInstance>() {
                     @Override
                     public int compare(MicroserviceInstance microservice1, MicroserviceInstance t1) {
@@ -231,7 +231,7 @@ public class ExtendedReporter {
                 if (scalingRecords.size() != 0) {
 
                     //Add individual cpuconsumption
-                    pods = deployment.getReplicaSet().stream().collect(Collectors.toList());
+                    pods = new ArrayList<>(deployment.getReplicaSet());
                     Collections.sort(pods, new Comparator<Pod>() {
                         @Override
                         public int compare(Pod pod, Pod t1) {
@@ -348,7 +348,7 @@ public class ExtendedReporter {
                 if (!nodePodSchedulingRecords.isEmpty()) {
                     Stats.NodePodSchedulingRecord nodePodSchedulingRecord = nodePodSchedulingRecords.get(0);
                     Map<Deployment, Integer> deploymentPodScheduledMap = nodePodSchedulingRecord.getDeploymentPodScheduledMap();
-                    List<Deployment> deployments = deploymentPodScheduledMap.keySet().stream().collect(Collectors.toList());
+                    List<Deployment> deployments = new ArrayList<>(deploymentPodScheduledMap.keySet());
                     for (Deployment deployment : deployments) {
                         content.add(deployment.getPlainName());
                     }

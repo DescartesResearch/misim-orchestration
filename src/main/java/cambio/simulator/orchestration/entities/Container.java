@@ -21,8 +21,6 @@ public class Container extends NamedEntity {
 
     private int restartAttemptsLeft = 0;
     private int backOffDelay = 10;
-    private static int LIMIT_BACK_OFF_DELAY = 300;
-    private static int RESET_BACK_OFF_DELAY_AFTER_TIME = 600;
     private TimeInstant lastRetry = null;
 
     public Container(Model model, String name, boolean showInTrace, MicroserviceInstance microserviceInstance) {
@@ -64,7 +62,6 @@ public class Container extends NamedEntity {
             } else {
                 //Restart terminated container regarding restart policy https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle/
                 restart();
-                return;
             }
         } else {
             throw new IllegalStateException("Pod should never be null. When a container dies it must have been in a pod before.");
@@ -88,6 +85,7 @@ public class Container extends NamedEntity {
     }
 
     public void incrementBackOffDelay() {
+        int LIMIT_BACK_OFF_DELAY = 300;
         if (backOffDelay == LIMIT_BACK_OFF_DELAY) {
             return;
         }
@@ -105,6 +103,7 @@ public class Container extends NamedEntity {
     public void applyBackOffDelayResetIfNecessary() {
         if (lastRetry != null) {
             final double timeAsDouble = presentTime().getTimeAsDouble();
+            int RESET_BACK_OFF_DELAY_AFTER_TIME = 600;
             if (timeAsDouble - lastRetry.getTimeAsDouble() > RESET_BACK_OFF_DELAY_AFTER_TIME) {
                 resetBackOffDelay();
             }

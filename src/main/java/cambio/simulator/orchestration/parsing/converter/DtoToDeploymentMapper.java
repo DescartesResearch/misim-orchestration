@@ -60,7 +60,7 @@ public class DtoToDeploymentMapper implements DtoToObjectMapper<Deployment> {
 
                 //Only considers one affinity configuration by now
                 String key = matchExpressions.get(0).getKey();
-                Set<String> nodeAffinities = matchExpressions.stream().map(matchExpression -> matchExpression.getValues()).flatMap(Collection::stream).collect(Collectors.toSet());
+                Set<String> nodeAffinities = matchExpressions.stream().map(SpecDeploymentDto.TemplateDto.SpecContainerDto.NodeAffinity.RequiredDuringSchedulingIgnoredDuringExecution.NodeSelectorTerms.MatchExpressions::getValues).flatMap(Collection::stream).collect(Collectors.toSet());
                 deployment.getAffinity().setKey(key);
                 deployment.getAffinity().setNodeAffinities(nodeAffinities);
             }

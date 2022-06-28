@@ -13,15 +13,13 @@ import com.google.gson.JsonParser;
 import com.google.gson.stream.JsonReader;
 import desmoj.core.dist.ContDistNormal;
 
-import java.io.IOException;
-
 public class OrchestrationArchitectureModelAdapter extends ArchitectureModelAdapter {
     public OrchestrationArchitectureModelAdapter(MiSimOrchestrationModel miSimOrchestrationModel) {
         super(miSimOrchestrationModel);
     }
 
     @Override
-    public ArchitectureModel read(JsonReader in) throws IOException {
+    public ArchitectureModel read(JsonReader in) {
         JsonObject root = JsonParser.parseReader(in).getAsJsonObject();
 
         Gson gson = GsonHelper

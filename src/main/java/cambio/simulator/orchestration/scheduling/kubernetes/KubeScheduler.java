@@ -20,7 +20,7 @@ public class KubeScheduler extends Scheduler {
     static String PATH_PODS = "update/ADD";
     static String PATH_NODES = "updateNodes";
 
-    private static int counter = 1;
+    // private static int counter = 1;
 
     //mirrors the internal cache of running pods that are known by the scheduler
     Set<Pod> internalRunningPods = new HashSet<>();
@@ -42,11 +42,11 @@ public class KubeScheduler extends Scheduler {
 
             }
 
-            String finalNodeString = "";
+            StringBuilder finalNodeString = new StringBuilder();
             for (String nodeJSON : nodeList) {
-                finalNodeString += nodeJSON;
+                finalNodeString.append(nodeJSON);
             }
-            post(finalNodeString, 0, "", PATH_NODES);
+            post(finalNodeString.toString(), 0, "", PATH_NODES);
         } catch (IOException e) {
             System.out.println("[INFO]: No connection to API server established. The kube scheduler is not supported in this run");
             //e.printStackTrace();
@@ -72,7 +72,7 @@ public class KubeScheduler extends Scheduler {
 
             List<String> podList = new ArrayList<>();
             Map<String, String> deletedPodMap = new HashMap<>();
-            List<String> podNames = new ArrayList<>();
+            // List<String> podNames = new ArrayList<>();
             int numberOfPendingPods = podWaitingQueue.size();
 
 
@@ -90,7 +90,7 @@ public class KubeScheduler extends Scheduler {
                     System.out.println("In this iteration the following pod will be removed " + pod.getQuotedName() + " from node " + pod.getLastKnownNode().getQuotedName());
                 }
             }
-            internalRunningPods.removeAll(foundToRemove);
+            foundToRemove.forEach(internalRunningPods::remove);
 
 
 
@@ -107,7 +107,7 @@ public class KubeScheduler extends Scheduler {
             //Add pods from the waiting queue
             while (podWaitingQueue.size() != 0) {
                 Pod nextPodFromWaitingQueue = getNextPodFromWaitingQueue();
-                podNames.add(nextPodFromWaitingQueue.getName());
+                // podNames.add(nextPodFromWaitingQueue.getName());
                 String pendingPod = KubeJSONCreator.createPod(nextPodFromWaitingQueue, false);
                 String watchStreamShellForJSONPod = KubeJSONCreator.createWatchStreamShellForJSONPod(pendingPod, "ADDED", "Pod");
                 //Already prepare DELETED objects for the watchstream. The API can then give this objects to the scheduler by itself
@@ -116,16 +116,16 @@ public class KubeScheduler extends Scheduler {
                 deletedPodMap.put(nextPodFromWaitingQueue.getName(), deletedWatchStreamShellForJSONPod);
             }
 
-            String finalPodString = "";
+            StringBuilder finalPodString = new StringBuilder();
             for (String podJSON : podList) {
-                finalPodString += podJSON;
+                finalPodString.append(podJSON);
             }
 
-            if(finalPodString.equals("")){
+            if(finalPodString.toString().equals("")){
                 return;
             }
 
-            JSONObject response = post(finalPodString, numberOfPendingPods, new JSONObject(deletedPodMap).toString(), PATH_PODS);
+            JSONObject response = post(finalPodString.toString(), numberOfPendingPods, new JSONObject(deletedPodMap).toString(), PATH_PODS);
 
             Map<String, Object> responseMap = response.toMap();
             ArrayList<Map<String, String>> bindList = (ArrayList) responseMap.get("bindingList");

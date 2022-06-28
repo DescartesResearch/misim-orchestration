@@ -21,7 +21,7 @@ public class ResourceDto {
     }
 
 
-    public class TargetDto {
+    public static class TargetDto {
         private String type;
         private Double averageUtilization;
 

@@ -71,7 +71,7 @@ public class YAMLParser {
         if (k8Kind == null) {
             throw new ParsingException("Could not identify kind '" + s + "' of Kubernetes Object in YAML file at " + src);
         }
-        Class<?> targetClass = null;
+        Class<?> targetClass;
         switch (k8Kind) {
             case DEPLOYMENT:
                 targetClass = K8DeploymentDto.class;
@@ -87,8 +87,7 @@ public class YAMLParser {
 
         ObjectMapper mapper = new ObjectMapper(new YAMLFactory());
         mapper.findAndRegisterModules();
-        K8ObjectDto k8objectDto = (K8ObjectDto) mapper.readValue(new File(src), targetClass);
-        return k8objectDto;
+        return (K8ObjectDto) mapper.readValue(new File(src), targetClass);
     }
 
     public K8Object buildK8Object(K8ObjectDto k8object, DtoToObjectMapper<?> dtoToObjectMapper, Set<Microservice> microservices) throws ParsingException {
@@ -110,8 +109,8 @@ public class YAMLParser {
     public void applyManipulation(String src) throws ParsingException, IOException {
         final String s = this.getKindAsString(src);
         final K8Kind k8Kind = Util.searchEnum(K8Kind.class, s);
-        Class targetClass = null;
-        K8ObjectManipulator k8ObjectManipulator = null;
+        Class<?> targetClass;
+        K8ObjectManipulator k8ObjectManipulator;
         switch (k8Kind) {
             case HORIZONTALPODAUTOSCALER:
                 targetClass = K8HPADto.class;
@@ -173,7 +172,7 @@ public class YAMLParser {
             }
 
             //set AutoScaler Hold Times from configDto
-            ManagementPlane.getInstance().getDeployments().stream().filter(deployment -> deployment.getAutoScaler() != null).collect(Collectors.toList()).stream().forEach(deployment -> {
+            ManagementPlane.getInstance().getDeployments().stream().filter(deployment -> deployment.getAutoScaler() != null).forEach(deployment -> {
                 deployment.getAutoScaler().setHoldTimeUp(configDto.getScaler().getHoldTimeUpScaler());
                 deployment.getAutoScaler().setHoldTimeDown(configDto.getScaler().getHoldTimeDownScaler());
             });

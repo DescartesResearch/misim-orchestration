@@ -108,7 +108,7 @@ public class ManagementPlane {
     }
 
     public void populateSchedulers() {
-        final Set<SchedulerType> usedSchedulerTypes = deployments.stream().map(deployment -> deployment.getSchedulerType()).collect(Collectors.toSet());
+        final Set<SchedulerType> usedSchedulerTypes = deployments.stream().map(Deployment::getSchedulerType).collect(Collectors.toSet());
         usedSchedulerTypes.forEach(schedulerType -> {
             try {
                 schedulerMap.put(schedulerType, Util.getInstance().getSchedulerInstanceByType(schedulerType));
@@ -123,12 +123,9 @@ public class ManagementPlane {
     }
 
     public Pod getPodByName(String name) {
-        List<Pod> collect = deployments.stream().map(deployment -> deployment.getReplicaSet().stream().collect(Collectors.toList())).flatMap(Collection::stream).collect(Collectors.toList());
+        List<Pod> collect = deployments.stream().map(deployment -> new ArrayList<>(deployment.getReplicaSet())).flatMap(Collection::stream).collect(Collectors.toList());
         Optional<Pod> first = collect.stream().filter(pod -> pod.getName().equals(name)).findFirst();
-        if (first.isPresent()) {
-            return first.get();
-        }
-        return null;
+        return first.orElse(null);
     }
 
     /**
@@ -138,25 +135,18 @@ public class ManagementPlane {
      * @return
      */
     public List<Pod> getAllPodsPlacedOnNodes() {
-        List<Pod> collect = cluster.getNodes().stream().map(node -> node.getPods().stream().collect(Collectors.toList())).flatMap(Collection::stream).collect(Collectors.toList());
-        return collect;
+        return cluster.getNodes().stream().map(node -> new ArrayList<>(node.getPods())).flatMap(Collection::stream).collect(Collectors.toList());
     }
 
     public Pod getPodForContainer(Container container) {
-        List<Pod> collect = deployments.stream().map(deployment -> deployment.getReplicaSet()).flatMap(Collection::stream).collect(Collectors.toList());
+        List<Pod> collect = deployments.stream().map(Deployment::getReplicaSet).flatMap(Collection::stream).collect(Collectors.toList());
         Optional<Pod> first = collect.stream().filter(pod -> pod.getContainers().contains(container)).findFirst();
-        if (first.isPresent()) {
-            return first.get();
-        }
-        return null;
+        return first.orElse(null);
     }
 
     public Container getContainerForMicroServiceInstance(MicroserviceInstance microserviceInstance) {
-        Optional<Container> any = deployments.stream().map(deployment -> deployment.getReplicaSet()).flatMap(Collection::stream).map(pod -> pod.getContainers()).flatMap(Collection::stream).filter(container -> container.getMicroserviceInstance().equals(microserviceInstance)).findAny();
-        if (any.isPresent()) {
-            return any.get();
-        }
-        return null;
+        Optional<Container> any = deployments.stream().map(Deployment::getReplicaSet).flatMap(Collection::stream).map(Pod::getContainers).flatMap(Collection::stream).filter(container -> container.getMicroserviceInstance().equals(microserviceInstance)).findAny();
+        return any.orElse(null);
 
     }
 
@@ -170,13 +160,11 @@ public class ManagementPlane {
     }
 
     public int getAmountOfPodsOnNodes(Deployment deployment){
-        List<Pod> collect = deployment.getReplicaSet().stream().collect(Collectors.toList());
+        List<Pod> collect = new ArrayList<>(deployment.getReplicaSet());
         List<Pod> allPodsPlacedOnNodes = getAllPodsPlacedOnNodes();
 
-        return allPodsPlacedOnNodes.stream()
-                .filter(collect::contains)
-                .collect(Collectors
-                        .toList()).size();
+        return (int) allPodsPlacedOnNodes.stream()
+                .filter(collect::contains).count();
 
     }
 

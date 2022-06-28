@@ -19,7 +19,7 @@ import java.util.List;
 public class Node extends NamedEntity {
 
     private static final String BASE_IP_ADDRESS = "192.168.49.";
-    private String nodeIpAddress;
+    private final String nodeIpAddress;
     private static int IP_ADDRESS_COUNTER = 1;
 
     private final int totalCPU;
@@ -30,7 +30,7 @@ public class Node extends NamedEntity {
         super(model, name, showInTrace);
         this.totalCPU = totalCPU;
         this.pods = new ArrayList<>();
-        this.nodeIpAddress = this.BASE_IP_ADDRESS + this.IP_ADDRESS_COUNTER++;
+        this.nodeIpAddress = BASE_IP_ADDRESS + IP_ADDRESS_COUNTER++;
     }
 
     public synchronized boolean addPod(Pod pod) {

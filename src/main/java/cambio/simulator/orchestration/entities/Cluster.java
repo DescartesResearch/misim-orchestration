@@ -12,10 +12,7 @@ public class Cluster {
 
     public Node getNodeByName(String name){
         Optional<Node> first = nodes.stream().filter(node -> node.getPlainName().equals(name)).findFirst();
-        if(first.isPresent()){
-            return first.get();
-        }
-        return null;
+        return first.orElse(null);
     }
 
     public List<Node> getNodes() {

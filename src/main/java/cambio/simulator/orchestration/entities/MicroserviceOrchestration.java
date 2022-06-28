@@ -1,7 +1,6 @@
 package cambio.simulator.orchestration.entities;
 
 import cambio.simulator.entities.microservice.*;
-import cambio.simulator.entities.patterns.InstanceOwnedPatternConfiguration;
 import cambio.simulator.orchestration.entities.kubernetes.Deployment;
 import cambio.simulator.orchestration.management.ManagementPlane;
 import cambio.simulator.orchestration.loadbalancing.LoadBalancerOrchestration;
@@ -71,10 +70,5 @@ public class MicroserviceOrchestration extends Microservice {
     public void setStartTime(int startTime) {
         this.startTime = startTime;
     }
-
-    public InstanceOwnedPatternConfiguration[] getInstanceOwnedPatternConfigurations(){
-        return super.instanceOwnedPatternConfigurations;
-    }
-
 
 }
