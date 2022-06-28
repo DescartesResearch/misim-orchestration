@@ -1,13 +1,13 @@
 package cambio.simulator.orchestration.management;
 
 
-import cambio.simulator.entities.microservice.InstanceState;
 import cambio.simulator.entities.microservice.MicroserviceInstance;
 import cambio.simulator.models.MiSimModel;
-import cambio.simulator.orchestration.Util;
+import cambio.simulator.orchestration.entities.kubernetes.Pod;
+import cambio.simulator.orchestration.misc.Util;
 import cambio.simulator.orchestration.environment.*;
 import cambio.simulator.orchestration.events.CheckPodRemovableEvent;
-import cambio.simulator.orchestration.k8objects.Deployment;
+import cambio.simulator.orchestration.entities.kubernetes.Deployment;
 import cambio.simulator.orchestration.scheduling.Scheduler;
 import cambio.simulator.orchestration.scheduling.SchedulerType;
 import desmoj.core.simulator.Model;

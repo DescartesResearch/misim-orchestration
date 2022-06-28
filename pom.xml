@@ -67,7 +67,7 @@
                     <archive>
                         <manifest>
                             <addClasspath>true</addClasspath>
-                            <mainClass>cambio.simulator.orchestration.adapters.OrchestrationMain</mainClass>
+                            <mainClass>cambio.simulator.orchestration.OrchestrationMain</mainClass>
                         </manifest>
                     </archive>
                     <descriptorRefs>

@@ -1,8 +1,7 @@
 package cambio.simulator.orchestration.parsing.converter;
 
-import cambio.simulator.orchestration.k8objects.K8Object;
-import cambio.simulator.orchestration.parsing.K8ObjectDto;
-import cambio.simulator.orchestration.parsing.ParsingException;
+import cambio.simulator.orchestration.parsing.kubernetes.K8ObjectDto;
+import cambio.simulator.parsing.ParsingException;
 
 public interface K8ObjectManipulator {
 

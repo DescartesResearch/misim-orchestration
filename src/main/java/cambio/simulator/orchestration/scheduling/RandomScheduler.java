@@ -1,10 +1,7 @@
 package cambio.simulator.orchestration.scheduling;
 
-import cambio.simulator.entities.NamedEntity;
-import cambio.simulator.models.MiSimModel;
-import cambio.simulator.orchestration.environment.Cluster;
 import cambio.simulator.orchestration.environment.Node;
-import cambio.simulator.orchestration.environment.Pod;
+import cambio.simulator.orchestration.entities.kubernetes.Pod;
 import cambio.simulator.orchestration.management.ManagementPlane;
 
 import java.util.*;

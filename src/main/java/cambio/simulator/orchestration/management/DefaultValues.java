@@ -2,7 +2,7 @@ package cambio.simulator.orchestration.management;
 
 import cambio.simulator.orchestration.events.HealthCheckEvent;
 import cambio.simulator.orchestration.parsing.ConfigDto;
-import cambio.simulator.orchestration.parsing.ParsingException;
+import cambio.simulator.parsing.ParsingException;
 import cambio.simulator.orchestration.scheduling.SchedulerType;
 
 import java.util.Arrays;

@@ -1,8 +1,7 @@
 package cambio.simulator.orchestration.events;
-import cambio.simulator.misc.Priority;
 import cambio.simulator.orchestration.management.ManagementPlane;
 import cambio.simulator.orchestration.environment.Node;
-import cambio.simulator.orchestration.environment.Pod;
+import cambio.simulator.orchestration.entities.kubernetes.Pod;
 import desmoj.core.simulator.EventOf2Entities;
 import desmoj.core.simulator.Model;
 

@@ -1,15 +1,9 @@
 package cambio.simulator.orchestration.parsing.converter;
 
 import cambio.simulator.entities.microservice.Microservice;
-import cambio.simulator.models.ArchitectureModel;
-import cambio.simulator.orchestration.k8objects.Deployment;
-import cambio.simulator.orchestration.k8objects.K8Object;
-import cambio.simulator.orchestration.parsing.K8ObjectDto;
-import cambio.simulator.orchestration.parsing.ParsingException;
-import cambio.simulator.orchestration.parsing.SpecDeploymentDto;
+import cambio.simulator.orchestration.parsing.kubernetes.K8ObjectDto;
+import cambio.simulator.parsing.ParsingException;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Set;
 
 public interface DtoToObjectMapper<T> {

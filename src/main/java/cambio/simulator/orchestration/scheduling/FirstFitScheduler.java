@@ -1,10 +1,9 @@
 package cambio.simulator.orchestration.scheduling;
 
-import cambio.simulator.entities.NamedEntity;
-import cambio.simulator.orchestration.Stats;
+import cambio.simulator.orchestration.export.Stats;
 import cambio.simulator.orchestration.environment.*;
+import cambio.simulator.orchestration.entities.kubernetes.Pod;
 import cambio.simulator.orchestration.management.ManagementPlane;
-import java.util.LinkedList;
 
 public class FirstFitScheduler extends Scheduler {
 

@@ -1,7 +1,7 @@
 package cambio.simulator.orchestration.scaling;
 
 import cambio.simulator.entities.NamedEntity;
-import cambio.simulator.orchestration.k8objects.Deployment;
+import cambio.simulator.orchestration.entities.kubernetes.Deployment;
 import cambio.simulator.orchestration.management.ManagementPlane;
 
 import java.util.Random;

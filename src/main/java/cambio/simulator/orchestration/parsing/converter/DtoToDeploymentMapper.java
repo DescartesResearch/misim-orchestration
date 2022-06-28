@@ -1,12 +1,14 @@
 package cambio.simulator.orchestration.parsing.converter;
 
 import cambio.simulator.entities.microservice.Microservice;
-import cambio.simulator.orchestration.Util;
-import cambio.simulator.orchestration.adapters.IOrchestrationLoadBalancingStrategy;
-import cambio.simulator.orchestration.k8objects.Deployment;
-import cambio.simulator.orchestration.MicroserviceOrchestration;
+import cambio.simulator.orchestration.misc.Util;
+import cambio.simulator.orchestration.entities.kubernetes.Deployment;
+import cambio.simulator.orchestration.entities.MicroserviceOrchestration;
 import cambio.simulator.orchestration.management.ManagementPlane;
-import cambio.simulator.orchestration.parsing.*;
+import cambio.simulator.parsing.ParsingException;
+import cambio.simulator.orchestration.parsing.kubernetes.K8DeploymentDto;
+import cambio.simulator.orchestration.parsing.kubernetes.K8ObjectDto;
+import cambio.simulator.orchestration.parsing.kubernetes.SpecDeploymentDto;
 import cambio.simulator.orchestration.scheduling.SchedulerType;
 
 import java.util.*;

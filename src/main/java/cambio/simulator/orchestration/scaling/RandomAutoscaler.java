@@ -1,9 +1,6 @@
 package cambio.simulator.orchestration.scaling;
 
-import cambio.simulator.orchestration.k8objects.Deployment;
-import cambio.simulator.orchestration.management.ManagementPlane;
-
-import java.util.Random;
+import cambio.simulator.orchestration.entities.kubernetes.Deployment;
 
 public class RandomAutoscaler extends AutoScaler {
 

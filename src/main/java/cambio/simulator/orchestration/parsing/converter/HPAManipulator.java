@@ -1,10 +1,10 @@
 package cambio.simulator.orchestration.parsing.converter;
 
-import cambio.simulator.orchestration.Util;
-import cambio.simulator.orchestration.k8objects.Deployment;
-import cambio.simulator.orchestration.parsing.K8Kind;
+import cambio.simulator.orchestration.misc.Util;
+import cambio.simulator.orchestration.entities.kubernetes.Deployment;
+import cambio.simulator.orchestration.parsing.kubernetes.*;
 import cambio.simulator.orchestration.management.ManagementPlane;
-import cambio.simulator.orchestration.parsing.*;
+import cambio.simulator.parsing.ParsingException;
 import cambio.simulator.orchestration.scaling.HorizontalPodAutoscaler;
 
 import java.util.List;
