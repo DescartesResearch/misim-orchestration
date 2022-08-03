@@ -9,7 +9,7 @@ nodes:
 scaler:
   holdTimeUpScaler: 0
   holdTimeDownScaler: 300
-scheduler: firstFit
+scheduler: kube
 scalingInterval: 15
 healthCheckDelay: 0
 #schedulerPrio:
