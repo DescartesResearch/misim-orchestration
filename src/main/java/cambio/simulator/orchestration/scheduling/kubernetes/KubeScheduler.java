@@ -66,7 +66,6 @@ public class KubeScheduler extends Scheduler {
 
     @Override
     public void schedulePods() {
-        System.out.println("Call kube-scheduler: " + COUNTER++);
         try {
 
 
@@ -125,6 +124,7 @@ public class KubeScheduler extends Scheduler {
                 return;
             }
 
+            System.out.println("Call kube-scheduler: " + COUNTER++);
             JSONObject response = post(finalPodString.toString(), numberOfPendingPods, new JSONObject(deletedPodMap).toString(), PATH_PODS);
 
             Map<String, Object> responseMap = response.toMap();
