@@ -1,0 +1,28 @@
+{
+  "kind": "Lease",
+  "apiVersion": "coordination.k8s.io/v1",
+  "metadata": {
+    "name": "kube-scheduler",
+    "namespace": "kube-system",
+    "uid": "a13ef25f-4a60-48eb-b55a-c5ba6193a7d2",
+    "resourceVersion": "1497",
+    "creationTimestamp": "2022-01-22T17:42:39Z",
+    "managedFields": [
+      {
+        "manager": "kube-scheduler",
+        "operation": "Update",
+        "apiVersion": "coordination.k8s.io/v1",
+        "time": "2022-01-22T17:42:39Z",
+        "fieldsType": "FieldsV1",
+        "fieldsV1": {"f:spec":{"f:acquireTime":{},"f:holderIdentity":{},"f:leaseDurationSeconds":{},"f:leaseTransitions":{},"f:renewTime":{}}}
+      }
+    ]
+  },
+  "spec": {
+    "holderIdentity": "",
+    "leaseDurationSeconds": 1,
+    "acquireTime": "2022-01-22T17:42:43.784529Z",
+    "renewTime": "2022-01-22T17:42:43.784529Z",
+    "leaseTransitions": 0
+  }
+}

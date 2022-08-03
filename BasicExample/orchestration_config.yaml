@@ -1,7 +1,7 @@
 orchestrate: true
 orchestrationDir: "./BasicExample/orchestration"
 nodes:
-  amount: 1
+  amount: 2
   cpu: 1000000000
 #customNodes:
 #  - name: Test5Node
