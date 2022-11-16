@@ -1,4 +1,4 @@
-## WIP Note: This ReadMe is still WIP.
+## WIP Note: This Repository and ReadMe are still WIP and not yet ready-to-use and maintained.
 
 # misim-orchestration - A MiSim plugin for simulating container orchestration
 
