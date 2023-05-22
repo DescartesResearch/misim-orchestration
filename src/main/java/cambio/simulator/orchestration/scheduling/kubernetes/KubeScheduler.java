@@ -6,6 +6,8 @@ import cambio.simulator.orchestration.entities.kubernetes.Pod;
 import cambio.simulator.orchestration.management.ManagementPlane;
 import cambio.simulator.orchestration.scheduling.Scheduler;
 import cambio.simulator.orchestration.scheduling.SchedulerType;
+import com.google.gson.Gson;
+import io.kubernetes.client.openapi.models.V1NodeList;
 import org.json.JSONObject;
 
 import java.io.*;
@@ -32,21 +34,10 @@ public class KubeScheduler extends Scheduler {
     private KubeScheduler() {
         this.rename("KubeScheduler");
 
-        List<String> nodeList = new ArrayList<>();
         try {
-            for (Node node : cluster.getNodes()) {
-
-                String nodeJSON = KubeJSONCreator.createNode(node);
-                String watchStreamShellForJSONNode = KubeJSONCreator.createWatchStreamShellForJSONPod(nodeJSON, "ADDED", "Node");
-                nodeList.add(watchStreamShellForJSONNode);
-
-            }
-
-            StringBuilder finalNodeString = new StringBuilder();
-            for (String nodeJSON : nodeList) {
-                finalNodeString.append(nodeJSON);
-            }
-            post(finalNodeString.toString(), 0, "", PATH_NODES);
+            V1NodeList nodeList = KubeObjectConverter.convertNodes(cluster.getNodes());
+            String json = new Gson().toJson(nodeList);
+            post(json, PATH_NODES);
         } catch (IOException e) {
             System.out.println("[INFO]: No connection to API server established. The kube scheduler is not supported in this run");
             //e.printStackTrace();
@@ -195,6 +186,32 @@ public class KubeScheduler extends Scheduler {
         } catch (IOException | KubeSchedulerException e) {
             e.printStackTrace();
             System.exit(1);
+        }
+    }
+
+    public JSONObject post(String content, String path) throws IOException {
+        URL url = new URL(API_URL + path);
+        HttpURLConnection con = (HttpURLConnection) url.openConnection();
+        con.setRequestMethod("POST");
+        con.setRequestProperty("Content-Type", "application/json; utf-8");
+        con.setRequestProperty("Accept", "application/json");
+        con.setDoOutput(true);
+
+
+        try (OutputStream os = con.getOutputStream()) {
+            byte[] input = content.getBytes(StandardCharsets.UTF_8);
+            os.write(input, 0, input.length);
+        }
+
+
+        try (BufferedReader br = new BufferedReader(
+                new InputStreamReader(con.getInputStream(), StandardCharsets.UTF_8))) {
+            StringBuilder response = new StringBuilder();
+            String responseLine;
+            while ((responseLine = br.readLine()) != null) {
+                response.append(responseLine.trim());
+            }
+            return new JSONObject(response.toString());
         }
     }
 
