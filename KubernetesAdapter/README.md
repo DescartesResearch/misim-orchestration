@@ -26,4 +26,4 @@ python3.7 -m pip install -r requirements.txt
 
 - Run the adapter `python3 main.py`
 - Make sure that in the `scheduler-config.yaml` no schedulerName is set
-- Run kube-scheduler `./kube-scheduler --master 127.0.0.1:8000` or `./kube-scheduler --master 127.0.0.1:8000 --config scheduler-config.yaml`
+- Run kube-scheduler `./kube-scheduler --master 127.0.0.1:8000 --leader-elect=false` or `./kube-scheduler --master 127.0.0.1:8000 --leader-elect=false --config scheduler-config.yaml`

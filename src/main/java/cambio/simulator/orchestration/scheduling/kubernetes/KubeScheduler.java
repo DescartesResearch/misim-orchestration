@@ -7,8 +7,9 @@ import cambio.simulator.orchestration.management.ManagementPlane;
 import cambio.simulator.orchestration.scheduling.Scheduler;
 import cambio.simulator.orchestration.scheduling.SchedulerType;
 import com.google.gson.Gson;
-import io.kubernetes.client.openapi.models.V1NodeList;
-import org.json.JSONObject;
+import com.google.gson.GsonBuilder;
+import io.kubernetes.client.openapi.models.V1PodList;
+import io.kubernetes.client.openapi.models.V1WatchEvent;
 
 import java.io.*;
 import java.net.HttpURLConnection;
@@ -19,13 +20,14 @@ import java.util.*;
 public class KubeScheduler extends Scheduler {
 
     static String API_URL = "http://127.0.0.1:8000/";
-    static String PATH_PODS = "update/ADD";
+    static String PATH_PODS = "updatePods";
     static String PATH_NODES = "updateNodes";
 
     // private static int counter = 1;
 
     //mirrors the internal cache of running pods that are known by the scheduler
     Set<Pod> internalRunningPods = new HashSet<>();
+    Set<Pod> internalPendingPods = new HashSet<>();
     static int COUNTER = 1;
 
     private static final KubeScheduler instance = new KubeScheduler();
@@ -35,7 +37,7 @@ public class KubeScheduler extends Scheduler {
         this.rename("KubeScheduler");
 
         try {
-            V1NodeList nodeList = KubeObjectConverter.convertNodes(cluster.getNodes());
+            UpdateNodesRequest nodeList = KubeObjectConverter.convertNodes(cluster.getNodes());
             String json = new Gson().toJson(nodeList);
             post(json, PATH_NODES);
         } catch (IOException e) {
@@ -59,37 +61,48 @@ public class KubeScheduler extends Scheduler {
     public void schedulePods() {
         try {
 
-
-            List<String> podList = new ArrayList<>();
-            Map<String, String> deletedPodMap = new HashMap<>();
+            // List<String> podList = new ArrayList<>();
+            // Map<String, String> deletedPodMap = new HashMap<>();
             // List<String> podNames = new ArrayList<>();
-            int numberOfPendingPods = podWaitingQueue.size();
-
-
-
-//            //Inform the scheduler that pods have been removed from nodes
+            // int numberOfPendingPods = podWaitingQueue.size();
+            V1PodList v1PodList = new V1PodList();
+            List<V1WatchEvent> events = new ArrayList<>();
             List<Pod> allPodsPlacedOnNodes = ManagementPlane.getInstance().getAllPodsPlacedOnNodes();
+
+            //Inform the scheduler that pods have been removed from nodes
             List<Pod> foundToRemove = new ArrayList<>();
             for (Pod pod : internalRunningPods) {
                 //If MiSim does not hold the pod from the scheduler cache anymore, tell the scheduler that it was deleted
                 if (!allPodsPlacedOnNodes.contains(pod)) {
-                    String runningPod = KubeJSONCreator.createPod(pod, true);
-                    String deletedWatchStreamShellForJSONPod = KubeJSONCreator.createWatchStreamShellForJSONPod(runningPod, "DELETED", "Pod");
-                    podList.add(0, deletedWatchStreamShellForJSONPod);
+                    events.add(KubeObjectConverter.createPodDeletedEvent(pod));
+                    // String runningPod = KubeJSONCreator.createPod(pod, true);
+                    // String deletedWatchStreamShellForJSONPod = KubeJSONCreator.createWatchStreamShellForJSONPod(runningPod, "DELETED", "Pod");
+                    // podList.add(0, deletedWatchStreamShellForJSONPod);
                     foundToRemove.add(pod);
                     System.out.println("In this iteration the following pod will be removed " + pod.getQuotedName() + " from node " + pod.getLastKnownNode().getQuotedName());
                 }
             }
             foundToRemove.forEach(internalRunningPods::remove);
 
+            //Inform the scheduler that pods have been removed from the scheduling queue
+            foundToRemove.clear();
+            for (Pod pod : internalPendingPods) {
+                if (!podWaitingQueue.contains(pod)) {
+                    events.add(KubeObjectConverter.createPodDeletedEvent(pod));
+                    foundToRemove.add(pod);
+                }
+            }
+            foundToRemove.forEach(internalPendingPods::remove);
 
 
             //Tell the scheduler that pods are already running on nodes (Scheduled by other schedulers)
             for (Pod pod : allPodsPlacedOnNodes) {
                 if (!internalRunningPods.contains(pod)) {
-                    String runningPod = KubeJSONCreator.createPod(pod, true);
-                    String watchStreamShellForJSONPod = KubeJSONCreator.createWatchStreamShellForJSONPod(runningPod, "ADDED", "Pod");
-                    podList.add(0, watchStreamShellForJSONPod);
+                    events.add(KubeObjectConverter.createPodAddedEvent(pod, "Running"));
+                    v1PodList.addItemsItem(KubeObjectConverter.convertPod(pod, "Running"));
+                    // String runningPod = KubeJSONCreator.createPod(pod, true);
+                    // String watchStreamShellForJSONPod = KubeJSONCreator.createWatchStreamShellForJSONPod(runningPod, "ADDED", "Pod");
+                    // podList.add(0, watchStreamShellForJSONPod);
                     internalRunningPods.add(pod);
                 }
             }
@@ -97,33 +110,51 @@ public class KubeScheduler extends Scheduler {
             //Add pods from the waiting queue
             while (podWaitingQueue.size() != 0) {
                 Pod nextPodFromWaitingQueue = getNextPodFromWaitingQueue();
+                if (!internalPendingPods.contains(nextPodFromWaitingQueue)) {
+                    events.add(KubeObjectConverter.createPodAddedEvent(nextPodFromWaitingQueue, "Pending"));
+                    internalPendingPods.add(nextPodFromWaitingQueue);
+                }
+                v1PodList.addItemsItem(KubeObjectConverter.convertPod(nextPodFromWaitingQueue, "Pending"));
                 // podNames.add(nextPodFromWaitingQueue.getName());
-                String pendingPod = KubeJSONCreator.createPod(nextPodFromWaitingQueue, false);
-                String watchStreamShellForJSONPod = KubeJSONCreator.createWatchStreamShellForJSONPod(pendingPod, "ADDED", "Pod");
+                // String pendingPod = KubeJSONCreator.createPod(nextPodFromWaitingQueue, false);
+                // String watchStreamShellForJSONPod = KubeJSONCreator.createWatchStreamShellForJSONPod(pendingPod, "ADDED", "Pod");
                 //Already prepare DELETED objects for the watchstream. The API can then give this objects to the scheduler by itself
-                String deletedWatchStreamShellForJSONPod = KubeJSONCreator.createWatchStreamShellForJSONPod(pendingPod, "DELETED", "Pod");
-                podList.add(watchStreamShellForJSONPod);
-                deletedPodMap.put(nextPodFromWaitingQueue.getName(), deletedWatchStreamShellForJSONPod);
+                // String deletedWatchStreamShellForJSONPod = KubeJSONCreator.createWatchStreamShellForJSONPod(pendingPod, "DELETED", "Pod");
+                // podList.add(watchStreamShellForJSONPod);
+                // deletedPodMap.put(nextPodFromWaitingQueue.getName(), deletedWatchStreamShellForJSONPod);
             }
 
-            StringBuilder finalPodString = new StringBuilder();
-            for (String podJSON : podList) {
-                finalPodString.append(podJSON);
-            }
+            // StringBuilder finalPodString = new StringBuilder();
+            // for (String podJSON : podList) {
+                // finalPodString.append(podJSON);
+            // }
 
-            if(finalPodString.toString().equals("")){
+            // if(finalPodString.toString().equals("")){
+                // return;
+            // }
+            if (events.isEmpty()) {
+                // If no events happened, scheduler will do nothing
+                podWaitingQueue.addAll(internalPendingPods);
                 return;
             }
+            UpdatePodsRequest upr = new UpdatePodsRequest();
+            upr.setEvents(events);
+            upr.setAllPods(v1PodList);
+            V1PodList podsToBePlaced = new V1PodList();
+            for (Pod pod : internalPendingPods) {
+                podsToBePlaced.addItemsItem(KubeObjectConverter.convertPod(pod, "Pending"));
+            }
+            upr.setPodsToBePlaced(podsToBePlaced);
 
             System.out.println("Call kube-scheduler: " + COUNTER++);
-            JSONObject response = post(finalPodString.toString(), numberOfPendingPods, new JSONObject(deletedPodMap).toString(), PATH_PODS);
-
-            Map<String, Object> responseMap = response.toMap();
-            ArrayList<Map<String, String>> bindList = (ArrayList) responseMap.get("bindingList");
-
-            for (Map<String, String> map : bindList) {
-                String boundNode = map.get("boundNode");
-                String podName = map.get("podName");
+            String json = new Gson().toJson(upr);
+            String response = post(json, PATH_PODS);
+            SchedulerResponse schedulerResponse = new Gson()
+                    .fromJson(response, SchedulerResponse.class);
+            System.out.println(schedulerResponse);
+            for (BindingInformation bind : schedulerResponse.getBinded()) {
+                String boundNode = bind.getNode();
+                String podName = bind.getPod();
 
 
                 Node candidateNode = ManagementPlane.getInstance().getCluster().getNodeByName(boundNode);
@@ -140,6 +171,7 @@ public class KubeScheduler extends Scheduler {
                 }
 
                 internalRunningPods.add(pod);
+                internalPendingPods.remove(pod);
 
                 //only for reporting
                 Stats.NodePodEventRecord record = new Stats.NodePodEventRecord();
@@ -159,12 +191,11 @@ public class KubeScheduler extends Scheduler {
                 sendTraceNote(this.getQuotedName() + " has scheduled " + pod.getQuotedName() + " on node " + candidateNode);
             }
 
-
-            ArrayList<Map<String, String>> failedList = (ArrayList) responseMap.get("failedList");
-            for (Map<String, String> map : failedList) {
-                String podName = map.get("podName");
+            for (BindingFailureInformation fail : schedulerResponse.getFailed()) {
+                String podName = fail.getPod();
                 Pod pod = ManagementPlane.getInstance().getPodByName(podName);
                 podWaitingQueue.add(pod);
+                internalPendingPods.add(pod); // Should have no effect
 
                 //only for reporting
                 Stats.NodePodEventRecord record = new Stats.NodePodEventRecord();
@@ -174,13 +205,13 @@ public class KubeScheduler extends Scheduler {
                 record.setScheduler("kube");
                 record.setEvent("Binding");
                 record.setOutcome("Failed");
-                record.setInfo(map.get("status"));
+                record.setInfo(fail.getMessage());
                 record.setDesiredState(pod.getOwner().getDesiredReplicaCount());
                 record.setCurrentState(ManagementPlane.getInstance().getAmountOfPodsOnNodes(pod.getOwner()));
                 Stats.getInstance().getNodePodEventRecords().add(record);
 
-                System.out.println(this.getQuotedName() + " was not able to schedule pod " + pod + ". Reason: " + map.get("status"));
-                sendTraceNote(this.getQuotedName() + " was not able to schedule pod " + pod + ". Reason: " + map.get("status"));
+                System.out.println(this.getQuotedName() + " was not able to schedule pod " + pod + ". Reason: " + fail.getMessage());
+                sendTraceNote(this.getQuotedName() + " was not able to schedule pod " + pod + ". Reason: " + fail.getMessage());
                 sendTraceNote(this.getQuotedName() + " has send " + pod + " back to the Pod Waiting Queue");
             }
         } catch (IOException | KubeSchedulerException e) {
@@ -189,7 +220,7 @@ public class KubeScheduler extends Scheduler {
         }
     }
 
-    public JSONObject post(String content, String path) throws IOException {
+    public String post(String content, String path) throws IOException {
         URL url = new URL(API_URL + path);
         HttpURLConnection con = (HttpURLConnection) url.openConnection();
         con.setRequestMethod("POST");
@@ -211,11 +242,12 @@ public class KubeScheduler extends Scheduler {
             while ((responseLine = br.readLine()) != null) {
                 response.append(responseLine.trim());
             }
-            return new JSONObject(response.toString());
+            return response.toString();
         }
     }
 
 
+    /*
     //    https://www.baeldung.com/httpurlconnection-post
     public JSONObject post(String content, int numberPendingPods, String deletedPods, String path) throws IOException {
         URL url = new URL(API_URL + path);
@@ -247,5 +279,5 @@ public class KubeScheduler extends Scheduler {
         }
 
     }
-
+    */
 }
