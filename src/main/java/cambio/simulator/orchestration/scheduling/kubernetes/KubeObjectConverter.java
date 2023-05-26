@@ -82,7 +82,7 @@ public class KubeObjectConverter {
     }
 
     public static V1WatchEvent createPodDeletedEvent(Pod pod) {
-        return new V1WatchEvent().type("DELETED")._object(convertPod(pod, "Running"));
+        return new V1WatchEvent().type("DELETED")._object(convertPod(pod, "Failed"));
     }
 
     public static V1WatchEvent createPodAddedEvent(Pod pod, String status) {
