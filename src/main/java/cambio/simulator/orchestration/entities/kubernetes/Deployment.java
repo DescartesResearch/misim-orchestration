@@ -68,7 +68,7 @@ public class Deployment extends NamedEntity {
         final MicroserviceInstance microServiceInstance = service.createMicroServiceInstance();
         final Container container = new Container(getModel(), "Container[" + service.getPlainName() + "]", traceIsOn(), microServiceInstance);
         pod.getContainers().add(container);
-        V1Pod v1Pod = createKubernetesPodWithTemplate("Pod-" + this.getPlainName());
+        V1Pod v1Pod = createKubernetesPodWithTemplate(pod.getName());
         pod.setKubernetesRepresentation(v1Pod);
         replicaSet.add(pod);
         //add to specific scheduler queue
