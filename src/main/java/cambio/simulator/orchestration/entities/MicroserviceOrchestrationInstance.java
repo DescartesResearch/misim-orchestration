@@ -93,9 +93,7 @@ public class MicroserviceOrchestrationInstance extends MicroserviceInstance {
         Pod src = ManagementPlane.getInstance().getPodForContainer(ManagementPlane.getInstance().getContainerForMicroServiceInstance(source));
         Pod tar = ManagementPlane.getInstance().getPodForContainer(ManagementPlane.getInstance().getContainerForMicroServiceInstance(target));
         if (tar != null) {
-            double delay = ManagementPlane.getInstance().getCluster().getNetworkDelay(src.getLastKnownNode().getPlainName(), tar.getLastKnownNode().getPlainName());
-            System.out.printf("Adding delay %f between %s (Node: %s) and %s (Node: %s)\n", delay, src.getPlainName(), src.getLastKnownNode().getPlainName(), tar.getPlainName(), tar.getLastKnownNode().getPlainName());
-            return delay;
+            return ManagementPlane.getInstance().getCluster().getNetworkDelay(src.getLastKnownNode().getPlainName(), tar.getLastKnownNode().getPlainName());
         } else {
             return 0;
         }

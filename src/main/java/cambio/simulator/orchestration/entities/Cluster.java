@@ -39,12 +39,19 @@ public class Cluster {
             if (delayMap.get(sourceNode).containsKey(targetNode)) {
                 networkInfo = delayMap.get(sourceNode).get(targetNode);
             }
-        } else if (delayMap.containsKey(targetNode)) {
+        }
+        if (networkInfo == null && delayMap.containsKey(targetNode)) {
             if (delayMap.get(targetNode).containsKey(sourceNode)) {
                 networkInfo = delayMap.get(targetNode).get(sourceNode);
             }
         }
-        if (networkInfo == null) return 0;
-        else return random.nextGaussian() * networkInfo.getStd() + networkInfo.getMean();
+        if (networkInfo == null) {
+            System.out.printf("[DEBUG] No network info found for source node %s and target node %s\n", sourceNode, targetNode);
+            return 0;
+        } else {
+            double delay = random.nextGaussian() * networkInfo.getStd() + networkInfo.getMean();
+            System.out.printf("[DEBUG] Adding delay %f between node %s and node %s\n", delay, sourceNode, targetNode);
+            return delay;
+        }
     }
 }
