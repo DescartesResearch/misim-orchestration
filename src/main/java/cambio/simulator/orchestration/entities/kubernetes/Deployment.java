@@ -12,7 +12,6 @@ import cambio.simulator.orchestration.scheduling.Scheduler;
 import cambio.simulator.orchestration.scheduling.SchedulerType;
 import desmoj.core.simulator.Model;
 import desmoj.core.simulator.TimeInstant;
-import io.kubernetes.client.custom.Quantity;
 import io.kubernetes.client.openapi.models.*;
 
 import java.util.*;
@@ -28,8 +27,6 @@ public class Deployment extends NamedEntity {
     private int minReplicaCount;
     private double averageUtilization;
     private AutoScaler autoScaler;
-    private String requestsCPU;
-    private String requestsMem;
     private V1Deployment kubernetesRepresentation;
 
     public Deployment(Model model, String name, boolean showInTrace, MicroserviceOrchestration microserviceOrchestration, int desiredReplicaCount, SchedulerType schedulerType) {
@@ -63,8 +60,15 @@ public class Deployment extends NamedEntity {
     }
 
     public synchronized void createPod() {
-
-        final Pod pod = new Pod(getModel(), "Pod-" + this.getPlainName(), traceIsOn(), this);
+        int totalRequestedCPUMilliCores = 0;
+        for (V1Container c : kubernetesRepresentation.getSpec().getTemplate().getSpec().getContainers()) {
+            if (c.getResources() != null && c.getResources().getRequests() != null) {
+                if (c.getResources().getRequests().get("cpu") != null) {
+                    totalRequestedCPUMilliCores += c.getResources().getRequests().get("cpu").getNumber().intValue();
+                }
+            }
+        }
+        final Pod pod = new Pod(getModel(), "Pod-" + this.getPlainName(), traceIsOn(), this, totalRequestedCPUMilliCores);
         Container container;
         if (service != null) {
             MicroserviceInstance microServiceInstance = service.createMicroServiceInstance();
@@ -276,22 +280,6 @@ public class Deployment extends NamedEntity {
 
     public void setAutoScaler(AutoScaler autoScaler) {
         this.autoScaler = autoScaler;
-    }
-
-    public String getRequestsCPU() {
-        return requestsCPU;
-    }
-
-    public void setRequestsCPU(String requestsCPU) {
-        this.requestsCPU = requestsCPU;
-    }
-
-    public String getRequestsMem() {
-        return requestsMem;
-    }
-
-    public void setRequestsMem(String requestsMem) {
-        this.requestsMem = requestsMem;
     }
 
     public V1Deployment getKubernetesRepresentation() {
