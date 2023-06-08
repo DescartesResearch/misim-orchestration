@@ -9,7 +9,6 @@ import java.util.Random;
 public abstract class AutoScaler extends NamedEntity {
     protected double holdTimeUp;
     protected double holdTimeDown;
-    protected Random random;
 
     public AutoScaler() {
         super(ManagementPlane.getInstance().getModel(), "AutoScaler", ManagementPlane.getInstance().getModel().traceIsOn());
@@ -33,13 +32,5 @@ public abstract class AutoScaler extends NamedEntity {
 
     public void setHoldTimeDown(double holdTimeDown) {
         this.holdTimeDown = holdTimeDown;
-    }
-
-    public Random getRandom() {
-        return random;
-    }
-
-    public void setRandom(Random random) {
-        this.random = random;
     }
 }

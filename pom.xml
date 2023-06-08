@@ -19,20 +19,13 @@
         <dependency>
             <groupId>cambio.simulator</groupId>
             <artifactId>misim</artifactId>
-            <version>3.2</version>
+            <version>3.2.1</version>
         </dependency>
 
         <dependency>
             <groupId>io.kubernetes</groupId>
             <artifactId>client-java</artifactId>
             <version>15.0.1</version>
-        </dependency>
-
-        <!-- util -->
-        <dependency>
-            <groupId>org.yaml</groupId>
-            <artifactId>snakeyaml</artifactId>
-            <version>1.21</version>
         </dependency>
 
         <dependency>

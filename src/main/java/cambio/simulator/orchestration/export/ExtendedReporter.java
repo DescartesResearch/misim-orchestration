@@ -7,7 +7,7 @@ import cambio.simulator.models.ExperimentMetaData;
 import cambio.simulator.models.MiSimModel;
 import cambio.simulator.orchestration.models.MiSimOrchestrationModel;
 import cambio.simulator.orchestration.util.Util;
-import cambio.simulator.orchestration.entities.Node;
+import cambio.simulator.orchestration.entities.kubernetes.Node;
 import cambio.simulator.orchestration.entities.kubernetes.Pod;
 import cambio.simulator.orchestration.events.*;
 import cambio.simulator.orchestration.entities.kubernetes.Deployment;

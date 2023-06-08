@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-mvn install:install-file -Dfile=./libraries/misim-3.2.jar -DgroupId="cambio.simulator" -DartifactId=misim -Dversion="3.2" -Dpackaging=jar -DgeneratePom=true
+mvn install:install-file -Dfile=./libraries/misim-3.2.1.jar -DgroupId="cambio.simulator" -DartifactId=misim -Dversion="3.2.1" -Dpackaging=jar -DgeneratePom=true
 
 mvn clean package -B --file pom.xml "-Dmaven.javadoc.skip=true"
 

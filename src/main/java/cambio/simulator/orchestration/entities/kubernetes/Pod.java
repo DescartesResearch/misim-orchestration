@@ -3,8 +3,8 @@ package cambio.simulator.orchestration.entities.kubernetes;
 import cambio.simulator.entities.NamedEntity;
 import cambio.simulator.orchestration.entities.Container;
 import cambio.simulator.orchestration.entities.ContainerState;
-import cambio.simulator.orchestration.entities.Node;
 import desmoj.core.simulator.Model;
+import io.kubernetes.client.openapi.models.V1Pod;
 
 import java.util.HashSet;
 import java.util.List;
@@ -16,6 +16,7 @@ public class Pod extends NamedEntity {
     private Set<Container> containers;
     private Node lastKnownNode;
     private final Deployment owner;
+    private V1Pod kubernetesRepresentation;
 
     public Pod(Model model, String name, boolean showInTrace, Deployment deployment) {
         super(model, name, showInTrace);
@@ -84,5 +85,13 @@ public class Pod extends NamedEntity {
 
     public Deployment getOwner() {
         return owner;
+    }
+
+    public V1Pod getKubernetesRepresentation() {
+        return kubernetesRepresentation;
+    }
+
+    public void setKubernetesRepresentation(V1Pod kubernetesRepresentation) {
+        this.kubernetesRepresentation = kubernetesRepresentation;
     }
 }

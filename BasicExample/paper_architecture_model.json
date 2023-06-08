@@ -1,0 +1,596 @@
+{
+  "microservices": [
+    {
+      "name": "teastore-auth",
+      "instances": 1,
+      "capacity": 800,
+      "operations": [
+        {
+          "name": "placeOrder",
+          "demand": 150,
+          "dependencies": [
+            {
+              "service": "teastore-persistence",
+              "operation": "orders_create",
+              "probability": 1.0
+            },
+            {
+              "service": "teastore-persistence",
+              "operation": "orderitems_create",
+              "probability": 1.0
+            }
+          ]
+        },
+        {
+          "name": "login",
+          "demand": 150,
+          "dependencies": [
+            {
+              "service": "teastore-persistence",
+              "operation": "users_findById",
+              "probability": 1.0
+            }
+          ]
+        },
+        {
+          "name": "logout",
+          "demand": 150,
+          "dependencies": []
+        },
+        {
+          "name": "isloggedin",
+          "demand": 30,
+          "dependencies": []
+        },
+        {
+          "name": "cartAdd",
+          "demand": 150,
+          "dependencies": [
+            {
+              "service": "teastore-persistence",
+              "operation": "products_findById",
+              "probability": 1.0
+            }
+          ]
+        },
+        {
+          "name": "cartRemove",
+          "demand": 150,
+          "dependencies": []
+        },
+        {
+          "name": "cartUpdate",
+          "demand": 150,
+          "dependencies": []
+        }
+      ]
+    },
+    {
+      "name": "teastore-image",
+      "instances": 1,
+      "capacity": 800,
+      "operations": [
+        {
+          "name": "getProductImages",
+          "demand": 40,
+          "dependencies": []
+        },
+        {
+          "name": "getWebUIImages",
+          "demand": 40,
+          "dependencies": []
+        }
+      ]
+    },
+    {
+      "name": "teastore-persistence",
+      "instances": 1,
+      "capacity": 800,
+      "operations": [
+        {
+          "name": "products_findById",
+          "demand": 40,
+          "dependencies": [
+            {
+              "service": "teastore-db",
+              "operation": "products_findById",
+              "probability": 1.0
+            }
+          ]
+        },
+        {
+          "name": "products_listCategory",
+          "demand": 50,
+          "dependencies": [
+            {
+              "service": "teastore-db",
+              "operation": "products_listCategory",
+              "probability": 1.0
+            }
+          ]
+        },
+        {
+          "name": "products_countCategory",
+          "demand": 40,
+          "dependencies": [
+            {
+              "service": "teastore-db",
+              "operation": "products_countCategory",
+              "probability": 1.0
+            }
+          ]
+        },
+        {
+          "name": "orders_listAllForUser",
+          "demand": 50,
+          "dependencies": [
+            {
+              "service": "teastore-db",
+              "operation": "orders_listAllForUser",
+              "probability": 1.0
+            }
+          ]
+        },
+        {
+          "name": "orders_create",
+          "demand": 40,
+          "dependencies": [
+            {
+              "service": "teastore-db",
+              "operation": "orders_create",
+              "probability": 1.0
+            }
+          ]
+        },
+        {
+          "name": "orderitems_listAllForProduct",
+          "demand": 50,
+          "dependencies": [
+            {
+              "service": "teastore-db",
+              "operation": "orderitems_listAllForProduct",
+              "probability": 1.0
+            }
+          ]
+        },
+        {
+          "name": "orderitems_listAllForOrder",
+          "demand": 50,
+          "dependencies": [
+            {
+              "service": "teastore-db",
+              "operation": "orderitems_listAllForOrder",
+              "probability": 1.0
+            }
+          ]
+        },
+        {
+          "name": "orderitems_create",
+          "demand": 40,
+          "dependencies": [
+            {
+              "service": "teastore-db",
+              "operation": "orderitems_create",
+              "probability": 1.0
+            }
+          ]
+        },
+        {
+          "name": "users_findById",
+          "demand": 40,
+          "dependencies": [
+            {
+              "service": "teastore-db",
+              "operation": "users_findById",
+              "probability": 1.0
+            }
+          ]
+        },
+        {
+          "name": "categories_listAll",
+          "demand": 50,
+          "dependencies": [
+            {
+              "service": "teastore-db",
+              "operation": "categories_listAll",
+              "probability": 1.0
+            }
+          ]
+        },
+        {
+          "name": "categories_findById",
+          "demand": 40,
+          "dependencies": [
+            {
+              "service": "teastore-db",
+              "operation": "categories_findById",
+              "probability": 1.0
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "teastore-db",
+      "instances": 1,
+      "capacity": 800,
+      "operations": [
+        {
+          "name": "products_findById",
+          "demand": 40,
+          "dependencies": []
+        },
+        {
+          "name": "products_listCategory",
+          "demand": 50,
+          "dependencies": []
+        },
+        {
+          "name": "products_countCategory",
+          "demand": 40,
+          "dependencies": []
+        },
+        {
+          "name": "orders_listAllForUser",
+          "demand": 50,
+          "dependencies": []
+        },
+        {
+          "name": "orders_create",
+          "demand": 40,
+          "dependencies": []
+        },
+        {
+          "name": "orderitems_listAllForProduct",
+          "demand": 50,
+          "dependencies": []
+        },
+        {
+          "name": "orderitems_listAllForOrder",
+          "demand": 50,
+          "dependencies": []
+        },
+        {
+          "name": "orderitems_create",
+          "demand": 40,
+          "dependencies": []
+        },
+        {
+          "name": "users_findById",
+          "demand": 40,
+          "dependencies": []
+        },
+        {
+          "name": "categories_listAll",
+          "demand": 50,
+          "dependencies": []
+        },
+        {
+          "name": "categories_findById",
+          "demand": 40,
+          "dependencies": []
+        }
+      ]
+    },
+    {
+      "name": "teastore-recommender",
+      "instances": 1,
+      "capacity": 800,
+      "operations": [
+        {
+          "name": "recommend",
+          "demand": 100,
+          "dependencies": []
+        }
+      ]
+    },
+    {
+      "name": "teastore-registry",
+      "instances": 1,
+      "capacity": 800,
+      "operations": [
+        {
+          "name": "register",
+          "demand": 30,
+          "dependencies": []
+        },
+        {
+          "name": "unregister",
+          "demand": 30,
+          "dependencies": []
+        },
+        {
+          "name": "getInstances",
+          "demand": 30,
+          "dependencies": []
+        }
+      ]
+    },
+    {
+      "name": "teastore-webui",
+      "instances": 1,
+      "capacity": 800,
+      "operations": [
+        {
+          "name": "cartAction_addToCart",
+          "demand": 30,
+          "dependencies": [
+            {
+              "service": "teastore-auth",
+              "operation": "cartAdd",
+              "probability": 1.0
+            }
+          ]
+        },
+        {
+          "name": "cartAction_removeFromCart",
+          "demand": 30,
+          "dependencies": [
+            {
+              "service": "teastore-auth",
+              "operation": "cartRemove",
+              "probability": 1.0
+            }
+          ]
+        },
+        {
+          "name": "cartAction_updateCart",
+          "demand": 30,
+          "dependencies": [
+            {
+              "service": "teastore-auth",
+              "operation": "cartUpdate",
+              "probability": 1.0
+            }
+          ]
+        },
+        {
+          "name": "cartAction_proceedToCheckout",
+          "demand": 30,
+          "dependencies": [
+            {
+              "service": "teastore-auth",
+              "operation": "isloggedin",
+              "probability": 1.0
+            },
+            {
+              "service": "teastore-auth",
+              "operation": "cartUpdate",
+              "probability": 1.0
+            }
+          ]
+        },
+        {
+          "name": "cartAction_confirmOrder",
+          "demand": 30,
+          "dependencies": [
+            {
+              "service": "teastore-auth",
+              "operation": "placeOrder",
+              "probability": 1.0
+            }
+          ]
+        },
+        {
+          "name": "cart",
+          "demand": 30,
+          "dependencies": [
+            {
+              "service": "teastore-persistence",
+              "operation": "products_findById",
+              "probability": 1.0
+            },
+            {
+              "service": "teastore-image",
+              "operation": "getWebUIImages",
+              "probability": 1.0
+            },
+            {
+              "service": "teastore-persistence",
+              "operation": "categories_listAll",
+              "probability": 1.0
+            },
+            {
+              "service": "teastore-auth",
+              "operation": "isloggedin",
+              "probability": 1.0
+            },
+            {
+              "service": "teastore-recommender",
+              "operation": "recommend",
+              "probability": 1.0
+            }
+          ]
+        },
+        {
+          "name": "category",
+          "demand": 30,
+          "dependencies": [
+            {
+              "service": "teastore-persistence",
+              "operation": "categories_findById",
+              "probability": 1.0
+            },
+            {
+              "service": "teastore-persistence",
+              "operation": "products_countCategory",
+              "probability": 1.0
+            },
+            {
+              "service": "teastore-persistence",
+              "operation": "products_listCategory",
+              "probability": 1.0
+            },
+            {
+              "service": "teastore-image",
+              "operation": "getProductImages",
+              "probability": 1.0
+            },
+            {
+              "service": "teastore-image",
+              "operation": "getWebUIImages",
+              "probability": 1.0
+            },
+            {
+              "service": "teastore-persistence",
+              "operation": "categories_listAll",
+              "probability": 1.0
+            },
+            {
+              "service": "teastore-auth",
+              "operation": "isloggedin",
+              "probability": 1.0
+            }
+          ]
+        },
+        {
+          "name": "index",
+          "demand": 30,
+          "dependencies": [
+            {
+              "service": "teastore-persistence",
+              "operation": "categories_listAll",
+              "probability": 1.0
+            },
+            {
+              "service": "teastore-auth",
+              "operation": "isloggedin",
+              "probability": 1.0
+            },
+            {
+              "service": "teastore-image",
+              "operation": "getWebUIImages",
+              "probability": 1.0
+            }
+          ]
+        },
+        {
+          "name": "login",
+          "demand": 30,
+          "dependencies": [
+            {
+              "service": "teastore-persistence",
+              "operation": "categories_listAll",
+              "probability": 1.0
+            },
+            {
+              "service": "teastore-auth",
+              "operation": "isloggedin",
+              "probability": 1.0
+            },
+            {
+              "service": "teastore-image",
+              "operation": "getWebUIImages",
+              "probability": 1.0
+            }
+          ]
+        },
+        {
+          "name": "loginAction_login",
+          "demand": 30,
+          "dependencies": [
+            {
+              "service": "teastore-auth",
+              "operation": "login",
+              "probability": 1.0
+            }
+          ]
+        },
+        {
+          "name": "loginAction_logout",
+          "demand": 30,
+          "dependencies": [
+            {
+              "service": "teastore-auth",
+              "operation": "logout",
+              "probability": 1.0
+            }
+          ]
+        },
+        {
+          "name": "order",
+          "demand": 30,
+          "dependencies": [
+            {
+              "service": "teastore-persistence",
+              "operation": "categories_listAll",
+              "probability": 1.0
+            },
+            {
+              "service": "teastore-auth",
+              "operation": "isloggedin",
+              "probability": 1.0
+            },
+            {
+              "service": "teastore-image",
+              "operation": "getWebUIImages",
+              "probability": 1.0
+            }
+          ]
+        },
+        {
+          "name": "product",
+          "demand": 30,
+          "dependencies": [
+            {
+              "service": "teastore-persistence",
+              "operation": "categories_listAll",
+              "probability": 1.0
+            },
+            {
+              "service": "teastore-auth",
+              "operation": "isloggedin",
+              "probability": 1.0
+            },
+            {
+              "service": "teastore-persistence",
+              "operation": "products_findById",
+              "probability": 1.0
+            },
+            {
+              "service": "teastore-recommender",
+              "operation": "recommend",
+              "probability": 1.0
+            },
+            {
+              "service": "teastore-image",
+              "operation": "getProductImages",
+              "probability": 1.0
+            }
+          ]
+        },
+        {
+          "name": "profile",
+          "demand": 30,
+          "dependencies": [
+            {
+              "service": "teastore-auth",
+              "operation": "isloggedin",
+              "probability": 1.0
+            },
+            {
+              "service": "teastore-image",
+              "operation": "getWebUIImages",
+              "probability": 1.0
+            },
+            {
+              "service": "teastore-persistence",
+              "operation": "categories_listAll",
+              "probability": 1.0
+            },
+            {
+              "service": "teastore-persistence",
+              "operation": "users_findById",
+              "probability": 1.0
+            },
+            {
+              "service": "teastore-persistence",
+              "operation": "orders_listAllForUser",
+              "probability": 1.0
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

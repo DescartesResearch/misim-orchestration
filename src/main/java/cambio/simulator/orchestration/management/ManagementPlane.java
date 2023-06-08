@@ -4,7 +4,7 @@ import cambio.simulator.entities.microservice.MicroserviceInstance;
 import cambio.simulator.models.MiSimModel;
 import cambio.simulator.orchestration.entities.Cluster;
 import cambio.simulator.orchestration.entities.Container;
-import cambio.simulator.orchestration.entities.Node;
+import cambio.simulator.orchestration.entities.kubernetes.Node;
 import cambio.simulator.orchestration.entities.kubernetes.Pod;
 import cambio.simulator.orchestration.util.Util;
 import cambio.simulator.orchestration.events.CheckPodRemovableEvent;
@@ -178,6 +178,7 @@ public class ManagementPlane {
 
     public void setCluster(Cluster cluster) {
         this.cluster = cluster;
+        System.out.printf("[INFO] Created cluster with %d nodes\n", cluster.getNodes().size());
     }
 
     public Model getModel() {

@@ -1,24 +1,25 @@
 package cambio.simulator.orchestration.entities.kubernetes;
 
+import cambio.simulator.entities.NamedEntity;
 import cambio.simulator.entities.microservice.MicroserviceInstance;
 import cambio.simulator.orchestration.entities.Container;
 import cambio.simulator.orchestration.entities.ContainerState;
 import cambio.simulator.orchestration.entities.MicroserviceOrchestration;
-import cambio.simulator.orchestration.entities.Node;
 import cambio.simulator.orchestration.util.Util;
 import cambio.simulator.orchestration.management.ManagementPlane;
-import cambio.simulator.orchestration.parsing.kubernetes.K8Kind;
 import cambio.simulator.orchestration.scaling.AutoScaler;
 import cambio.simulator.orchestration.scheduling.Scheduler;
 import cambio.simulator.orchestration.scheduling.SchedulerType;
 import desmoj.core.simulator.Model;
 import desmoj.core.simulator.TimeInstant;
+import io.kubernetes.client.custom.Quantity;
+import io.kubernetes.client.openapi.models.*;
 
 import java.util.*;
 import java.util.stream.Collectors;
 
-public class Deployment extends K8Object {
-    private Set<MicroserviceOrchestration> services;
+public class Deployment extends NamedEntity {
+    private MicroserviceOrchestration service;
     private Set<Pod> replicaSet;
     private SchedulerType schedulerType;
     private TimeInstant lastRescaling;
@@ -27,13 +28,13 @@ public class Deployment extends K8Object {
     private int minReplicaCount;
     private double averageUtilization;
     private AutoScaler autoScaler;
-    private Affinity affinity;
     private String requestsCPU;
     private String requestsMem;
+    private V1Deployment kubernetesRepresentation;
 
-    public Deployment(Model model, String name, boolean showInTrace, Set<MicroserviceOrchestration> microserviceOrchestrations, int desiredReplicaCount, SchedulerType schedulerType) {
-        super(model, name, showInTrace, K8Kind.DEPLOYMENT);
-        this.services = microserviceOrchestrations;
+    public Deployment(Model model, String name, boolean showInTrace, MicroserviceOrchestration microserviceOrchestration, int desiredReplicaCount, SchedulerType schedulerType) {
+        super(model, name, showInTrace);
+        this.service = microserviceOrchestration;
         this.desiredReplicaCount = desiredReplicaCount;
         this.schedulerType = schedulerType;
         this.maxReplicaCount = 10;
@@ -41,7 +42,6 @@ public class Deployment extends K8Object {
         this.averageUtilization = 50.0;
         this.lastRescaling = new TimeInstant(0);
         replicaSet = new HashSet<>();
-        affinity = new Affinity();
     }
 
     public void deploy() {
@@ -65,14 +65,24 @@ public class Deployment extends K8Object {
     public synchronized void createPod() {
 
         final Pod pod = new Pod(getModel(), "Pod-" + this.getPlainName(), traceIsOn(), this);
-        for (MicroserviceOrchestration microserviceOrchestration : services) {
-            final MicroserviceInstance microServiceInstance = microserviceOrchestration.createMicroServiceInstance();
-            final Container container = new Container(getModel(), "Container[" + microserviceOrchestration.getPlainName() + "]", traceIsOn(), microServiceInstance);
-            pod.getContainers().add(container);
-        }
+        final MicroserviceInstance microServiceInstance = service.createMicroServiceInstance();
+        final Container container = new Container(getModel(), "Container[" + service.getPlainName() + "]", traceIsOn(), microServiceInstance);
+        pod.getContainers().add(container);
+        V1Pod v1Pod = createKubernetesPodWithTemplate("Pod-" + this.getPlainName());
+        pod.setKubernetesRepresentation(v1Pod);
         replicaSet.add(pod);
         //add to specific scheduler queue
         addPodToWaitingQueue(pod);
+    }
+
+    private V1Pod createKubernetesPodWithTemplate(String name) {
+        V1Pod result = new V1Pod();
+        result.setApiVersion("v1");
+        result.setKind("Pod");
+        result.setMetadata(new V1ObjectMeta().name(name).namespace("default").uid(name));
+        result.setSpec(kubernetesRepresentation.getSpec().getTemplate().getSpec());
+        result.setStatus(new V1PodStatus().phase("Pending"));
+        return result;
     }
 
     public void removePod() {
@@ -109,13 +119,13 @@ public class Deployment extends K8Object {
                 }
             }
 
-            if (podWithLeastConsumption != null){
-                if(podCPUUtilization < podCPUUtilizationLeast){
+            if (podWithLeastConsumption != null) {
+                if (podCPUUtilization < podCPUUtilizationLeast) {
                     podCPUUtilizationLeast = podCPUUtilization;
                     podWithLeastConsumption = pod;
                 }
 
-            } else{
+            } else {
                 podWithLeastConsumption = pod;
                 podCPUUtilizationLeast = podCPUUtilization;
             }
@@ -146,16 +156,16 @@ public class Deployment extends K8Object {
         if (instanceToKill == null) {
             return;
         }
-        if(service!=null){
+        if (service != null) {
             Optional<Container> any = instanceToKill.getContainers().stream().filter(container -> container.getMicroserviceInstance().getPlainName().contains(service)).findAny();
-            if(any.isPresent()){
+            if (any.isPresent()) {
                 Container container = any.get();
                 container.setRestartAttemptsLeft(retries);
                 container.die();
-            }else{
+            } else {
                 sendTraceNote("AimingChaosMonkeyForPods did not find the microService with the name " + service + ". Did not kill mircoServiceInstance");
             }
-        }else{
+        } else {
             instanceToKill.die();
         }
 
@@ -171,12 +181,12 @@ public class Deployment extends K8Object {
         ManagementPlane.getInstance().addPodToSpecificSchedulerQueue(pod, this.getSchedulerType());
     }
 
-    public Set<MicroserviceOrchestration> getServices() {
-        return services;
+    public MicroserviceOrchestration getService() {
+        return service;
     }
 
-    public void setServices(Set<MicroserviceOrchestration> microserviceOrchestrations) {
-        this.services = microserviceOrchestrations;
+    public void setService(MicroserviceOrchestration service) {
+        this.service = service;
     }
 
     public int getDesiredReplicaCount() {
@@ -259,14 +269,6 @@ public class Deployment extends K8Object {
         this.autoScaler = autoScaler;
     }
 
-    public Affinity getAffinity() {
-        return affinity;
-    }
-
-    public void setAffinity(Affinity affinity) {
-        this.affinity = affinity;
-    }
-
     public String getRequestsCPU() {
         return requestsCPU;
     }
@@ -281,5 +283,13 @@ public class Deployment extends K8Object {
 
     public void setRequestsMem(String requestsMem) {
         this.requestsMem = requestsMem;
+    }
+
+    public V1Deployment getKubernetesRepresentation() {
+        return kubernetesRepresentation;
+    }
+
+    public void setKubernetesRepresentation(V1Deployment kubernetesRepresentation) {
+        this.kubernetesRepresentation = kubernetesRepresentation;
     }
 }

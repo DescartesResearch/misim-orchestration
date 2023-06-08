@@ -1,0 +1,111 @@
+{
+  "simulation_meta_data": {
+    "experiment_name": "TeastoreGlobal",
+    "model_name": "paper_architecture_model",
+    "duration": 300,
+    "report": "",
+    "datapoints": 20,
+    "seed": 979
+  },
+  "request_generators": [
+    {
+      "type": "limbo",
+      "config": {
+        "operation": "teastore-webui.index",
+        "limbo_model": "./BasicExample/traces_default/webui.index.csv",
+        "repeating": false,
+        "repetition_skip": 0
+      }
+    },
+    {
+      "type": "limbo",
+      "config": {
+        "operation": "teastore-webui.login",
+        "limbo_model": "./BasicExample/traces_default/webui.login.csv",
+        "repeating": false,
+        "repetition_skip": 0
+      }
+    },
+    {
+      "type": "limbo",
+      "config": {
+        "operation": "teastore-webui.loginAction_login",
+        "limbo_model": "./BasicExample/traces_default/webui.loginaction.login.csv",
+        "repeating": false,
+        "repetition_skip": 0
+      }
+    },
+    {
+      "type": "limbo",
+      "config": {
+        "operation": "teastore-webui.category",
+        "limbo_model": "./BasicExample/traces_default/webui.category.csv",
+        "repeating": false,
+        "repetition_skip": 0
+      }
+    },
+    {
+      "type": "limbo",
+      "config": {
+        "operation": "teastore-webui.product",
+        "limbo_model": "./BasicExample/traces_default/webui.product.csv",
+        "repeating": false,
+        "repetition_skip": 0
+      }
+    },
+    {
+      "type": "limbo",
+      "config": {
+        "operation": "teastore-webui.cartAction_addToCart",
+        "limbo_model": "./BasicExample/traces_default/webui.cartaction.addtocart.csv",
+        "repeating": false,
+        "repetition_skip": 0
+      }
+    },
+    {
+      "type": "limbo",
+      "config": {
+        "operation": "teastore-webui.category",
+        "limbo_model": "./BasicExample/traces_default/webui.category-2.csv",
+        "repeating": false,
+        "repetition_skip": 0
+      }
+    },
+    {
+      "type": "limbo",
+      "config": {
+        "operation": "teastore-webui.category",
+        "limbo_model": "./BasicExample/traces_default/webui.category-3.csv",
+        "repeating": false,
+        "repetition_skip": 0
+      }
+    },
+    {
+      "type": "limbo",
+      "config": {
+        "operation": "teastore-webui.cartAction_addToCart",
+        "limbo_model": "./BasicExample/traces_default/webui.cartaction.addtocart-2.csv",
+        "repeating": false,
+        "repetition_skip": 0
+      }
+    },
+    {
+      "type": "limbo",
+      "config": {
+        "operation": "teastore-webui.profile",
+        "limbo_model": "./BasicExample/traces_default/webui.profile.csv",
+        "repeating": false,
+        "repetition_skip": 0
+      }
+    },
+    {
+      "type": "limbo",
+      "config": {
+        "operation": "teastore-webui.loginAction_logout",
+        "limbo_model": "./BasicExample/traces_default/webui.loginaction.logout.csv",
+        "repeating": false,
+        "repetition_skip": 0
+      }
+    }
+  ]
+}

@@ -1,19 +1,18 @@
 package cambio.simulator.orchestration.models;
 
-import cambio.simulator.entities.microservice.Microservice;
 import cambio.simulator.events.ISelfScheduled;
 import cambio.simulator.events.SimulationEndEvent;
 import cambio.simulator.models.MiSimModel;
 import cambio.simulator.orchestration.parsing.OrchestrationModelLoader;
 import cambio.simulator.orchestration.entities.MicroserviceOrchestration;
+import cambio.simulator.orchestration.parsing.kubernetes.KubernetesParser;
 import cambio.simulator.orchestration.util.Util;
 import cambio.simulator.orchestration.entities.Cluster;
-import cambio.simulator.orchestration.entities.Node;
+import cambio.simulator.orchestration.entities.kubernetes.Node;
 import cambio.simulator.orchestration.management.ManagementPlane;
 import cambio.simulator.orchestration.management.ScaleTaskExecutor;
 import cambio.simulator.orchestration.export.StatsTasksExecutor;
 import cambio.simulator.parsing.ParsingException;
-import cambio.simulator.orchestration.parsing.kubernetes.YAMLParser;
 import cambio.simulator.orchestration.scheduling.Scheduler;
 import cambio.simulator.orchestration.scheduling.SchedulerType;
 import cambio.simulator.parsing.ModelLoader;
@@ -24,6 +23,7 @@ import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 public class MiSimOrchestrationModel extends MiSimModel {
 
@@ -67,11 +67,22 @@ public class MiSimOrchestrationModel extends MiSimModel {
     }
 
     private void initOrchestration() {
+        ManagementPlane.getInstance().setModel(this);
+
         System.out.println();
         System.out.println("### Initializing Container Orchestration ###");
         String targetDir = orchestrationConfig.getOrchestrationDir();
-        Cluster cluster = new Cluster(createNodesFromConfigDto(orchestrationConfig));
-        ManagementPlane.getInstance().setModel(this);
+        Cluster cluster;
+        Map<String, Map<String, OrchestrationConfig.NetworkDelays.NetworkInfo>> delayMap = null;
+        if (orchestrationConfig.getNetworkDelays() != null && orchestrationConfig.getNetworkDelays().isEnabled()) {
+            delayMap = orchestrationConfig.getNetworkDelays().getDelayMap();
+        }
+        if (orchestrationConfig.isImportNodes()) {
+            cluster = new Cluster(KubernetesParser.importNodes(getModel(), traceIsOn(), targetDir), delayMap);
+        } else {
+            cluster = new Cluster(createNodesFromConfigDto(orchestrationConfig), delayMap);
+        }
+
         ManagementPlane.getInstance().setCluster(cluster);
 
         try {
@@ -82,15 +93,7 @@ public class MiSimOrchestrationModel extends MiSimModel {
             System.exit(1);
         }
 
-        final YAMLParser yamlParser = YAMLParser.getInstance();
-        yamlParser.setArchitectureModel(architectureModel);
-        yamlParser.setConfigDto(orchestrationConfig);
-        try {
-            yamlParser.initDeploymentsFromArchitectureAndYAMLFiles(targetDir);
-        } catch (ParsingException e) {
-            e.printStackTrace();
-            System.exit(1);
-        }
+        KubernetesParser.initDeployments(targetDir, architectureModel, orchestrationConfig);
 
         final ScaleTaskExecutor scaleTaskExecutor = new ScaleTaskExecutor(getModel(), "MasterTaskExecutor", getModel().traceIsOn(), orchestrationConfig.getScalingInterval());
         scaleTaskExecutor.doInitialSelfSchedule();

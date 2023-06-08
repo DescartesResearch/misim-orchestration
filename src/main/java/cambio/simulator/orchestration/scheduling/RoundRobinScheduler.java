@@ -1,9 +1,7 @@
 package cambio.simulator.orchestration.scheduling;
 
-import cambio.simulator.orchestration.entities.Node;
+import cambio.simulator.orchestration.entities.kubernetes.Node;
 import cambio.simulator.orchestration.entities.kubernetes.Pod;
-
-import java.util.stream.Collectors;
 
 public class RoundRobinScheduler extends Scheduler {
 

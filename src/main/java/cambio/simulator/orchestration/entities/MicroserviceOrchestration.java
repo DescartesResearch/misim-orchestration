@@ -52,7 +52,7 @@ public class MicroserviceOrchestration extends Microservice {
 
     public Deployment getDeployment() {
         for (Deployment deployment : ManagementPlane.getInstance().getDeployments()) {
-            if (deployment.getServices().contains(this)) {
+            if (deployment.getService().equals(this)) {
                 return deployment;
             }
         }

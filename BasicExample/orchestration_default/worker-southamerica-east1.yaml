@@ -1,0 +1,132 @@
+apiVersion: v1
+kind: Node
+metadata:
+  annotations:
+    flannel.alpha.coreos.com/backend-data: '{"VNI":1,"VtepMAC":"86:63:88:a7:55:cd"}'
+    flannel.alpha.coreos.com/backend-type: vxlan
+    flannel.alpha.coreos.com/kube-subnet-manager: "true"
+    flannel.alpha.coreos.com/public-ip: 10.158.0.2
+    kubeadm.alpha.kubernetes.io/cri-socket: unix:///var/run/containerd/containerd.sock
+    node.alpha.kubernetes.io/ttl: "0"
+    volumes.kubernetes.io/controller-managed-attach-detach: "true"
+  creationTimestamp: "2023-06-04T09:13:54Z"
+  labels:
+    beta.kubernetes.io/arch: amd64
+    beta.kubernetes.io/os: linux
+    compute-zone: southamerica
+    kubernetes.io/arch: amd64
+    kubernetes.io/hostname: worker-southamerica-east1
+    kubernetes.io/os: linux
+  name: worker-southamerica-east1
+  resourceVersion: "333408"
+  uid: be0fb287-d6ef-4487-9c94-92623cb2c3a3
+spec:
+  podCIDR: 10.244.4.0/24
+  podCIDRs:
+    - 10.244.4.0/24
+status:
+  addresses:
+    - address: 10.158.0.2
+      type: InternalIP
+    - address: worker-southamerica-east1
+      type: Hostname
+  allocatable:
+    cpu: "4"
+    ephemeral-storage: "46651590989"
+    hugepages-1Gi: "0"
+    hugepages-2Mi: "0"
+    memory: 16287696Ki
+    pods: "110"
+  capacity:
+    cpu: "4"
+    ephemeral-storage: 50620216Ki
+    hugepages-1Gi: "0"
+    hugepages-2Mi: "0"
+    memory: 16390096Ki
+    pods: "110"
+  conditions:
+    - lastHeartbeatTime: "2023-06-04T09:14:14Z"
+      lastTransitionTime: "2023-06-04T09:14:14Z"
+      message: Flannel is running on this node
+      reason: FlannelIsUp
+      status: "False"
+      type: NetworkUnavailable
+    - lastHeartbeatTime: "2023-06-06T11:08:02Z"
+      lastTransitionTime: "2023-06-04T09:13:54Z"
+      message: kubelet has sufficient memory available
+      reason: KubeletHasSufficientMemory
+      status: "False"
+      type: MemoryPressure
+    - lastHeartbeatTime: "2023-06-06T11:08:02Z"
+      lastTransitionTime: "2023-06-04T09:13:54Z"
+      message: kubelet has no disk pressure
+      reason: KubeletHasNoDiskPressure
+      status: "False"
+      type: DiskPressure
+    - lastHeartbeatTime: "2023-06-06T11:08:02Z"
+      lastTransitionTime: "2023-06-04T09:13:54Z"
+      message: kubelet has sufficient PID available
+      reason: KubeletHasSufficientPID
+      status: "False"
+      type: PIDPressure
+    - lastHeartbeatTime: "2023-06-06T11:08:02Z"
+      lastTransitionTime: "2023-06-04T09:14:11Z"
+      message: kubelet is posting ready status. AppArmor enabled
+      reason: KubeletReady
+      status: "True"
+      type: Ready
+  images:
+    - names:
+        - docker.io/descartesresearch/teastore-persistence@sha256:ac6b0fe9aeca04ee31fea20caed0b49af2ddf709c28a2cf1f4b9b041af05279b
+        - docker.io/descartesresearch/teastore-persistence:latest
+      sizeBytes: 377980482
+    - names:
+        - docker.io/descartesresearch/teastore-image@sha256:8f339e6b8ee7d7b2c3efd173b1a23c7ffda03ab9d0bc5b8904beb6a1f2e2bd98
+        - docker.io/descartesresearch/teastore-image:latest
+      sizeBytes: 369162915
+    - names:
+        - docker.io/descartesresearch/teastore-recommender@sha256:8cd0cc779929f9a03ac5990d09637f95e24bb333cbcc0b8df139c4c16df93d50
+        - docker.io/descartesresearch/teastore-recommender:latest
+      sizeBytes: 368150565
+    - names:
+        - docker.io/descartesresearch/teastore-auth@sha256:1babe5ca10bda103daa03f52db3e2357e0d3ec32a9ed549c4b2e2020152b0dac
+        - docker.io/descartesresearch/teastore-auth:latest
+      sizeBytes: 368148515
+    - names:
+        - docker.io/descartesresearch/teastore-db@sha256:7a22000cc6b5fa7bfa99f7c8ccca68651ddd44684f5a571341723c839722b60c
+        - docker.io/descartesresearch/teastore-db:latest
+      sizeBytes: 113833775
+    - names:
+        - docker.io/flannel/flannel@sha256:5f83f1243057458e27249157394e3859cf31cc075354af150d497f2ebc8b54db
+        - docker.io/flannel/flannel:v0.22.0
+      sizeBytes: 26855532
+    - names:
+        - registry.k8s.io/kube-proxy@sha256:1e4f13f5f5c215813fb9c9c6f56da1c0354363f2a69bd12732658f79d585864f
+        - registry.k8s.io/kube-proxy:v1.27.2
+      sizeBytes: 23895334
+    - names:
+        - registry.k8s.io/kube-scheduler@sha256:89e8c591cc58bd0e8651dddee3de290399b1ae5ad14779afe84779083fe05177
+        - registry.k8s.io/kube-scheduler:v1.27.2
+      sizeBytes: 18230943
+    - names:
+        - docker.io/flannel/flannel-cni-plugin@sha256:bf4b62b131666d040f35a327d906ee5a3418280b68a88d9b9c7e828057210443
+        - docker.io/flannel/flannel-cni-plugin:v1.1.2
+      sizeBytes: 3842055
+    - names:
+        - registry.k8s.io/pause:2.0
+      sizeBytes: 341616
+    - names:
+        - registry.k8s.io/pause@sha256:3d380ca8864549e74af4b29c10f9cb0956236dfb01c40ca076fb6c37253234db
+        - registry.k8s.io/pause:3.6
+      sizeBytes: 301773
+  nodeInfo:
+    architecture: amd64
+    bootID: cf41d57c-b5dc-4d52-a91d-3cb243dd0727
+    containerRuntimeVersion: containerd://1.6.12
+    kernelVersion: 5.4.0-1104-gcp
+    kubeProxyVersion: v1.27.2
+    kubeletVersion: v1.27.2
+    machineID: e13f4d9549724e34db5b01b4b4cb4a47
+    operatingSystem: linux
+    osImage: Ubuntu 18.04.6 LTS
+    systemUUID: e13f4d95-4972-4e34-db5b-01b4b4cb4a47

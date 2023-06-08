@@ -2,6 +2,7 @@ package cambio.simulator.orchestration.parsing.adapter;
 
 import cambio.simulator.entities.microservice.Microservice;
 import cambio.simulator.entities.networking.DependencyDescription;
+import cambio.simulator.entities.networking.SimpleDependencyDescription;
 import cambio.simulator.models.ArchitectureModel;
 import cambio.simulator.orchestration.models.MiSimOrchestrationModel;
 import cambio.simulator.parsing.GsonHelper;
@@ -32,7 +33,7 @@ public class OrchestrationArchitectureModelAdapter extends ArchitectureModelAdap
         ArchitectureModel architectureModel = gson.fromJson(root, ArchitectureModel.class);
 
         for (DependencyDescription dependency : dependencies) {
-            dependency.resolveNames(architectureModel);
+            ((SimpleDependencyDescription) dependency).resolveNames(architectureModel);
         }
         return architectureModel;
     }

@@ -1,12 +1,15 @@
 package cambio.simulator.orchestration.models;
 
 import java.util.List;
+import java.util.Map;
 
 public class OrchestrationConfig {
 
     private boolean orchestrate;
     private String orchestrationDir;
+    private boolean importNodes;
     private Nodes nodes;
+    private NetworkDelays networkDelays;
     private Scaler scaler;
     private String scheduler;
     private int scalingInterval;
@@ -31,12 +34,28 @@ public class OrchestrationConfig {
         this.orchestrationDir = orchestrationDir;
     }
 
+    public boolean isImportNodes() {
+        return importNodes;
+    }
+
+    public void setImportNodes(boolean importNodes) {
+        this.importNodes = importNodes;
+    }
+
     public Nodes getNodes() {
         return nodes;
     }
 
     public void setNodes(Nodes nodes) {
         this.nodes = nodes;
+    }
+
+    public NetworkDelays getNetworkDelays() {
+        return networkDelays;
+    }
+
+    public void setNetworkDelays(NetworkDelays networkDelays) {
+        this.networkDelays = networkDelays;
     }
 
     public Scaler getScaler() {
@@ -93,6 +112,48 @@ public class OrchestrationConfig {
 
     public void setHealthCheckDelay(String healthCheckDelay) {
         this.healthCheckDelay = healthCheckDelay;
+    }
+
+    public static class NetworkDelays {
+        boolean enabled;
+        Map<String, Map<String, NetworkInfo>> delayMap;
+
+        public boolean isEnabled() {
+            return enabled;
+        }
+
+        public void setEnabled(boolean enabled) {
+            this.enabled = enabled;
+        }
+
+        public Map<String, Map<String, NetworkInfo>> getDelayMap() {
+            return delayMap;
+        }
+
+        public void setDelayMap(Map<String, Map<String, NetworkInfo>> delayMap) {
+            this.delayMap = delayMap;
+        }
+
+        public static class NetworkInfo {
+            double mean;
+            double std;
+
+            public double getMean() {
+                return mean;
+            }
+
+            public double getStd() {
+                return std;
+            }
+
+            public void setMean(double mean) {
+                this.mean = mean;
+            }
+
+            public void setStd(double std) {
+                this.std = std;
+            }
+        }
     }
 
     public static class CustomNodes {
