@@ -3,11 +3,11 @@
     {
       "name": "teastore-auth",
       "instances": 1,
-      "capacity": 1,
+      "capacity": 12000,
       "operations": [
         {
           "name": "placeOrder",
-          "demand": 1,
+          "demand": 150,
           "dependencies": [
             {
               "service": "teastore-persistence",
@@ -23,7 +23,7 @@
         },
         {
           "name": "login",
-          "demand": 200,
+          "demand": 150,
           "dependencies": [
             {
               "service": "teastore-persistence",
@@ -34,17 +34,17 @@
         },
         {
           "name": "logout",
-          "demand": 100,
+          "demand": 150,
           "dependencies": []
         },
         {
           "name": "isloggedin",
-          "demand": 3,
+          "demand": 30,
           "dependencies": []
         },
         {
           "name": "cartAdd",
-          "demand": 197,
+          "demand": 150,
           "dependencies": [
             {
               "service": "teastore-persistence",
@@ -55,12 +55,12 @@
         },
         {
           "name": "cartRemove",
-          "demand": 1,
+          "demand": 150,
           "dependencies": []
         },
         {
           "name": "cartUpdate",
-          "demand": 1,
+          "demand": 150,
           "dependencies": []
         }
       ]
@@ -68,16 +68,16 @@
     {
       "name": "teastore-image",
       "instances": 1,
-      "capacity": 1,
+      "capacity": 10000,
       "operations": [
         {
           "name": "getProductImages",
-          "demand": 10,
+          "demand": 40,
           "dependencies": []
         },
         {
           "name": "getWebUIImages",
-          "demand": 10,
+          "demand": 40,
           "dependencies": []
         }
       ]
@@ -85,11 +85,11 @@
     {
       "name": "teastore-persistence",
       "instances": 1,
-      "capacity": 1,
+      "capacity": 27000,
       "operations": [
         {
           "name": "products_findById",
-          "demand": 2,
+          "demand": 40,
           "dependencies": [
             {
               "service": "teastore-db",
@@ -100,7 +100,7 @@
         },
         {
           "name": "products_listCategory",
-          "demand": 2,
+          "demand": 50,
           "dependencies": [
             {
               "service": "teastore-db",
@@ -111,7 +111,7 @@
         },
         {
           "name": "products_countCategory",
-          "demand": 1,
+          "demand": 40,
           "dependencies": [
             {
               "service": "teastore-db",
@@ -122,7 +122,7 @@
         },
         {
           "name": "orders_listAllForUser",
-          "demand": 2,
+          "demand": 50,
           "dependencies": [
             {
               "service": "teastore-db",
@@ -133,7 +133,7 @@
         },
         {
           "name": "orders_create",
-          "demand": 1,
+          "demand": 40,
           "dependencies": [
             {
               "service": "teastore-db",
@@ -144,7 +144,7 @@
         },
         {
           "name": "orderitems_listAllForProduct",
-          "demand": 1,
+          "demand": 50,
           "dependencies": [
             {
               "service": "teastore-db",
@@ -155,7 +155,7 @@
         },
         {
           "name": "orderitems_listAllForOrder",
-          "demand": 1,
+          "demand": 50,
           "dependencies": [
             {
               "service": "teastore-db",
@@ -166,7 +166,7 @@
         },
         {
           "name": "orderitems_create",
-          "demand": 1,
+          "demand": 40,
           "dependencies": [
             {
               "service": "teastore-db",
@@ -177,7 +177,7 @@
         },
         {
           "name": "users_findById",
-          "demand": 2,
+          "demand": 40,
           "dependencies": [
             {
               "service": "teastore-db",
@@ -188,7 +188,7 @@
         },
         {
           "name": "categories_listAll",
-          "demand": 2,
+          "demand": 50,
           "dependencies": [
             {
               "service": "teastore-db",
@@ -199,7 +199,7 @@
         },
         {
           "name": "categories_findById",
-          "demand": 2,
+          "demand": 40,
           "dependencies": [
             {
               "service": "teastore-db",
@@ -213,7 +213,7 @@
     {
       "name": "teastore-db",
       "instances": 1,
-      "capacity": 1,
+      "capacity": 27000,
       "operations": [
         {
           "name": "products_findById",
@@ -275,11 +275,11 @@
     {
       "name": "teastore-recommender",
       "instances": 1,
-      "capacity": 1,
+      "capacity": 6400,
       "operations": [
         {
           "name": "recommend",
-          "demand": 481,
+          "demand": 100,
           "dependencies": []
         }
       ]
@@ -287,21 +287,21 @@
     {
       "name": "teastore-registry",
       "instances": 1,
-      "capacity": 1,
+      "capacity": 100000,
       "operations": [
         {
           "name": "register",
-          "demand": 1,
+          "demand": 30,
           "dependencies": []
         },
         {
           "name": "unregister",
-          "demand": 1,
+          "demand": 30,
           "dependencies": []
         },
         {
           "name": "getInstances",
-          "demand": 1,
+          "demand": 30,
           "dependencies": []
         }
       ]
@@ -309,11 +309,11 @@
     {
       "name": "teastore-webui",
       "instances": 1,
-      "capacity": 1,
+      "capacity": 10000,
       "operations": [
         {
           "name": "cartAction_addToCart",
-          "demand": 16,
+          "demand": 30,
           "dependencies": [
             {
               "service": "teastore-auth",
@@ -324,7 +324,7 @@
         },
         {
           "name": "cartAction_removeFromCart",
-          "demand": 1,
+          "demand": 30,
           "dependencies": [
             {
               "service": "teastore-auth",
@@ -335,7 +335,7 @@
         },
         {
           "name": "cartAction_updateCart",
-          "demand": 1,
+          "demand": 30,
           "dependencies": [
             {
               "service": "teastore-auth",
@@ -346,7 +346,7 @@
         },
         {
           "name": "cartAction_proceedToCheckout",
-          "demand": 1,
+          "demand": 30,
           "dependencies": [
             {
               "service": "teastore-auth",
@@ -362,7 +362,7 @@
         },
         {
           "name": "cartAction_confirmOrder",
-          "demand": 1,
+          "demand": 30,
           "dependencies": [
             {
               "service": "teastore-auth",
@@ -373,7 +373,7 @@
         },
         {
           "name": "cart",
-          "demand": 1,
+          "demand": 30,
           "dependencies": [
             {
               "service": "teastore-persistence",
@@ -404,7 +404,7 @@
         },
         {
           "name": "category",
-          "demand": 11,
+          "demand": 30,
           "dependencies": [
             {
               "service": "teastore-persistence",
@@ -445,7 +445,7 @@
         },
         {
           "name": "index",
-          "demand": 245,
+          "demand": 30,
           "dependencies": [
             {
               "service": "teastore-persistence",
@@ -466,7 +466,7 @@
         },
         {
           "name": "login",
-          "demand": 245,
+          "demand": 30,
           "dependencies": [
             {
               "service": "teastore-persistence",
@@ -487,7 +487,7 @@
         },
         {
           "name": "loginAction_login",
-          "demand": 18,
+          "demand": 30,
           "dependencies": [
             {
               "service": "teastore-auth",
@@ -498,7 +498,7 @@
         },
         {
           "name": "loginAction_logout",
-          "demand": 39,
+          "demand": 30,
           "dependencies": [
             {
               "service": "teastore-auth",
@@ -509,7 +509,7 @@
         },
         {
           "name": "order",
-          "demand": 1,
+          "demand": 30,
           "dependencies": [
             {
               "service": "teastore-persistence",
@@ -530,7 +530,7 @@
         },
         {
           "name": "product",
-          "demand": 500,
+          "demand": 30,
           "dependencies": [
             {
               "service": "teastore-persistence",
@@ -561,7 +561,7 @@
         },
         {
           "name": "profile",
-          "demand": 90,
+          "demand": 30,
           "dependencies": [
             {
               "service": "teastore-auth",

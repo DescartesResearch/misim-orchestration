@@ -2,7 +2,7 @@
   "simulation_meta_data": {
     "experiment_name": "TeastoreGlobal",
     "model_name": "paper_architecture_model",
-    "duration": 300000,
+    "duration": 300,
     "report": "",
     "datapoints": 20,
     "seed": 979
