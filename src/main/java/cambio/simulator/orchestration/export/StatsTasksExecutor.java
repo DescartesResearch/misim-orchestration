@@ -19,7 +19,7 @@ public class StatsTasksExecutor extends NamedEntity implements ISelfScheduled {
         super(model, name, showInTrace);
         this.model = model;
         intervalLoadGeneratorDescription = new IntervalLoadGeneratorDescription();
-        intervalLoadGeneratorDescription.setInterval(1);
+        intervalLoadGeneratorDescription.setInterval(1000);
         intervalLoadGeneratorDescription.initializeArrivalRateModel();
 
     }

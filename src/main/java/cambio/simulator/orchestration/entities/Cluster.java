@@ -46,11 +46,11 @@ public class Cluster {
             }
         }
         if (networkInfo == null) {
-            System.out.printf("[DEBUG] No network info found for source node %s and target node %s\n", sourceNode, targetNode);
+            // System.out.printf("[DEBUG] No network info found for source node %s and target node %s\n", sourceNode, targetNode);
             return 0;
         } else {
             double delay = random.nextGaussian() * networkInfo.getStd() + networkInfo.getMean();
-            System.out.printf("[DEBUG] Adding delay %f between node %s and node %s\n", delay, sourceNode, targetNode);
+            // System.out.printf("[DEBUG] Adding delay %f between node %s and node %s\n", delay, sourceNode, targetNode);
             return delay;
         }
     }

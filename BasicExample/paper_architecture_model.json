@@ -3,7 +3,7 @@
     {
       "name": "teastore-auth",
       "instances": 1,
-      "capacity": 1000,
+      "capacity": 1,
       "operations": [
         {
           "name": "placeOrder",
@@ -68,7 +68,7 @@
     {
       "name": "teastore-image",
       "instances": 1,
-      "capacity": 1000,
+      "capacity": 1,
       "operations": [
         {
           "name": "getProductImages",
@@ -85,7 +85,7 @@
     {
       "name": "teastore-persistence",
       "instances": 1,
-      "capacity": 1000,
+      "capacity": 1,
       "operations": [
         {
           "name": "products_findById",
@@ -213,7 +213,7 @@
     {
       "name": "teastore-db",
       "instances": 1,
-      "capacity": 1000,
+      "capacity": 1,
       "operations": [
         {
           "name": "products_findById",
@@ -275,7 +275,7 @@
     {
       "name": "teastore-recommender",
       "instances": 1,
-      "capacity": 1000,
+      "capacity": 1,
       "operations": [
         {
           "name": "recommend",
@@ -287,7 +287,7 @@
     {
       "name": "teastore-registry",
       "instances": 1,
-      "capacity": 1000,
+      "capacity": 1,
       "operations": [
         {
           "name": "register",
@@ -309,7 +309,7 @@
     {
       "name": "teastore-webui",
       "instances": 1,
-      "capacity": 1000,
+      "capacity": 1,
       "operations": [
         {
           "name": "cartAction_addToCart",
