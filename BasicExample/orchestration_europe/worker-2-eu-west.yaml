@@ -9,7 +9,6 @@ metadata:
     kubeadm.alpha.kubernetes.io/cri-socket: unix:///var/run/containerd/containerd.sock
     node.alpha.kubernetes.io/ttl: "0"
     volumes.kubernetes.io/controller-managed-attach-detach: "true"
-  creationTimestamp: "2023-06-04T09:12:12Z"
   labels:
     beta.kubernetes.io/arch: amd64
     beta.kubernetes.io/os: linux
@@ -44,37 +43,6 @@ status:
     hugepages-2Mi: "0"
     memory: 16390088Ki
     pods: "110"
-  conditions:
-    - lastHeartbeatTime: "2023-06-04T09:12:24Z"
-      lastTransitionTime: "2023-06-04T09:12:24Z"
-      message: Flannel is running on this node
-      reason: FlannelIsUp
-      status: "False"
-      type: NetworkUnavailable
-    - lastHeartbeatTime: "2023-06-06T11:06:23Z"
-      lastTransitionTime: "2023-06-04T09:12:12Z"
-      message: kubelet has sufficient memory available
-      reason: KubeletHasSufficientMemory
-      status: "False"
-      type: MemoryPressure
-    - lastHeartbeatTime: "2023-06-06T11:06:23Z"
-      lastTransitionTime: "2023-06-04T09:12:12Z"
-      message: kubelet has no disk pressure
-      reason: KubeletHasNoDiskPressure
-      status: "False"
-      type: DiskPressure
-    - lastHeartbeatTime: "2023-06-06T11:06:23Z"
-      lastTransitionTime: "2023-06-04T09:12:12Z"
-      message: kubelet has sufficient PID available
-      reason: KubeletHasSufficientPID
-      status: "False"
-      type: PIDPressure
-    - lastHeartbeatTime: "2023-06-06T11:06:23Z"
-      lastTransitionTime: "2023-06-04T09:12:22Z"
-      message: kubelet is posting ready status. AppArmor enabled
-      reason: KubeletReady
-      status: "True"
-      type: Ready
   images:
     - names:
         - docker.io/descartesresearch/teastore-persistence@sha256:ac6b0fe9aeca04ee31fea20caed0b49af2ddf709c28a2cf1f4b9b041af05279b
