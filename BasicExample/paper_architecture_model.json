@@ -404,7 +404,7 @@
         },
         {
           "name": "category",
-          "demand": 30,
+          "demand": 10,
           "dependencies": [
             {
               "service": "teastore-persistence",
@@ -445,7 +445,7 @@
         },
         {
           "name": "index",
-          "demand": 30,
+          "demand": 180,
           "dependencies": [
             {
               "service": "teastore-persistence",
@@ -466,7 +466,7 @@
         },
         {
           "name": "login",
-          "demand": 30,
+          "demand": 180,
           "dependencies": [
             {
               "service": "teastore-persistence",
@@ -530,7 +530,7 @@
         },
         {
           "name": "product",
-          "demand": 30,
+          "demand": 720,
           "dependencies": [
             {
               "service": "teastore-persistence",
