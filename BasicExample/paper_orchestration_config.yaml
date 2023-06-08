@@ -39,5 +39,19 @@ networkDelays:
         mean: 0.143903
         std: 0.000191
 scheduler: kube
+initialSchedulingOrder:
+  enabled: true
+  order:
+    - "dummy-asia-southeast1"
+    - "dummy-eu-worker2"
+    - "dummy-southamerica-east1"
+    - "dummy-us-central1"
+    - "teastore-db"
+    - "teastore-registry"
+    - "teastore-persistence"
+    - "teastore-auth"
+    - "teastore-image"
+    - "teastore-recommender"
+    - "teastore-webui"
 scalingInterval: 15
 healthCheckDelay: 0

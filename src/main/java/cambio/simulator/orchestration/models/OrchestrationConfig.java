@@ -12,6 +12,7 @@ public class OrchestrationConfig {
     private NetworkDelays networkDelays;
     private Scaler scaler;
     private String scheduler;
+    private InitialSchedulingOrder initialSchedulingOrder;
     private int scalingInterval;
     private String healthCheckDelay;
     private List<CustomNodes> customNodes;
@@ -74,6 +75,14 @@ public class OrchestrationConfig {
         this.scheduler = scheduler;
     }
 
+    public InitialSchedulingOrder getInitialSchedulingOrder() {
+        return initialSchedulingOrder;
+    }
+
+    public void setInitialSchedulingOrder(InitialSchedulingOrder initialSchedulingOrder) {
+        this.initialSchedulingOrder = initialSchedulingOrder;
+    }
+
     public List<CustomNodes> getCustomNodes() {
         return customNodes;
     }
@@ -112,6 +121,27 @@ public class OrchestrationConfig {
 
     public void setHealthCheckDelay(String healthCheckDelay) {
         this.healthCheckDelay = healthCheckDelay;
+    }
+
+    public static class InitialSchedulingOrder {
+        private boolean enabled;
+        private List<String> order;
+
+        public boolean isEnabled() {
+            return enabled;
+        }
+
+        public List<String> getOrder() {
+            return order;
+        }
+
+        public void setEnabled(boolean enabled) {
+            this.enabled = enabled;
+        }
+
+        public void setOrder(List<String> order) {
+            this.order = order;
+        }
     }
 
     public static class NetworkDelays {

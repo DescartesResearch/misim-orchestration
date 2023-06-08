@@ -68,9 +68,27 @@ public class KubernetesParser {
             Set<Microservice> microservicesFromArchitecture = new HashSet<>(architectureModel.getMicroservices());
             Map<V1Deployment, Microservice> mapping = createMapping(microservicesFromArchitecture, deployments);
 
+            // Enforce initial scheduling order if enabled
+            List<V1Deployment> deploymentList = new ArrayList<>(mapping.keySet());
+            if (orchestrationConfig.getInitialSchedulingOrder() != null && orchestrationConfig.getInitialSchedulingOrder().isEnabled()) {
+                List<String> order = orchestrationConfig.getInitialSchedulingOrder().getOrder();
+                deploymentList.sort((o1, o2) -> {
+                    int index1 = order.indexOf(o1.getMetadata().getName());
+                    int index2 = order.indexOf(o2.getMetadata().getName());
+                    if (index1 != -1 && index2 != -1) {
+                        return Integer.compare(index1, index2);
+                    } else if (index1 == -1 && index2 != -1) {
+                        return 1;
+                    } else if (index1 != -1 && index2 == -1) {
+                        return -1;
+                    } else {
+                        return 0;
+                    }
+                });
+            }
             // Create Deployments
-            for (Map.Entry<V1Deployment, Microservice> entry : mapping.entrySet()) {
-                Deployment d = createDeployment(entry.getKey(), entry.getValue());
+            for (V1Deployment deploy : deploymentList) {
+                Deployment d = createDeployment(deploy, mapping.get(deploy));
                 ManagementPlane.getInstance().getDeployments().add(d);
             }
 
