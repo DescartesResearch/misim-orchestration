@@ -18,11 +18,12 @@ public class RestartStartContainerAndMicroserviceInstanceEvent extends Event<Con
     @Override
     public void eventRoutine(Container container) {
         MicroserviceInstance currentMicroserviceInstance = container.getMicroserviceInstance();
-
-        MicroserviceOrchestration owner = (MicroserviceOrchestration) currentMicroserviceInstance.getOwner();
-        MicroserviceInstance newMicroServiceInstance = owner.createMicroServiceInstance();
-        owner.getInstancesSet().add(newMicroServiceInstance);
-        container.setMicroserviceInstance(newMicroServiceInstance);
+        if (currentMicroserviceInstance != null) {
+            MicroserviceOrchestration owner = (MicroserviceOrchestration) currentMicroserviceInstance.getOwner();
+            MicroserviceInstance newMicroServiceInstance = owner.createMicroServiceInstance();
+            owner.getInstancesSet().add(newMicroServiceInstance);
+            container.setMicroserviceInstance(newMicroServiceInstance);
+        }
         container.start();
 
 

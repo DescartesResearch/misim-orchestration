@@ -355,7 +355,7 @@ public class Stats {
 //                        }
 
 
-                        if (container.getContainerState() == ContainerState.RUNNING) {
+                        if (container.getContainerState() == ContainerState.RUNNING && container.getMicroserviceInstance() != null) {
                             double relativeWorkDemand = container.getMicroserviceInstance().getRelativeWorkDemand();
                             podCPUUtilization += relativeWorkDemand;
                         }

@@ -16,7 +16,7 @@ public class StartContainerAndMicroserviceInstanceEvent extends Event<Container>
 
     @Override
     public void eventRoutine(Container container) {
-        container.getMicroserviceInstance().start();
+        if (container.getMicroserviceInstance() != null) container.getMicroserviceInstance().start();
         container.setContainerState(ContainerState.RUNNING);
     }
 }

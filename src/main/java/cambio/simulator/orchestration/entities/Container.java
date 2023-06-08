@@ -31,7 +31,8 @@ public class Container extends NamedEntity {
 
     public void start() {
         StartContainerAndMicroserviceInstanceEvent startMicroServiceEvent = new StartContainerAndMicroserviceInstanceEvent(getModel(), "StartContainerEvent", traceIsOn());
-        startMicroServiceEvent.schedule(this, new TimeSpan(((MicroserviceOrchestration) getMicroserviceInstance().getOwner()).getStartTime()));
+        if (microserviceInstance != null) startMicroServiceEvent.schedule(this, new TimeSpan(((MicroserviceOrchestration) microserviceInstance.getOwner()).getStartTime()));
+        else startMicroServiceEvent.schedule(this, new TimeSpan(0));
     }
 
     //Restart terminated container regarding restart policy https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle/
@@ -42,9 +43,11 @@ public class Container extends NamedEntity {
     }
 
     public void die() {
-        MicroserviceInstance instanceToKill = getMicroserviceInstance();
-        instanceToKill.die();
-        instanceToKill.getOwner().getInstancesSet().remove(instanceToKill);
+        MicroserviceInstance instanceToKill = microserviceInstance;
+        if (instanceToKill != null) {
+            instanceToKill.die();
+            instanceToKill.getOwner().getInstancesSet().remove(instanceToKill);
+        }
 
         Pod pod = ManagementPlane.getInstance().getPodForContainer(this);
         if (pod != null) {

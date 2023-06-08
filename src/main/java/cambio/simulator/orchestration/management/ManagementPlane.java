@@ -91,7 +91,7 @@ public class ManagementPlane {
      */
     public void checkIfPodRemovableFromNode(Pod pod, Node node) {
         for (Container container : pod.getContainers()) {
-            double relativeWorkDemand = container.getMicroserviceInstance().getRelativeWorkDemand();
+            double relativeWorkDemand = (container.getMicroserviceInstance() != null ? container.getMicroserviceInstance().getRelativeWorkDemand() : 0);
             if (relativeWorkDemand > 0) {
                 getModel().sendTraceNote("Cannot remove pod with " + container.getMicroserviceInstance().getName() + " because at least one container is still calculating. Current Relative WorkDemand: " + relativeWorkDemand);
                 final CheckPodRemovableEvent checkPodRemovableEvent = new CheckPodRemovableEvent(getModel(), "Check if pod can be removed", getModel().traceIsOn());
@@ -145,7 +145,7 @@ public class ManagementPlane {
     }
 
     public Container getContainerForMicroServiceInstance(MicroserviceInstance microserviceInstance) {
-        Optional<Container> any = deployments.stream().map(Deployment::getReplicaSet).flatMap(Collection::stream).map(Pod::getContainers).flatMap(Collection::stream).filter(container -> container.getMicroserviceInstance().equals(microserviceInstance)).findAny();
+        Optional<Container> any = deployments.stream().map(Deployment::getReplicaSet).flatMap(Collection::stream).map(Pod::getContainers).flatMap(Collection::stream).filter(container -> container.getMicroserviceInstance() != null && container.getMicroserviceInstance().equals(microserviceInstance)).findAny();
         return any.orElse(null);
 
     }

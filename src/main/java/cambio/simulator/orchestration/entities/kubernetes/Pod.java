@@ -26,7 +26,8 @@ public class Pod extends NamedEntity {
     }
 
     public int getCPUDemand() {
-        return this.getContainers().stream().mapToInt(container -> container.getMicroserviceInstance().getOwner().getCapacity()).sum();
+        if (owner.getService() == null) return 0;
+        else return this.getContainers().stream().mapToInt(container -> container.getMicroserviceInstance().getOwner().getCapacity()).sum();
     }
 
     public void die() {
@@ -63,7 +64,7 @@ public class Pod extends NamedEntity {
 
     public void setPodStateAndApplyEffects(PodState podState) {
         this.podState = podState;
-        if (podState == PodState.TERMINATING) {
+        if (podState == PodState.TERMINATING && owner.getService() != null) {
             getContainers().forEach(container -> container.getMicroserviceInstance().startShutdown());
         } else if (podState == PodState.SUCCEEDED) {
             getContainers().forEach(container -> container.setContainerState(ContainerState.TERMINATED));

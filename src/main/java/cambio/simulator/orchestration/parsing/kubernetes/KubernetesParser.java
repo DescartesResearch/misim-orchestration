@@ -153,6 +153,7 @@ public class KubernetesParser {
                 microservices.remove(service);
                 map.put(d, service);
             } else {
+                map.put(d, null);
                 System.out.println("[WARNING]: The deployment " + d.getMetadata().getName() + " will be scheduled, but" +
                         " is not simulated because there is no corresponding microservice in the architecture file.");
             }
@@ -177,11 +178,14 @@ public class KubernetesParser {
 
     private static Deployment createDeployment(V1Deployment v1Deployment, Microservice microservice) {
         final String deploymentName = v1Deployment.getMetadata().getName();
-        MicroserviceOrchestration casted = (MicroserviceOrchestration) microservice;
-        Util.getInstance().connectLoadBalancer(casted);
-        if (casted.getStartingInstanceCount() != v1Deployment.getSpec().getReplicas().intValue()) {
-            throw new ParsingException("Replica count for service " + casted.getPlainName() + " in architecture file does not match the replica count" +
-                    "provided in the deployment file for " + deploymentName + " (" + casted.getStartingInstanceCount() + "/" + v1Deployment.getSpec().getReplicas().intValue() + ")");
+        MicroserviceOrchestration casted = null;
+        if (microservice != null) {
+            casted = (MicroserviceOrchestration) microservice;
+            Util.getInstance().connectLoadBalancer(casted);
+            if (casted.getStartingInstanceCount() != v1Deployment.getSpec().getReplicas().intValue()) {
+                throw new ParsingException("Replica count for service " + casted.getPlainName() + " in architecture file does not match the replica count" +
+                        "provided in the deployment file for " + deploymentName + " (" + casted.getStartingInstanceCount() + "/" + v1Deployment.getSpec().getReplicas().intValue() + ")");
+            }
         }
         SchedulerType schedulerType = Util.getInstance().getSchedulerTypeByNameOrStandard(v1Deployment.getSpec().getTemplate().getSpec().getSchedulerName(), v1Deployment.getMetadata().getName());
         Deployment deployment = new Deployment(ManagementPlane.getInstance().getModel(), deploymentName, ManagementPlane.getInstance().getModel().traceIsOn(), casted, v1Deployment.getSpec().getReplicas(), schedulerType);

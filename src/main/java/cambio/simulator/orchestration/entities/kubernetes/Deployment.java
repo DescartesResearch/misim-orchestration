@@ -65,8 +65,13 @@ public class Deployment extends NamedEntity {
     public synchronized void createPod() {
 
         final Pod pod = new Pod(getModel(), "Pod-" + this.getPlainName(), traceIsOn(), this);
-        final MicroserviceInstance microServiceInstance = service.createMicroServiceInstance();
-        final Container container = new Container(getModel(), "Container[" + service.getPlainName() + "]", traceIsOn(), microServiceInstance);
+        Container container;
+        if (service != null) {
+            MicroserviceInstance microServiceInstance = service.createMicroServiceInstance();
+            container = new Container(getModel(), "Container[" + service.getPlainName() + "]", traceIsOn(), microServiceInstance);
+        } else {
+            container = new Container(getModel(), "Container[" + this.getPlainName() + "]", traceIsOn(), null);
+        }
         pod.getContainers().add(container);
         V1Pod v1Pod = createKubernetesPodWithTemplate(pod.getName());
         pod.setKubernetesRepresentation(v1Pod);
@@ -111,6 +116,10 @@ public class Deployment extends NamedEntity {
         Pod podWithLeastConsumption = null;
         double podCPUUtilizationLeast = 0;
         for (Pod pod : pods) {
+            if (service == null) {
+                podWithLeastConsumption = pod;
+                break;
+            }
             double podCPUUtilization = 0;
             for (Container container : pod.getContainers()) {
                 if (container.getContainerState() == ContainerState.RUNNING) {
