@@ -9,7 +9,6 @@ metadata:
     kubeadm.alpha.kubernetes.io/cri-socket: unix:///var/run/containerd/containerd.sock
     node.alpha.kubernetes.io/ttl: "0"
     volumes.kubernetes.io/controller-managed-attach-detach: "true"
-  creationTimestamp: "2023-06-04T09:12:53Z"
   labels:
     beta.kubernetes.io/arch: amd64
     beta.kubernetes.io/os: linux
