@@ -38,7 +38,7 @@ networkDelays:
       worker-us-central1:
         mean: 0.143903
         std: 0.000191
-scheduler: kube
+scheduler: random
 initialSchedulingOrder:
   enabled: true
   order:
