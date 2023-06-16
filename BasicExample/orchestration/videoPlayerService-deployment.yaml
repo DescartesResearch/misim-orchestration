@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: videoPlayerService-deployment
+  name: videoPlayerService
   labels:
     app: videoPlayerService
 spec:
