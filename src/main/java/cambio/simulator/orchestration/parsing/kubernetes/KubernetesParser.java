@@ -213,4 +213,30 @@ public class KubernetesParser {
         return v1Pod;
     }
 
+    public static List<KubernetesObjectWithMetadataSpec> parseGenericKubernetesFiles(String path, String type) {
+        List<KubernetesObjectWithMetadataSpec> result = new ArrayList<>();
+        try {
+            Set<String> fileNames = Util.getInstance().listFilesUsingJavaIO(path);
+            for (String fileName : fileNames) {
+                String filePath = path + "/" + fileName;
+                KubernetesObjectWithMetadataSpec obj = readObjectFromFile(filePath);
+                if (obj != null && obj.getKind().equals(type)) result.add(obj);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+            System.exit(1);
+        }
+        return result;
+    }
+
+    private static KubernetesObjectWithMetadataSpec readObjectFromFile(String path) throws IOException {
+        KubernetesObjectWithMetadataSpec obj;
+        try {
+            obj = Yaml.loadAs(new File(path), KubernetesObjectWithMetadataSpec.class);
+        } catch (ConstructorException e) {
+            return null;
+        }
+        return obj;
+    }
+
 }

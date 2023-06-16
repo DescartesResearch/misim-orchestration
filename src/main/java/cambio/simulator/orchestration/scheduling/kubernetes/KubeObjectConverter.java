@@ -3,6 +3,7 @@ package cambio.simulator.orchestration.scheduling.kubernetes;
 import cambio.simulator.orchestration.entities.Container;
 import cambio.simulator.orchestration.entities.kubernetes.Node;
 import cambio.simulator.orchestration.entities.kubernetes.Pod;
+import cambio.simulator.orchestration.management.ManagementPlane;
 import io.kubernetes.client.custom.Quantity;
 import io.kubernetes.client.openapi.models.*;
 
@@ -42,6 +43,8 @@ public class KubeObjectConverter {
         UpdateNodesRequest result = new UpdateNodesRequest();
         result.setAllNodes(nodeList);
         result.setEvents(events);
+        result.setMachineSets(ManagementPlane.getInstance().getCluster().getMachineSets());
+        result.setMachines(ManagementPlane.getInstance().getCluster().getMachines());
         return result;
     }
 

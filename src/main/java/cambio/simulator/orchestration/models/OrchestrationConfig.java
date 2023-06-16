@@ -18,6 +18,7 @@ public class OrchestrationConfig {
     private List<CustomNodes> customNodes;
     private List<SchedulerPrio> schedulerPrio;
     private List<StartUpTimeContainer> startUpTimeContainer;
+    private boolean useClusterAutoscaler;
 
     public boolean isOrchestrate() {
         return orchestrate;
@@ -121,6 +122,14 @@ public class OrchestrationConfig {
 
     public void setHealthCheckDelay(String healthCheckDelay) {
         this.healthCheckDelay = healthCheckDelay;
+    }
+
+    public boolean isUseClusterAutoscaler() {
+        return useClusterAutoscaler;
+    }
+
+    public void setUseClusterAutoscaler(boolean useClusterAutoscaler) {
+        this.useClusterAutoscaler = useClusterAutoscaler;
     }
 
     public static class InitialSchedulingOrder {

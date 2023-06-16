@@ -1,0 +1,19 @@
+apiVersion: cluster.x-k8s.io/v1beta1
+kind: Machine
+metadata:
+  name: my-machine
+  namespace: kube-system
+  labels:
+    machine-set-name: my-machine-set
+  ownerReferences:
+    - apiVersion: cluster.x-k8s.io/v1beta1
+      kind: MachineSet
+      name: my-machine-set
+spec:
+  providerID: "clusterapi://test-node"
+status:
+  phase: Running
+  nodeRef:
+    apiVersion: v1
+    kind: Node
+    name: test-node

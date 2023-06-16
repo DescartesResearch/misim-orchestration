@@ -3,6 +3,7 @@ package cambio.simulator.orchestration.entities;
 import cambio.simulator.orchestration.entities.kubernetes.Node;
 import cambio.simulator.orchestration.management.ManagementPlane;
 import cambio.simulator.orchestration.models.OrchestrationConfig;
+import cambio.simulator.orchestration.parsing.kubernetes.KubernetesObjectWithMetadataSpec;
 
 import java.util.List;
 import java.util.Map;
@@ -12,6 +13,8 @@ import java.util.Random;
 public class Cluster {
     private static final Random random = new Random(ManagementPlane.getInstance().getExperimentSeed());
     private List<Node> nodes;
+    private List<KubernetesObjectWithMetadataSpec> machineSets;
+    private List<KubernetesObjectWithMetadataSpec> machines;
     private Map<String, Map<String, OrchestrationConfig.NetworkDelays.NetworkInfo>> delayMap;
 
     public Cluster(List<Node> nodes, Map<String, Map<String, OrchestrationConfig.NetworkDelays.NetworkInfo>> network) {
@@ -30,6 +33,22 @@ public class Cluster {
 
     public void setNodes(List<Node> nodes) {
         this.nodes = nodes;
+    }
+
+    public void setMachineSets(List<KubernetesObjectWithMetadataSpec> machineSets) {
+        this.machineSets = machineSets;
+    }
+
+    public List<KubernetesObjectWithMetadataSpec> getMachineSets() {
+        return machineSets;
+    }
+
+    public List<KubernetesObjectWithMetadataSpec> getMachines() {
+        return machines;
+    }
+
+    public void setMachines(List<KubernetesObjectWithMetadataSpec> machines) {
+        this.machines = machines;
     }
 
     public double getNetworkDelay(String sourceNode, String targetNode) {

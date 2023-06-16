@@ -82,6 +82,10 @@ public class MiSimOrchestrationModel extends MiSimModel {
         } else {
             cluster = new Cluster(createNodesFromConfigDto(orchestrationConfig), delayMap);
         }
+        if (orchestrationConfig.isUseClusterAutoscaler()) {
+            cluster.setMachineSets(KubernetesParser.parseGenericKubernetesFiles(orchestrationConfig.getOrchestrationDir(), "MachineSet"));
+            cluster.setMachines(KubernetesParser.parseGenericKubernetesFiles(orchestrationConfig.getOrchestrationDir(), "Machine"));
+        }
 
         ManagementPlane.getInstance().setCluster(cluster);
 

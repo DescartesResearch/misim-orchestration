@@ -55,3 +55,4 @@ initialSchedulingOrder:
     - "teastore-webui"
 scalingInterval: 15
 healthCheckDelay: 0
+useClusterAutoscaler: true
