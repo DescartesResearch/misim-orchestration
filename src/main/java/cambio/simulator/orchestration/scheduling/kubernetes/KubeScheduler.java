@@ -24,9 +24,9 @@ public class KubeScheduler extends Scheduler {
 
     // private static int counter = 1;
 
-    //mirrors the internal cache of running pods that are known by the scheduler
-    // Set<Pod> internalRunningPods = new HashSet<>();
-    // Set<Pod> internalPendingPods = new HashSet<>();
+    // mirrors the internal cache of running pods that are known by the scheduler
+    Set<Pod> internalRunningPods = new HashSet<>();
+    Set<Pod> internalPendingPods = new HashSet<>();
     static int COUNTER = 1;
 
     private static final KubeScheduler instance = new KubeScheduler();
@@ -60,25 +60,20 @@ public class KubeScheduler extends Scheduler {
     public void schedulePods() {
         try {
 
-            // List<String> podList = new ArrayList<>();
-            // Map<String, String> deletedPodMap = new HashMap<>();
-            // List<String> podNames = new ArrayList<>();
-            // int numberOfPendingPods = podWaitingQueue.size();
             if (podWaitingQueue.isEmpty()) return;
             V1PodList v1PodList = new V1PodList();
             List<V1WatchEvent> events = new ArrayList<>();
             List<Pod> allPodsPlacedOnNodes = ManagementPlane.getInstance().getAllPodsPlacedOnNodes();
             V1PodList podsToBePlaced = new V1PodList();
-/*
+            boolean anyPodsHaveBeenRemoved = false;
+
             //Inform the scheduler that pods have been removed from nodes
             List<Pod> foundToRemove = new ArrayList<>();
             for (Pod pod : internalRunningPods) {
                 //If MiSim does not hold the pod from the scheduler cache anymore, tell the scheduler that it was deleted
                 if (!allPodsPlacedOnNodes.contains(pod)) {
-                    events.add(KubeObjectConverter.createPodDeletedEvent(pod));
-                    // String runningPod = KubeJSONCreator.createPod(pod, true);
-                    // String deletedWatchStreamShellForJSONPod = KubeJSONCreator.createWatchStreamShellForJSONPod(runningPod, "DELETED", "Pod");
-                    // podList.add(0, deletedWatchStreamShellForJSONPod);
+                    anyPodsHaveBeenRemoved = true;
+                    events.add(KubeObjectConverter.createPodDeletedEvent(pod, "Running"));
                     foundToRemove.add(pod);
                     System.out.println("In this iteration the following pod will be removed " + pod.getQuotedName() + " from node " + pod.getLastKnownNode().getQuotedName());
                 }
@@ -89,62 +84,46 @@ public class KubeScheduler extends Scheduler {
             foundToRemove.clear();
             for (Pod pod : internalPendingPods) {
                 if (!podWaitingQueue.contains(pod)) {
-                    events.add(KubeObjectConverter.createPodDeletedEvent(pod));
+                    anyPodsHaveBeenRemoved = true;
+                    events.add(KubeObjectConverter.createPodDeletedEvent(pod, "Pending"));
                     foundToRemove.add(pod);
                 }
             }
             foundToRemove.forEach(internalPendingPods::remove);
-*/
+
 
             //Tell the scheduler that pods are already running on nodes (Scheduled by other schedulers)
             for (Pod pod : allPodsPlacedOnNodes) {
                 v1PodList.addItemsItem(KubeObjectConverter.convertPod(pod, "Running"));
-                // if (!internalRunningPods.contains(pod)) {
+                if (!internalRunningPods.contains(pod)) {
                     events.add(KubeObjectConverter.createPodAddedEvent(pod, "Running"));
-                    // String runningPod = KubeJSONCreator.createPod(pod, true);
-                    // String watchStreamShellForJSONPod = KubeJSONCreator.createWatchStreamShellForJSONPod(runningPod, "ADDED", "Pod");
-                    // podList.add(0, watchStreamShellForJSONPod);
-                    // internalRunningPods.add(pod);
-                // }
+                    internalRunningPods.add(pod);
+                }
             }
 
             //Add pods from the waiting queue
             while (podWaitingQueue.size() != 0) {
                 Pod nextPodFromWaitingQueue = getNextPodFromWaitingQueue();
-                // if (!internalPendingPods.contains(nextPodFromWaitingQueue)) {
+                if (!internalPendingPods.contains(nextPodFromWaitingQueue)) {
                     events.add(KubeObjectConverter.createPodAddedEvent(nextPodFromWaitingQueue, "Pending"));
-                    // internalPendingPods.add(nextPodFromWaitingQueue);
-                // }
+                    internalPendingPods.add(nextPodFromWaitingQueue);
+                    podsToBePlaced.addItemsItem(KubeObjectConverter.convertPod(nextPodFromWaitingQueue, "Pending"));
+                } else if (anyPodsHaveBeenRemoved) {
+                    // if pods have been removed, there is a chance that we get older pending pods placed
+                    podsToBePlaced.addItemsItem(KubeObjectConverter.convertPod(nextPodFromWaitingQueue, "Pending"));
+                }
                 v1PodList.addItemsItem(KubeObjectConverter.convertPod(nextPodFromWaitingQueue, "Pending"));
-                podsToBePlaced.addItemsItem(KubeObjectConverter.convertPod(nextPodFromWaitingQueue, "Pending"));
-                // podNames.add(nextPodFromWaitingQueue.getName());
-                // String pendingPod = KubeJSONCreator.createPod(nextPodFromWaitingQueue, false);
-                // String watchStreamShellForJSONPod = KubeJSONCreator.createWatchStreamShellForJSONPod(pendingPod, "ADDED", "Pod");
-                //Already prepare DELETED objects for the watchstream. The API can then give this objects to the scheduler by itself
-                // String deletedWatchStreamShellForJSONPod = KubeJSONCreator.createWatchStreamShellForJSONPod(pendingPod, "DELETED", "Pod");
-                // podList.add(watchStreamShellForJSONPod);
-                // deletedPodMap.put(nextPodFromWaitingQueue.getName(), deletedWatchStreamShellForJSONPod);
             }
 
-            // StringBuilder finalPodString = new StringBuilder();
-            // for (String podJSON : podList) {
-            // finalPodString.append(podJSON);
-            // }
-
-            // if(finalPodString.toString().equals("")){
-            // return;
-            // }
-            // if (events.isEmpty()) {
+            if (events.isEmpty()) {
                 // If no events happened, scheduler will do nothing
-                // podWaitingQueue.addAll(internalPendingPods);
-                // return;
-            // }
+                podWaitingQueue.addAll(internalPendingPods);
+                return;
+            }
+
             UpdatePodsRequest upr = new UpdatePodsRequest();
             upr.setEvents(events);
             upr.setAllPods(v1PodList);
-            // for (Pod pod : internalPendingPods) {
-                // podsToBePlaced.addItemsItem(KubeObjectConverter.convertPod(pod, "Pending"));
-            // }
             upr.setPodsToBePlaced(podsToBePlaced);
 
             System.out.println("Call kube-scheduler: " + COUNTER++);
@@ -171,8 +150,8 @@ public class KubeScheduler extends Scheduler {
                     throw new KubeSchedulerException("The selected node has not enough resources to run the selected pod. The kube-scheduler must have calculated wrong");
                 }
 
-                // internalRunningPods.add(pod);
-                // internalPendingPods.remove(pod);
+                internalRunningPods.add(pod);
+                internalPendingPods.remove(pod);
 
                 //only for reporting
                 Stats.NodePodEventRecord record = new Stats.NodePodEventRecord();
@@ -196,7 +175,7 @@ public class KubeScheduler extends Scheduler {
                 String podName = fail.getPod();
                 Pod pod = ManagementPlane.getInstance().getPodByName(podName);
                 podWaitingQueue.add(pod);
-                // internalPendingPods.add(pod); // Should have no effect
+                internalPendingPods.add(pod); // Should have no effect
 
                 //only for reporting
                 Stats.NodePodEventRecord record = new Stats.NodePodEventRecord();
