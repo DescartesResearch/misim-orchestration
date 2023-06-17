@@ -10,6 +10,7 @@ import cambio.simulator.orchestration.management.ManagementPlane;
 import cambio.simulator.orchestration.scaling.AutoScaler;
 import cambio.simulator.orchestration.scheduling.Scheduler;
 import cambio.simulator.orchestration.scheduling.SchedulerType;
+import com.google.gson.Gson;
 import desmoj.core.simulator.Model;
 import desmoj.core.simulator.TimeInstant;
 import io.kubernetes.client.openapi.models.*;
@@ -89,7 +90,10 @@ public class Deployment extends NamedEntity {
         result.setApiVersion("v1");
         result.setKind("Pod");
         result.setMetadata(new V1ObjectMeta().name(name).namespace("default").uid(name));
-        result.setSpec(kubernetesRepresentation.getSpec().getTemplate().getSpec());
+        // We need to make a deep copy of the template here -> safest way is to serialize and deserialize
+        Gson gson = new Gson();
+        V1PodSpec spec = gson.fromJson(gson.toJson(kubernetesRepresentation.getSpec().getTemplate().getSpec()), V1PodSpec.class);
+        result.setSpec(spec);
         result.setStatus(new V1PodStatus().phase("Pending"));
         return result;
     }

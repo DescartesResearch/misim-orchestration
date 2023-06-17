@@ -84,7 +84,6 @@ public class KubeScheduler extends Scheduler {
             foundToRemove.clear();
             for (Pod pod : internalPendingPods) {
                 if (!podWaitingQueue.contains(pod)) {
-                    anyPodsHaveBeenRemoved = true;
                     events.add(KubeObjectConverter.createPodDeletedEvent(pod, "Pending"));
                     foundToRemove.add(pod);
                 }
@@ -152,6 +151,7 @@ public class KubeScheduler extends Scheduler {
 
                 internalRunningPods.add(pod);
                 internalPendingPods.remove(pod);
+                pod.bindToNode(boundNode);
 
                 //only for reporting
                 Stats.NodePodEventRecord record = new Stats.NodePodEventRecord();

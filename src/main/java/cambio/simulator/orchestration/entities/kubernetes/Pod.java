@@ -96,4 +96,8 @@ public class Pod extends NamedEntity {
     public void setKubernetesRepresentation(V1Pod kubernetesRepresentation) {
         this.kubernetesRepresentation = kubernetesRepresentation;
     }
+
+    public void bindToNode(String nodeName) {
+        kubernetesRepresentation.getSpec().setNodeName(nodeName);
+    }
 }
