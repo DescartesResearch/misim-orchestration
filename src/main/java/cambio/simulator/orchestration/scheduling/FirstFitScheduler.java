@@ -38,7 +38,7 @@ public class FirstFitScheduler extends Scheduler {
 
         if (pod != null) {
             Node candidateNote = null;
-            int cpuDemand = pod.getCPUDemand();
+            double cpuDemand = pod.getCPUDemand();
             for (Node node : cluster.getNodes()) {
                 if (node.getReserved() + cpuDemand <= node.getTotalCPU()) {
                     candidateNote = node;

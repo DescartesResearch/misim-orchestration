@@ -16,6 +16,9 @@ spec:
     spec:
       containers:
         - name: recommendationService
+          resources:
+            requests:
+              cpu: "1.0"
 #      affinity:
 #        nodeAffinity:
 #          requiredDuringSchedulingIgnoredDuringExecution:

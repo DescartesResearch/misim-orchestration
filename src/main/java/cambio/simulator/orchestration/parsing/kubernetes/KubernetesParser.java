@@ -189,6 +189,10 @@ public class KubernetesParser {
         }
         SchedulerType schedulerType = Util.getInstance().getSchedulerTypeByNameOrStandard(v1Deployment.getSpec().getTemplate().getSpec().getSchedulerName(), v1Deployment.getMetadata().getName());
         Deployment deployment = new Deployment(ManagementPlane.getInstance().getModel(), deploymentName, ManagementPlane.getInstance().getModel().traceIsOn(), casted, v1Deployment.getSpec().getReplicas(), schedulerType);
+        if (schedulerType.getName().equals("kube") &&
+                (v1Deployment.getSpec().getTemplate().getSpec().getSchedulerName() == null || v1Deployment.getSpec().getTemplate().getSpec().getSchedulerName().equals(""))) {
+            v1Deployment.getSpec().getTemplate().getSpec().setSchedulerName("default-scheduler");
+        }
         deployment.setKubernetesRepresentation(v1Deployment);
         return deployment;
     }

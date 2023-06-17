@@ -132,8 +132,8 @@ public class Stats {
 
     public static class SchedulingRecord {
         int time;
-        int capacityTogether;
-        int reservedTogether;
+        double capacityTogether;
+        double reservedTogether;
         int amountPodsOnNodes;
         int amountPodsWaiting;
 
@@ -161,19 +161,19 @@ public class Stats {
             this.time = time;
         }
 
-        public int getCapacityTogether() {
+        public double getCapacityTogether() {
             return capacityTogether;
         }
 
-        public void setCapacityTogether(int capacityTogether) {
+        public void setCapacityTogether(double capacityTogether) {
             this.capacityTogether = capacityTogether;
         }
 
-        public int getReservedTogether() {
+        public double getReservedTogether() {
             return reservedTogether;
         }
 
-        public void setReservedTogether(int reservedTogether) {
+        public void setReservedTogether(double reservedTogether) {
             this.reservedTogether = reservedTogether;
         }
     }
@@ -269,8 +269,8 @@ public class Stats {
         int time = (int) model.presentTime().getTimeAsDouble();
         Stats.SchedulingRecord schedulingRecord = new SchedulingRecord();
         schedulingRecord.setTime(time);
-        int totalCPU = 0;
-        int toalReserved = 0;
+        double totalCPU = 0;
+        double toalReserved = 0;
         for (Node node : ManagementPlane.getInstance().getCluster().getNodes()) {
             totalCPU += node.getTotalCPU();
             toalReserved += node.getReserved();

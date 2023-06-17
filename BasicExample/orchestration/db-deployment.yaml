@@ -16,3 +16,6 @@ spec:
     spec:
       containers:
         - name: db
+          resources:
+            requests:
+              cpu: "1.0"

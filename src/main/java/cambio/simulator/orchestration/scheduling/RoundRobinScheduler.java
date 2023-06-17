@@ -38,7 +38,7 @@ public class RoundRobinScheduler extends Scheduler {
         if (pod != null) {
             Node candidateNode = null;
             int candidateNodeSize = Integer.MAX_VALUE;
-            int cpuDemand = pod.getCPUDemand();
+            double cpuDemand = pod.getCPUDemand();
             for (Node node : cluster.getNodes()) {
                 int size = (int) node.getPods().stream().filter(pod1 -> pod1.getOwner().getPlainName().equals(plainName)).count();
                 if (size < candidateNodeSize) {

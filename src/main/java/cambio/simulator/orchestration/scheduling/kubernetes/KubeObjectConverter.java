@@ -24,7 +24,7 @@ public class KubeObjectConverter {
                     put("kubernetes.io/hostname", node.getPlainName());
                 }}));
                 Map<String, Quantity> nodeResources = new HashMap<>();
-                nodeResources.put("cpu", new Quantity(Integer.toString(node.getTotalCPU())));
+                nodeResources.put("cpu", new Quantity(Double.toString(node.getTotalCPU())));
                 // Some default arbitrary values for the non-modeled resources
                 nodeResources.put("ephemeral-storage", new Quantity("999999999Ki"));
                 nodeResources.put("hugepages-1Gi", new Quantity("0"));
@@ -61,7 +61,7 @@ public class KubeObjectConverter {
                 V1Container tempContainer = new V1Container();
                 tempContainer.setName(c.getPlainName());
                 Map<String, Quantity> limitsAndRequests = new HashMap<>();
-                limitsAndRequests.put("cpu", new Quantity(Integer.toString(pod.getCPUDemand())));
+                limitsAndRequests.put("cpu", new Quantity(Double.toString(pod.getCPUDemand())));
                 tempContainer.setResources(new V1ResourceRequirements().limits(limitsAndRequests).requests(limitsAndRequests));
                 tempContainers.add(tempContainer);
             }

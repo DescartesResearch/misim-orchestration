@@ -16,19 +16,19 @@ public class Pod extends NamedEntity {
     private Set<Container> containers;
     private Node lastKnownNode;
     private final Deployment owner;
-    private int cpuDemandMilliCores;
+    private final double cpuDemand;
     private V1Pod kubernetesRepresentation;
 
-    public Pod(Model model, String name, boolean showInTrace, Deployment deployment, int cpuDemandMilliCores) {
+    public Pod(Model model, String name, boolean showInTrace, Deployment deployment, double cpuDemandCores) {
         super(model, name, showInTrace);
         this.containers = new HashSet<>();
         this.podState = PodState.PENDING;
         this.owner = deployment;
-        this.cpuDemandMilliCores = cpuDemandMilliCores;
+        this.cpuDemand = cpuDemandCores;
     }
 
-    public int getCPUDemand() {
-        return cpuDemandMilliCores;
+    public double getCPUDemand() {
+        return cpuDemand;
     }
 
     public void die() {

@@ -61,15 +61,15 @@ public class Deployment extends NamedEntity {
     }
 
     public synchronized void createPod() {
-        int totalRequestedCPUMilliCores = 0;
+        double totalRequestedCPUCores = 0;
         for (V1Container c : kubernetesRepresentation.getSpec().getTemplate().getSpec().getContainers()) {
             if (c.getResources() != null && c.getResources().getRequests() != null) {
                 if (c.getResources().getRequests().get("cpu") != null) {
-                    totalRequestedCPUMilliCores += c.getResources().getRequests().get("cpu").getNumber().intValue();
+                    totalRequestedCPUCores += c.getResources().getRequests().get("cpu").getNumber().doubleValue();
                 }
             }
         }
-        final Pod pod = new Pod(getModel(), "Pod-" + this.getPlainName(), traceIsOn(), this, totalRequestedCPUMilliCores);
+        final Pod pod = new Pod(getModel(), "Pod-" + this.getPlainName(), traceIsOn(), this, totalRequestedCPUCores);
         Container container;
         if (service != null) {
             MicroserviceInstance microServiceInstance = service.createMicroServiceInstance();

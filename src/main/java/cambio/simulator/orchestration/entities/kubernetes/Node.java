@@ -23,15 +23,14 @@ public class Node extends NamedEntity {
     private final String nodeIpAddress;
     private static int IP_ADDRESS_COUNTER = 1;
 
-    private final int totalCPU;
-    private int reserved = 0;
+    private final double totalCPU;
+    private double reserved = 0;
     private List<Pod> pods;
     private V1Node kubernetesRepresentation;
 
-    public Node(Model model, String name, boolean showInTrace, int totalCPU) {
+    public Node(Model model, String name, boolean showInTrace, double totalCPU) {
         super(model, name, showInTrace);
-        // totalCPU is in millicores, as misim does only support integer demands
-        this.totalCPU = totalCPU * 1000;
+        this.totalCPU = totalCPU;
         this.pods = new ArrayList<>();
         this.nodeIpAddress = BASE_IP_ADDRESS + IP_ADDRESS_COUNTER++;
     }
@@ -116,11 +115,11 @@ public class Node extends NamedEntity {
         this.pods = pods;
     }
 
-    public int getTotalCPU() {
+    public double getTotalCPU() {
         return totalCPU;
     }
 
-    public int getReserved() {
+    public double getReserved() {
         return reserved;
     }
 
