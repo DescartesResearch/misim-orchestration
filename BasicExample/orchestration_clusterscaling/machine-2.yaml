@@ -1,19 +1,19 @@
 apiVersion: cluster.x-k8s.io/v1beta1
 kind: Machine
 metadata:
-  name: my-machine
+  name: my-machine-2
   namespace: kube-system
   labels:
-    machine-set-name: small-set
+    machine-set-name: large-set
   ownerReferences:
     - apiVersion: cluster.x-k8s.io/v1beta1
       kind: MachineSet
-      name: small-set
+      name: large-set
 spec:
-  providerID: "clusterapi://small-node"
+  providerID: "clusterapi://large-node"
 status:
   phase: Running
   nodeRef:
     apiVersion: v1
     kind: Node
-    name: small-node
+    name: large-node

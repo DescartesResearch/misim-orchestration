@@ -44,6 +44,10 @@ public class KubernetesParser {
         } catch (ConstructorException e) {
             return null;
         }
+        return createNodeFromKubernetesObject(model, trace, v1Node);
+    }
+
+    public static Node createNodeFromKubernetesObject(Model model, boolean trace, V1Node v1Node) {
         Node node = new Node(model, v1Node.getMetadata().getName(), trace, v1Node.getStatus().getAllocatable().get("cpu").getNumber().intValue());
         node.setKubernetesRepresentation(v1Node);
         return node;

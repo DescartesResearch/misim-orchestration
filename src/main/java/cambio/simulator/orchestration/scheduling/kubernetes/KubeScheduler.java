@@ -4,9 +4,11 @@ import cambio.simulator.orchestration.export.Stats;
 import cambio.simulator.orchestration.entities.kubernetes.Node;
 import cambio.simulator.orchestration.entities.kubernetes.Pod;
 import cambio.simulator.orchestration.management.ManagementPlane;
+import cambio.simulator.orchestration.parsing.kubernetes.KubernetesParser;
 import cambio.simulator.orchestration.scheduling.Scheduler;
 import cambio.simulator.orchestration.scheduling.SchedulerType;
 import com.google.gson.Gson;
+import io.kubernetes.client.openapi.models.V1Node;
 import io.kubernetes.client.openapi.models.V1PodList;
 import io.kubernetes.client.openapi.models.V1WatchEvent;
 
@@ -62,6 +64,8 @@ public class KubeScheduler extends Scheduler {
 
             if (podWaitingQueue.isEmpty()) return;
             V1PodList v1PodList = new V1PodList();
+            v1PodList.setApiVersion("v1");
+            v1PodList.setKind("PodList");
             List<V1WatchEvent> events = new ArrayList<>();
             List<Pod> allPodsPlacedOnNodes = ManagementPlane.getInstance().getAllPodsPlacedOnNodes();
             V1PodList podsToBePlaced = new V1PodList();
@@ -131,6 +135,16 @@ public class KubeScheduler extends Scheduler {
             SchedulerResponse schedulerResponse = new Gson()
                     .fromJson(response, SchedulerResponse.class);
             // System.out.println(schedulerResponse);
+            for (V1Node createdNode : schedulerResponse.getNewNodes()) {
+                Node newNode = KubernetesParser.createNodeFromKubernetesObject(ManagementPlane.getInstance().getModel(), traceIsOn(), createdNode);
+                ManagementPlane.getInstance().getCluster().addNode(newNode);
+            }
+
+            for (V1Node deletedNode : schedulerResponse.getDeletedNodes()) {
+                Node delNode = KubernetesParser.createNodeFromKubernetesObject(ManagementPlane.getInstance().getModel(), traceIsOn(), deletedNode);
+                ManagementPlane.getInstance().getCluster().deleteNode(delNode);
+            }
+
             for (BindingInformation bind : schedulerResponse.getBinded()) {
                 String boundNode = bind.getNode();
                 String podName = bind.getPod();

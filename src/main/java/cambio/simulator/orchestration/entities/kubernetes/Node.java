@@ -134,4 +134,18 @@ public class Node extends NamedEntity {
     public void setKubernetesRepresentation(V1Node kubernetesRepresentation) {
         this.kubernetesRepresentation = kubernetesRepresentation;
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj instanceof Node) {
+            return ((Node) obj).getQuotedName().equals(getQuotedName());
+        } else {
+            return false;
+        }
+    }
+
+    @Override
+    public int hashCode() {
+        return getQuotedName().hashCode();
+    }
 }

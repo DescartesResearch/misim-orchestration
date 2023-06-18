@@ -27,6 +27,14 @@ public class Cluster {
         return first.orElse(null);
     }
 
+    public void addNode(Node node) {
+        nodes.add(node);
+    }
+
+    public void deleteNode(Node node) {
+        nodes.remove(node);
+    }
+
     public List<Node> getNodes() {
         return nodes;
     }

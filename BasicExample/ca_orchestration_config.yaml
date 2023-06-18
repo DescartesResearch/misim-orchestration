@@ -1,0 +1,11 @@
+orchestrate: true
+orchestrationDir: "./BasicExample/orchestration_clusterscaling"
+importNodes: true
+networkDelays:
+  enabled: false
+scheduler: kube
+initialSchedulingOrder:
+  enabled: false
+scalingInterval: 15
+healthCheckDelay: 0
+useClusterAutoscaler: true

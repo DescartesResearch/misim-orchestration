@@ -12,6 +12,8 @@ import java.util.*;
 public class KubeObjectConverter {
     public static UpdateNodesRequest convertNodes(List<Node> clusterNodes) {
         V1NodeList nodeList = new V1NodeList();
+        nodeList.setApiVersion("v1");
+        nodeList.setKind("NodeList");
         List<V1Node> convertedNodes = new ArrayList<>();
         List<V1WatchEvent> events = new ArrayList<>();
         for (Node node : clusterNodes) {

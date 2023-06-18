@@ -1,0 +1,10 @@
+{
+  "simulation_meta_data": {
+    "experiment_name": "CAAutoscalerDemo",
+    "model_name": "ca_architecture_model",
+    "duration": 3601,
+    "report": "",
+    "datapoints": 20,
+    "seed": 979
+  }
+}

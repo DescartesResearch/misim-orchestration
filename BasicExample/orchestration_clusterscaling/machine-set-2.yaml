@@ -1,21 +1,21 @@
 apiVersion: cluster.x-k8s.io/v1beta1
 kind: MachineSet
 metadata:
-  name: small-set
+  name: large-set
   namespace: kube-system
   labels:
-    max-cpus: "4"
+    max-cpus: "8"
   annotations:
     cluster.x-k8s.io/cluster-api-autoscaler-node-group-min-size: "1"
     cluster.x-k8s.io/cluster-api-autoscaler-node-group-max-size: "10"
     capacity.cluster-autoscaler.kubernetes.io/memory: "128G"
-    capacity.cluster-autoscaler.kubernetes.io/cpu: "4"
+    capacity.cluster-autoscaler.kubernetes.io/cpu: "8"
     capacity.cluster-autoscaler.kubernetes.io/maxPods: "120"
 spec:
   replicas: 1
   selector:
     matchLabels:
-      machine-set-name: small-set
+      machine-set-name: large-set
 status:
   replicas: 1
   fullyLabeledReplicas: 1
