@@ -12,7 +12,7 @@
       "type": "limbo",
       "config": {
         "operation": "teastore-webui.index",
-        "limbo_model": "./BasicExample/traces_default/webui.index.csv",
+        "limbo_model": "./examples/GlobalSchedulingMostAllocated/traces_mostalloc/webui.index.csv",
         "repeating": false,
         "repetition_skip": 0
       }
@@ -21,7 +21,7 @@
       "type": "limbo",
       "config": {
         "operation": "teastore-webui.loginAction_login",
-        "limbo_model": "./BasicExample/traces_default/webui.loginaction.login.csv",
+        "limbo_model": "./examples/GlobalSchedulingMostAllocated/traces_mostalloc/webui.loginaction.login.csv",
         "repeating": false,
         "repetition_skip": 0
       }
@@ -30,7 +30,7 @@
       "type": "limbo",
       "config": {
         "operation": "teastore-webui.cartAction_addToCart",
-        "limbo_model": "./BasicExample/traces_default/webui.cartaction.addtocart.csv",
+        "limbo_model": "./examples/GlobalSchedulingMostAllocated/traces_mostalloc/webui.cartaction.addtocart.csv",
         "repeating": false,
         "repetition_skip": 0
       }
@@ -39,7 +39,7 @@
       "type": "limbo",
       "config": {
         "operation": "teastore-webui.loginAction_logout",
-        "limbo_model": "./BasicExample/traces_default/webui.loginaction.logout.csv",
+        "limbo_model": "./examples/GlobalSchedulingMostAllocated/traces_mostalloc/webui.loginaction.logout.csv",
         "repeating": false,
         "repetition_skip": 0
       }

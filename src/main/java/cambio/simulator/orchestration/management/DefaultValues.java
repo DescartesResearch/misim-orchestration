@@ -30,9 +30,7 @@ public class DefaultValues {
             final List<String> possibleValues = Arrays.stream(SchedulerType.values()).map(SchedulerType::getName).collect(Collectors.toList());
             throw new ParsingException("Unknown SchedulerType in config file: " + configDto.getScheduler() + "\nPossible values are: " + possibleValues);
         }
-        if (configDto.getHealthCheckDelay()!=null){
-            HealthCheckEvent.delay = Integer.parseInt(configDto.getHealthCheckDelay());
-        }
+        HealthCheckEvent.delay = configDto.getHealthCheckDelay();
     }
 
     public String getScheduler() {

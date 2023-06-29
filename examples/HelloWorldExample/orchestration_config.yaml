@@ -1,0 +1,11 @@
+orchestrate: true
+orchestrationDir: "./examples/HelloWorldExample/orchestration"
+nodes:
+  amount: 2
+  cpu: 20
+scaler:
+  holdTimeUpScaler: 0
+  holdTimeDownScaler: 300
+scheduler: kube
+scalingInterval: 15
+healthCheckDelay: 0

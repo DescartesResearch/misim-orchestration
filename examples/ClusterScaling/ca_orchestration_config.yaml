@@ -1,5 +1,5 @@
 orchestrate: true
-orchestrationDir: "./BasicExample/orchestration_clusterscaling"
+orchestrationDir: "./examples/ClusterScaling/orchestration_clusterscaling"
 importNodes: true
 networkDelays:
   enabled: false

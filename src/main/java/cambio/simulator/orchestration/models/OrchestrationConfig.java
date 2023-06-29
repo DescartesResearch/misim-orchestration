@@ -14,11 +14,18 @@ public class OrchestrationConfig {
     private String scheduler;
     private InitialSchedulingOrder initialSchedulingOrder;
     private int scalingInterval;
-    private String healthCheckDelay;
+    private int healthCheckDelay;
     private List<CustomNodes> customNodes;
     private List<SchedulerPrio> schedulerPrio;
     private List<StartUpTimeContainer> startUpTimeContainer;
     private boolean useClusterAutoscaler;
+
+    public OrchestrationConfig() {
+        importNodes = false;
+        scaler = new Scaler();
+        scalingInterval = 15;
+        healthCheckDelay = 0;
+    }
 
     public boolean isOrchestrate() {
         return orchestrate;
@@ -116,11 +123,11 @@ public class OrchestrationConfig {
         this.scalingInterval = scalingInterval;
     }
 
-    public String getHealthCheckDelay() {
+    public int getHealthCheckDelay() {
         return healthCheckDelay;
     }
 
-    public void setHealthCheckDelay(String healthCheckDelay) {
+    public void setHealthCheckDelay(int healthCheckDelay) {
         this.healthCheckDelay = healthCheckDelay;
     }
 
@@ -282,6 +289,11 @@ public class OrchestrationConfig {
     public static class Scaler {
         int holdTimeUpScaler;
         int holdTimeDownScaler;
+
+        public Scaler() {
+            holdTimeUpScaler = 0;
+            holdTimeDownScaler = 0;
+        }
 
         public int getHoldTimeUpScaler() {
             return holdTimeUpScaler;

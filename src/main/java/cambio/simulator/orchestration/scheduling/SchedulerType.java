@@ -2,8 +2,6 @@ package cambio.simulator.orchestration.scheduling;
 
 public enum SchedulerType {
 
-
-    FIRSTFIT("firstFit", "FirstFitScheduler"),
     RANDOM("random", "RandomScheduler"),
     KUBE("kube", "KubeScheduler"),
     ROUNDROBIN("roundRobin", "RoundRobin");

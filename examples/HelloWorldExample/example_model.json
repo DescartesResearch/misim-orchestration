@@ -13,7 +13,7 @@
       "config": {
         "microservice": "frontend",
         "operation": "authenticate",
-        "model": "./BasicExample/load/sinus_avg10_2to18_length90_trans70_10min.csv"
+        "model": "./examples/HelloWorldExample/load/sinus_avg10_2to18_length90_trans70_10min.csv"
       }
     },
     {
@@ -21,7 +21,7 @@
       "config": {
         "microservice": "frontend",
         "operation": "loadHomeScreen",
-        "model": "./BasicExample/load/sinus_avg10_2to18_length90_trans70_10min.csv"
+        "model": "./examples/HelloWorldExample/load/sinus_avg10_2to18_length90_trans70_10min.csv"
       }
     },
     {
@@ -29,7 +29,7 @@
       "config": {
         "microservice": "frontend",
         "operation": "manageAccount",
-        "model": "./BasicExample/load/sinus_avg10_2to18_length90_trans70_10min.csv"
+        "model": "./examples/HelloWorldExample/load/sinus_avg10_2to18_length90_trans70_10min.csv"
       }
     },
     {
@@ -37,7 +37,7 @@
       "config": {
         "microservice": "frontend",
         "operation": "watchMovie",
-        "model": "./BasicExample/load/sinus_avg10_2to18_length90_trans70_10min.csv"
+        "model": "./examples/HelloWorldExample/load/sinus_avg10_2to18_length90_trans70_10min.csv"
       }
     },
     {
@@ -45,7 +45,7 @@
       "config": {
         "microservice": "frontend",
         "operation": "stopMovie",
-        "model": "./BasicExample/load/sinus_avg10_2to18_length90_trans70_10min.csv"
+        "model": "./examples/HelloWorldExample/load/sinus_avg10_2to18_length90_trans70_10min.csv"
       }
     }
   ]
