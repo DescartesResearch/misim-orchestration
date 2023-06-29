@@ -1,0 +1,24 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: dummy-eu-worker2
+spec:
+  replicas: 1
+  template:
+    spec:
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+              - matchExpressions:
+                  - key: kubernetes.io/hostname
+                    operator: In
+                    values:
+                      - worker-2-eu-west
+      schedulerName: custom-scheduler
+      containers:
+        - name: with-node-affinity
+          image: registry.k8s.io/pause:2.0
+          resources:
+            requests:
+              cpu: "150m"

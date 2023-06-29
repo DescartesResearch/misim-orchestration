@@ -1,0 +1,26 @@
+orchestrate: true
+orchestrationDir: "./BasicExample/orchestration"
+nodes:
+  amount: 2
+  cpu: 20
+#customNodes:
+#  - name: Test5Node
+#    cpu: 0
+scaler:
+  holdTimeUpScaler: 0
+  holdTimeDownScaler: 300
+scheduler: kube
+scalingInterval: 15
+healthCheckDelay: 0
+#schedulerPrio:
+#  - name: kube
+#    prio: 4
+#  - name: firstFit
+#    prio: 3
+#startUpTimeContainer:
+#  - name: frontend
+#    time: 0
+#  - name: backend
+#    time: 0
+#  - name: db
+#    time: 0

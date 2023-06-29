@@ -1,0 +1,104 @@
+apiVersion: v1
+kind: Node
+metadata:
+  annotations:
+    flannel.alpha.coreos.com/backend-data: '{"VNI":1,"VtepMAC":"a2:a2:96:97:15:39"}'
+    flannel.alpha.coreos.com/backend-type: vxlan
+    flannel.alpha.coreos.com/kube-subnet-manager: "true"
+    flannel.alpha.coreos.com/public-ip: 10.156.0.4
+    kubeadm.alpha.kubernetes.io/cri-socket: unix:///var/run/containerd/containerd.sock
+    node.alpha.kubernetes.io/ttl: "0"
+    volumes.kubernetes.io/controller-managed-attach-detach: "true"
+  labels:
+    beta.kubernetes.io/arch: amd64
+    beta.kubernetes.io/os: linux
+    compute-zone: europe
+    kubernetes.io/arch: amd64
+    kubernetes.io/hostname: worker-2-eu-west
+    kubernetes.io/os: linux
+  name: worker-2-eu-west
+  resourceVersion: "333232"
+  uid: 8898a46a-f2c9-4ce1-b02e-12e7b880644e
+spec:
+  podCIDR: 10.244.2.0/24
+  podCIDRs:
+    - 10.244.2.0/24
+status:
+  addresses:
+    - address: 10.156.0.4
+      type: InternalIP
+    - address: worker-2-eu-west
+      type: Hostname
+  allocatable:
+    cpu: "4"
+    ephemeral-storage: "46651590989"
+    hugepages-1Gi: "0"
+    hugepages-2Mi: "0"
+    memory: 16287688Ki
+    pods: "110"
+  capacity:
+    cpu: "4"
+    ephemeral-storage: 50620216Ki
+    hugepages-1Gi: "0"
+    hugepages-2Mi: "0"
+    memory: 16390088Ki
+    pods: "110"
+  images:
+    - names:
+        - docker.io/descartesresearch/teastore-persistence@sha256:ac6b0fe9aeca04ee31fea20caed0b49af2ddf709c28a2cf1f4b9b041af05279b
+        - docker.io/descartesresearch/teastore-persistence:latest
+      sizeBytes: 377980482
+    - names:
+        - docker.io/descartesresearch/teastore-webui@sha256:d0e490bd025167fefaf84d43f978c3c6d14fad9bf3cba9bc49ef902a0d106078
+        - docker.io/descartesresearch/teastore-webui:latest
+      sizeBytes: 372518893
+    - names:
+        - docker.io/descartesresearch/teastore-image@sha256:8f339e6b8ee7d7b2c3efd173b1a23c7ffda03ab9d0bc5b8904beb6a1f2e2bd98
+        - docker.io/descartesresearch/teastore-image:latest
+      sizeBytes: 369162915
+    - names:
+        - docker.io/descartesresearch/teastore-recommender@sha256:8cd0cc779929f9a03ac5990d09637f95e24bb333cbcc0b8df139c4c16df93d50
+        - docker.io/descartesresearch/teastore-recommender:latest
+      sizeBytes: 368150565
+    - names:
+        - docker.io/descartesresearch/teastore-auth@sha256:1babe5ca10bda103daa03f52db3e2357e0d3ec32a9ed549c4b2e2020152b0dac
+        - docker.io/descartesresearch/teastore-auth:latest
+      sizeBytes: 368148515
+    - names:
+        - docker.io/descartesresearch/teastore-registry@sha256:25000aa7fb7c1798febd464805d363a402cfe4a26877eb4d50874689efcc3e2f
+        - docker.io/descartesresearch/teastore-registry:latest
+      sizeBytes: 355030866
+    - names:
+        - docker.io/descartesresearch/teastore-db@sha256:7a22000cc6b5fa7bfa99f7c8ccca68651ddd44684f5a571341723c839722b60c
+        - docker.io/descartesresearch/teastore-db:latest
+      sizeBytes: 113833775
+    - names:
+        - docker.io/flannel/flannel@sha256:5f83f1243057458e27249157394e3859cf31cc075354af150d497f2ebc8b54db
+        - docker.io/flannel/flannel:v0.22.0
+      sizeBytes: 26855532
+    - names:
+        - registry.k8s.io/kube-proxy@sha256:1e4f13f5f5c215813fb9c9c6f56da1c0354363f2a69bd12732658f79d585864f
+        - registry.k8s.io/kube-proxy:v1.27.2
+      sizeBytes: 23895334
+    - names:
+        - docker.io/flannel/flannel-cni-plugin@sha256:bf4b62b131666d040f35a327d906ee5a3418280b68a88d9b9c7e828057210443
+        - docker.io/flannel/flannel-cni-plugin:v1.1.2
+      sizeBytes: 3842055
+    - names:
+        - registry.k8s.io/pause:2.0
+      sizeBytes: 341616
+    - names:
+        - registry.k8s.io/pause@sha256:3d380ca8864549e74af4b29c10f9cb0956236dfb01c40ca076fb6c37253234db
+        - registry.k8s.io/pause:3.6
+      sizeBytes: 301773
+  nodeInfo:
+    architecture: amd64
+    bootID: 15da6548-ffd3-426f-872d-575f54cedfb3
+    containerRuntimeVersion: containerd://1.6.12
+    kernelVersion: 5.4.0-1104-gcp
+    kubeProxyVersion: v1.27.2
+    kubeletVersion: v1.27.2
+    machineID: eb32a374f997c7680328995cfdad4630
+    operatingSystem: linux
+    osImage: Ubuntu 18.04.6 LTS
+    systemUUID: eb32a374-f997-c768-0328-995cfdad4630

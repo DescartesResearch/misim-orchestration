@@ -1,0 +1,4829 @@
+{
+  "kind": "EventList",
+  "apiVersion": "events.k8s.io/v1",
+  "metadata": {
+    "resourceVersion": "11648"
+  },
+  "items": [
+    {
+      "metadata": {
+        "name": "minikube.16d263c657fd5338",
+        "namespace": "default",
+        "uid": "b0f2d985-5d01-4b02-a578-1b8ed61440b1",
+        "resourceVersion": "10095",
+        "creationTimestamp": "2022-02-10T09:48:46Z",
+        "managedFields": [
+          {
+            "manager": "kubelet",
+            "operation": "Update",
+            "apiVersion": "v1",
+            "time": "2022-02-10T09:48:46Z",
+            "fieldsType": "FieldsV1",
+            "fieldsV1": {"f:count":{},"f:firstTimestamp":{},"f:involvedObject":{"f:kind":{},"f:name":{},"f:uid":{}},"f:lastTimestamp":{},"f:message":{},"f:reason":{},"f:source":{"f:component":{},"f:host":{}},"f:type":{}}
+          }
+        ]
+      },
+      "eventTime": null,
+      "reason": "Starting",
+      "regarding": {
+        "kind": "Node",
+        "name": "minikube",
+        "uid": "minikube"
+      },
+      "note": "Starting kubelet.",
+      "type": "Normal",
+      "deprecatedSource": {
+        "component": "kubelet",
+        "host": "minikube"
+      },
+      "deprecatedFirstTimestamp": "2022-02-10T09:48:37Z",
+      "deprecatedLastTimestamp": "2022-02-10T09:48:37Z",
+      "deprecatedCount": 1
+    },
+    {
+      "metadata": {
+        "name": "minikube.16d263c664529775",
+        "namespace": "default",
+        "uid": "b92d1b29-cfc1-4b3e-b670-7e519caa4bc4",
+        "resourceVersion": "10122",
+        "creationTimestamp": "2022-02-10T09:48:46Z",
+        "managedFields": [
+          {
+            "manager": "kubelet",
+            "operation": "Update",
+            "apiVersion": "v1",
+            "time": "2022-02-10T09:48:46Z",
+            "fieldsType": "FieldsV1",
+            "fieldsV1": {"f:count":{},"f:firstTimestamp":{},"f:involvedObject":{"f:kind":{},"f:name":{},"f:uid":{}},"f:lastTimestamp":{},"f:message":{},"f:reason":{},"f:source":{"f:component":{},"f:host":{}},"f:type":{}}
+          }
+        ]
+      },
+      "eventTime": null,
+      "reason": "NodeHasSufficientMemory",
+      "regarding": {
+        "kind": "Node",
+        "name": "minikube",
+        "uid": "minikube"
+      },
+      "note": "Node minikube status is now: NodeHasSufficientMemory",
+      "type": "Normal",
+      "deprecatedSource": {
+        "component": "kubelet",
+        "host": "minikube"
+      },
+      "deprecatedFirstTimestamp": "2022-02-10T09:48:37Z",
+      "deprecatedLastTimestamp": "2022-02-10T09:48:38Z",
+      "deprecatedCount": 8
+    },
+    {
+      "metadata": {
+        "name": "minikube.16d263c66452e918",
+        "namespace": "default",
+        "uid": "d9931d38-a35f-447f-8f7c-ed1ad0b9ac0e",
+        "resourceVersion": "10124",
+        "creationTimestamp": "2022-02-10T09:48:46Z",
+        "managedFields": [
+          {
+            "manager": "kubelet",
+            "operation": "Update",
+            "apiVersion": "v1",
+            "time": "2022-02-10T09:48:46Z",
+            "fieldsType": "FieldsV1",
+            "fieldsV1": {"f:count":{},"f:firstTimestamp":{},"f:involvedObject":{"f:kind":{},"f:name":{},"f:uid":{}},"f:lastTimestamp":{},"f:message":{},"f:reason":{},"f:source":{"f:component":{},"f:host":{}},"f:type":{}}
+          }
+        ]
+      },
+      "eventTime": null,
+      "reason": "NodeHasNoDiskPressure",
+      "regarding": {
+        "kind": "Node",
+        "name": "minikube",
+        "uid": "minikube"
+      },
+      "note": "Node minikube status is now: NodeHasNoDiskPressure",
+      "type": "Normal",
+      "deprecatedSource": {
+        "component": "kubelet",
+        "host": "minikube"
+      },
+      "deprecatedFirstTimestamp": "2022-02-10T09:48:37Z",
+      "deprecatedLastTimestamp": "2022-02-10T09:48:38Z",
+      "deprecatedCount": 8
+    },
+    {
+      "metadata": {
+        "name": "minikube.16d263c664530ab7",
+        "namespace": "default",
+        "uid": "4bc5acd4-c380-453b-bb29-097d2a6bf034",
+        "resourceVersion": "10121",
+        "creationTimestamp": "2022-02-10T09:48:46Z",
+        "managedFields": [
+          {
+            "manager": "kubelet",
+            "operation": "Update",
+            "apiVersion": "v1",
+            "time": "2022-02-10T09:48:46Z",
+            "fieldsType": "FieldsV1",
+            "fieldsV1": {"f:count":{},"f:firstTimestamp":{},"f:involvedObject":{"f:kind":{},"f:name":{},"f:uid":{}},"f:lastTimestamp":{},"f:message":{},"f:reason":{},"f:source":{"f:component":{},"f:host":{}},"f:type":{}}
+          }
+        ]
+      },
+      "eventTime": null,
+      "reason": "NodeHasSufficientPID",
+      "regarding": {
+        "kind": "Node",
+        "name": "minikube",
+        "uid": "minikube"
+      },
+      "note": "Node minikube status is now: NodeHasSufficientPID",
+      "type": "Normal",
+      "deprecatedSource": {
+        "component": "kubelet",
+        "host": "minikube"
+      },
+      "deprecatedFirstTimestamp": "2022-02-10T09:48:37Z",
+      "deprecatedLastTimestamp": "2022-02-10T09:48:38Z",
+      "deprecatedCount": 7
+    },
+    {
+      "metadata": {
+        "name": "minikube.16d263c669cecad2",
+        "namespace": "default",
+        "uid": "70bb9f84-dbe7-4024-8679-f4b00b0774ec",
+        "resourceVersion": "10102",
+        "creationTimestamp": "2022-02-10T09:48:46Z",
+        "managedFields": [
+          {
+            "manager": "kubelet",
+            "operation": "Update",
+            "apiVersion": "v1",
+            "time": "2022-02-10T09:48:46Z",
+            "fieldsType": "FieldsV1",
+            "fieldsV1": {"f:count":{},"f:firstTimestamp":{},"f:involvedObject":{"f:kind":{},"f:name":{},"f:uid":{}},"f:lastTimestamp":{},"f:message":{},"f:reason":{},"f:source":{"f:component":{},"f:host":{}},"f:type":{}}
+          }
+        ]
+      },
+      "eventTime": null,
+      "reason": "NodeAllocatableEnforced",
+      "regarding": {
+        "kind": "Node",
+        "name": "minikube",
+        "uid": "minikube"
+      },
+      "note": "Updated Node Allocatable limit across pods",
+      "type": "Normal",
+      "deprecatedSource": {
+        "component": "kubelet",
+        "host": "minikube"
+      },
+      "deprecatedFirstTimestamp": "2022-02-10T09:48:37Z",
+      "deprecatedLastTimestamp": "2022-02-10T09:48:37Z",
+      "deprecatedCount": 1
+    },
+    {
+      "metadata": {
+        "name": "minikube.16d263cafe6b363d",
+        "namespace": "default",
+        "uid": "324615a6-5a09-4aa6-980d-400b4d0a47e6",
+        "resourceVersion": "10180",
+        "creationTimestamp": "2022-02-10T09:48:57Z",
+        "managedFields": [
+          {
+            "manager": "kube-controller-manager",
+            "operation": "Update",
+            "apiVersion": "v1",
+            "time": "2022-02-10T09:48:57Z",
+            "fieldsType": "FieldsV1",
+            "fieldsV1": {"f:count":{},"f:firstTimestamp":{},"f:involvedObject":{"f:apiVersion":{},"f:kind":{},"f:name":{},"f:uid":{}},"f:lastTimestamp":{},"f:message":{},"f:reason":{},"f:source":{"f:component":{}},"f:type":{}}
+          }
+        ]
+      },
+      "eventTime": null,
+      "reason": "RegisteredNode",
+      "regarding": {
+        "kind": "Node",
+        "name": "minikube",
+        "uid": "c2865383-eeec-4efb-868b-3f9937a0167e",
+        "apiVersion": "v1"
+      },
+      "note": "Node minikube event: Registered Node minikube in Controller",
+      "type": "Normal",
+      "deprecatedSource": {
+        "component": "node-controller"
+      },
+      "deprecatedFirstTimestamp": "2022-02-10T09:48:57Z",
+      "deprecatedLastTimestamp": "2022-02-10T09:48:57Z",
+      "deprecatedCount": 1
+    },
+    {
+      "metadata": {
+        "name": "minikube.16d263cc20b42894",
+        "namespace": "default",
+        "uid": "37575776-2c54-4f6f-84fe-a6d9859f0e4a",
+        "resourceVersion": "10203",
+        "creationTimestamp": "2022-02-10T09:49:02Z",
+        "managedFields": [
+          {
+            "manager": "kube-proxy",
+            "operation": "Update",
+            "apiVersion": "v1",
+            "time": "2022-02-10T09:49:02Z",
+            "fieldsType": "FieldsV1",
+            "fieldsV1": {"f:count":{},"f:firstTimestamp":{},"f:involvedObject":{"f:kind":{},"f:name":{},"f:uid":{}},"f:lastTimestamp":{},"f:message":{},"f:reason":{},"f:source":{"f:component":{},"f:host":{}},"f:type":{}}
+          }
+        ]
+      },
+      "eventTime": null,
+      "reason": "Starting",
+      "regarding": {
+        "kind": "Node",
+        "name": "minikube",
+        "uid": "minikube"
+      },
+      "note": "Starting kube-proxy.",
+      "type": "Normal",
+      "deprecatedSource": {
+        "component": "kube-proxy",
+        "host": "minikube"
+      },
+      "deprecatedFirstTimestamp": "2022-02-10T09:49:02Z",
+      "deprecatedLastTimestamp": "2022-02-10T09:49:02Z",
+      "deprecatedCount": 1
+    },
+    {
+      "metadata": {
+        "name": "mongodb-deployment-59d764c46-5s87x.16d264602863542a",
+        "namespace": "default",
+        "uid": "1c174f88-a310-4c1e-9cce-171f8570fb15",
+        "resourceVersion": "10957",
+        "creationTimestamp": "2022-02-10T09:59:38Z",
+        "managedFields": [
+          {
+            "manager": "kube-scheduler",
+            "operation": "Update",
+            "apiVersion": "events.k8s.io/v1",
+            "time": "2022-02-10T09:59:38Z",
+            "fieldsType": "FieldsV1",
+            "fieldsV1": {"f:action":{},"f:eventTime":{},"f:note":{},"f:reason":{},"f:regarding":{"f:apiVersion":{},"f:kind":{},"f:name":{},"f:namespace":{},"f:resourceVersion":{},"f:uid":{}},"f:reportingController":{},"f:reportingInstance":{},"f:type":{}}
+          }
+        ]
+      },
+      "eventTime": "2022-02-10T09:59:38.100883Z",
+      "reportingController": "my-scheduler",
+      "reportingInstance": "my-scheduler-ittaq-tower",
+      "action": "Scheduling",
+      "reason": "FailedScheduling",
+      "regarding": {
+        "kind": "Pod",
+        "namespace": "default",
+        "name": "mongodb-deployment-59d764c46-5s87x",
+        "uid": "027f1981-1585-4e8e-a6b6-9f1d5dc654ce",
+        "apiVersion": "v1",
+        "resourceVersion": "10951"
+      },
+      "note": "0/1 nodes are available: 1 Insufficient cpu.",
+      "type": "Warning",
+      "deprecatedSource": {
+
+      },
+      "deprecatedFirstTimestamp": null,
+      "deprecatedLastTimestamp": null
+    },
+    {
+      "metadata": {
+        "name": "mongodb-deployment-59d764c46-5s87x.16d26460bb18e058",
+        "namespace": "default",
+        "uid": "d94b8c51-4650-4787-b1c8-380cfc483ce8",
+        "resourceVersion": "10979",
+        "creationTimestamp": "2022-02-10T09:59:40Z",
+        "managedFields": [
+          {
+            "manager": "kube-scheduler",
+            "operation": "Update",
+            "apiVersion": "events.k8s.io/v1",
+            "time": "2022-02-10T09:59:40Z",
+            "fieldsType": "FieldsV1",
+            "fieldsV1": {"f:action":{},"f:eventTime":{},"f:note":{},"f:reason":{},"f:regarding":{"f:apiVersion":{},"f:kind":{},"f:name":{},"f:namespace":{},"f:resourceVersion":{},"f:uid":{}},"f:reportingController":{},"f:reportingInstance":{},"f:type":{}}
+          }
+        ]
+      },
+      "eventTime": "2022-02-10T09:59:40.562252Z",
+      "reportingController": "my-scheduler",
+      "reportingInstance": "my-scheduler-ittaq-tower",
+      "action": "Binding",
+      "reason": "Scheduled",
+      "regarding": {
+        "kind": "Pod",
+        "namespace": "default",
+        "name": "mongodb-deployment-59d764c46-5s87x",
+        "uid": "027f1981-1585-4e8e-a6b6-9f1d5dc654ce",
+        "apiVersion": "v1",
+        "resourceVersion": "10956"
+      },
+      "note": "Successfully assigned default/mongodb-deployment-59d764c46-5s87x to minikube",
+      "type": "Normal",
+      "deprecatedSource": {
+
+      },
+      "deprecatedFirstTimestamp": null,
+      "deprecatedLastTimestamp": null
+    },
+    {
+      "metadata": {
+        "name": "mongodb-deployment-59d764c46-5s87x.16d26460f68a75dc",
+        "namespace": "default",
+        "uid": "a61ee52b-59b7-4d8a-9e0d-0c95d47b3759",
+        "resourceVersion": "10985",
+        "creationTimestamp": "2022-02-10T09:59:41Z",
+        "managedFields": [
+          {
+            "manager": "kubelet",
+            "operation": "Update",
+            "apiVersion": "v1",
+            "time": "2022-02-10T09:59:41Z",
+            "fieldsType": "FieldsV1",
+            "fieldsV1": {"f:count":{},"f:firstTimestamp":{},"f:involvedObject":{"f:apiVersion":{},"f:fieldPath":{},"f:kind":{},"f:name":{},"f:namespace":{},"f:resourceVersion":{},"f:uid":{}},"f:lastTimestamp":{},"f:message":{},"f:reason":{},"f:source":{"f:component":{},"f:host":{}},"f:type":{}}
+          }
+        ]
+      },
+      "eventTime": null,
+      "reason": "Pulling",
+      "regarding": {
+        "kind": "Pod",
+        "namespace": "default",
+        "name": "mongodb-deployment-59d764c46-5s87x",
+        "uid": "027f1981-1585-4e8e-a6b6-9f1d5dc654ce",
+        "apiVersion": "v1",
+        "resourceVersion": "10978",
+        "fieldPath": "spec.containers{mongodb}"
+      },
+      "note": "Pulling image \"mongo\"",
+      "type": "Normal",
+      "deprecatedSource": {
+        "component": "kubelet",
+        "host": "minikube"
+      },
+      "deprecatedFirstTimestamp": "2022-02-10T09:59:41Z",
+      "deprecatedLastTimestamp": "2022-02-10T09:59:41Z",
+      "deprecatedCount": 1
+    },
+    {
+      "metadata": {
+        "name": "mongodb-deployment-59d764c46-5s87x.16d26461510beba9",
+        "namespace": "default",
+        "uid": "0d4b8b1a-f761-4b15-a167-ea2f2fa88cae",
+        "resourceVersion": "10988",
+        "creationTimestamp": "2022-02-10T09:59:43Z",
+        "managedFields": [
+          {
+            "manager": "kubelet",
+            "operation": "Update",
+            "apiVersion": "v1",
+            "time": "2022-02-10T09:59:43Z",
+            "fieldsType": "FieldsV1",
+            "fieldsV1": {"f:count":{},"f:firstTimestamp":{},"f:involvedObject":{"f:apiVersion":{},"f:fieldPath":{},"f:kind":{},"f:name":{},"f:namespace":{},"f:resourceVersion":{},"f:uid":{}},"f:lastTimestamp":{},"f:message":{},"f:reason":{},"f:source":{"f:component":{},"f:host":{}},"f:type":{}}
+          }
+        ]
+      },
+      "eventTime": null,
+      "reason": "Pulled",
+      "regarding": {
+        "kind": "Pod",
+        "namespace": "default",
+        "name": "mongodb-deployment-59d764c46-5s87x",
+        "uid": "027f1981-1585-4e8e-a6b6-9f1d5dc654ce",
+        "apiVersion": "v1",
+        "resourceVersion": "10978",
+        "fieldPath": "spec.containers{mongodb}"
+      },
+      "note": "Successfully pulled image \"mongo\" in 1.518404486s",
+      "type": "Normal",
+      "deprecatedSource": {
+        "component": "kubelet",
+        "host": "minikube"
+      },
+      "deprecatedFirstTimestamp": "2022-02-10T09:59:43Z",
+      "deprecatedLastTimestamp": "2022-02-10T09:59:43Z",
+      "deprecatedCount": 1
+    },
+    {
+      "metadata": {
+        "name": "mongodb-deployment-59d764c46-5s87x.16d2646154d3e602",
+        "namespace": "default",
+        "uid": "75e2324c-10de-4a5d-bdef-85539d10d844",
+        "resourceVersion": "10989",
+        "creationTimestamp": "2022-02-10T09:59:43Z",
+        "managedFields": [
+          {
+            "manager": "kubelet",
+            "operation": "Update",
+            "apiVersion": "v1",
+            "time": "2022-02-10T09:59:43Z",
+            "fieldsType": "FieldsV1",
+            "fieldsV1": {"f:count":{},"f:firstTimestamp":{},"f:involvedObject":{"f:apiVersion":{},"f:fieldPath":{},"f:kind":{},"f:name":{},"f:namespace":{},"f:resourceVersion":{},"f:uid":{}},"f:lastTimestamp":{},"f:message":{},"f:reason":{},"f:source":{"f:component":{},"f:host":{}},"f:type":{}}
+          }
+        ]
+      },
+      "eventTime": null,
+      "reason": "Created",
+      "regarding": {
+        "kind": "Pod",
+        "namespace": "default",
+        "name": "mongodb-deployment-59d764c46-5s87x",
+        "uid": "027f1981-1585-4e8e-a6b6-9f1d5dc654ce",
+        "apiVersion": "v1",
+        "resourceVersion": "10978",
+        "fieldPath": "spec.containers{mongodb}"
+      },
+      "note": "Created container mongodb",
+      "type": "Normal",
+      "deprecatedSource": {
+        "component": "kubelet",
+        "host": "minikube"
+      },
+      "deprecatedFirstTimestamp": "2022-02-10T09:59:43Z",
+      "deprecatedLastTimestamp": "2022-02-10T09:59:43Z",
+      "deprecatedCount": 1
+    },
+    {
+      "metadata": {
+        "name": "mongodb-deployment-59d764c46-5s87x.16d264615d6d3811",
+        "namespace": "default",
+        "uid": "57dc4179-7a21-4f75-b467-6e6e859652a3",
+        "resourceVersion": "10990",
+        "creationTimestamp": "2022-02-10T09:59:43Z",
+        "managedFields": [
+          {
+            "manager": "kubelet",
+            "operation": "Update",
+            "apiVersion": "v1",
+            "time": "2022-02-10T09:59:43Z",
+            "fieldsType": "FieldsV1",
+            "fieldsV1": {"f:count":{},"f:firstTimestamp":{},"f:involvedObject":{"f:apiVersion":{},"f:fieldPath":{},"f:kind":{},"f:name":{},"f:namespace":{},"f:resourceVersion":{},"f:uid":{}},"f:lastTimestamp":{},"f:message":{},"f:reason":{},"f:source":{"f:component":{},"f:host":{}},"f:type":{}}
+          }
+        ]
+      },
+      "eventTime": null,
+      "reason": "Started",
+      "regarding": {
+        "kind": "Pod",
+        "namespace": "default",
+        "name": "mongodb-deployment-59d764c46-5s87x",
+        "uid": "027f1981-1585-4e8e-a6b6-9f1d5dc654ce",
+        "apiVersion": "v1",
+        "resourceVersion": "10978",
+        "fieldPath": "spec.containers{mongodb}"
+      },
+      "note": "Started container mongodb",
+      "type": "Normal",
+      "deprecatedSource": {
+        "component": "kubelet",
+        "host": "minikube"
+      },
+      "deprecatedFirstTimestamp": "2022-02-10T09:59:43Z",
+      "deprecatedLastTimestamp": "2022-02-10T09:59:43Z",
+      "deprecatedCount": 1
+    },
+    {
+      "metadata": {
+        "name": "mongodb-deployment-59d764c46-72wg8.16d2648620c65de9",
+        "namespace": "default",
+        "uid": "8c534595-9110-4dab-9f1b-beb62d22dfc1",
+        "resourceVersion": "11212",
+        "creationTimestamp": "2022-02-10T10:02:21Z",
+        "managedFields": [
+          {
+            "manager": "kube-scheduler",
+            "operation": "Update",
+            "apiVersion": "events.k8s.io/v1",
+            "time": "2022-02-10T10:02:21Z",
+            "fieldsType": "FieldsV1",
+            "fieldsV1": {"f:action":{},"f:eventTime":{},"f:note":{},"f:reason":{},"f:regarding":{"f:apiVersion":{},"f:kind":{},"f:name":{},"f:namespace":{},"f:resourceVersion":{},"f:uid":{}},"f:reportingController":{},"f:reportingInstance":{},"f:type":{}}
+          }
+        ]
+      },
+      "eventTime": "2022-02-10T10:02:21.181913Z",
+      "reportingController": "my-scheduler",
+      "reportingInstance": "my-scheduler-ittaq-tower",
+      "action": "Binding",
+      "reason": "Scheduled",
+      "regarding": {
+        "kind": "Pod",
+        "namespace": "default",
+        "name": "mongodb-deployment-59d764c46-72wg8",
+        "uid": "fbd3b753-cabb-4da7-b3fa-e4504783206a",
+        "apiVersion": "v1",
+        "resourceVersion": "11207"
+      },
+      "note": "Successfully assigned default/mongodb-deployment-59d764c46-72wg8 to minikube",
+      "type": "Normal",
+      "deprecatedSource": {
+
+      },
+      "deprecatedFirstTimestamp": null,
+      "deprecatedLastTimestamp": null
+    },
+    {
+      "metadata": {
+        "name": "mongodb-deployment-59d764c46-72wg8.16d2648648e186c1",
+        "namespace": "default",
+        "uid": "bb50142c-6dd6-4590-8f28-24ec4024f137",
+        "resourceVersion": "11218",
+        "creationTimestamp": "2022-02-10T10:02:21Z",
+        "managedFields": [
+          {
+            "manager": "kubelet",
+            "operation": "Update",
+            "apiVersion": "v1",
+            "time": "2022-02-10T10:02:21Z",
+            "fieldsType": "FieldsV1",
+            "fieldsV1": {"f:count":{},"f:firstTimestamp":{},"f:involvedObject":{"f:apiVersion":{},"f:fieldPath":{},"f:kind":{},"f:name":{},"f:namespace":{},"f:resourceVersion":{},"f:uid":{}},"f:lastTimestamp":{},"f:message":{},"f:reason":{},"f:source":{"f:component":{},"f:host":{}},"f:type":{}}
+          }
+        ]
+      },
+      "eventTime": null,
+      "reason": "Pulling",
+      "regarding": {
+        "kind": "Pod",
+        "namespace": "default",
+        "name": "mongodb-deployment-59d764c46-72wg8",
+        "uid": "fbd3b753-cabb-4da7-b3fa-e4504783206a",
+        "apiVersion": "v1",
+        "resourceVersion": "11209",
+        "fieldPath": "spec.containers{mongodb}"
+      },
+      "note": "Pulling image \"mongo\"",
+      "type": "Normal",
+      "deprecatedSource": {
+        "component": "kubelet",
+        "host": "minikube"
+      },
+      "deprecatedFirstTimestamp": "2022-02-10T10:02:21Z",
+      "deprecatedLastTimestamp": "2022-02-10T10:02:21Z",
+      "deprecatedCount": 1
+    },
+    {
+      "metadata": {
+        "name": "mongodb-deployment-59d764c46-72wg8.16d26486a31d7d83",
+        "namespace": "default",
+        "uid": "33f14ca6-7722-465f-9037-b96f01abeae4",
+        "resourceVersion": "11219",
+        "creationTimestamp": "2022-02-10T10:02:23Z",
+        "managedFields": [
+          {
+            "manager": "kubelet",
+            "operation": "Update",
+            "apiVersion": "v1",
+            "time": "2022-02-10T10:02:23Z",
+            "fieldsType": "FieldsV1",
+            "fieldsV1": {"f:count":{},"f:firstTimestamp":{},"f:involvedObject":{"f:apiVersion":{},"f:fieldPath":{},"f:kind":{},"f:name":{},"f:namespace":{},"f:resourceVersion":{},"f:uid":{}},"f:lastTimestamp":{},"f:message":{},"f:reason":{},"f:source":{"f:component":{},"f:host":{}},"f:type":{}}
+          }
+        ]
+      },
+      "eventTime": null,
+      "reason": "Pulled",
+      "regarding": {
+        "kind": "Pod",
+        "namespace": "default",
+        "name": "mongodb-deployment-59d764c46-72wg8",
+        "uid": "fbd3b753-cabb-4da7-b3fa-e4504783206a",
+        "apiVersion": "v1",
+        "resourceVersion": "11209",
+        "fieldPath": "spec.containers{mongodb}"
+      },
+      "note": "Successfully pulled image \"mongo\" in 1.513857825s",
+      "type": "Normal",
+      "deprecatedSource": {
+        "component": "kubelet",
+        "host": "minikube"
+      },
+      "deprecatedFirstTimestamp": "2022-02-10T10:02:23Z",
+      "deprecatedLastTimestamp": "2022-02-10T10:02:23Z",
+      "deprecatedCount": 1
+    },
+    {
+      "metadata": {
+        "name": "mongodb-deployment-59d764c46-72wg8.16d26486a5b0c03b",
+        "namespace": "default",
+        "uid": "f01a2bd3-e570-458d-8ece-a552a16247f3",
+        "resourceVersion": "11220",
+        "creationTimestamp": "2022-02-10T10:02:23Z",
+        "managedFields": [
+          {
+            "manager": "kubelet",
+            "operation": "Update",
+            "apiVersion": "v1",
+            "time": "2022-02-10T10:02:23Z",
+            "fieldsType": "FieldsV1",
+            "fieldsV1": {"f:count":{},"f:firstTimestamp":{},"f:involvedObject":{"f:apiVersion":{},"f:fieldPath":{},"f:kind":{},"f:name":{},"f:namespace":{},"f:resourceVersion":{},"f:uid":{}},"f:lastTimestamp":{},"f:message":{},"f:reason":{},"f:source":{"f:component":{},"f:host":{}},"f:type":{}}
+          }
+        ]
+      },
+      "eventTime": null,
+      "reason": "Created",
+      "regarding": {
+        "kind": "Pod",
+        "namespace": "default",
+        "name": "mongodb-deployment-59d764c46-72wg8",
+        "uid": "fbd3b753-cabb-4da7-b3fa-e4504783206a",
+        "apiVersion": "v1",
+        "resourceVersion": "11209",
+        "fieldPath": "spec.containers{mongodb}"
+      },
+      "note": "Created container mongodb",
+      "type": "Normal",
+      "deprecatedSource": {
+        "component": "kubelet",
+        "host": "minikube"
+      },
+      "deprecatedFirstTimestamp": "2022-02-10T10:02:23Z",
+      "deprecatedLastTimestamp": "2022-02-10T10:02:23Z",
+      "deprecatedCount": 1
+    },
+    {
+      "metadata": {
+        "name": "mongodb-deployment-59d764c46-72wg8.16d26486adcdb3b1",
+        "namespace": "default",
+        "uid": "cfead16c-15c1-4d00-8adc-31c08dc32349",
+        "resourceVersion": "11222",
+        "creationTimestamp": "2022-02-10T10:02:23Z",
+        "managedFields": [
+          {
+            "manager": "kubelet",
+            "operation": "Update",
+            "apiVersion": "v1",
+            "time": "2022-02-10T10:02:23Z",
+            "fieldsType": "FieldsV1",
+            "fieldsV1": {"f:count":{},"f:firstTimestamp":{},"f:involvedObject":{"f:apiVersion":{},"f:fieldPath":{},"f:kind":{},"f:name":{},"f:namespace":{},"f:resourceVersion":{},"f:uid":{}},"f:lastTimestamp":{},"f:message":{},"f:reason":{},"f:source":{"f:component":{},"f:host":{}},"f:type":{}}
+          }
+        ]
+      },
+      "eventTime": null,
+      "reason": "Started",
+      "regarding": {
+        "kind": "Pod",
+        "namespace": "default",
+        "name": "mongodb-deployment-59d764c46-72wg8",
+        "uid": "fbd3b753-cabb-4da7-b3fa-e4504783206a",
+        "apiVersion": "v1",
+        "resourceVersion": "11209",
+        "fieldPath": "spec.containers{mongodb}"
+      },
+      "note": "Started container mongodb",
+      "type": "Normal",
+      "deprecatedSource": {
+        "component": "kubelet",
+        "host": "minikube"
+      },
+      "deprecatedFirstTimestamp": "2022-02-10T10:02:23Z",
+      "deprecatedLastTimestamp": "2022-02-10T10:02:23Z",
+      "deprecatedCount": 1
+    },
+    {
+      "metadata": {
+        "name": "mongodb-deployment-59d764c46-72wg8.16d264a0994363b0",
+        "namespace": "default",
+        "uid": "ddbc88dc-2c62-4fcb-9a73-27d5324fcfaf",
+        "resourceVersion": "11319",
+        "creationTimestamp": "2022-02-10T10:04:14Z",
+        "managedFields": [
+          {
+            "manager": "kubelet",
+            "operation": "Update",
+            "apiVersion": "v1",
+            "time": "2022-02-10T10:04:14Z",
+            "fieldsType": "FieldsV1",
+            "fieldsV1": {"f:count":{},"f:firstTimestamp":{},"f:involvedObject":{"f:apiVersion":{},"f:fieldPath":{},"f:kind":{},"f:name":{},"f:namespace":{},"f:resourceVersion":{},"f:uid":{}},"f:lastTimestamp":{},"f:message":{},"f:reason":{},"f:source":{"f:component":{},"f:host":{}},"f:type":{}}
+          }
+        ]
+      },
+      "eventTime": null,
+      "reason": "Killing",
+      "regarding": {
+        "kind": "Pod",
+        "namespace": "default",
+        "name": "mongodb-deployment-59d764c46-72wg8",
+        "uid": "fbd3b753-cabb-4da7-b3fa-e4504783206a",
+        "apiVersion": "v1",
+        "resourceVersion": "11209",
+        "fieldPath": "spec.containers{mongodb}"
+      },
+      "note": "Stopping container mongodb",
+      "type": "Normal",
+      "deprecatedSource": {
+        "component": "kubelet",
+        "host": "minikube"
+      },
+      "deprecatedFirstTimestamp": "2022-02-10T10:04:14Z",
+      "deprecatedLastTimestamp": "2022-02-10T10:04:14Z",
+      "deprecatedCount": 1
+    },
+    {
+      "metadata": {
+        "name": "mongodb-deployment-59d764c46-7m9hc.16d263c906129fb0",
+        "namespace": "default",
+        "uid": "34f94f15-a925-4dea-a08a-271778b2acfd",
+        "resourceVersion": "10163",
+        "creationTimestamp": "2022-02-10T09:48:54Z",
+        "managedFields": [
+          {
+            "manager": "kubelet",
+            "operation": "Update",
+            "apiVersion": "v1",
+            "time": "2022-02-10T09:48:54Z",
+            "fieldsType": "FieldsV1",
+            "fieldsV1": {"f:count":{},"f:firstTimestamp":{},"f:involvedObject":{"f:apiVersion":{},"f:kind":{},"f:name":{},"f:namespace":{},"f:resourceVersion":{},"f:uid":{}},"f:lastTimestamp":{},"f:message":{},"f:reason":{},"f:source":{"f:component":{},"f:host":{}},"f:type":{}}
+          }
+        ]
+      },
+      "eventTime": null,
+      "reason": "SandboxChanged",
+      "regarding": {
+        "kind": "Pod",
+        "namespace": "default",
+        "name": "mongodb-deployment-59d764c46-7m9hc",
+        "uid": "37f1e769-7d23-4dbf-9aa4-116782925a72",
+        "apiVersion": "v1",
+        "resourceVersion": "3658"
+      },
+      "note": "Pod sandbox changed, it will be killed and re-created.",
+      "type": "Normal",
+      "deprecatedSource": {
+        "component": "kubelet",
+        "host": "minikube"
+      },
+      "deprecatedFirstTimestamp": "2022-02-10T09:48:48Z",
+      "deprecatedLastTimestamp": "2022-02-10T09:48:48Z",
+      "deprecatedCount": 1
+    },
+    {
+      "metadata": {
+        "name": "mongodb-deployment-59d764c46-7m9hc.16d263c921f6b362",
+        "namespace": "default",
+        "uid": "7b0f3c3f-7646-4de4-a40d-6e0462be7757",
+        "resourceVersion": "10168",
+        "creationTimestamp": "2022-02-10T09:48:55Z",
+        "managedFields": [
+          {
+            "manager": "kubelet",
+            "operation": "Update",
+            "apiVersion": "v1",
+            "time": "2022-02-10T09:48:55Z",
+            "fieldsType": "FieldsV1",
+            "fieldsV1": {"f:count":{},"f:firstTimestamp":{},"f:involvedObject":{"f:apiVersion":{},"f:fieldPath":{},"f:kind":{},"f:name":{},"f:namespace":{},"f:resourceVersion":{},"f:uid":{}},"f:lastTimestamp":{},"f:message":{},"f:reason":{},"f:source":{"f:component":{},"f:host":{}},"f:type":{}}
+          }
+        ]
+      },
+      "eventTime": null,
+      "reason": "Pulling",
+      "regarding": {
+        "kind": "Pod",
+        "namespace": "default",
+        "name": "mongodb-deployment-59d764c46-7m9hc",
+        "uid": "37f1e769-7d23-4dbf-9aa4-116782925a72",
+        "apiVersion": "v1",
+        "resourceVersion": "3658",
+        "fieldPath": "spec.containers{mongodb}"
+      },
+      "note": "Pulling image \"mongo\"",
+      "type": "Normal",
+      "deprecatedSource": {
+        "component": "kubelet",
+        "host": "minikube"
+      },
+      "deprecatedFirstTimestamp": "2022-02-10T09:48:49Z",
+      "deprecatedLastTimestamp": "2022-02-10T09:48:49Z",
+      "deprecatedCount": 1
+    },
+    {
+      "metadata": {
+        "name": "mongodb-deployment-59d764c46-7m9hc.16d263c9c1e7cd5f",
+        "namespace": "default",
+        "uid": "61c17bd2-3c4a-4ad2-add1-d08e4aabfdb2",
+        "resourceVersion": "10188",
+        "creationTimestamp": "2022-02-10T09:48:57Z",
+        "managedFields": [
+          {
+            "manager": "kubelet",
+            "operation": "Update",
+            "apiVersion": "v1",
+            "time": "2022-02-10T09:48:57Z",
+            "fieldsType": "FieldsV1",
+            "fieldsV1": {"f:count":{},"f:firstTimestamp":{},"f:involvedObject":{"f:apiVersion":{},"f:fieldPath":{},"f:kind":{},"f:name":{},"f:namespace":{},"f:resourceVersion":{},"f:uid":{}},"f:lastTimestamp":{},"f:message":{},"f:reason":{},"f:source":{"f:component":{},"f:host":{}},"f:type":{}}
+          }
+        ]
+      },
+      "eventTime": null,
+      "reason": "Pulled",
+      "regarding": {
+        "kind": "Pod",
+        "namespace": "default",
+        "name": "mongodb-deployment-59d764c46-7m9hc",
+        "uid": "37f1e769-7d23-4dbf-9aa4-116782925a72",
+        "apiVersion": "v1",
+        "resourceVersion": "3658",
+        "fieldPath": "spec.containers{mongodb}"
+      },
+      "note": "Successfully pulled image \"mongo\" in 2.683361863s",
+      "type": "Normal",
+      "deprecatedSource": {
+        "component": "kubelet",
+        "host": "minikube"
+      },
+      "deprecatedFirstTimestamp": "2022-02-10T09:48:52Z",
+      "deprecatedLastTimestamp": "2022-02-10T09:48:52Z",
+      "deprecatedCount": 1
+    },
+    {
+      "metadata": {
+        "name": "mongodb-deployment-59d764c46-7m9hc.16d263c9c4c9ec64",
+        "namespace": "default",
+        "uid": "6ba4f4af-edf8-489c-b454-44577a7c6204",
+        "resourceVersion": "10193",
+        "creationTimestamp": "2022-02-10T09:48:58Z",
+        "managedFields": [
+          {
+            "manager": "kubelet",
+            "operation": "Update",
+            "apiVersion": "v1",
+            "time": "2022-02-10T09:48:58Z",
+            "fieldsType": "FieldsV1",
+            "fieldsV1": {"f:count":{},"f:firstTimestamp":{},"f:involvedObject":{"f:apiVersion":{},"f:fieldPath":{},"f:kind":{},"f:name":{},"f:namespace":{},"f:resourceVersion":{},"f:uid":{}},"f:lastTimestamp":{},"f:message":{},"f:reason":{},"f:source":{"f:component":{},"f:host":{}},"f:type":{}}
+          }
+        ]
+      },
+      "eventTime": null,
+      "reason": "Created",
+      "regarding": {
+        "kind": "Pod",
+        "namespace": "default",
+        "name": "mongodb-deployment-59d764c46-7m9hc",
+        "uid": "37f1e769-7d23-4dbf-9aa4-116782925a72",
+        "apiVersion": "v1",
+        "resourceVersion": "3658",
+        "fieldPath": "spec.containers{mongodb}"
+      },
+      "note": "Created container mongodb",
+      "type": "Normal",
+      "deprecatedSource": {
+        "component": "kubelet",
+        "host": "minikube"
+      },
+      "deprecatedFirstTimestamp": "2022-02-10T09:48:52Z",
+      "deprecatedLastTimestamp": "2022-02-10T09:48:52Z",
+      "deprecatedCount": 1
+    },
+    {
+      "metadata": {
+        "name": "mongodb-deployment-59d764c46-7m9hc.16d263c9cc5d30de",
+        "namespace": "default",
+        "uid": "83485c67-6ee1-4712-80c7-ba92479d10ce",
+        "resourceVersion": "10195",
+        "creationTimestamp": "2022-02-10T09:48:58Z",
+        "managedFields": [
+          {
+            "manager": "kubelet",
+            "operation": "Update",
+            "apiVersion": "v1",
+            "time": "2022-02-10T09:48:58Z",
+            "fieldsType": "FieldsV1",
+            "fieldsV1": {"f:count":{},"f:firstTimestamp":{},"f:involvedObject":{"f:apiVersion":{},"f:fieldPath":{},"f:kind":{},"f:name":{},"f:namespace":{},"f:resourceVersion":{},"f:uid":{}},"f:lastTimestamp":{},"f:message":{},"f:reason":{},"f:source":{"f:component":{},"f:host":{}},"f:type":{}}
+          }
+        ]
+      },
+      "eventTime": null,
+      "reason": "Started",
+      "regarding": {
+        "kind": "Pod",
+        "namespace": "default",
+        "name": "mongodb-deployment-59d764c46-7m9hc",
+        "uid": "37f1e769-7d23-4dbf-9aa4-116782925a72",
+        "apiVersion": "v1",
+        "resourceVersion": "3658",
+        "fieldPath": "spec.containers{mongodb}"
+      },
+      "note": "Started container mongodb",
+      "type": "Normal",
+      "deprecatedSource": {
+        "component": "kubelet",
+        "host": "minikube"
+      },
+      "deprecatedFirstTimestamp": "2022-02-10T09:48:52Z",
+      "deprecatedLastTimestamp": "2022-02-10T09:48:52Z",
+      "deprecatedCount": 1
+    },
+    {
+      "metadata": {
+        "name": "mongodb-deployment-59d764c46-7m9hc.16d263e9c75be176",
+        "namespace": "default",
+        "uid": "833248f5-394f-47dd-9585-e7a0c0dfe8d4",
+        "resourceVersion": "10388",
+        "creationTimestamp": "2022-02-10T09:51:09Z",
+        "managedFields": [
+          {
+            "manager": "kubelet",
+            "operation": "Update",
+            "apiVersion": "v1",
+            "time": "2022-02-10T09:51:09Z",
+            "fieldsType": "FieldsV1",
+            "fieldsV1": {"f:count":{},"f:firstTimestamp":{},"f:involvedObject":{"f:apiVersion":{},"f:fieldPath":{},"f:kind":{},"f:name":{},"f:namespace":{},"f:resourceVersion":{},"f:uid":{}},"f:lastTimestamp":{},"f:message":{},"f:reason":{},"f:source":{"f:component":{},"f:host":{}},"f:type":{}}
+          }
+        ]
+      },
+      "eventTime": null,
+      "reason": "Killing",
+      "regarding": {
+        "kind": "Pod",
+        "namespace": "default",
+        "name": "mongodb-deployment-59d764c46-7m9hc",
+        "uid": "37f1e769-7d23-4dbf-9aa4-116782925a72",
+        "apiVersion": "v1",
+        "resourceVersion": "3658",
+        "fieldPath": "spec.containers{mongodb}"
+      },
+      "note": "Stopping container mongodb",
+      "type": "Normal",
+      "deprecatedSource": {
+        "component": "kubelet",
+        "host": "minikube"
+      },
+      "deprecatedFirstTimestamp": "2022-02-10T09:51:09Z",
+      "deprecatedLastTimestamp": "2022-02-10T09:51:09Z",
+      "deprecatedCount": 1
+    },
+    {
+      "metadata": {
+        "name": "mongodb-deployment-59d764c46-hh5h7.16d263c8d092be6b",
+        "namespace": "default",
+        "uid": "b573b847-4203-43d5-a09b-ad109e582f6a",
+        "resourceVersion": "10149",
+        "creationTimestamp": "2022-02-10T09:48:53Z",
+        "managedFields": [
+          {
+            "manager": "kubelet",
+            "operation": "Update",
+            "apiVersion": "v1",
+            "time": "2022-02-10T09:48:53Z",
+            "fieldsType": "FieldsV1",
+            "fieldsV1": {"f:count":{},"f:firstTimestamp":{},"f:involvedObject":{"f:apiVersion":{},"f:kind":{},"f:name":{},"f:namespace":{},"f:resourceVersion":{},"f:uid":{}},"f:lastTimestamp":{},"f:message":{},"f:reason":{},"f:source":{"f:component":{},"f:host":{}},"f:type":{}}
+          }
+        ]
+      },
+      "eventTime": null,
+      "reason": "SandboxChanged",
+      "regarding": {
+        "kind": "Pod",
+        "namespace": "default",
+        "name": "mongodb-deployment-59d764c46-hh5h7",
+        "uid": "d4307f34-76b3-423c-8ca3-17ae813b447f",
+        "apiVersion": "v1",
+        "resourceVersion": "3664"
+      },
+      "note": "Pod sandbox changed, it will be killed and re-created.",
+      "type": "Normal",
+      "deprecatedSource": {
+        "component": "kubelet",
+        "host": "minikube"
+      },
+      "deprecatedFirstTimestamp": "2022-02-10T09:48:48Z",
+      "deprecatedLastTimestamp": "2022-02-10T09:48:48Z",
+      "deprecatedCount": 1
+    },
+    {
+      "metadata": {
+        "name": "mongodb-deployment-59d764c46-hh5h7.16d263c8e653513d",
+        "namespace": "default",
+        "uid": "fbd788b4-856b-40c8-b90a-c87bc51ccd34",
+        "resourceVersion": "10152",
+        "creationTimestamp": "2022-02-10T09:48:53Z",
+        "managedFields": [
+          {
+            "manager": "kubelet",
+            "operation": "Update",
+            "apiVersion": "v1",
+            "time": "2022-02-10T09:48:53Z",
+            "fieldsType": "FieldsV1",
+            "fieldsV1": {"f:count":{},"f:firstTimestamp":{},"f:involvedObject":{"f:apiVersion":{},"f:fieldPath":{},"f:kind":{},"f:name":{},"f:namespace":{},"f:resourceVersion":{},"f:uid":{}},"f:lastTimestamp":{},"f:message":{},"f:reason":{},"f:source":{"f:component":{},"f:host":{}},"f:type":{}}
+          }
+        ]
+      },
+      "eventTime": null,
+      "reason": "Pulling",
+      "regarding": {
+        "kind": "Pod",
+        "namespace": "default",
+        "name": "mongodb-deployment-59d764c46-hh5h7",
+        "uid": "d4307f34-76b3-423c-8ca3-17ae813b447f",
+        "apiVersion": "v1",
+        "resourceVersion": "3664",
+        "fieldPath": "spec.containers{mongodb}"
+      },
+      "note": "Pulling image \"mongo\"",
+      "type": "Normal",
+      "deprecatedSource": {
+        "component": "kubelet",
+        "host": "minikube"
+      },
+      "deprecatedFirstTimestamp": "2022-02-10T09:48:48Z",
+      "deprecatedLastTimestamp": "2022-02-10T09:48:48Z",
+      "deprecatedCount": 1
+    },
+    {
+      "metadata": {
+        "name": "mongodb-deployment-59d764c46-hh5h7.16d263c96820b19a",
+        "namespace": "default",
+        "uid": "9b9fe994-68d7-4c70-b2cc-e175ad502e03",
+        "resourceVersion": "10176",
+        "creationTimestamp": "2022-02-10T09:48:56Z",
+        "managedFields": [
+          {
+            "manager": "kubelet",
+            "operation": "Update",
+            "apiVersion": "v1",
+            "time": "2022-02-10T09:48:56Z",
+            "fieldsType": "FieldsV1",
+            "fieldsV1": {"f:count":{},"f:firstTimestamp":{},"f:involvedObject":{"f:apiVersion":{},"f:fieldPath":{},"f:kind":{},"f:name":{},"f:namespace":{},"f:resourceVersion":{},"f:uid":{}},"f:lastTimestamp":{},"f:message":{},"f:reason":{},"f:source":{"f:component":{},"f:host":{}},"f:type":{}}
+          }
+        ]
+      },
+      "eventTime": null,
+      "reason": "Pulled",
+      "regarding": {
+        "kind": "Pod",
+        "namespace": "default",
+        "name": "mongodb-deployment-59d764c46-hh5h7",
+        "uid": "d4307f34-76b3-423c-8ca3-17ae813b447f",
+        "apiVersion": "v1",
+        "resourceVersion": "3664",
+        "fieldPath": "spec.containers{mongodb}"
+      },
+      "note": "Successfully pulled image \"mongo\" in 2.177702168s",
+      "type": "Normal",
+      "deprecatedSource": {
+        "component": "kubelet",
+        "host": "minikube"
+      },
+      "deprecatedFirstTimestamp": "2022-02-10T09:48:50Z",
+      "deprecatedLastTimestamp": "2022-02-10T09:48:50Z",
+      "deprecatedCount": 1
+    },
+    {
+      "metadata": {
+        "name": "mongodb-deployment-59d764c46-hh5h7.16d263c96a3b8274",
+        "namespace": "default",
+        "uid": "663e29cb-d1d4-4265-869f-2ccf0a69a3dd",
+        "resourceVersion": "10177",
+        "creationTimestamp": "2022-02-10T09:48:57Z",
+        "managedFields": [
+          {
+            "manager": "kubelet",
+            "operation": "Update",
+            "apiVersion": "v1",
+            "time": "2022-02-10T09:48:57Z",
+            "fieldsType": "FieldsV1",
+            "fieldsV1": {"f:count":{},"f:firstTimestamp":{},"f:involvedObject":{"f:apiVersion":{},"f:fieldPath":{},"f:kind":{},"f:name":{},"f:namespace":{},"f:resourceVersion":{},"f:uid":{}},"f:lastTimestamp":{},"f:message":{},"f:reason":{},"f:source":{"f:component":{},"f:host":{}},"f:type":{}}
+          }
+        ]
+      },
+      "eventTime": null,
+      "reason": "Created",
+      "regarding": {
+        "kind": "Pod",
+        "namespace": "default",
+        "name": "mongodb-deployment-59d764c46-hh5h7",
+        "uid": "d4307f34-76b3-423c-8ca3-17ae813b447f",
+        "apiVersion": "v1",
+        "resourceVersion": "3664",
+        "fieldPath": "spec.containers{mongodb}"
+      },
+      "note": "Created container mongodb",
+      "type": "Normal",
+      "deprecatedSource": {
+        "component": "kubelet",
+        "host": "minikube"
+      },
+      "deprecatedFirstTimestamp": "2022-02-10T09:48:50Z",
+      "deprecatedLastTimestamp": "2022-02-10T09:48:50Z",
+      "deprecatedCount": 1
+    },
+    {
+      "metadata": {
+        "name": "mongodb-deployment-59d764c46-hh5h7.16d263c97273487f",
+        "namespace": "default",
+        "uid": "2ccf4747-dae5-4096-90e8-71f159ecc31d",
+        "resourceVersion": "10178",
+        "creationTimestamp": "2022-02-10T09:48:57Z",
+        "managedFields": [
+          {
+            "manager": "kubelet",
+            "operation": "Update",
+            "apiVersion": "v1",
+            "time": "2022-02-10T09:48:57Z",
+            "fieldsType": "FieldsV1",
+            "fieldsV1": {"f:count":{},"f:firstTimestamp":{},"f:involvedObject":{"f:apiVersion":{},"f:fieldPath":{},"f:kind":{},"f:name":{},"f:namespace":{},"f:resourceVersion":{},"f:uid":{}},"f:lastTimestamp":{},"f:message":{},"f:reason":{},"f:source":{"f:component":{},"f:host":{}},"f:type":{}}
+          }
+        ]
+      },
+      "eventTime": null,
+      "reason": "Started",
+      "regarding": {
+        "kind": "Pod",
+        "namespace": "default",
+        "name": "mongodb-deployment-59d764c46-hh5h7",
+        "uid": "d4307f34-76b3-423c-8ca3-17ae813b447f",
+        "apiVersion": "v1",
+        "resourceVersion": "3664",
+        "fieldPath": "spec.containers{mongodb}"
+      },
+      "note": "Started container mongodb",
+      "type": "Normal",
+      "deprecatedSource": {
+        "component": "kubelet",
+        "host": "minikube"
+      },
+      "deprecatedFirstTimestamp": "2022-02-10T09:48:50Z",
+      "deprecatedLastTimestamp": "2022-02-10T09:48:50Z",
+      "deprecatedCount": 1
+    },
+    {
+      "metadata": {
+        "name": "mongodb-deployment-59d764c46-hh5h7.16d263ea77da4fe5",
+        "namespace": "default",
+        "uid": "8d0fb542-eba7-44d6-abe7-6e6744f79e4e",
+        "resourceVersion": "10425",
+        "creationTimestamp": "2022-02-10T09:51:12Z",
+        "managedFields": [
+          {
+            "manager": "kubelet",
+            "operation": "Update",
+            "apiVersion": "v1",
+            "time": "2022-02-10T09:51:12Z",
+            "fieldsType": "FieldsV1",
+            "fieldsV1": {"f:count":{},"f:firstTimestamp":{},"f:involvedObject":{"f:apiVersion":{},"f:fieldPath":{},"f:kind":{},"f:name":{},"f:namespace":{},"f:resourceVersion":{},"f:uid":{}},"f:lastTimestamp":{},"f:message":{},"f:reason":{},"f:source":{"f:component":{},"f:host":{}},"f:type":{}}
+          }
+        ]
+      },
+      "eventTime": null,
+      "reason": "Killing",
+      "regarding": {
+        "kind": "Pod",
+        "namespace": "default",
+        "name": "mongodb-deployment-59d764c46-hh5h7",
+        "uid": "d4307f34-76b3-423c-8ca3-17ae813b447f",
+        "apiVersion": "v1",
+        "resourceVersion": "3664",
+        "fieldPath": "spec.containers{mongodb}"
+      },
+      "note": "Stopping container mongodb",
+      "type": "Normal",
+      "deprecatedSource": {
+        "component": "kubelet",
+        "host": "minikube"
+      },
+      "deprecatedFirstTimestamp": "2022-02-10T09:51:12Z",
+      "deprecatedLastTimestamp": "2022-02-10T09:51:12Z",
+      "deprecatedCount": 1
+    },
+    {
+      "metadata": {
+        "name": "mongodb-deployment-59d764c46.16d263e201c16eab",
+        "namespace": "default",
+        "uid": "70bea82e-49ef-45e8-9c40-ecaa3bb1d19e",
+        "resourceVersion": "10283",
+        "creationTimestamp": "2022-02-10T09:50:36Z",
+        "managedFields": [
+          {
+            "manager": "kube-controller-manager",
+            "operation": "Update",
+            "apiVersion": "v1",
+            "time": "2022-02-10T09:50:36Z",
+            "fieldsType": "FieldsV1",
+            "fieldsV1": {"f:count":{},"f:firstTimestamp":{},"f:involvedObject":{"f:apiVersion":{},"f:kind":{},"f:name":{},"f:namespace":{},"f:resourceVersion":{},"f:uid":{}},"f:lastTimestamp":{},"f:message":{},"f:reason":{},"f:source":{"f:component":{}},"f:type":{}}
+          }
+        ]
+      },
+      "eventTime": null,
+      "reason": "SuccessfulCreate",
+      "regarding": {
+        "kind": "ReplicaSet",
+        "namespace": "default",
+        "name": "mongodb-deployment-59d764c46",
+        "uid": "a153b9ce-4804-42fc-8f89-52ea7b9bd13c",
+        "apiVersion": "apps/v1",
+        "resourceVersion": "10278"
+      },
+      "note": "Created pod: mongodb-deployment-59d764c46-wv9b4",
+      "type": "Normal",
+      "deprecatedSource": {
+        "component": "replicaset-controller"
+      },
+      "deprecatedFirstTimestamp": "2022-02-10T09:50:36Z",
+      "deprecatedLastTimestamp": "2022-02-10T09:50:36Z",
+      "deprecatedCount": 1
+    },
+    {
+      "metadata": {
+        "name": "mongodb-deployment-59d764c46.16d263e20205f096",
+        "namespace": "default",
+        "uid": "f3d4cc8d-dbba-4f94-ac9a-146f6798243b",
+        "resourceVersion": "10286",
+        "creationTimestamp": "2022-02-10T09:50:36Z",
+        "managedFields": [
+          {
+            "manager": "kube-controller-manager",
+            "operation": "Update",
+            "apiVersion": "v1",
+            "time": "2022-02-10T09:50:36Z",
+            "fieldsType": "FieldsV1",
+            "fieldsV1": {"f:count":{},"f:firstTimestamp":{},"f:involvedObject":{"f:apiVersion":{},"f:kind":{},"f:name":{},"f:namespace":{},"f:resourceVersion":{},"f:uid":{}},"f:lastTimestamp":{},"f:message":{},"f:reason":{},"f:source":{"f:component":{}},"f:type":{}}
+          }
+        ]
+      },
+      "eventTime": null,
+      "reason": "SuccessfulCreate",
+      "regarding": {
+        "kind": "ReplicaSet",
+        "namespace": "default",
+        "name": "mongodb-deployment-59d764c46",
+        "uid": "a153b9ce-4804-42fc-8f89-52ea7b9bd13c",
+        "apiVersion": "apps/v1",
+        "resourceVersion": "10278"
+      },
+      "note": "Created pod: mongodb-deployment-59d764c46-5xp67",
+      "type": "Normal",
+      "deprecatedSource": {
+        "component": "replicaset-controller"
+      },
+      "deprecatedFirstTimestamp": "2022-02-10T09:50:36Z",
+      "deprecatedLastTimestamp": "2022-02-10T09:50:36Z",
+      "deprecatedCount": 1
+    },
+    {
+      "metadata": {
+        "name": "mongodb-deployment-59d764c46.16d263e202063f2c",
+        "namespace": "default",
+        "uid": "9da34cac-161d-41c3-b4c8-47118106d5c7",
+        "resourceVersion": "10291",
+        "creationTimestamp": "2022-02-10T09:50:36Z",
+        "managedFields": [
+          {
+            "manager": "kube-controller-manager",
+            "operation": "Update",
+            "apiVersion": "v1",
+            "time": "2022-02-10T09:50:36Z",
+            "fieldsType": "FieldsV1",
+            "fieldsV1": {"f:count":{},"f:firstTimestamp":{},"f:involvedObject":{"f:apiVersion":{},"f:kind":{},"f:name":{},"f:namespace":{},"f:resourceVersion":{},"f:uid":{}},"f:lastTimestamp":{},"f:message":{},"f:reason":{},"f:source":{"f:component":{}},"f:type":{}}
+          }
+        ]
+      },
+      "eventTime": null,
+      "reason": "SuccessfulCreate",
+      "regarding": {
+        "kind": "ReplicaSet",
+        "namespace": "default",
+        "name": "mongodb-deployment-59d764c46",
+        "uid": "a153b9ce-4804-42fc-8f89-52ea7b9bd13c",
+        "apiVersion": "apps/v1",
+        "resourceVersion": "10278"
+      },
+      "note": "Created pod: mongodb-deployment-59d764c46-9grw2",
+      "type": "Normal",
+      "deprecatedSource": {
+        "component": "replicaset-controller"
+      },
+      "deprecatedFirstTimestamp": "2022-02-10T09:50:36Z",
+      "deprecatedLastTimestamp": "2022-02-10T09:50:36Z",
+      "deprecatedCount": 1
+    },
+    {
+      "metadata": {
+        "name": "mongodb-deployment-59d764c46.16d263e202500d45",
+        "namespace": "default",
+        "uid": "2d0c2297-9e6d-4841-9233-f6e578fed8b8",
+        "resourceVersion": "10300",
+        "creationTimestamp": "2022-02-10T09:50:36Z",
+        "managedFields": [
+          {
+            "manager": "kube-controller-manager",
+            "operation": "Update",
+            "apiVersion": "v1",
+            "time": "2022-02-10T09:50:36Z",
+            "fieldsType": "FieldsV1",
+            "fieldsV1": {"f:count":{},"f:firstTimestamp":{},"f:involvedObject":{"f:apiVersion":{},"f:kind":{},"f:name":{},"f:namespace":{},"f:resourceVersion":{},"f:uid":{}},"f:lastTimestamp":{},"f:message":{},"f:reason":{},"f:source":{"f:component":{}},"f:type":{}}
+          }
+        ]
+      },
+      "eventTime": null,
+      "reason": "SuccessfulCreate",
+      "regarding": {
+        "kind": "ReplicaSet",
+        "namespace": "default",
+        "name": "mongodb-deployment-59d764c46",
+        "uid": "a153b9ce-4804-42fc-8f89-52ea7b9bd13c",
+        "apiVersion": "apps/v1",
+        "resourceVersion": "10278"
+      },
+      "note": "Created pod: mongodb-deployment-59d764c46-7svqq",
+      "type": "Normal",
+      "deprecatedSource": {
+        "component": "replicaset-controller"
+      },
+      "deprecatedFirstTimestamp": "2022-02-10T09:50:36Z",
+      "deprecatedLastTimestamp": "2022-02-10T09:50:36Z",
+      "deprecatedCount": 1
+    },
+    {
+      "metadata": {
+        "name": "mongodb-deployment-59d764c46.16d263e20253bdcf",
+        "namespace": "default",
+        "uid": "8c05e0ce-2e40-4e74-946a-14f484c735c1",
+        "resourceVersion": "10304",
+        "creationTimestamp": "2022-02-10T09:50:36Z",
+        "managedFields": [
+          {
+            "manager": "kube-controller-manager",
+            "operation": "Update",
+            "apiVersion": "v1",
+            "time": "2022-02-10T09:50:36Z",
+            "fieldsType": "FieldsV1",
+            "fieldsV1": {"f:count":{},"f:firstTimestamp":{},"f:involvedObject":{"f:apiVersion":{},"f:kind":{},"f:name":{},"f:namespace":{},"f:resourceVersion":{},"f:uid":{}},"f:lastTimestamp":{},"f:message":{},"f:reason":{},"f:source":{"f:component":{}},"f:type":{}}
+          }
+        ]
+      },
+      "eventTime": null,
+      "reason": "SuccessfulCreate",
+      "regarding": {
+        "kind": "ReplicaSet",
+        "namespace": "default",
+        "name": "mongodb-deployment-59d764c46",
+        "uid": "a153b9ce-4804-42fc-8f89-52ea7b9bd13c",
+        "apiVersion": "apps/v1",
+        "resourceVersion": "10278"
+      },
+      "note": "Created pod: mongodb-deployment-59d764c46-w7jmr",
+      "type": "Normal",
+      "deprecatedSource": {
+        "component": "replicaset-controller"
+      },
+      "deprecatedFirstTimestamp": "2022-02-10T09:50:36Z",
+      "deprecatedLastTimestamp": "2022-02-10T09:50:36Z",
+      "deprecatedCount": 1
+    },
+    {
+      "metadata": {
+        "name": "mongodb-deployment-59d764c46.16d263e20256e1b3",
+        "namespace": "default",
+        "uid": "71ac152a-07dc-4541-be49-cb595fc1e8fb",
+        "resourceVersion": "10305",
+        "creationTimestamp": "2022-02-10T09:50:36Z",
+        "managedFields": [
+          {
+            "manager": "kube-controller-manager",
+            "operation": "Update",
+            "apiVersion": "v1",
+            "time": "2022-02-10T09:50:36Z",
+            "fieldsType": "FieldsV1",
+            "fieldsV1": {"f:count":{},"f:firstTimestamp":{},"f:involvedObject":{"f:apiVersion":{},"f:kind":{},"f:name":{},"f:namespace":{},"f:resourceVersion":{},"f:uid":{}},"f:lastTimestamp":{},"f:message":{},"f:reason":{},"f:source":{"f:component":{}},"f:type":{}}
+          }
+        ]
+      },
+      "eventTime": null,
+      "reason": "SuccessfulCreate",
+      "regarding": {
+        "kind": "ReplicaSet",
+        "namespace": "default",
+        "name": "mongodb-deployment-59d764c46",
+        "uid": "a153b9ce-4804-42fc-8f89-52ea7b9bd13c",
+        "apiVersion": "apps/v1",
+        "resourceVersion": "10278"
+      },
+      "note": "Created pod: mongodb-deployment-59d764c46-j74ps",
+      "type": "Normal",
+      "deprecatedSource": {
+        "component": "replicaset-controller"
+      },
+      "deprecatedFirstTimestamp": "2022-02-10T09:50:36Z",
+      "deprecatedLastTimestamp": "2022-02-10T09:50:36Z",
+      "deprecatedCount": 1
+    },
+    {
+      "metadata": {
+        "name": "mongodb-deployment-59d764c46.16d263e202582618",
+        "namespace": "default",
+        "uid": "b67d0149-d888-478a-9e62-9daa99fbb491",
+        "resourceVersion": "10307",
+        "creationTimestamp": "2022-02-10T09:50:36Z",
+        "managedFields": [
+          {
+            "manager": "kube-controller-manager",
+            "operation": "Update",
+            "apiVersion": "v1",
+            "time": "2022-02-10T09:50:36Z",
+            "fieldsType": "FieldsV1",
+            "fieldsV1": {"f:count":{},"f:firstTimestamp":{},"f:involvedObject":{"f:apiVersion":{},"f:kind":{},"f:name":{},"f:namespace":{},"f:resourceVersion":{},"f:uid":{}},"f:lastTimestamp":{},"f:message":{},"f:reason":{},"f:source":{"f:component":{}},"f:type":{}}
+          }
+        ]
+      },
+      "eventTime": null,
+      "reason": "SuccessfulCreate",
+      "regarding": {
+        "kind": "ReplicaSet",
+        "namespace": "default",
+        "name": "mongodb-deployment-59d764c46",
+        "uid": "a153b9ce-4804-42fc-8f89-52ea7b9bd13c",
+        "apiVersion": "apps/v1",
+        "resourceVersion": "10278"
+      },
+      "note": "Created pod: mongodb-deployment-59d764c46-rfdjh",
+      "type": "Normal",
+      "deprecatedSource": {
+        "component": "replicaset-controller"
+      },
+      "deprecatedFirstTimestamp": "2022-02-10T09:50:36Z",
+      "deprecatedLastTimestamp": "2022-02-10T09:50:36Z",
+      "deprecatedCount": 1
+    },
+    {
+      "metadata": {
+        "name": "mongodb-deployment-59d764c46.16d263e2029925a7",
+        "namespace": "default",
+        "uid": "3391c71f-49ea-4fd7-b39e-32fa3d25c185",
+        "resourceVersion": "10309",
+        "creationTimestamp": "2022-02-10T09:50:36Z",
+        "managedFields": [
+          {
+            "manager": "kube-controller-manager",
+            "operation": "Update",
+            "apiVersion": "v1",
+            "time": "2022-02-10T09:50:36Z",
+            "fieldsType": "FieldsV1",
+            "fieldsV1": {"f:count":{},"f:firstTimestamp":{},"f:involvedObject":{"f:apiVersion":{},"f:kind":{},"f:name":{},"f:namespace":{},"f:resourceVersion":{},"f:uid":{}},"f:lastTimestamp":{},"f:message":{},"f:reason":{},"f:source":{"f:component":{}},"f:type":{}}
+          }
+        ]
+      },
+      "eventTime": null,
+      "reason": "SuccessfulCreate",
+      "regarding": {
+        "kind": "ReplicaSet",
+        "namespace": "default",
+        "name": "mongodb-deployment-59d764c46",
+        "uid": "a153b9ce-4804-42fc-8f89-52ea7b9bd13c",
+        "apiVersion": "apps/v1",
+        "resourceVersion": "10278"
+      },
+      "note": "Created pod: mongodb-deployment-59d764c46-ffcq8",
+      "type": "Normal",
+      "deprecatedSource": {
+        "component": "replicaset-controller"
+      },
+      "deprecatedFirstTimestamp": "2022-02-10T09:50:36Z",
+      "deprecatedLastTimestamp": "2022-02-10T09:50:36Z",
+      "deprecatedCount": 1
+    },
+    {
+      "metadata": {
+        "name": "mongodb-deployment-59d764c46.16d263e202b14b77",
+        "namespace": "default",
+        "uid": "32728fab-ed82-4d67-9835-9b51b745d4e5",
+        "resourceVersion": "10310",
+        "creationTimestamp": "2022-02-10T09:50:36Z",
+        "managedFields": [
+          {
+            "manager": "kube-controller-manager",
+            "operation": "Update",
+            "apiVersion": "v1",
+            "time": "2022-02-10T09:50:36Z",
+            "fieldsType": "FieldsV1",
+            "fieldsV1": {"f:count":{},"f:firstTimestamp":{},"f:involvedObject":{"f:apiVersion":{},"f:kind":{},"f:name":{},"f:namespace":{},"f:resourceVersion":{},"f:uid":{}},"f:lastTimestamp":{},"f:message":{},"f:reason":{},"f:source":{"f:component":{}},"f:type":{}}
+          }
+        ]
+      },
+      "eventTime": null,
+      "reason": "SuccessfulCreate",
+      "regarding": {
+        "kind": "ReplicaSet",
+        "namespace": "default",
+        "name": "mongodb-deployment-59d764c46",
+        "uid": "a153b9ce-4804-42fc-8f89-52ea7b9bd13c",
+        "apiVersion": "apps/v1",
+        "resourceVersion": "10278"
+      },
+      "note": "Created pod: mongodb-deployment-59d764c46-6b5gt",
+      "type": "Normal",
+      "deprecatedSource": {
+        "component": "replicaset-controller"
+      },
+      "deprecatedFirstTimestamp": "2022-02-10T09:50:36Z",
+      "deprecatedLastTimestamp": "2022-02-10T09:50:36Z",
+      "deprecatedCount": 1
+    },
+    {
+      "metadata": {
+        "name": "mongodb-deployment-59d764c46.16d263e20383d76e",
+        "namespace": "default",
+        "uid": "c105d082-d90b-4710-92bd-31cc944115e4",
+        "resourceVersion": "11211",
+        "creationTimestamp": "2022-02-10T09:50:36Z",
+        "managedFields": [
+          {
+            "manager": "kube-controller-manager",
+            "operation": "Update",
+            "apiVersion": "v1",
+            "time": "2022-02-10T09:50:36Z",
+            "fieldsType": "FieldsV1",
+            "fieldsV1": {"f:count":{},"f:firstTimestamp":{},"f:involvedObject":{"f:apiVersion":{},"f:kind":{},"f:name":{},"f:namespace":{},"f:resourceVersion":{},"f:uid":{}},"f:lastTimestamp":{},"f:message":{},"f:reason":{},"f:source":{"f:component":{}},"f:type":{}}
+          }
+        ]
+      },
+      "eventTime": null,
+      "reason": "SuccessfulCreate",
+      "regarding": {
+        "kind": "ReplicaSet",
+        "namespace": "default",
+        "name": "mongodb-deployment-59d764c46",
+        "uid": "a153b9ce-4804-42fc-8f89-52ea7b9bd13c",
+        "apiVersion": "apps/v1",
+        "resourceVersion": "10278"
+      },
+      "note": "(combined from similar events): Created pod: mongodb-deployment-59d764c46-72wg8",
+      "type": "Normal",
+      "deprecatedSource": {
+        "component": "replicaset-controller"
+      },
+      "deprecatedFirstTimestamp": "2022-02-10T09:50:36Z",
+      "deprecatedLastTimestamp": "2022-02-10T10:02:21Z",
+      "deprecatedCount": 11
+    },
+    {
+      "metadata": {
+        "name": "mongodb-deployment-59d764c46.16d263e9c6ebe570",
+        "namespace": "default",
+        "uid": "c98f6c34-abaf-4b37-ad19-8559e2c27134",
+        "resourceVersion": "10377",
+        "creationTimestamp": "2022-02-10T09:51:09Z",
+        "managedFields": [
+          {
+            "manager": "kube-controller-manager",
+            "operation": "Update",
+            "apiVersion": "v1",
+            "time": "2022-02-10T09:51:09Z",
+            "fieldsType": "FieldsV1",
+            "fieldsV1": {"f:count":{},"f:firstTimestamp":{},"f:involvedObject":{"f:apiVersion":{},"f:kind":{},"f:name":{},"f:namespace":{},"f:resourceVersion":{},"f:uid":{}},"f:lastTimestamp":{},"f:message":{},"f:reason":{},"f:source":{"f:component":{}},"f:type":{}}
+          }
+        ]
+      },
+      "eventTime": null,
+      "reason": "SuccessfulDelete",
+      "regarding": {
+        "kind": "ReplicaSet",
+        "namespace": "default",
+        "name": "mongodb-deployment-59d764c46",
+        "uid": "a153b9ce-4804-42fc-8f89-52ea7b9bd13c",
+        "apiVersion": "apps/v1",
+        "resourceVersion": "10345"
+      },
+      "note": "Deleted pod: mongodb-deployment-59d764c46-7m9hc",
+      "type": "Normal",
+      "deprecatedSource": {
+        "component": "replicaset-controller"
+      },
+      "deprecatedFirstTimestamp": "2022-02-10T09:51:09Z",
+      "deprecatedLastTimestamp": "2022-02-10T09:51:09Z",
+      "deprecatedCount": 1
+    },
+    {
+      "metadata": {
+        "name": "mongodb-deployment-59d764c46.16d263e9c70c457f",
+        "namespace": "default",
+        "uid": "e2462c9a-9f64-44eb-b606-7debd84be3e9",
+        "resourceVersion": "10390",
+        "creationTimestamp": "2022-02-10T09:51:09Z",
+        "managedFields": [
+          {
+            "manager": "kube-controller-manager",
+            "operation": "Update",
+            "apiVersion": "v1",
+            "time": "2022-02-10T09:51:09Z",
+            "fieldsType": "FieldsV1",
+            "fieldsV1": {"f:count":{},"f:firstTimestamp":{},"f:involvedObject":{"f:apiVersion":{},"f:kind":{},"f:name":{},"f:namespace":{},"f:resourceVersion":{},"f:uid":{}},"f:lastTimestamp":{},"f:message":{},"f:reason":{},"f:source":{"f:component":{}},"f:type":{}}
+          }
+        ]
+      },
+      "eventTime": null,
+      "reason": "SuccessfulDelete",
+      "regarding": {
+        "kind": "ReplicaSet",
+        "namespace": "default",
+        "name": "mongodb-deployment-59d764c46",
+        "uid": "a153b9ce-4804-42fc-8f89-52ea7b9bd13c",
+        "apiVersion": "apps/v1",
+        "resourceVersion": "10345"
+      },
+      "note": "Deleted pod: mongodb-deployment-59d764c46-chxbl",
+      "type": "Normal",
+      "deprecatedSource": {
+        "component": "replicaset-controller"
+      },
+      "deprecatedFirstTimestamp": "2022-02-10T09:51:09Z",
+      "deprecatedLastTimestamp": "2022-02-10T09:51:09Z",
+      "deprecatedCount": 1
+    },
+    {
+      "metadata": {
+        "name": "mongodb-deployment-59d764c46.16d263e9c75c9c06",
+        "namespace": "default",
+        "uid": "cd3863ba-19f2-424e-94e6-1dff3cc5ba3b",
+        "resourceVersion": "10393",
+        "creationTimestamp": "2022-02-10T09:51:09Z",
+        "managedFields": [
+          {
+            "manager": "kube-controller-manager",
+            "operation": "Update",
+            "apiVersion": "v1",
+            "time": "2022-02-10T09:51:09Z",
+            "fieldsType": "FieldsV1",
+            "fieldsV1": {"f:count":{},"f:firstTimestamp":{},"f:involvedObject":{"f:apiVersion":{},"f:kind":{},"f:name":{},"f:namespace":{},"f:resourceVersion":{},"f:uid":{}},"f:lastTimestamp":{},"f:message":{},"f:reason":{},"f:source":{"f:component":{}},"f:type":{}}
+          }
+        ]
+      },
+      "eventTime": null,
+      "reason": "SuccessfulDelete",
+      "regarding": {
+        "kind": "ReplicaSet",
+        "namespace": "default",
+        "name": "mongodb-deployment-59d764c46",
+        "uid": "a153b9ce-4804-42fc-8f89-52ea7b9bd13c",
+        "apiVersion": "apps/v1",
+        "resourceVersion": "10345"
+      },
+      "note": "Deleted pod: mongodb-deployment-59d764c46-7svqq",
+      "type": "Normal",
+      "deprecatedSource": {
+        "component": "replicaset-controller"
+      },
+      "deprecatedFirstTimestamp": "2022-02-10T09:51:09Z",
+      "deprecatedLastTimestamp": "2022-02-10T09:51:09Z",
+      "deprecatedCount": 1
+    },
+    {
+      "metadata": {
+        "name": "mongodb-deployment-59d764c46.16d263e9c898141a",
+        "namespace": "default",
+        "uid": "d0d9a1c5-92b4-4bec-a927-12ffb9309f22",
+        "resourceVersion": "10396",
+        "creationTimestamp": "2022-02-10T09:51:09Z",
+        "managedFields": [
+          {
+            "manager": "kube-controller-manager",
+            "operation": "Update",
+            "apiVersion": "v1",
+            "time": "2022-02-10T09:51:09Z",
+            "fieldsType": "FieldsV1",
+            "fieldsV1": {"f:count":{},"f:firstTimestamp":{},"f:involvedObject":{"f:apiVersion":{},"f:kind":{},"f:name":{},"f:namespace":{},"f:resourceVersion":{},"f:uid":{}},"f:lastTimestamp":{},"f:message":{},"f:reason":{},"f:source":{"f:component":{}},"f:type":{}}
+          }
+        ]
+      },
+      "eventTime": null,
+      "reason": "SuccessfulDelete",
+      "regarding": {
+        "kind": "ReplicaSet",
+        "namespace": "default",
+        "name": "mongodb-deployment-59d764c46",
+        "uid": "a153b9ce-4804-42fc-8f89-52ea7b9bd13c",
+        "apiVersion": "apps/v1",
+        "resourceVersion": "10345"
+      },
+      "note": "Deleted pod: mongodb-deployment-59d764c46-ffcq8",
+      "type": "Normal",
+      "deprecatedSource": {
+        "component": "replicaset-controller"
+      },
+      "deprecatedFirstTimestamp": "2022-02-10T09:51:09Z",
+      "deprecatedLastTimestamp": "2022-02-10T09:51:09Z",
+      "deprecatedCount": 1
+    },
+    {
+      "metadata": {
+        "name": "mongodb-deployment-59d764c46.16d263e9c89f0420",
+        "namespace": "default",
+        "uid": "b6858e2b-51c7-434d-9c35-4d516c87665f",
+        "resourceVersion": "10400",
+        "creationTimestamp": "2022-02-10T09:51:09Z",
+        "managedFields": [
+          {
+            "manager": "kube-controller-manager",
+            "operation": "Update",
+            "apiVersion": "v1",
+            "time": "2022-02-10T09:51:09Z",
+            "fieldsType": "FieldsV1",
+            "fieldsV1": {"f:count":{},"f:firstTimestamp":{},"f:involvedObject":{"f:apiVersion":{},"f:kind":{},"f:name":{},"f:namespace":{},"f:resourceVersion":{},"f:uid":{}},"f:lastTimestamp":{},"f:message":{},"f:reason":{},"f:source":{"f:component":{}},"f:type":{}}
+          }
+        ]
+      },
+      "eventTime": null,
+      "reason": "SuccessfulDelete",
+      "regarding": {
+        "kind": "ReplicaSet",
+        "namespace": "default",
+        "name": "mongodb-deployment-59d764c46",
+        "uid": "a153b9ce-4804-42fc-8f89-52ea7b9bd13c",
+        "apiVersion": "apps/v1",
+        "resourceVersion": "10345"
+      },
+      "note": "Deleted pod: mongodb-deployment-59d764c46-j74ps",
+      "type": "Normal",
+      "deprecatedSource": {
+        "component": "replicaset-controller"
+      },
+      "deprecatedFirstTimestamp": "2022-02-10T09:51:09Z",
+      "deprecatedLastTimestamp": "2022-02-10T09:51:09Z",
+      "deprecatedCount": 1
+    },
+    {
+      "metadata": {
+        "name": "mongodb-deployment-59d764c46.16d263e9c8ad3650",
+        "namespace": "default",
+        "uid": "ce761639-4a93-4ad6-89ac-e805dee372ef",
+        "resourceVersion": "10401",
+        "creationTimestamp": "2022-02-10T09:51:09Z",
+        "managedFields": [
+          {
+            "manager": "kube-controller-manager",
+            "operation": "Update",
+            "apiVersion": "v1",
+            "time": "2022-02-10T09:51:09Z",
+            "fieldsType": "FieldsV1",
+            "fieldsV1": {"f:count":{},"f:firstTimestamp":{},"f:involvedObject":{"f:apiVersion":{},"f:kind":{},"f:name":{},"f:namespace":{},"f:resourceVersion":{},"f:uid":{}},"f:lastTimestamp":{},"f:message":{},"f:reason":{},"f:source":{"f:component":{}},"f:type":{}}
+          }
+        ]
+      },
+      "eventTime": null,
+      "reason": "SuccessfulDelete",
+      "regarding": {
+        "kind": "ReplicaSet",
+        "namespace": "default",
+        "name": "mongodb-deployment-59d764c46",
+        "uid": "a153b9ce-4804-42fc-8f89-52ea7b9bd13c",
+        "apiVersion": "apps/v1",
+        "resourceVersion": "10345"
+      },
+      "note": "Deleted pod: mongodb-deployment-59d764c46-w7jmr",
+      "type": "Normal",
+      "deprecatedSource": {
+        "component": "replicaset-controller"
+      },
+      "deprecatedFirstTimestamp": "2022-02-10T09:51:09Z",
+      "deprecatedLastTimestamp": "2022-02-10T09:51:09Z",
+      "deprecatedCount": 1
+    },
+    {
+      "metadata": {
+        "name": "mongodb-deployment-59d764c46.16d263e9c8b45bad",
+        "namespace": "default",
+        "uid": "2bac6fb7-3b83-486c-b3a4-56b5bc9999e7",
+        "resourceVersion": "10402",
+        "creationTimestamp": "2022-02-10T09:51:09Z",
+        "managedFields": [
+          {
+            "manager": "kube-controller-manager",
+            "operation": "Update",
+            "apiVersion": "v1",
+            "time": "2022-02-10T09:51:09Z",
+            "fieldsType": "FieldsV1",
+            "fieldsV1": {"f:count":{},"f:firstTimestamp":{},"f:involvedObject":{"f:apiVersion":{},"f:kind":{},"f:name":{},"f:namespace":{},"f:resourceVersion":{},"f:uid":{}},"f:lastTimestamp":{},"f:message":{},"f:reason":{},"f:source":{"f:component":{}},"f:type":{}}
+          }
+        ]
+      },
+      "eventTime": null,
+      "reason": "SuccessfulDelete",
+      "regarding": {
+        "kind": "ReplicaSet",
+        "namespace": "default",
+        "name": "mongodb-deployment-59d764c46",
+        "uid": "a153b9ce-4804-42fc-8f89-52ea7b9bd13c",
+        "apiVersion": "apps/v1",
+        "resourceVersion": "10345"
+      },
+      "note": "Deleted pod: mongodb-deployment-59d764c46-wv9b4",
+      "type": "Normal",
+      "deprecatedSource": {
+        "component": "replicaset-controller"
+      },
+      "deprecatedFirstTimestamp": "2022-02-10T09:51:09Z",
+      "deprecatedLastTimestamp": "2022-02-10T09:51:09Z",
+      "deprecatedCount": 1
+    },
+    {
+      "metadata": {
+        "name": "mongodb-deployment-75d755c48f-7fkhc.16d263ed88e89bf5",
+        "namespace": "default",
+        "uid": "a9261e78-8d09-4acd-875f-54f701e083eb",
+        "resourceVersion": "10462",
+        "creationTimestamp": "2022-02-10T09:51:25Z",
+        "managedFields": [
+          {
+            "manager": "kube-scheduler",
+            "operation": "Update",
+            "apiVersion": "events.k8s.io/v1",
+            "time": "2022-02-10T09:51:25Z",
+            "fieldsType": "FieldsV1",
+            "fieldsV1": {"f:action":{},"f:eventTime":{},"f:note":{},"f:reason":{},"f:regarding":{"f:apiVersion":{},"f:kind":{},"f:name":{},"f:namespace":{},"f:resourceVersion":{},"f:uid":{}},"f:reportingController":{},"f:reportingInstance":{},"f:type":{}}
+          }
+        ]
+      },
+      "eventTime": "2022-02-10T09:51:25.798987Z",
+      "reportingController": "default-scheduler",
+      "reportingInstance": "default-scheduler-minikube",
+      "action": "Binding",
+      "reason": "Scheduled",
+      "regarding": {
+        "kind": "Pod",
+        "namespace": "default",
+        "name": "mongodb-deployment-75d755c48f-7fkhc",
+        "uid": "1e73d603-be6e-4b3d-a71d-276f7fe53dde",
+        "apiVersion": "v1",
+        "resourceVersion": "10450"
+      },
+      "note": "Successfully assigned default/mongodb-deployment-75d755c48f-7fkhc to minikube",
+      "type": "Normal",
+      "deprecatedSource": {
+
+      },
+      "deprecatedFirstTimestamp": null,
+      "deprecatedLastTimestamp": null
+    },
+    {
+      "metadata": {
+        "name": "mongodb-deployment-75d755c48f-7fkhc.16d263eddf15e949",
+        "namespace": "default",
+        "uid": "087e3582-6c4b-47ed-bc7c-283a97a5e523",
+        "resourceVersion": "10501",
+        "creationTimestamp": "2022-02-10T09:51:27Z",
+        "managedFields": [
+          {
+            "manager": "kubelet",
+            "operation": "Update",
+            "apiVersion": "v1",
+            "time": "2022-02-10T09:51:27Z",
+            "fieldsType": "FieldsV1",
+            "fieldsV1": {"f:count":{},"f:firstTimestamp":{},"f:involvedObject":{"f:apiVersion":{},"f:fieldPath":{},"f:kind":{},"f:name":{},"f:namespace":{},"f:resourceVersion":{},"f:uid":{}},"f:lastTimestamp":{},"f:message":{},"f:reason":{},"f:source":{"f:component":{},"f:host":{}},"f:type":{}}
+          }
+        ]
+      },
+      "eventTime": null,
+      "reason": "Pulling",
+      "regarding": {
+        "kind": "Pod",
+        "namespace": "default",
+        "name": "mongodb-deployment-75d755c48f-7fkhc",
+        "uid": "1e73d603-be6e-4b3d-a71d-276f7fe53dde",
+        "apiVersion": "v1",
+        "resourceVersion": "10455",
+        "fieldPath": "spec.containers{mongodb}"
+      },
+      "note": "Pulling image \"mongo\"",
+      "type": "Normal",
+      "deprecatedSource": {
+        "component": "kubelet",
+        "host": "minikube"
+      },
+      "deprecatedFirstTimestamp": "2022-02-10T09:51:27Z",
+      "deprecatedLastTimestamp": "2022-02-10T09:51:27Z",
+      "deprecatedCount": 1
+    },
+    {
+      "metadata": {
+        "name": "mongodb-deployment-75d755c48f-7fkhc.16d263ef2e04ac72",
+        "namespace": "default",
+        "uid": "aa4f5b17-59b2-4901-b2f9-5177aa9bcde5",
+        "resourceVersion": "10529",
+        "creationTimestamp": "2022-02-10T09:51:32Z",
+        "managedFields": [
+          {
+            "manager": "kubelet",
+            "operation": "Update",
+            "apiVersion": "v1",
+            "time": "2022-02-10T09:51:32Z",
+            "fieldsType": "FieldsV1",
+            "fieldsV1": {"f:count":{},"f:firstTimestamp":{},"f:involvedObject":{"f:apiVersion":{},"f:fieldPath":{},"f:kind":{},"f:name":{},"f:namespace":{},"f:resourceVersion":{},"f:uid":{}},"f:lastTimestamp":{},"f:message":{},"f:reason":{},"f:source":{"f:component":{},"f:host":{}},"f:type":{}}
+          }
+        ]
+      },
+      "eventTime": null,
+      "reason": "Pulled",
+      "regarding": {
+        "kind": "Pod",
+        "namespace": "default",
+        "name": "mongodb-deployment-75d755c48f-7fkhc",
+        "uid": "1e73d603-be6e-4b3d-a71d-276f7fe53dde",
+        "apiVersion": "v1",
+        "resourceVersion": "10455",
+        "fieldPath": "spec.containers{mongodb}"
+      },
+      "note": "Successfully pulled image \"mongo\" in 5.619221473s",
+      "type": "Normal",
+      "deprecatedSource": {
+        "component": "kubelet",
+        "host": "minikube"
+      },
+      "deprecatedFirstTimestamp": "2022-02-10T09:51:32Z",
+      "deprecatedLastTimestamp": "2022-02-10T09:51:32Z",
+      "deprecatedCount": 1
+    },
+    {
+      "metadata": {
+        "name": "mongodb-deployment-75d755c48f-7fkhc.16d263ef3027254f",
+        "namespace": "default",
+        "uid": "8ab073fd-0835-4e38-8ea4-ae0f9f627724",
+        "resourceVersion": "10530",
+        "creationTimestamp": "2022-02-10T09:51:32Z",
+        "managedFields": [
+          {
+            "manager": "kubelet",
+            "operation": "Update",
+            "apiVersion": "v1",
+            "time": "2022-02-10T09:51:32Z",
+            "fieldsType": "FieldsV1",
+            "fieldsV1": {"f:count":{},"f:firstTimestamp":{},"f:involvedObject":{"f:apiVersion":{},"f:fieldPath":{},"f:kind":{},"f:name":{},"f:namespace":{},"f:resourceVersion":{},"f:uid":{}},"f:lastTimestamp":{},"f:message":{},"f:reason":{},"f:source":{"f:component":{},"f:host":{}},"f:type":{}}
+          }
+        ]
+      },
+      "eventTime": null,
+      "reason": "Created",
+      "regarding": {
+        "kind": "Pod",
+        "namespace": "default",
+        "name": "mongodb-deployment-75d755c48f-7fkhc",
+        "uid": "1e73d603-be6e-4b3d-a71d-276f7fe53dde",
+        "apiVersion": "v1",
+        "resourceVersion": "10455",
+        "fieldPath": "spec.containers{mongodb}"
+      },
+      "note": "Created container mongodb",
+      "type": "Normal",
+      "deprecatedSource": {
+        "component": "kubelet",
+        "host": "minikube"
+      },
+      "deprecatedFirstTimestamp": "2022-02-10T09:51:32Z",
+      "deprecatedLastTimestamp": "2022-02-10T09:51:32Z",
+      "deprecatedCount": 1
+    },
+    {
+      "metadata": {
+        "name": "mongodb-deployment-75d755c48f-7fkhc.16d263ef374e462d",
+        "namespace": "default",
+        "uid": "5849277c-7336-4178-8d52-35f4506f5f79",
+        "resourceVersion": "10531",
+        "creationTimestamp": "2022-02-10T09:51:33Z",
+        "managedFields": [
+          {
+            "manager": "kubelet",
+            "operation": "Update",
+            "apiVersion": "v1",
+            "time": "2022-02-10T09:51:33Z",
+            "fieldsType": "FieldsV1",
+            "fieldsV1": {"f:count":{},"f:firstTimestamp":{},"f:involvedObject":{"f:apiVersion":{},"f:fieldPath":{},"f:kind":{},"f:name":{},"f:namespace":{},"f:resourceVersion":{},"f:uid":{}},"f:lastTimestamp":{},"f:message":{},"f:reason":{},"f:source":{"f:component":{},"f:host":{}},"f:type":{}}
+          }
+        ]
+      },
+      "eventTime": null,
+      "reason": "Started",
+      "regarding": {
+        "kind": "Pod",
+        "namespace": "default",
+        "name": "mongodb-deployment-75d755c48f-7fkhc",
+        "uid": "1e73d603-be6e-4b3d-a71d-276f7fe53dde",
+        "apiVersion": "v1",
+        "resourceVersion": "10455",
+        "fieldPath": "spec.containers{mongodb}"
+      },
+      "note": "Started container mongodb",
+      "type": "Normal",
+      "deprecatedSource": {
+        "component": "kubelet",
+        "host": "minikube"
+      },
+      "deprecatedFirstTimestamp": "2022-02-10T09:51:33Z",
+      "deprecatedLastTimestamp": "2022-02-10T09:51:33Z",
+      "deprecatedCount": 1
+    },
+    {
+      "metadata": {
+        "name": "mongodb-deployment-75d755c48f-7fkhc.16d264602478e019",
+        "namespace": "default",
+        "uid": "7e7dfe55-bb6e-4d47-8744-4784379dd8c6",
+        "resourceVersion": "10958",
+        "creationTimestamp": "2022-02-10T09:59:38Z",
+        "managedFields": [
+          {
+            "manager": "kubelet",
+            "operation": "Update",
+            "apiVersion": "v1",
+            "time": "2022-02-10T09:59:38Z",
+            "fieldsType": "FieldsV1",
+            "fieldsV1": {"f:count":{},"f:firstTimestamp":{},"f:involvedObject":{"f:apiVersion":{},"f:fieldPath":{},"f:kind":{},"f:name":{},"f:namespace":{},"f:resourceVersion":{},"f:uid":{}},"f:lastTimestamp":{},"f:message":{},"f:reason":{},"f:source":{"f:component":{},"f:host":{}},"f:type":{}}
+          }
+        ]
+      },
+      "eventTime": null,
+      "reason": "Killing",
+      "regarding": {
+        "kind": "Pod",
+        "namespace": "default",
+        "name": "mongodb-deployment-75d755c48f-7fkhc",
+        "uid": "1e73d603-be6e-4b3d-a71d-276f7fe53dde",
+        "apiVersion": "v1",
+        "resourceVersion": "10455",
+        "fieldPath": "spec.containers{mongodb}"
+      },
+      "note": "Stopping container mongodb",
+      "type": "Normal",
+      "deprecatedSource": {
+        "component": "kubelet",
+        "host": "minikube"
+      },
+      "deprecatedFirstTimestamp": "2022-02-10T09:59:38Z",
+      "deprecatedLastTimestamp": "2022-02-10T09:59:38Z",
+      "deprecatedCount": 1
+    },
+    {
+      "metadata": {
+        "name": "mongodb-deployment-75d755c48f-7jrz7.16d263ed8978ad75",
+        "namespace": "default",
+        "uid": "3258dcae-3490-4ce7-b126-aae72f9d177f",
+        "resourceVersion": "10471",
+        "creationTimestamp": "2022-02-10T09:51:25Z",
+        "managedFields": [
+          {
+            "manager": "kube-scheduler",
+            "operation": "Update",
+            "apiVersion": "events.k8s.io/v1",
+            "time": "2022-02-10T09:51:25Z",
+            "fieldsType": "FieldsV1",
+            "fieldsV1": {"f:action":{},"f:eventTime":{},"f:note":{},"f:reason":{},"f:regarding":{"f:apiVersion":{},"f:kind":{},"f:name":{},"f:namespace":{},"f:resourceVersion":{},"f:uid":{}},"f:reportingController":{},"f:reportingInstance":{},"f:type":{}}
+          }
+        ]
+      },
+      "eventTime": "2022-02-10T09:51:25.808435Z",
+      "reportingController": "default-scheduler",
+      "reportingInstance": "default-scheduler-minikube",
+      "action": "Scheduling",
+      "reason": "FailedScheduling",
+      "regarding": {
+        "kind": "Pod",
+        "namespace": "default",
+        "name": "mongodb-deployment-75d755c48f-7jrz7",
+        "uid": "d2e9d9f3-ac89-4021-8c34-9bf813f64987",
+        "apiVersion": "v1",
+        "resourceVersion": "10458"
+      },
+      "note": "0/1 nodes are available: 1 Insufficient cpu.",
+      "type": "Warning",
+      "deprecatedSource": {
+
+      },
+      "deprecatedFirstTimestamp": null,
+      "deprecatedLastTimestamp": null
+    },
+    {
+      "metadata": {
+        "name": "mongodb-deployment-75d755c48f-7jrz7.16d263edd06f1c25",
+        "namespace": "default",
+        "uid": "9e211d87-938e-48fd-9fad-890473ee769d",
+        "resourceVersion": "11496",
+        "creationTimestamp": "2022-02-10T09:51:27Z",
+        "managedFields": [
+          {
+            "manager": "kube-scheduler",
+            "operation": "Update",
+            "apiVersion": "events.k8s.io/v1",
+            "time": "2022-02-10T09:52:44Z",
+            "fieldsType": "FieldsV1",
+            "fieldsV1": {"f:action":{},"f:eventTime":{},"f:note":{},"f:reason":{},"f:regarding":{"f:apiVersion":{},"f:kind":{},"f:name":{},"f:namespace":{},"f:resourceVersion":{},"f:uid":{}},"f:reportingController":{},"f:reportingInstance":{},"f:series":{".":{},"f:count":{},"f:lastObservedTime":{}},"f:type":{}}
+          }
+        ]
+      },
+      "eventTime": "2022-02-10T09:51:26.998988Z",
+      "series": {
+        "count": 7,
+        "lastObservedTime": "2022-02-10T09:59:14.893463Z"
+      },
+      "reportingController": "default-scheduler",
+      "reportingInstance": "default-scheduler-minikube",
+      "action": "Scheduling",
+      "reason": "FailedScheduling",
+      "regarding": {
+        "kind": "Pod",
+        "namespace": "default",
+        "name": "mongodb-deployment-75d755c48f-7jrz7",
+        "uid": "d2e9d9f3-ac89-4021-8c34-9bf813f64987",
+        "apiVersion": "v1",
+        "resourceVersion": "10474"
+      },
+      "note": "0/1 nodes are available: 1 Insufficient cpu.",
+      "type": "Warning",
+      "deprecatedSource": {
+
+      },
+      "deprecatedFirstTimestamp": null,
+      "deprecatedLastTimestamp": null
+    },
+    {
+      "metadata": {
+        "name": "mongodb-deployment-75d755c48f-7jrz7.16d264602405bd37",
+        "namespace": "default",
+        "uid": "bab20396-bd8b-4ac9-b557-e97fa82bd54c",
+        "resourceVersion": "10940",
+        "creationTimestamp": "2022-02-10T09:59:38Z",
+        "managedFields": [
+          {
+            "manager": "kube-scheduler",
+            "operation": "Update",
+            "apiVersion": "events.k8s.io/v1",
+            "time": "2022-02-10T09:59:38Z",
+            "fieldsType": "FieldsV1",
+            "fieldsV1": {"f:action":{},"f:eventTime":{},"f:note":{},"f:reason":{},"f:regarding":{"f:apiVersion":{},"f:kind":{},"f:name":{},"f:namespace":{},"f:resourceVersion":{},"f:uid":{}},"f:reportingController":{},"f:reportingInstance":{},"f:type":{}}
+          }
+        ]
+      },
+      "eventTime": "2022-02-10T09:59:38.027638Z",
+      "reportingController": "default-scheduler",
+      "reportingInstance": "default-scheduler-minikube",
+      "action": "Scheduling",
+      "reason": "FailedScheduling",
+      "regarding": {
+        "kind": "Pod",
+        "namespace": "default",
+        "name": "mongodb-deployment-75d755c48f-7jrz7",
+        "uid": "d2e9d9f3-ac89-4021-8c34-9bf813f64987",
+        "apiVersion": "v1",
+        "resourceVersion": "10923"
+      },
+      "note": "skip schedule deleting pod: default/mongodb-deployment-75d755c48f-7jrz7",
+      "type": "Warning",
+      "deprecatedSource": {
+
+      },
+      "deprecatedFirstTimestamp": null,
+      "deprecatedLastTimestamp": null
+    },
+    {
+      "metadata": {
+        "name": "mongodb-deployment-75d755c48f-8bqd7.16d263ed88e94036",
+        "namespace": "default",
+        "uid": "dbea1544-14eb-413c-b41b-a2d7df1fcde9",
+        "resourceVersion": "10461",
+        "creationTimestamp": "2022-02-10T09:51:25Z",
+        "managedFields": [
+          {
+            "manager": "kube-scheduler",
+            "operation": "Update",
+            "apiVersion": "events.k8s.io/v1",
+            "time": "2022-02-10T09:51:25Z",
+            "fieldsType": "FieldsV1",
+            "fieldsV1": {"f:action":{},"f:eventTime":{},"f:note":{},"f:reason":{},"f:regarding":{"f:apiVersion":{},"f:kind":{},"f:name":{},"f:namespace":{},"f:resourceVersion":{},"f:uid":{}},"f:reportingController":{},"f:reportingInstance":{},"f:type":{}}
+          }
+        ]
+      },
+      "eventTime": "2022-02-10T09:51:25.799035Z",
+      "reportingController": "default-scheduler",
+      "reportingInstance": "default-scheduler-minikube",
+      "action": "Binding",
+      "reason": "Scheduled",
+      "regarding": {
+        "kind": "Pod",
+        "namespace": "default",
+        "name": "mongodb-deployment-75d755c48f-8bqd7",
+        "uid": "99c4d1a5-27d1-47cd-9734-2b252d8f828a",
+        "apiVersion": "v1",
+        "resourceVersion": "10449"
+      },
+      "note": "Successfully assigned default/mongodb-deployment-75d755c48f-8bqd7 to minikube",
+      "type": "Normal",
+      "deprecatedSource": {
+
+      },
+      "deprecatedFirstTimestamp": null,
+      "deprecatedLastTimestamp": null
+    },
+    {
+      "metadata": {
+        "name": "mongodb-deployment-75d755c48f-8bqd7.16d263edd81c2a50",
+        "namespace": "default",
+        "uid": "cb6f61a6-0b2d-424d-b8d4-787921dbac1e",
+        "resourceVersion": "10500",
+        "creationTimestamp": "2022-02-10T09:51:27Z",
+        "managedFields": [
+          {
+            "manager": "kubelet",
+            "operation": "Update",
+            "apiVersion": "v1",
+            "time": "2022-02-10T09:51:27Z",
+            "fieldsType": "FieldsV1",
+            "fieldsV1": {"f:count":{},"f:firstTimestamp":{},"f:involvedObject":{"f:apiVersion":{},"f:fieldPath":{},"f:kind":{},"f:name":{},"f:namespace":{},"f:resourceVersion":{},"f:uid":{}},"f:lastTimestamp":{},"f:message":{},"f:reason":{},"f:source":{"f:component":{},"f:host":{}},"f:type":{}}
+          }
+        ]
+      },
+      "eventTime": null,
+      "reason": "Pulling",
+      "regarding": {
+        "kind": "Pod",
+        "namespace": "default",
+        "name": "mongodb-deployment-75d755c48f-8bqd7",
+        "uid": "99c4d1a5-27d1-47cd-9734-2b252d8f828a",
+        "apiVersion": "v1",
+        "resourceVersion": "10454",
+        "fieldPath": "spec.containers{mongodb}"
+      },
+      "note": "Pulling image \"mongo\"",
+      "type": "Normal",
+      "deprecatedSource": {
+        "component": "kubelet",
+        "host": "minikube"
+      },
+      "deprecatedFirstTimestamp": "2022-02-10T09:51:27Z",
+      "deprecatedLastTimestamp": "2022-02-10T09:51:27Z",
+      "deprecatedCount": 1
+    },
+    {
+      "metadata": {
+        "name": "mongodb-deployment-75d755c48f-8bqd7.16d263eed4d4d39a",
+        "namespace": "default",
+        "uid": "9d2b369c-a460-4694-aa84-4d83777fad10",
+        "resourceVersion": "10520",
+        "creationTimestamp": "2022-02-10T09:51:31Z",
+        "managedFields": [
+          {
+            "manager": "kubelet",
+            "operation": "Update",
+            "apiVersion": "v1",
+            "time": "2022-02-10T09:51:31Z",
+            "fieldsType": "FieldsV1",
+            "fieldsV1": {"f:count":{},"f:firstTimestamp":{},"f:involvedObject":{"f:apiVersion":{},"f:fieldPath":{},"f:kind":{},"f:name":{},"f:namespace":{},"f:resourceVersion":{},"f:uid":{}},"f:lastTimestamp":{},"f:message":{},"f:reason":{},"f:source":{"f:component":{},"f:host":{}},"f:type":{}}
+          }
+        ]
+      },
+      "eventTime": null,
+      "reason": "Pulled",
+      "regarding": {
+        "kind": "Pod",
+        "namespace": "default",
+        "name": "mongodb-deployment-75d755c48f-8bqd7",
+        "uid": "99c4d1a5-27d1-47cd-9734-2b252d8f828a",
+        "apiVersion": "v1",
+        "resourceVersion": "10454",
+        "fieldPath": "spec.containers{mongodb}"
+      },
+      "note": "Successfully pulled image \"mongo\" in 4.239936719s",
+      "type": "Normal",
+      "deprecatedSource": {
+        "component": "kubelet",
+        "host": "minikube"
+      },
+      "deprecatedFirstTimestamp": "2022-02-10T09:51:31Z",
+      "deprecatedLastTimestamp": "2022-02-10T09:51:31Z",
+      "deprecatedCount": 1
+    },
+    {
+      "metadata": {
+        "name": "mongodb-deployment-75d755c48f-8bqd7.16d263eed6d16893",
+        "namespace": "default",
+        "uid": "038e5d08-f2e0-47ba-9d80-2ce95c58207b",
+        "resourceVersion": "10521",
+        "creationTimestamp": "2022-02-10T09:51:31Z",
+        "managedFields": [
+          {
+            "manager": "kubelet",
+            "operation": "Update",
+            "apiVersion": "v1",
+            "time": "2022-02-10T09:51:31Z",
+            "fieldsType": "FieldsV1",
+            "fieldsV1": {"f:count":{},"f:firstTimestamp":{},"f:involvedObject":{"f:apiVersion":{},"f:fieldPath":{},"f:kind":{},"f:name":{},"f:namespace":{},"f:resourceVersion":{},"f:uid":{}},"f:lastTimestamp":{},"f:message":{},"f:reason":{},"f:source":{"f:component":{},"f:host":{}},"f:type":{}}
+          }
+        ]
+      },
+      "eventTime": null,
+      "reason": "Created",
+      "regarding": {
+        "kind": "Pod",
+        "namespace": "default",
+        "name": "mongodb-deployment-75d755c48f-8bqd7",
+        "uid": "99c4d1a5-27d1-47cd-9734-2b252d8f828a",
+        "apiVersion": "v1",
+        "resourceVersion": "10454",
+        "fieldPath": "spec.containers{mongodb}"
+      },
+      "note": "Created container mongodb",
+      "type": "Normal",
+      "deprecatedSource": {
+        "component": "kubelet",
+        "host": "minikube"
+      },
+      "deprecatedFirstTimestamp": "2022-02-10T09:51:31Z",
+      "deprecatedLastTimestamp": "2022-02-10T09:51:31Z",
+      "deprecatedCount": 1
+    },
+    {
+      "metadata": {
+        "name": "mongodb-deployment-75d755c48f-8bqd7.16d263eede2b3691",
+        "namespace": "default",
+        "uid": "61e1bc36-e1ff-4c31-aa31-903b15f432ea",
+        "resourceVersion": "10522",
+        "creationTimestamp": "2022-02-10T09:51:31Z",
+        "managedFields": [
+          {
+            "manager": "kubelet",
+            "operation": "Update",
+            "apiVersion": "v1",
+            "time": "2022-02-10T09:51:31Z",
+            "fieldsType": "FieldsV1",
+            "fieldsV1": {"f:count":{},"f:firstTimestamp":{},"f:involvedObject":{"f:apiVersion":{},"f:fieldPath":{},"f:kind":{},"f:name":{},"f:namespace":{},"f:resourceVersion":{},"f:uid":{}},"f:lastTimestamp":{},"f:message":{},"f:reason":{},"f:source":{"f:component":{},"f:host":{}},"f:type":{}}
+          }
+        ]
+      },
+      "eventTime": null,
+      "reason": "Started",
+      "regarding": {
+        "kind": "Pod",
+        "namespace": "default",
+        "name": "mongodb-deployment-75d755c48f-8bqd7",
+        "uid": "99c4d1a5-27d1-47cd-9734-2b252d8f828a",
+        "apiVersion": "v1",
+        "resourceVersion": "10454",
+        "fieldPath": "spec.containers{mongodb}"
+      },
+      "note": "Started container mongodb",
+      "type": "Normal",
+      "deprecatedSource": {
+        "component": "kubelet",
+        "host": "minikube"
+      },
+      "deprecatedFirstTimestamp": "2022-02-10T09:51:31Z",
+      "deprecatedLastTimestamp": "2022-02-10T09:51:31Z",
+      "deprecatedCount": 1
+    },
+    {
+      "metadata": {
+        "name": "mongodb-deployment-75d755c48f-8bqd7.16d26460246d126c",
+        "namespace": "default",
+        "uid": "2b5c6d15-22db-4400-94ab-4b776f06075c",
+        "resourceVersion": "10950",
+        "creationTimestamp": "2022-02-10T09:59:38Z",
+        "managedFields": [
+          {
+            "manager": "kubelet",
+            "operation": "Update",
+            "apiVersion": "v1",
+            "time": "2022-02-10T09:59:38Z",
+            "fieldsType": "FieldsV1",
+            "fieldsV1": {"f:count":{},"f:firstTimestamp":{},"f:involvedObject":{"f:apiVersion":{},"f:fieldPath":{},"f:kind":{},"f:name":{},"f:namespace":{},"f:resourceVersion":{},"f:uid":{}},"f:lastTimestamp":{},"f:message":{},"f:reason":{},"f:source":{"f:component":{},"f:host":{}},"f:type":{}}
+          }
+        ]
+      },
+      "eventTime": null,
+      "reason": "Killing",
+      "regarding": {
+        "kind": "Pod",
+        "namespace": "default",
+        "name": "mongodb-deployment-75d755c48f-8bqd7",
+        "uid": "99c4d1a5-27d1-47cd-9734-2b252d8f828a",
+        "apiVersion": "v1",
+        "resourceVersion": "10454",
+        "fieldPath": "spec.containers{mongodb}"
+      },
+      "note": "Stopping container mongodb",
+      "type": "Normal",
+      "deprecatedSource": {
+        "component": "kubelet",
+        "host": "minikube"
+      },
+      "deprecatedFirstTimestamp": "2022-02-10T09:59:38Z",
+      "deprecatedLastTimestamp": "2022-02-10T09:59:38Z",
+      "deprecatedCount": 1
+    },
+    {
+      "metadata": {
+        "name": "mongodb-deployment-75d755c48f-blfw2.16d263ed8e60909c",
+        "namespace": "default",
+        "uid": "8602c8d8-50ae-44ca-ab05-22a35b9f40a0",
+        "resourceVersion": "10478",
+        "creationTimestamp": "2022-02-10T09:51:25Z",
+        "managedFields": [
+          {
+            "manager": "kube-scheduler",
+            "operation": "Update",
+            "apiVersion": "events.k8s.io/v1",
+            "time": "2022-02-10T09:51:25Z",
+            "fieldsType": "FieldsV1",
+            "fieldsV1": {"f:action":{},"f:eventTime":{},"f:note":{},"f:reason":{},"f:regarding":{"f:apiVersion":{},"f:kind":{},"f:name":{},"f:namespace":{},"f:resourceVersion":{},"f:uid":{}},"f:reportingController":{},"f:reportingInstance":{},"f:type":{}}
+          }
+        ]
+      },
+      "eventTime": "2022-02-10T09:51:25.890740Z",
+      "reportingController": "default-scheduler",
+      "reportingInstance": "default-scheduler-minikube",
+      "action": "Scheduling",
+      "reason": "FailedScheduling",
+      "regarding": {
+        "kind": "Pod",
+        "namespace": "default",
+        "name": "mongodb-deployment-75d755c48f-blfw2",
+        "uid": "ed0f4be2-93bf-4366-a73b-cd40790e8ba2",
+        "apiVersion": "v1",
+        "resourceVersion": "10459"
+      },
+      "note": "0/1 nodes are available: 1 Insufficient cpu.",
+      "type": "Warning",
+      "deprecatedSource": {
+
+      },
+      "deprecatedFirstTimestamp": null,
+      "deprecatedLastTimestamp": null
+    },
+    {
+      "metadata": {
+        "name": "mongodb-deployment-75d755c48f-blfw2.16d263edd074c114",
+        "namespace": "default",
+        "uid": "f94bca07-71e8-4d69-8c05-1eac87b1c283",
+        "resourceVersion": "11499",
+        "creationTimestamp": "2022-02-10T09:51:27Z",
+        "managedFields": [
+          {
+            "manager": "kube-scheduler",
+            "operation": "Update",
+            "apiVersion": "events.k8s.io/v1",
+            "time": "2022-02-10T09:52:44Z",
+            "fieldsType": "FieldsV1",
+            "fieldsV1": {"f:action":{},"f:eventTime":{},"f:note":{},"f:reason":{},"f:regarding":{"f:apiVersion":{},"f:kind":{},"f:name":{},"f:namespace":{},"f:resourceVersion":{},"f:uid":{}},"f:reportingController":{},"f:reportingInstance":{},"f:series":{".":{},"f:count":{},"f:lastObservedTime":{}},"f:type":{}}
+          }
+        ]
+      },
+      "eventTime": "2022-02-10T09:51:26.999359Z",
+      "series": {
+        "count": 7,
+        "lastObservedTime": "2022-02-10T09:59:14.893644Z"
+      },
+      "reportingController": "default-scheduler",
+      "reportingInstance": "default-scheduler-minikube",
+      "action": "Scheduling",
+      "reason": "FailedScheduling",
+      "regarding": {
+        "kind": "Pod",
+        "namespace": "default",
+        "name": "mongodb-deployment-75d755c48f-blfw2",
+        "uid": "ed0f4be2-93bf-4366-a73b-cd40790e8ba2",
+        "apiVersion": "v1",
+        "resourceVersion": "10480"
+      },
+      "note": "0/1 nodes are available: 1 Insufficient cpu.",
+      "type": "Warning",
+      "deprecatedSource": {
+
+      },
+      "deprecatedFirstTimestamp": null,
+      "deprecatedLastTimestamp": null
+    },
+    {
+      "metadata": {
+        "name": "mongodb-deployment-75d755c48f-blfw2.16d26460240f8b96",
+        "namespace": "default",
+        "uid": "db70c22c-ac00-421b-b7f1-41d2fe9e3a91",
+        "resourceVersion": "10933",
+        "creationTimestamp": "2022-02-10T09:59:38Z",
+        "managedFields": [
+          {
+            "manager": "kube-scheduler",
+            "operation": "Update",
+            "apiVersion": "events.k8s.io/v1",
+            "time": "2022-02-10T09:59:38Z",
+            "fieldsType": "FieldsV1",
+            "fieldsV1": {"f:action":{},"f:eventTime":{},"f:note":{},"f:reason":{},"f:regarding":{"f:apiVersion":{},"f:kind":{},"f:name":{},"f:namespace":{},"f:resourceVersion":{},"f:uid":{}},"f:reportingController":{},"f:reportingInstance":{},"f:type":{}}
+          }
+        ]
+      },
+      "eventTime": "2022-02-10T09:59:38.028283Z",
+      "reportingController": "default-scheduler",
+      "reportingInstance": "default-scheduler-minikube",
+      "action": "Scheduling",
+      "reason": "FailedScheduling",
+      "regarding": {
+        "kind": "Pod",
+        "namespace": "default",
+        "name": "mongodb-deployment-75d755c48f-blfw2",
+        "uid": "ed0f4be2-93bf-4366-a73b-cd40790e8ba2",
+        "apiVersion": "v1",
+        "resourceVersion": "10924"
+      },
+      "note": "skip schedule deleting pod: default/mongodb-deployment-75d755c48f-blfw2",
+      "type": "Warning",
+      "deprecatedSource": {
+
+      },
+      "deprecatedFirstTimestamp": null,
+      "deprecatedLastTimestamp": null
+    },
+    {
+      "metadata": {
+        "name": "mongodb-deployment-75d755c48f-bx89z.16d263ed8efc19cd",
+        "namespace": "default",
+        "uid": "40580f67-06c6-4357-87f5-6766d60f01ea",
+        "resourceVersion": "10487",
+        "creationTimestamp": "2022-02-10T09:51:25Z",
+        "managedFields": [
+          {
+            "manager": "kube-scheduler",
+            "operation": "Update",
+            "apiVersion": "events.k8s.io/v1",
+            "time": "2022-02-10T09:51:25Z",
+            "fieldsType": "FieldsV1",
+            "fieldsV1": {"f:action":{},"f:eventTime":{},"f:note":{},"f:reason":{},"f:regarding":{"f:apiVersion":{},"f:kind":{},"f:name":{},"f:namespace":{},"f:resourceVersion":{},"f:uid":{}},"f:reportingController":{},"f:reportingInstance":{},"f:type":{}}
+          }
+        ]
+      },
+      "eventTime": "2022-02-10T09:51:25.900934Z",
+      "reportingController": "default-scheduler",
+      "reportingInstance": "default-scheduler-minikube",
+      "action": "Scheduling",
+      "reason": "FailedScheduling",
+      "regarding": {
+        "kind": "Pod",
+        "namespace": "default",
+        "name": "mongodb-deployment-75d755c48f-bx89z",
+        "uid": "883d393a-f0b9-4fcf-ab62-7611c812cfc4",
+        "apiVersion": "v1",
+        "resourceVersion": "10465"
+      },
+      "note": "0/1 nodes are available: 1 Insufficient cpu.",
+      "type": "Warning",
+      "deprecatedSource": {
+
+      },
+      "deprecatedFirstTimestamp": null,
+      "deprecatedLastTimestamp": null
+    },
+    {
+      "metadata": {
+        "name": "mongodb-deployment-75d755c48f-bx89z.16d263edd080b4e9",
+        "namespace": "default",
+        "uid": "0dfb31f4-204a-48d7-a19f-9cb59def2103",
+        "resourceVersion": "11500",
+        "creationTimestamp": "2022-02-10T09:51:27Z",
+        "managedFields": [
+          {
+            "manager": "kube-scheduler",
+            "operation": "Update",
+            "apiVersion": "events.k8s.io/v1",
+            "time": "2022-02-10T09:52:44Z",
+            "fieldsType": "FieldsV1",
+            "fieldsV1": {"f:action":{},"f:eventTime":{},"f:note":{},"f:reason":{},"f:regarding":{"f:apiVersion":{},"f:kind":{},"f:name":{},"f:namespace":{},"f:resourceVersion":{},"f:uid":{}},"f:reportingController":{},"f:reportingInstance":{},"f:series":{".":{},"f:count":{},"f:lastObservedTime":{}},"f:type":{}}
+          }
+        ]
+      },
+      "eventTime": "2022-02-10T09:51:27.000141Z",
+      "series": {
+        "count": 6,
+        "lastObservedTime": "2022-02-10T09:58:44.892755Z"
+      },
+      "reportingController": "default-scheduler",
+      "reportingInstance": "default-scheduler-minikube",
+      "action": "Scheduling",
+      "reason": "FailedScheduling",
+      "regarding": {
+        "kind": "Pod",
+        "namespace": "default",
+        "name": "mongodb-deployment-75d755c48f-bx89z",
+        "uid": "883d393a-f0b9-4fcf-ab62-7611c812cfc4",
+        "apiVersion": "v1",
+        "resourceVersion": "10490"
+      },
+      "note": "0/1 nodes are available: 1 Insufficient cpu.",
+      "type": "Warning",
+      "deprecatedSource": {
+
+      },
+      "deprecatedFirstTimestamp": null,
+      "deprecatedLastTimestamp": null
+    },
+    {
+      "metadata": {
+        "name": "mongodb-deployment-75d755c48f-bx89z.16d2646023dd7c48",
+        "namespace": "default",
+        "uid": "a500c27a-4bec-47d7-8937-f67d97dd7b21",
+        "resourceVersion": "10941",
+        "creationTimestamp": "2022-02-10T09:59:38Z",
+        "managedFields": [
+          {
+            "manager": "kube-scheduler",
+            "operation": "Update",
+            "apiVersion": "events.k8s.io/v1",
+            "time": "2022-02-10T09:59:38Z",
+            "fieldsType": "FieldsV1",
+            "fieldsV1": {"f:action":{},"f:eventTime":{},"f:note":{},"f:reason":{},"f:regarding":{"f:apiVersion":{},"f:kind":{},"f:name":{},"f:namespace":{},"f:resourceVersion":{},"f:uid":{}},"f:reportingController":{},"f:reportingInstance":{},"f:type":{}}
+          }
+        ]
+      },
+      "eventTime": "2022-02-10T09:59:38.024993Z",
+      "reportingController": "default-scheduler",
+      "reportingInstance": "default-scheduler-minikube",
+      "action": "Scheduling",
+      "reason": "FailedScheduling",
+      "regarding": {
+        "kind": "Pod",
+        "namespace": "default",
+        "name": "mongodb-deployment-75d755c48f-bx89z",
+        "uid": "883d393a-f0b9-4fcf-ab62-7611c812cfc4",
+        "apiVersion": "v1",
+        "resourceVersion": "10920"
+      },
+      "note": "skip schedule deleting pod: default/mongodb-deployment-75d755c48f-bx89z",
+      "type": "Warning",
+      "deprecatedSource": {
+
+      },
+      "deprecatedFirstTimestamp": null,
+      "deprecatedLastTimestamp": null
+    },
+    {
+      "metadata": {
+        "name": "mongodb-deployment-75d755c48f-fbpjl.16d263ed894f2c99",
+        "namespace": "default",
+        "uid": "d8395303-0bbe-4584-931e-e5ac2c80d3f7",
+        "resourceVersion": "10468",
+        "creationTimestamp": "2022-02-10T09:51:25Z",
+        "managedFields": [
+          {
+            "manager": "kube-scheduler",
+            "operation": "Update",
+            "apiVersion": "events.k8s.io/v1",
+            "time": "2022-02-10T09:51:25Z",
+            "fieldsType": "FieldsV1",
+            "fieldsV1": {"f:action":{},"f:eventTime":{},"f:note":{},"f:reason":{},"f:regarding":{"f:apiVersion":{},"f:kind":{},"f:name":{},"f:namespace":{},"f:resourceVersion":{},"f:uid":{}},"f:reportingController":{},"f:reportingInstance":{},"f:type":{}}
+          }
+        ]
+      },
+      "eventTime": "2022-02-10T09:51:25.805708Z",
+      "reportingController": "default-scheduler",
+      "reportingInstance": "default-scheduler-minikube",
+      "action": "Binding",
+      "reason": "Scheduled",
+      "regarding": {
+        "kind": "Pod",
+        "namespace": "default",
+        "name": "mongodb-deployment-75d755c48f-fbpjl",
+        "uid": "5efe6686-fada-4a01-a2c6-a3c185f83c13",
+        "apiVersion": "v1",
+        "resourceVersion": "10456"
+      },
+      "note": "Successfully assigned default/mongodb-deployment-75d755c48f-fbpjl to minikube",
+      "type": "Normal",
+      "deprecatedSource": {
+
+      },
+      "deprecatedFirstTimestamp": null,
+      "deprecatedLastTimestamp": null
+    },
+    {
+      "metadata": {
+        "name": "mongodb-deployment-75d755c48f-fbpjl.16d263edd56b886a",
+        "namespace": "default",
+        "uid": "0dd1b78e-a3fe-4927-a2ff-1e5fe77e922e",
+        "resourceVersion": "10499",
+        "creationTimestamp": "2022-02-10T09:51:27Z",
+        "managedFields": [
+          {
+            "manager": "kubelet",
+            "operation": "Update",
+            "apiVersion": "v1",
+            "time": "2022-02-10T09:51:27Z",
+            "fieldsType": "FieldsV1",
+            "fieldsV1": {"f:count":{},"f:firstTimestamp":{},"f:involvedObject":{"f:apiVersion":{},"f:fieldPath":{},"f:kind":{},"f:name":{},"f:namespace":{},"f:resourceVersion":{},"f:uid":{}},"f:lastTimestamp":{},"f:message":{},"f:reason":{},"f:source":{"f:component":{},"f:host":{}},"f:type":{}}
+          }
+        ]
+      },
+      "eventTime": null,
+      "reason": "Pulling",
+      "regarding": {
+        "kind": "Pod",
+        "namespace": "default",
+        "name": "mongodb-deployment-75d755c48f-fbpjl",
+        "uid": "5efe6686-fada-4a01-a2c6-a3c185f83c13",
+        "apiVersion": "v1",
+        "resourceVersion": "10466",
+        "fieldPath": "spec.containers{mongodb}"
+      },
+      "note": "Pulling image \"mongo\"",
+      "type": "Normal",
+      "deprecatedSource": {
+        "component": "kubelet",
+        "host": "minikube"
+      },
+      "deprecatedFirstTimestamp": "2022-02-10T09:51:27Z",
+      "deprecatedLastTimestamp": "2022-02-10T09:51:27Z",
+      "deprecatedCount": 1
+    },
+    {
+      "metadata": {
+        "name": "mongodb-deployment-75d755c48f-fbpjl.16d263ee7e3d80e4",
+        "namespace": "default",
+        "uid": "a277b414-d87f-4f61-be5d-e28b6a0627f7",
+        "resourceVersion": "10512",
+        "creationTimestamp": "2022-02-10T09:51:29Z",
+        "managedFields": [
+          {
+            "manager": "kubelet",
+            "operation": "Update",
+            "apiVersion": "v1",
+            "time": "2022-02-10T09:51:29Z",
+            "fieldsType": "FieldsV1",
+            "fieldsV1": {"f:count":{},"f:firstTimestamp":{},"f:involvedObject":{"f:apiVersion":{},"f:fieldPath":{},"f:kind":{},"f:name":{},"f:namespace":{},"f:resourceVersion":{},"f:uid":{}},"f:lastTimestamp":{},"f:message":{},"f:reason":{},"f:source":{"f:component":{},"f:host":{}},"f:type":{}}
+          }
+        ]
+      },
+      "eventTime": null,
+      "reason": "Pulled",
+      "regarding": {
+        "kind": "Pod",
+        "namespace": "default",
+        "name": "mongodb-deployment-75d755c48f-fbpjl",
+        "uid": "5efe6686-fada-4a01-a2c6-a3c185f83c13",
+        "apiVersion": "v1",
+        "resourceVersion": "10466",
+        "fieldPath": "spec.containers{mongodb}"
+      },
+      "note": "Successfully pulled image \"mongo\" in 2.832311673s",
+      "type": "Normal",
+      "deprecatedSource": {
+        "component": "kubelet",
+        "host": "minikube"
+      },
+      "deprecatedFirstTimestamp": "2022-02-10T09:51:29Z",
+      "deprecatedLastTimestamp": "2022-02-10T09:51:29Z",
+      "deprecatedCount": 1
+    },
+    {
+      "metadata": {
+        "name": "mongodb-deployment-75d755c48f-fbpjl.16d263ee804ac1e6",
+        "namespace": "default",
+        "uid": "564f7854-372d-458e-a398-855f97d635bf",
+        "resourceVersion": "10513",
+        "creationTimestamp": "2022-02-10T09:51:29Z",
+        "managedFields": [
+          {
+            "manager": "kubelet",
+            "operation": "Update",
+            "apiVersion": "v1",
+            "time": "2022-02-10T09:51:29Z",
+            "fieldsType": "FieldsV1",
+            "fieldsV1": {"f:count":{},"f:firstTimestamp":{},"f:involvedObject":{"f:apiVersion":{},"f:fieldPath":{},"f:kind":{},"f:name":{},"f:namespace":{},"f:resourceVersion":{},"f:uid":{}},"f:lastTimestamp":{},"f:message":{},"f:reason":{},"f:source":{"f:component":{},"f:host":{}},"f:type":{}}
+          }
+        ]
+      },
+      "eventTime": null,
+      "reason": "Created",
+      "regarding": {
+        "kind": "Pod",
+        "namespace": "default",
+        "name": "mongodb-deployment-75d755c48f-fbpjl",
+        "uid": "5efe6686-fada-4a01-a2c6-a3c185f83c13",
+        "apiVersion": "v1",
+        "resourceVersion": "10466",
+        "fieldPath": "spec.containers{mongodb}"
+      },
+      "note": "Created container mongodb",
+      "type": "Normal",
+      "deprecatedSource": {
+        "component": "kubelet",
+        "host": "minikube"
+      },
+      "deprecatedFirstTimestamp": "2022-02-10T09:51:29Z",
+      "deprecatedLastTimestamp": "2022-02-10T09:51:29Z",
+      "deprecatedCount": 1
+    },
+    {
+      "metadata": {
+        "name": "mongodb-deployment-75d755c48f-fbpjl.16d263ee87b17f86",
+        "namespace": "default",
+        "uid": "165787dc-4c7c-48a0-aec3-ac91df83aecc",
+        "resourceVersion": "10514",
+        "creationTimestamp": "2022-02-10T09:51:30Z",
+        "managedFields": [
+          {
+            "manager": "kubelet",
+            "operation": "Update",
+            "apiVersion": "v1",
+            "time": "2022-02-10T09:51:30Z",
+            "fieldsType": "FieldsV1",
+            "fieldsV1": {"f:count":{},"f:firstTimestamp":{},"f:involvedObject":{"f:apiVersion":{},"f:fieldPath":{},"f:kind":{},"f:name":{},"f:namespace":{},"f:resourceVersion":{},"f:uid":{}},"f:lastTimestamp":{},"f:message":{},"f:reason":{},"f:source":{"f:component":{},"f:host":{}},"f:type":{}}
+          }
+        ]
+      },
+      "eventTime": null,
+      "reason": "Started",
+      "regarding": {
+        "kind": "Pod",
+        "namespace": "default",
+        "name": "mongodb-deployment-75d755c48f-fbpjl",
+        "uid": "5efe6686-fada-4a01-a2c6-a3c185f83c13",
+        "apiVersion": "v1",
+        "resourceVersion": "10466",
+        "fieldPath": "spec.containers{mongodb}"
+      },
+      "note": "Started container mongodb",
+      "type": "Normal",
+      "deprecatedSource": {
+        "component": "kubelet",
+        "host": "minikube"
+      },
+      "deprecatedFirstTimestamp": "2022-02-10T09:51:30Z",
+      "deprecatedLastTimestamp": "2022-02-10T09:51:30Z",
+      "deprecatedCount": 1
+    },
+    {
+      "metadata": {
+        "name": "mongodb-deployment-75d755c48f-fbpjl.16d2646024647bed",
+        "namespace": "default",
+        "uid": "1e90e888-956e-4ef5-8745-a55919433230",
+        "resourceVersion": "10942",
+        "creationTimestamp": "2022-02-10T09:59:38Z",
+        "managedFields": [
+          {
+            "manager": "kubelet",
+            "operation": "Update",
+            "apiVersion": "v1",
+            "time": "2022-02-10T09:59:38Z",
+            "fieldsType": "FieldsV1",
+            "fieldsV1": {"f:count":{},"f:firstTimestamp":{},"f:involvedObject":{"f:apiVersion":{},"f:fieldPath":{},"f:kind":{},"f:name":{},"f:namespace":{},"f:resourceVersion":{},"f:uid":{}},"f:lastTimestamp":{},"f:message":{},"f:reason":{},"f:source":{"f:component":{},"f:host":{}},"f:type":{}}
+          }
+        ]
+      },
+      "eventTime": null,
+      "reason": "Killing",
+      "regarding": {
+        "kind": "Pod",
+        "namespace": "default",
+        "name": "mongodb-deployment-75d755c48f-fbpjl",
+        "uid": "5efe6686-fada-4a01-a2c6-a3c185f83c13",
+        "apiVersion": "v1",
+        "resourceVersion": "10466",
+        "fieldPath": "spec.containers{mongodb}"
+      },
+      "note": "Stopping container mongodb",
+      "type": "Normal",
+      "deprecatedSource": {
+        "component": "kubelet",
+        "host": "minikube"
+      },
+      "deprecatedFirstTimestamp": "2022-02-10T09:59:38Z",
+      "deprecatedLastTimestamp": "2022-02-10T09:59:38Z",
+      "deprecatedCount": 1
+    },
+    {
+      "metadata": {
+        "name": "mongodb-deployment-75d755c48f-h5bh9.16d263e9ce446e04",
+        "namespace": "default",
+        "uid": "e5bef026-6b73-4079-8c11-eb213ba2ee75",
+        "resourceVersion": "10403",
+        "creationTimestamp": "2022-02-10T09:51:09Z",
+        "managedFields": [
+          {
+            "manager": "kube-scheduler",
+            "operation": "Update",
+            "apiVersion": "events.k8s.io/v1",
+            "time": "2022-02-10T09:51:09Z",
+            "fieldsType": "FieldsV1",
+            "fieldsV1": {"f:action":{},"f:eventTime":{},"f:note":{},"f:reason":{},"f:regarding":{"f:apiVersion":{},"f:kind":{},"f:name":{},"f:namespace":{},"f:resourceVersion":{},"f:uid":{}},"f:reportingController":{},"f:reportingInstance":{},"f:type":{}}
+          }
+        ]
+      },
+      "eventTime": "2022-02-10T09:51:09.782740Z",
+      "reportingController": "default-scheduler",
+      "reportingInstance": "default-scheduler-minikube",
+      "action": "Binding",
+      "reason": "Scheduled",
+      "regarding": {
+        "kind": "Pod",
+        "namespace": "default",
+        "name": "mongodb-deployment-75d755c48f-h5bh9",
+        "uid": "0812706c-ce3f-4d29-8fde-1550f454b673",
+        "apiVersion": "v1",
+        "resourceVersion": "10391"
+      },
+      "note": "Successfully assigned default/mongodb-deployment-75d755c48f-h5bh9 to minikube",
+      "type": "Normal",
+      "deprecatedSource": {
+
+      },
+      "deprecatedFirstTimestamp": null,
+      "deprecatedLastTimestamp": null
+    },
+    {
+      "metadata": {
+        "name": "mongodb-deployment-75d755c48f-h5bh9.16d263e9fbb13f6a",
+        "namespace": "default",
+        "uid": "ed8ee9b1-9511-43fe-911e-fb0dabb9586b",
+        "resourceVersion": "10410",
+        "creationTimestamp": "2022-02-10T09:51:10Z",
+        "managedFields": [
+          {
+            "manager": "kubelet",
+            "operation": "Update",
+            "apiVersion": "v1",
+            "time": "2022-02-10T09:51:10Z",
+            "fieldsType": "FieldsV1",
+            "fieldsV1": {"f:count":{},"f:firstTimestamp":{},"f:involvedObject":{"f:apiVersion":{},"f:fieldPath":{},"f:kind":{},"f:name":{},"f:namespace":{},"f:resourceVersion":{},"f:uid":{}},"f:lastTimestamp":{},"f:message":{},"f:reason":{},"f:source":{"f:component":{},"f:host":{}},"f:type":{}}
+          }
+        ]
+      },
+      "eventTime": null,
+      "reason": "Pulling",
+      "regarding": {
+        "kind": "Pod",
+        "namespace": "default",
+        "name": "mongodb-deployment-75d755c48f-h5bh9",
+        "uid": "0812706c-ce3f-4d29-8fde-1550f454b673",
+        "apiVersion": "v1",
+        "resourceVersion": "10399",
+        "fieldPath": "spec.containers{mongodb}"
+      },
+      "note": "Pulling image \"mongo\"",
+      "type": "Normal",
+      "deprecatedSource": {
+        "component": "kubelet",
+        "host": "minikube"
+      },
+      "deprecatedFirstTimestamp": "2022-02-10T09:51:10Z",
+      "deprecatedLastTimestamp": "2022-02-10T09:51:10Z",
+      "deprecatedCount": 1
+    },
+    {
+      "metadata": {
+        "name": "mongodb-deployment-75d755c48f-h5bh9.16d263ea5647ff58",
+        "namespace": "default",
+        "uid": "a9e2a614-02b2-4f03-ac22-b2e545e59d0b",
+        "resourceVersion": "10412",
+        "creationTimestamp": "2022-02-10T09:51:12Z",
+        "managedFields": [
+          {
+            "manager": "kubelet",
+            "operation": "Update",
+            "apiVersion": "v1",
+            "time": "2022-02-10T09:51:12Z",
+            "fieldsType": "FieldsV1",
+            "fieldsV1": {"f:count":{},"f:firstTimestamp":{},"f:involvedObject":{"f:apiVersion":{},"f:fieldPath":{},"f:kind":{},"f:name":{},"f:namespace":{},"f:resourceVersion":{},"f:uid":{}},"f:lastTimestamp":{},"f:message":{},"f:reason":{},"f:source":{"f:component":{},"f:host":{}},"f:type":{}}
+          }
+        ]
+      },
+      "eventTime": null,
+      "reason": "Pulled",
+      "regarding": {
+        "kind": "Pod",
+        "namespace": "default",
+        "name": "mongodb-deployment-75d755c48f-h5bh9",
+        "uid": "0812706c-ce3f-4d29-8fde-1550f454b673",
+        "apiVersion": "v1",
+        "resourceVersion": "10399",
+        "fieldPath": "spec.containers{mongodb}"
+      },
+      "note": "Successfully pulled image \"mongo\" in 1.519809908s",
+      "type": "Normal",
+      "deprecatedSource": {
+        "component": "kubelet",
+        "host": "minikube"
+      },
+      "deprecatedFirstTimestamp": "2022-02-10T09:51:12Z",
+      "deprecatedLastTimestamp": "2022-02-10T09:51:12Z",
+      "deprecatedCount": 1
+    },
+    {
+      "metadata": {
+        "name": "mongodb-deployment-75d755c48f-h5bh9.16d263ea58c3577a",
+        "namespace": "default",
+        "uid": "24e7d9bd-e8db-4613-9efd-145754936d27",
+        "resourceVersion": "10413",
+        "creationTimestamp": "2022-02-10T09:51:12Z",
+        "managedFields": [
+          {
+            "manager": "kubelet",
+            "operation": "Update",
+            "apiVersion": "v1",
+            "time": "2022-02-10T09:51:12Z",
+            "fieldsType": "FieldsV1",
+            "fieldsV1": {"f:count":{},"f:firstTimestamp":{},"f:involvedObject":{"f:apiVersion":{},"f:fieldPath":{},"f:kind":{},"f:name":{},"f:namespace":{},"f:resourceVersion":{},"f:uid":{}},"f:lastTimestamp":{},"f:message":{},"f:reason":{},"f:source":{"f:component":{},"f:host":{}},"f:type":{}}
+          }
+        ]
+      },
+      "eventTime": null,
+      "reason": "Created",
+      "regarding": {
+        "kind": "Pod",
+        "namespace": "default",
+        "name": "mongodb-deployment-75d755c48f-h5bh9",
+        "uid": "0812706c-ce3f-4d29-8fde-1550f454b673",
+        "apiVersion": "v1",
+        "resourceVersion": "10399",
+        "fieldPath": "spec.containers{mongodb}"
+      },
+      "note": "Created container mongodb",
+      "type": "Normal",
+      "deprecatedSource": {
+        "component": "kubelet",
+        "host": "minikube"
+      },
+      "deprecatedFirstTimestamp": "2022-02-10T09:51:12Z",
+      "deprecatedLastTimestamp": "2022-02-10T09:51:12Z",
+      "deprecatedCount": 1
+    },
+    {
+      "metadata": {
+        "name": "mongodb-deployment-75d755c48f-h5bh9.16d263ea61413624",
+        "namespace": "default",
+        "uid": "276a9116-6d59-4162-80f8-bf00434b593d",
+        "resourceVersion": "10414",
+        "creationTimestamp": "2022-02-10T09:51:12Z",
+        "managedFields": [
+          {
+            "manager": "kubelet",
+            "operation": "Update",
+            "apiVersion": "v1",
+            "time": "2022-02-10T09:51:12Z",
+            "fieldsType": "FieldsV1",
+            "fieldsV1": {"f:count":{},"f:firstTimestamp":{},"f:involvedObject":{"f:apiVersion":{},"f:fieldPath":{},"f:kind":{},"f:name":{},"f:namespace":{},"f:resourceVersion":{},"f:uid":{}},"f:lastTimestamp":{},"f:message":{},"f:reason":{},"f:source":{"f:component":{},"f:host":{}},"f:type":{}}
+          }
+        ]
+      },
+      "eventTime": null,
+      "reason": "Started",
+      "regarding": {
+        "kind": "Pod",
+        "namespace": "default",
+        "name": "mongodb-deployment-75d755c48f-h5bh9",
+        "uid": "0812706c-ce3f-4d29-8fde-1550f454b673",
+        "apiVersion": "v1",
+        "resourceVersion": "10399",
+        "fieldPath": "spec.containers{mongodb}"
+      },
+      "note": "Started container mongodb",
+      "type": "Normal",
+      "deprecatedSource": {
+        "component": "kubelet",
+        "host": "minikube"
+      },
+      "deprecatedFirstTimestamp": "2022-02-10T09:51:12Z",
+      "deprecatedLastTimestamp": "2022-02-10T09:51:12Z",
+      "deprecatedCount": 1
+    },
+    {
+      "metadata": {
+        "name": "mongodb-deployment-75d755c48f-h5bh9.16d2646172d3e4d7",
+        "namespace": "default",
+        "uid": "2b9b9b49-ffd0-4546-bb36-b44b1a38e920",
+        "resourceVersion": "11003",
+        "creationTimestamp": "2022-02-10T09:59:43Z",
+        "managedFields": [
+          {
+            "manager": "kubelet",
+            "operation": "Update",
+            "apiVersion": "v1",
+            "time": "2022-02-10T09:59:43Z",
+            "fieldsType": "FieldsV1",
+            "fieldsV1": {"f:count":{},"f:firstTimestamp":{},"f:involvedObject":{"f:apiVersion":{},"f:fieldPath":{},"f:kind":{},"f:name":{},"f:namespace":{},"f:resourceVersion":{},"f:uid":{}},"f:lastTimestamp":{},"f:message":{},"f:reason":{},"f:source":{"f:component":{},"f:host":{}},"f:type":{}}
+          }
+        ]
+      },
+      "eventTime": null,
+      "reason": "Killing",
+      "regarding": {
+        "kind": "Pod",
+        "namespace": "default",
+        "name": "mongodb-deployment-75d755c48f-h5bh9",
+        "uid": "0812706c-ce3f-4d29-8fde-1550f454b673",
+        "apiVersion": "v1",
+        "resourceVersion": "10399",
+        "fieldPath": "spec.containers{mongodb}"
+      },
+      "note": "Stopping container mongodb",
+      "type": "Normal",
+      "deprecatedSource": {
+        "component": "kubelet",
+        "host": "minikube"
+      },
+      "deprecatedFirstTimestamp": "2022-02-10T09:59:43Z",
+      "deprecatedLastTimestamp": "2022-02-10T09:59:43Z",
+      "deprecatedCount": 1
+    },
+    {
+      "metadata": {
+        "name": "mongodb-deployment-75d755c48f-j7gb5.16d263ed8eafa8d8",
+        "namespace": "default",
+        "uid": "603fb9ce-3815-4d69-a9ea-344faf76422f",
+        "resourceVersion": "10484",
+        "creationTimestamp": "2022-02-10T09:51:25Z",
+        "managedFields": [
+          {
+            "manager": "kube-scheduler",
+            "operation": "Update",
+            "apiVersion": "events.k8s.io/v1",
+            "time": "2022-02-10T09:51:25Z",
+            "fieldsType": "FieldsV1",
+            "fieldsV1": {"f:action":{},"f:eventTime":{},"f:note":{},"f:reason":{},"f:regarding":{"f:apiVersion":{},"f:kind":{},"f:name":{},"f:namespace":{},"f:resourceVersion":{},"f:uid":{}},"f:reportingController":{},"f:reportingInstance":{},"f:type":{}}
+          }
+        ]
+      },
+      "eventTime": "2022-02-10T09:51:25.895924Z",
+      "reportingController": "default-scheduler",
+      "reportingInstance": "default-scheduler-minikube",
+      "action": "Scheduling",
+      "reason": "FailedScheduling",
+      "regarding": {
+        "kind": "Pod",
+        "namespace": "default",
+        "name": "mongodb-deployment-75d755c48f-j7gb5",
+        "uid": "c0f29993-e76d-4a64-aa09-ffae8cdcb116",
+        "apiVersion": "v1",
+        "resourceVersion": "10464"
+      },
+      "note": "0/1 nodes are available: 1 Insufficient cpu.",
+      "type": "Warning",
+      "deprecatedSource": {
+
+      },
+      "deprecatedFirstTimestamp": null,
+      "deprecatedLastTimestamp": null
+    },
+    {
+      "metadata": {
+        "name": "mongodb-deployment-75d755c48f-j7gb5.16d263edd07ae520",
+        "namespace": "default",
+        "uid": "68c64076-9348-4ad0-ab0e-2a830e11f283",
+        "resourceVersion": "11498",
+        "creationTimestamp": "2022-02-10T09:51:27Z",
+        "managedFields": [
+          {
+            "manager": "kube-scheduler",
+            "operation": "Update",
+            "apiVersion": "events.k8s.io/v1",
+            "time": "2022-02-10T09:52:44Z",
+            "fieldsType": "FieldsV1",
+            "fieldsV1": {"f:action":{},"f:eventTime":{},"f:note":{},"f:reason":{},"f:regarding":{"f:apiVersion":{},"f:kind":{},"f:name":{},"f:namespace":{},"f:resourceVersion":{},"f:uid":{}},"f:reportingController":{},"f:reportingInstance":{},"f:series":{".":{},"f:count":{},"f:lastObservedTime":{}},"f:type":{}}
+          }
+        ]
+      },
+      "eventTime": "2022-02-10T09:51:26.999761Z",
+      "series": {
+        "count": 6,
+        "lastObservedTime": "2022-02-10T09:58:44.892505Z"
+      },
+      "reportingController": "default-scheduler",
+      "reportingInstance": "default-scheduler-minikube",
+      "action": "Scheduling",
+      "reason": "FailedScheduling",
+      "regarding": {
+        "kind": "Pod",
+        "namespace": "default",
+        "name": "mongodb-deployment-75d755c48f-j7gb5",
+        "uid": "c0f29993-e76d-4a64-aa09-ffae8cdcb116",
+        "apiVersion": "v1",
+        "resourceVersion": "10485"
+      },
+      "note": "0/1 nodes are available: 1 Insufficient cpu.",
+      "type": "Warning",
+      "deprecatedSource": {
+
+      },
+      "deprecatedFirstTimestamp": null,
+      "deprecatedLastTimestamp": null
+    },
+    {
+      "metadata": {
+        "name": "mongodb-deployment-75d755c48f-j7gb5.16d2646023eb8b22",
+        "namespace": "default",
+        "uid": "60261f9a-db07-42a3-a90e-eabeaf42f28a",
+        "resourceVersion": "10939",
+        "creationTimestamp": "2022-02-10T09:59:38Z",
+        "managedFields": [
+          {
+            "manager": "kube-scheduler",
+            "operation": "Update",
+            "apiVersion": "events.k8s.io/v1",
+            "time": "2022-02-10T09:59:38Z",
+            "fieldsType": "FieldsV1",
+            "fieldsV1": {"f:action":{},"f:eventTime":{},"f:note":{},"f:reason":{},"f:regarding":{"f:apiVersion":{},"f:kind":{},"f:name":{},"f:namespace":{},"f:resourceVersion":{},"f:uid":{}},"f:reportingController":{},"f:reportingInstance":{},"f:type":{}}
+          }
+        ]
+      },
+      "eventTime": "2022-02-10T09:59:38.025921Z",
+      "reportingController": "default-scheduler",
+      "reportingInstance": "default-scheduler-minikube",
+      "action": "Scheduling",
+      "reason": "FailedScheduling",
+      "regarding": {
+        "kind": "Pod",
+        "namespace": "default",
+        "name": "mongodb-deployment-75d755c48f-j7gb5",
+        "uid": "c0f29993-e76d-4a64-aa09-ffae8cdcb116",
+        "apiVersion": "v1",
+        "resourceVersion": "10921"
+      },
+      "note": "skip schedule deleting pod: default/mongodb-deployment-75d755c48f-j7gb5",
+      "type": "Warning",
+      "deprecatedSource": {
+
+      },
+      "deprecatedFirstTimestamp": null,
+      "deprecatedLastTimestamp": null
+    },
+    {
+      "metadata": {
+        "name": "mongodb-deployment-75d755c48f-q6s9r.16d263ed88f721e6",
+        "namespace": "default",
+        "uid": "29db2a37-81f9-438d-bfba-d14fdb93721b",
+        "resourceVersion": "10463",
+        "creationTimestamp": "2022-02-10T09:51:25Z",
+        "managedFields": [
+          {
+            "manager": "kube-scheduler",
+            "operation": "Update",
+            "apiVersion": "events.k8s.io/v1",
+            "time": "2022-02-10T09:51:25Z",
+            "fieldsType": "FieldsV1",
+            "fieldsV1": {"f:action":{},"f:eventTime":{},"f:note":{},"f:reason":{},"f:regarding":{"f:apiVersion":{},"f:kind":{},"f:name":{},"f:namespace":{},"f:resourceVersion":{},"f:uid":{}},"f:reportingController":{},"f:reportingInstance":{},"f:type":{}}
+          }
+        ]
+      },
+      "eventTime": "2022-02-10T09:51:25.799945Z",
+      "reportingController": "default-scheduler",
+      "reportingInstance": "default-scheduler-minikube",
+      "action": "Scheduling",
+      "reason": "FailedScheduling",
+      "regarding": {
+        "kind": "Pod",
+        "namespace": "default",
+        "name": "mongodb-deployment-75d755c48f-q6s9r",
+        "uid": "ee3df6b2-5aae-4c36-9eb1-58b1ef907b7d",
+        "apiVersion": "v1",
+        "resourceVersion": "10457"
+      },
+      "note": "0/1 nodes are available: 1 Insufficient cpu.",
+      "type": "Warning",
+      "deprecatedSource": {
+
+      },
+      "deprecatedFirstTimestamp": null,
+      "deprecatedLastTimestamp": null
+    },
+    {
+      "metadata": {
+        "name": "mongodb-deployment-75d755c48f-q6s9r.16d263edd068be38",
+        "namespace": "default",
+        "uid": "25adaf9e-6c50-49ff-bf9d-0a749dabd0a7",
+        "resourceVersion": "11497",
+        "creationTimestamp": "2022-02-10T09:51:27Z",
+        "managedFields": [
+          {
+            "manager": "kube-scheduler",
+            "operation": "Update",
+            "apiVersion": "events.k8s.io/v1",
+            "time": "2022-02-10T09:52:44Z",
+            "fieldsType": "FieldsV1",
+            "fieldsV1": {"f:action":{},"f:eventTime":{},"f:note":{},"f:reason":{},"f:regarding":{"f:apiVersion":{},"f:kind":{},"f:name":{},"f:namespace":{},"f:resourceVersion":{},"f:uid":{}},"f:reportingController":{},"f:reportingInstance":{},"f:series":{".":{},"f:count":{},"f:lastObservedTime":{}},"f:type":{}}
+          }
+        ]
+      },
+      "eventTime": "2022-02-10T09:51:26.998565Z",
+      "series": {
+        "count": 7,
+        "lastObservedTime": "2022-02-10T09:59:14.893260Z"
+      },
+      "reportingController": "default-scheduler",
+      "reportingInstance": "default-scheduler-minikube",
+      "action": "Scheduling",
+      "reason": "FailedScheduling",
+      "regarding": {
+        "kind": "Pod",
+        "namespace": "default",
+        "name": "mongodb-deployment-75d755c48f-q6s9r",
+        "uid": "ee3df6b2-5aae-4c36-9eb1-58b1ef907b7d",
+        "apiVersion": "v1",
+        "resourceVersion": "10467"
+      },
+      "note": "0/1 nodes are available: 1 Insufficient cpu.",
+      "type": "Warning",
+      "deprecatedSource": {
+
+      },
+      "deprecatedFirstTimestamp": null,
+      "deprecatedLastTimestamp": null
+    },
+    {
+      "metadata": {
+        "name": "mongodb-deployment-75d755c48f-q6s9r.16d2646023edfd4e",
+        "namespace": "default",
+        "uid": "e90bd02e-abcb-455d-a980-a090bd3f9fd0",
+        "resourceVersion": "10938",
+        "creationTimestamp": "2022-02-10T09:59:38Z",
+        "managedFields": [
+          {
+            "manager": "kube-scheduler",
+            "operation": "Update",
+            "apiVersion": "events.k8s.io/v1",
+            "time": "2022-02-10T09:59:38Z",
+            "fieldsType": "FieldsV1",
+            "fieldsV1": {"f:action":{},"f:eventTime":{},"f:note":{},"f:reason":{},"f:regarding":{"f:apiVersion":{},"f:kind":{},"f:name":{},"f:namespace":{},"f:resourceVersion":{},"f:uid":{}},"f:reportingController":{},"f:reportingInstance":{},"f:type":{}}
+          }
+        ]
+      },
+      "eventTime": "2022-02-10T09:59:38.026084Z",
+      "reportingController": "default-scheduler",
+      "reportingInstance": "default-scheduler-minikube",
+      "action": "Scheduling",
+      "reason": "FailedScheduling",
+      "regarding": {
+        "kind": "Pod",
+        "namespace": "default",
+        "name": "mongodb-deployment-75d755c48f-q6s9r",
+        "uid": "ee3df6b2-5aae-4c36-9eb1-58b1ef907b7d",
+        "apiVersion": "v1",
+        "resourceVersion": "10922"
+      },
+      "note": "skip schedule deleting pod: default/mongodb-deployment-75d755c48f-q6s9r",
+      "type": "Warning",
+      "deprecatedSource": {
+
+      },
+      "deprecatedFirstTimestamp": null,
+      "deprecatedLastTimestamp": null
+    },
+    {
+      "metadata": {
+        "name": "mongodb-deployment-75d755c48f-ztbtf.16d263ed882a808f",
+        "namespace": "default",
+        "uid": "41ea1606-3bc7-42c9-929b-cbfe13d73733",
+        "resourceVersion": "10451",
+        "creationTimestamp": "2022-02-10T09:51:25Z",
+        "managedFields": [
+          {
+            "manager": "kube-scheduler",
+            "operation": "Update",
+            "apiVersion": "events.k8s.io/v1",
+            "time": "2022-02-10T09:51:25Z",
+            "fieldsType": "FieldsV1",
+            "fieldsV1": {"f:action":{},"f:eventTime":{},"f:note":{},"f:reason":{},"f:regarding":{"f:apiVersion":{},"f:kind":{},"f:name":{},"f:namespace":{},"f:resourceVersion":{},"f:uid":{}},"f:reportingController":{},"f:reportingInstance":{},"f:type":{}}
+          }
+        ]
+      },
+      "eventTime": "2022-02-10T09:51:25.786526Z",
+      "reportingController": "default-scheduler",
+      "reportingInstance": "default-scheduler-minikube",
+      "action": "Binding",
+      "reason": "Scheduled",
+      "regarding": {
+        "kind": "Pod",
+        "namespace": "default",
+        "name": "mongodb-deployment-75d755c48f-ztbtf",
+        "uid": "b42a8edc-a301-4e3a-ba2f-6424d9430ea9",
+        "apiVersion": "v1",
+        "resourceVersion": "10446"
+      },
+      "note": "Successfully assigned default/mongodb-deployment-75d755c48f-ztbtf to minikube",
+      "type": "Normal",
+      "deprecatedSource": {
+
+      },
+      "deprecatedFirstTimestamp": null,
+      "deprecatedLastTimestamp": null
+    },
+    {
+      "metadata": {
+        "name": "mongodb-deployment-75d755c48f-ztbtf.16d263edce254582",
+        "namespace": "default",
+        "uid": "57025179-fde6-446a-a098-3e4d126e27ed",
+        "resourceVersion": "10493",
+        "creationTimestamp": "2022-02-10T09:51:26Z",
+        "managedFields": [
+          {
+            "manager": "kubelet",
+            "operation": "Update",
+            "apiVersion": "v1",
+            "time": "2022-02-10T09:51:26Z",
+            "fieldsType": "FieldsV1",
+            "fieldsV1": {"f:count":{},"f:firstTimestamp":{},"f:involvedObject":{"f:apiVersion":{},"f:fieldPath":{},"f:kind":{},"f:name":{},"f:namespace":{},"f:resourceVersion":{},"f:uid":{}},"f:lastTimestamp":{},"f:message":{},"f:reason":{},"f:source":{"f:component":{},"f:host":{}},"f:type":{}}
+          }
+        ]
+      },
+      "eventTime": null,
+      "reason": "Pulling",
+      "regarding": {
+        "kind": "Pod",
+        "namespace": "default",
+        "name": "mongodb-deployment-75d755c48f-ztbtf",
+        "uid": "b42a8edc-a301-4e3a-ba2f-6424d9430ea9",
+        "apiVersion": "v1",
+        "resourceVersion": "10448",
+        "fieldPath": "spec.containers{mongodb}"
+      },
+      "note": "Pulling image \"mongo\"",
+      "type": "Normal",
+      "deprecatedSource": {
+        "component": "kubelet",
+        "host": "minikube"
+      },
+      "deprecatedFirstTimestamp": "2022-02-10T09:51:26Z",
+      "deprecatedLastTimestamp": "2022-02-10T09:51:26Z",
+      "deprecatedCount": 1
+    },
+    {
+      "metadata": {
+        "name": "mongodb-deployment-75d755c48f-ztbtf.16d263ee284c9827",
+        "namespace": "default",
+        "uid": "a912d96f-6e1c-47ef-8dd1-4928dcc65a51",
+        "resourceVersion": "10503",
+        "creationTimestamp": "2022-02-10T09:51:28Z",
+        "managedFields": [
+          {
+            "manager": "kubelet",
+            "operation": "Update",
+            "apiVersion": "v1",
+            "time": "2022-02-10T09:51:28Z",
+            "fieldsType": "FieldsV1",
+            "fieldsV1": {"f:count":{},"f:firstTimestamp":{},"f:involvedObject":{"f:apiVersion":{},"f:fieldPath":{},"f:kind":{},"f:name":{},"f:namespace":{},"f:resourceVersion":{},"f:uid":{}},"f:lastTimestamp":{},"f:message":{},"f:reason":{},"f:source":{"f:component":{},"f:host":{}},"f:type":{}}
+          }
+        ]
+      },
+      "eventTime": null,
+      "reason": "Pulled",
+      "regarding": {
+        "kind": "Pod",
+        "namespace": "default",
+        "name": "mongodb-deployment-75d755c48f-ztbtf",
+        "uid": "b42a8edc-a301-4e3a-ba2f-6424d9430ea9",
+        "apiVersion": "v1",
+        "resourceVersion": "10448",
+        "fieldPath": "spec.containers{mongodb}"
+      },
+      "note": "Successfully pulled image \"mongo\" in 1.512497568s",
+      "type": "Normal",
+      "deprecatedSource": {
+        "component": "kubelet",
+        "host": "minikube"
+      },
+      "deprecatedFirstTimestamp": "2022-02-10T09:51:28Z",
+      "deprecatedLastTimestamp": "2022-02-10T09:51:28Z",
+      "deprecatedCount": 1
+    },
+    {
+      "metadata": {
+        "name": "mongodb-deployment-75d755c48f-ztbtf.16d263ee2a510cef",
+        "namespace": "default",
+        "uid": "c4b36fa6-4494-44ca-b0a7-85b020d38994",
+        "resourceVersion": "10504",
+        "creationTimestamp": "2022-02-10T09:51:28Z",
+        "managedFields": [
+          {
+            "manager": "kubelet",
+            "operation": "Update",
+            "apiVersion": "v1",
+            "time": "2022-02-10T09:51:28Z",
+            "fieldsType": "FieldsV1",
+            "fieldsV1": {"f:count":{},"f:firstTimestamp":{},"f:involvedObject":{"f:apiVersion":{},"f:fieldPath":{},"f:kind":{},"f:name":{},"f:namespace":{},"f:resourceVersion":{},"f:uid":{}},"f:lastTimestamp":{},"f:message":{},"f:reason":{},"f:source":{"f:component":{},"f:host":{}},"f:type":{}}
+          }
+        ]
+      },
+      "eventTime": null,
+      "reason": "Created",
+      "regarding": {
+        "kind": "Pod",
+        "namespace": "default",
+        "name": "mongodb-deployment-75d755c48f-ztbtf",
+        "uid": "b42a8edc-a301-4e3a-ba2f-6424d9430ea9",
+        "apiVersion": "v1",
+        "resourceVersion": "10448",
+        "fieldPath": "spec.containers{mongodb}"
+      },
+      "note": "Created container mongodb",
+      "type": "Normal",
+      "deprecatedSource": {
+        "component": "kubelet",
+        "host": "minikube"
+      },
+      "deprecatedFirstTimestamp": "2022-02-10T09:51:28Z",
+      "deprecatedLastTimestamp": "2022-02-10T09:51:28Z",
+      "deprecatedCount": 1
+    },
+    {
+      "metadata": {
+        "name": "mongodb-deployment-75d755c48f-ztbtf.16d263ee32af513e",
+        "namespace": "default",
+        "uid": "a6cde6cd-ea4a-4b42-804e-c8d5c1591095",
+        "resourceVersion": "10505",
+        "creationTimestamp": "2022-02-10T09:51:28Z",
+        "managedFields": [
+          {
+            "manager": "kubelet",
+            "operation": "Update",
+            "apiVersion": "v1",
+            "time": "2022-02-10T09:51:28Z",
+            "fieldsType": "FieldsV1",
+            "fieldsV1": {"f:count":{},"f:firstTimestamp":{},"f:involvedObject":{"f:apiVersion":{},"f:fieldPath":{},"f:kind":{},"f:name":{},"f:namespace":{},"f:resourceVersion":{},"f:uid":{}},"f:lastTimestamp":{},"f:message":{},"f:reason":{},"f:source":{"f:component":{},"f:host":{}},"f:type":{}}
+          }
+        ]
+      },
+      "eventTime": null,
+      "reason": "Started",
+      "regarding": {
+        "kind": "Pod",
+        "namespace": "default",
+        "name": "mongodb-deployment-75d755c48f-ztbtf",
+        "uid": "b42a8edc-a301-4e3a-ba2f-6424d9430ea9",
+        "apiVersion": "v1",
+        "resourceVersion": "10448",
+        "fieldPath": "spec.containers{mongodb}"
+      },
+      "note": "Started container mongodb",
+      "type": "Normal",
+      "deprecatedSource": {
+        "component": "kubelet",
+        "host": "minikube"
+      },
+      "deprecatedFirstTimestamp": "2022-02-10T09:51:28Z",
+      "deprecatedLastTimestamp": "2022-02-10T09:51:28Z",
+      "deprecatedCount": 1
+    },
+    {
+      "metadata": {
+        "name": "mongodb-deployment-75d755c48f-ztbtf.16d264602471fbd1",
+        "namespace": "default",
+        "uid": "8a0e68c9-3b6f-474b-8040-7894130b8bb3",
+        "resourceVersion": "10953",
+        "creationTimestamp": "2022-02-10T09:59:38Z",
+        "managedFields": [
+          {
+            "manager": "kubelet",
+            "operation": "Update",
+            "apiVersion": "v1",
+            "time": "2022-02-10T09:59:38Z",
+            "fieldsType": "FieldsV1",
+            "fieldsV1": {"f:count":{},"f:firstTimestamp":{},"f:involvedObject":{"f:apiVersion":{},"f:fieldPath":{},"f:kind":{},"f:name":{},"f:namespace":{},"f:resourceVersion":{},"f:uid":{}},"f:lastTimestamp":{},"f:message":{},"f:reason":{},"f:source":{"f:component":{},"f:host":{}},"f:type":{}}
+          }
+        ]
+      },
+      "eventTime": null,
+      "reason": "Killing",
+      "regarding": {
+        "kind": "Pod",
+        "namespace": "default",
+        "name": "mongodb-deployment-75d755c48f-ztbtf",
+        "uid": "b42a8edc-a301-4e3a-ba2f-6424d9430ea9",
+        "apiVersion": "v1",
+        "resourceVersion": "10448",
+        "fieldPath": "spec.containers{mongodb}"
+      },
+      "note": "Stopping container mongodb",
+      "type": "Normal",
+      "deprecatedSource": {
+        "component": "kubelet",
+        "host": "minikube"
+      },
+      "deprecatedFirstTimestamp": "2022-02-10T09:59:38Z",
+      "deprecatedLastTimestamp": "2022-02-10T09:59:38Z",
+      "deprecatedCount": 1
+    },
+    {
+      "metadata": {
+        "name": "mongodb-deployment-75d755c48f.16d263e9c91026ce",
+        "namespace": "default",
+        "uid": "76944fe0-b1a6-4dc1-b1b6-301a3d9e6640",
+        "resourceVersion": "10408",
+        "creationTimestamp": "2022-02-10T09:51:09Z",
+        "managedFields": [
+          {
+            "manager": "kube-controller-manager",
+            "operation": "Update",
+            "apiVersion": "v1",
+            "time": "2022-02-10T09:51:09Z",
+            "fieldsType": "FieldsV1",
+            "fieldsV1": {"f:count":{},"f:firstTimestamp":{},"f:involvedObject":{"f:apiVersion":{},"f:kind":{},"f:name":{},"f:namespace":{},"f:resourceVersion":{},"f:uid":{}},"f:lastTimestamp":{},"f:message":{},"f:reason":{},"f:source":{"f:component":{}},"f:type":{}}
+          }
+        ]
+      },
+      "eventTime": null,
+      "reason": "SuccessfulCreate",
+      "regarding": {
+        "kind": "ReplicaSet",
+        "namespace": "default",
+        "name": "mongodb-deployment-75d755c48f",
+        "uid": "fc35802c-dc88-4daf-b16f-035e1e46d442",
+        "apiVersion": "apps/v1",
+        "resourceVersion": "10376"
+      },
+      "note": "Created pod: mongodb-deployment-75d755c48f-h5bh9",
+      "type": "Normal",
+      "deprecatedSource": {
+        "component": "replicaset-controller"
+      },
+      "deprecatedFirstTimestamp": "2022-02-10T09:51:09Z",
+      "deprecatedLastTimestamp": "2022-02-10T09:51:09Z",
+      "deprecatedCount": 1
+    },
+    {
+      "metadata": {
+        "name": "mongodb-deployment-75d755c48f.16d263ed87ff0eb7",
+        "namespace": "default",
+        "uid": "0f5e2c45-7d4d-4921-9c02-7a9380e7c830",
+        "resourceVersion": "10452",
+        "creationTimestamp": "2022-02-10T09:51:25Z",
+        "managedFields": [
+          {
+            "manager": "kube-controller-manager",
+            "operation": "Update",
+            "apiVersion": "v1",
+            "time": "2022-02-10T09:51:25Z",
+            "fieldsType": "FieldsV1",
+            "fieldsV1": {"f:count":{},"f:firstTimestamp":{},"f:involvedObject":{"f:apiVersion":{},"f:kind":{},"f:name":{},"f:namespace":{},"f:resourceVersion":{},"f:uid":{}},"f:lastTimestamp":{},"f:message":{},"f:reason":{},"f:source":{"f:component":{}},"f:type":{}}
+          }
+        ]
+      },
+      "eventTime": null,
+      "reason": "SuccessfulCreate",
+      "regarding": {
+        "kind": "ReplicaSet",
+        "namespace": "default",
+        "name": "mongodb-deployment-75d755c48f",
+        "uid": "fc35802c-dc88-4daf-b16f-035e1e46d442",
+        "apiVersion": "apps/v1",
+        "resourceVersion": "10444"
+      },
+      "note": "Created pod: mongodb-deployment-75d755c48f-ztbtf",
+      "type": "Normal",
+      "deprecatedSource": {
+        "component": "replicaset-controller"
+      },
+      "deprecatedFirstTimestamp": "2022-02-10T09:51:25Z",
+      "deprecatedLastTimestamp": "2022-02-10T09:51:25Z",
+      "deprecatedCount": 1
+    },
+    {
+      "metadata": {
+        "name": "mongodb-deployment-75d755c48f.16d263ed88469b8f",
+        "namespace": "default",
+        "uid": "f9cb7312-94db-41c9-abbd-aeac88662699",
+        "resourceVersion": "10460",
+        "creationTimestamp": "2022-02-10T09:51:25Z",
+        "managedFields": [
+          {
+            "manager": "kube-controller-manager",
+            "operation": "Update",
+            "apiVersion": "v1",
+            "time": "2022-02-10T09:51:25Z",
+            "fieldsType": "FieldsV1",
+            "fieldsV1": {"f:count":{},"f:firstTimestamp":{},"f:involvedObject":{"f:apiVersion":{},"f:kind":{},"f:name":{},"f:namespace":{},"f:resourceVersion":{},"f:uid":{}},"f:lastTimestamp":{},"f:message":{},"f:reason":{},"f:source":{"f:component":{}},"f:type":{}}
+          }
+        ]
+      },
+      "eventTime": null,
+      "reason": "SuccessfulCreate",
+      "regarding": {
+        "kind": "ReplicaSet",
+        "namespace": "default",
+        "name": "mongodb-deployment-75d755c48f",
+        "uid": "fc35802c-dc88-4daf-b16f-035e1e46d442",
+        "apiVersion": "apps/v1",
+        "resourceVersion": "10444"
+      },
+      "note": "Created pod: mongodb-deployment-75d755c48f-8bqd7",
+      "type": "Normal",
+      "deprecatedSource": {
+        "component": "replicaset-controller"
+      },
+      "deprecatedFirstTimestamp": "2022-02-10T09:51:25Z",
+      "deprecatedLastTimestamp": "2022-02-10T09:51:25Z",
+      "deprecatedCount": 1
+    },
+    {
+      "metadata": {
+        "name": "mongodb-deployment-75d755c48f.16d263ed884d5fd4",
+        "namespace": "default",
+        "uid": "de4380d5-fb2e-40c2-958c-43acd0494544",
+        "resourceVersion": "10469",
+        "creationTimestamp": "2022-02-10T09:51:25Z",
+        "managedFields": [
+          {
+            "manager": "kube-controller-manager",
+            "operation": "Update",
+            "apiVersion": "v1",
+            "time": "2022-02-10T09:51:25Z",
+            "fieldsType": "FieldsV1",
+            "fieldsV1": {"f:count":{},"f:firstTimestamp":{},"f:involvedObject":{"f:apiVersion":{},"f:kind":{},"f:name":{},"f:namespace":{},"f:resourceVersion":{},"f:uid":{}},"f:lastTimestamp":{},"f:message":{},"f:reason":{},"f:source":{"f:component":{}},"f:type":{}}
+          }
+        ]
+      },
+      "eventTime": null,
+      "reason": "SuccessfulCreate",
+      "regarding": {
+        "kind": "ReplicaSet",
+        "namespace": "default",
+        "name": "mongodb-deployment-75d755c48f",
+        "uid": "fc35802c-dc88-4daf-b16f-035e1e46d442",
+        "apiVersion": "apps/v1",
+        "resourceVersion": "10444"
+      },
+      "note": "Created pod: mongodb-deployment-75d755c48f-7fkhc",
+      "type": "Normal",
+      "deprecatedSource": {
+        "component": "replicaset-controller"
+      },
+      "deprecatedFirstTimestamp": "2022-02-10T09:51:25Z",
+      "deprecatedLastTimestamp": "2022-02-10T09:51:25Z",
+      "deprecatedCount": 1
+    },
+    {
+      "metadata": {
+        "name": "mongodb-deployment-75d755c48f.16d263ed88dce77d",
+        "namespace": "default",
+        "uid": "d6782c7c-cf10-491e-b232-3b5f8e1a3835",
+        "resourceVersion": "10472",
+        "creationTimestamp": "2022-02-10T09:51:25Z",
+        "managedFields": [
+          {
+            "manager": "kube-controller-manager",
+            "operation": "Update",
+            "apiVersion": "v1",
+            "time": "2022-02-10T09:51:25Z",
+            "fieldsType": "FieldsV1",
+            "fieldsV1": {"f:count":{},"f:firstTimestamp":{},"f:involvedObject":{"f:apiVersion":{},"f:kind":{},"f:name":{},"f:namespace":{},"f:resourceVersion":{},"f:uid":{}},"f:lastTimestamp":{},"f:message":{},"f:reason":{},"f:source":{"f:component":{}},"f:type":{}}
+          }
+        ]
+      },
+      "eventTime": null,
+      "reason": "SuccessfulCreate",
+      "regarding": {
+        "kind": "ReplicaSet",
+        "namespace": "default",
+        "name": "mongodb-deployment-75d755c48f",
+        "uid": "fc35802c-dc88-4daf-b16f-035e1e46d442",
+        "apiVersion": "apps/v1",
+        "resourceVersion": "10444"
+      },
+      "note": "Created pod: mongodb-deployment-75d755c48f-q6s9r",
+      "type": "Normal",
+      "deprecatedSource": {
+        "component": "replicaset-controller"
+      },
+      "deprecatedFirstTimestamp": "2022-02-10T09:51:25Z",
+      "deprecatedLastTimestamp": "2022-02-10T09:51:25Z",
+      "deprecatedCount": 1
+    },
+    {
+      "metadata": {
+        "name": "mongodb-deployment-75d755c48f.16d263ed88df5ae9",
+        "namespace": "default",
+        "uid": "18a84a3f-89cd-4379-9244-b5d47379aab7",
+        "resourceVersion": "10476",
+        "creationTimestamp": "2022-02-10T09:51:25Z",
+        "managedFields": [
+          {
+            "manager": "kube-controller-manager",
+            "operation": "Update",
+            "apiVersion": "v1",
+            "time": "2022-02-10T09:51:25Z",
+            "fieldsType": "FieldsV1",
+            "fieldsV1": {"f:count":{},"f:firstTimestamp":{},"f:involvedObject":{"f:apiVersion":{},"f:kind":{},"f:name":{},"f:namespace":{},"f:resourceVersion":{},"f:uid":{}},"f:lastTimestamp":{},"f:message":{},"f:reason":{},"f:source":{"f:component":{}},"f:type":{}}
+          }
+        ]
+      },
+      "eventTime": null,
+      "reason": "SuccessfulCreate",
+      "regarding": {
+        "kind": "ReplicaSet",
+        "namespace": "default",
+        "name": "mongodb-deployment-75d755c48f",
+        "uid": "fc35802c-dc88-4daf-b16f-035e1e46d442",
+        "apiVersion": "apps/v1",
+        "resourceVersion": "10444"
+      },
+      "note": "Created pod: mongodb-deployment-75d755c48f-blfw2",
+      "type": "Normal",
+      "deprecatedSource": {
+        "component": "replicaset-controller"
+      },
+      "deprecatedFirstTimestamp": "2022-02-10T09:51:25Z",
+      "deprecatedLastTimestamp": "2022-02-10T09:51:25Z",
+      "deprecatedCount": 1
+    },
+    {
+      "metadata": {
+        "name": "mongodb-deployment-75d755c48f.16d263ed88e077fa",
+        "namespace": "default",
+        "uid": "d6f56351-a015-45d3-b2df-5d048954f63a",
+        "resourceVersion": "10479",
+        "creationTimestamp": "2022-02-10T09:51:25Z",
+        "managedFields": [
+          {
+            "manager": "kube-controller-manager",
+            "operation": "Update",
+            "apiVersion": "v1",
+            "time": "2022-02-10T09:51:25Z",
+            "fieldsType": "FieldsV1",
+            "fieldsV1": {"f:count":{},"f:firstTimestamp":{},"f:involvedObject":{"f:apiVersion":{},"f:kind":{},"f:name":{},"f:namespace":{},"f:resourceVersion":{},"f:uid":{}},"f:lastTimestamp":{},"f:message":{},"f:reason":{},"f:source":{"f:component":{}},"f:type":{}}
+          }
+        ]
+      },
+      "eventTime": null,
+      "reason": "SuccessfulCreate",
+      "regarding": {
+        "kind": "ReplicaSet",
+        "namespace": "default",
+        "name": "mongodb-deployment-75d755c48f",
+        "uid": "fc35802c-dc88-4daf-b16f-035e1e46d442",
+        "apiVersion": "apps/v1",
+        "resourceVersion": "10444"
+      },
+      "note": "Created pod: mongodb-deployment-75d755c48f-fbpjl",
+      "type": "Normal",
+      "deprecatedSource": {
+        "component": "replicaset-controller"
+      },
+      "deprecatedFirstTimestamp": "2022-02-10T09:51:25Z",
+      "deprecatedLastTimestamp": "2022-02-10T09:51:25Z",
+      "deprecatedCount": 1
+    },
+    {
+      "metadata": {
+        "name": "mongodb-deployment-75d755c48f.16d263ed88e3ab7b",
+        "namespace": "default",
+        "uid": "ed011acb-03c2-4f37-b8fe-79cf6eb316d5",
+        "resourceVersion": "10483",
+        "creationTimestamp": "2022-02-10T09:51:25Z",
+        "managedFields": [
+          {
+            "manager": "kube-controller-manager",
+            "operation": "Update",
+            "apiVersion": "v1",
+            "time": "2022-02-10T09:51:25Z",
+            "fieldsType": "FieldsV1",
+            "fieldsV1": {"f:count":{},"f:firstTimestamp":{},"f:involvedObject":{"f:apiVersion":{},"f:kind":{},"f:name":{},"f:namespace":{},"f:resourceVersion":{},"f:uid":{}},"f:lastTimestamp":{},"f:message":{},"f:reason":{},"f:source":{"f:component":{}},"f:type":{}}
+          }
+        ]
+      },
+      "eventTime": null,
+      "reason": "SuccessfulCreate",
+      "regarding": {
+        "kind": "ReplicaSet",
+        "namespace": "default",
+        "name": "mongodb-deployment-75d755c48f",
+        "uid": "fc35802c-dc88-4daf-b16f-035e1e46d442",
+        "apiVersion": "apps/v1",
+        "resourceVersion": "10444"
+      },
+      "note": "Created pod: mongodb-deployment-75d755c48f-7jrz7",
+      "type": "Normal",
+      "deprecatedSource": {
+        "component": "replicaset-controller"
+      },
+      "deprecatedFirstTimestamp": "2022-02-10T09:51:25Z",
+      "deprecatedLastTimestamp": "2022-02-10T09:51:25Z",
+      "deprecatedCount": 1
+    },
+    {
+      "metadata": {
+        "name": "mongodb-deployment-75d755c48f.16d263ed89458eb8",
+        "namespace": "default",
+        "uid": "5de06eee-4a19-4784-bdfb-ee6dc187c6d0",
+        "resourceVersion": "10486",
+        "creationTimestamp": "2022-02-10T09:51:25Z",
+        "managedFields": [
+          {
+            "manager": "kube-controller-manager",
+            "operation": "Update",
+            "apiVersion": "v1",
+            "time": "2022-02-10T09:51:25Z",
+            "fieldsType": "FieldsV1",
+            "fieldsV1": {"f:count":{},"f:firstTimestamp":{},"f:involvedObject":{"f:apiVersion":{},"f:kind":{},"f:name":{},"f:namespace":{},"f:resourceVersion":{},"f:uid":{}},"f:lastTimestamp":{},"f:message":{},"f:reason":{},"f:source":{"f:component":{}},"f:type":{}}
+          }
+        ]
+      },
+      "eventTime": null,
+      "reason": "SuccessfulCreate",
+      "regarding": {
+        "kind": "ReplicaSet",
+        "namespace": "default",
+        "name": "mongodb-deployment-75d755c48f",
+        "uid": "fc35802c-dc88-4daf-b16f-035e1e46d442",
+        "apiVersion": "apps/v1",
+        "resourceVersion": "10444"
+      },
+      "note": "Created pod: mongodb-deployment-75d755c48f-j7gb5",
+      "type": "Normal",
+      "deprecatedSource": {
+        "component": "replicaset-controller"
+      },
+      "deprecatedFirstTimestamp": "2022-02-10T09:51:25Z",
+      "deprecatedLastTimestamp": "2022-02-10T09:51:25Z",
+      "deprecatedCount": 1
+    },
+    {
+      "metadata": {
+        "name": "mongodb-deployment-75d755c48f.16d263ed8f005e97",
+        "namespace": "default",
+        "uid": "7f9f47bb-3352-498d-b4e3-0b71f39faefc",
+        "resourceVersion": "10488",
+        "creationTimestamp": "2022-02-10T09:51:25Z",
+        "managedFields": [
+          {
+            "manager": "kube-controller-manager",
+            "operation": "Update",
+            "apiVersion": "v1",
+            "time": "2022-02-10T09:51:25Z",
+            "fieldsType": "FieldsV1",
+            "fieldsV1": {"f:count":{},"f:firstTimestamp":{},"f:involvedObject":{"f:apiVersion":{},"f:kind":{},"f:name":{},"f:namespace":{},"f:resourceVersion":{},"f:uid":{}},"f:lastTimestamp":{},"f:message":{},"f:reason":{},"f:source":{"f:component":{}},"f:type":{}}
+          }
+        ]
+      },
+      "eventTime": null,
+      "reason": "SuccessfulCreate",
+      "regarding": {
+        "kind": "ReplicaSet",
+        "namespace": "default",
+        "name": "mongodb-deployment-75d755c48f",
+        "uid": "fc35802c-dc88-4daf-b16f-035e1e46d442",
+        "apiVersion": "apps/v1",
+        "resourceVersion": "10444"
+      },
+      "note": "(combined from similar events): Created pod: mongodb-deployment-75d755c48f-bx89z",
+      "type": "Normal",
+      "deprecatedSource": {
+        "component": "replicaset-controller"
+      },
+      "deprecatedFirstTimestamp": "2022-02-10T09:51:25Z",
+      "deprecatedLastTimestamp": "2022-02-10T09:51:25Z",
+      "deprecatedCount": 1
+    },
+    {
+      "metadata": {
+        "name": "mongodb-deployment-75d755c48f.16d2646024372505",
+        "namespace": "default",
+        "uid": "eeb1db12-a491-40f9-9b60-a92168077ec5",
+        "resourceVersion": "10932",
+        "creationTimestamp": "2022-02-10T09:59:38Z",
+        "managedFields": [
+          {
+            "manager": "kube-controller-manager",
+            "operation": "Update",
+            "apiVersion": "v1",
+            "time": "2022-02-10T09:59:38Z",
+            "fieldsType": "FieldsV1",
+            "fieldsV1": {"f:count":{},"f:firstTimestamp":{},"f:involvedObject":{"f:apiVersion":{},"f:kind":{},"f:name":{},"f:namespace":{},"f:resourceVersion":{},"f:uid":{}},"f:lastTimestamp":{},"f:message":{},"f:reason":{},"f:source":{"f:component":{}},"f:type":{}}
+          }
+        ]
+      },
+      "eventTime": null,
+      "reason": "SuccessfulDelete",
+      "regarding": {
+        "kind": "ReplicaSet",
+        "namespace": "default",
+        "name": "mongodb-deployment-75d755c48f",
+        "uid": "fc35802c-dc88-4daf-b16f-035e1e46d442",
+        "apiVersion": "apps/v1",
+        "resourceVersion": "10918"
+      },
+      "note": "Deleted pod: mongodb-deployment-75d755c48f-fbpjl",
+      "type": "Normal",
+      "deprecatedSource": {
+        "component": "replicaset-controller"
+      },
+      "deprecatedFirstTimestamp": "2022-02-10T09:59:38Z",
+      "deprecatedLastTimestamp": "2022-02-10T09:59:38Z",
+      "deprecatedCount": 1
+    },
+    {
+      "metadata": {
+        "name": "mongodb-deployment-75d755c48f.16d26460243750da",
+        "namespace": "default",
+        "uid": "7422da5d-b84e-4997-a950-e9cf302c0fb3",
+        "resourceVersion": "10945",
+        "creationTimestamp": "2022-02-10T09:59:38Z",
+        "managedFields": [
+          {
+            "manager": "kube-controller-manager",
+            "operation": "Update",
+            "apiVersion": "v1",
+            "time": "2022-02-10T09:59:38Z",
+            "fieldsType": "FieldsV1",
+            "fieldsV1": {"f:count":{},"f:firstTimestamp":{},"f:involvedObject":{"f:apiVersion":{},"f:kind":{},"f:name":{},"f:namespace":{},"f:resourceVersion":{},"f:uid":{}},"f:lastTimestamp":{},"f:message":{},"f:reason":{},"f:source":{"f:component":{}},"f:type":{}}
+          }
+        ]
+      },
+      "eventTime": null,
+      "reason": "SuccessfulDelete",
+      "regarding": {
+        "kind": "ReplicaSet",
+        "namespace": "default",
+        "name": "mongodb-deployment-75d755c48f",
+        "uid": "fc35802c-dc88-4daf-b16f-035e1e46d442",
+        "apiVersion": "apps/v1",
+        "resourceVersion": "10918"
+      },
+      "note": "Deleted pod: mongodb-deployment-75d755c48f-j7gb5",
+      "type": "Normal",
+      "deprecatedSource": {
+        "component": "replicaset-controller"
+      },
+      "deprecatedFirstTimestamp": "2022-02-10T09:59:38Z",
+      "deprecatedLastTimestamp": "2022-02-10T09:59:38Z",
+      "deprecatedCount": 1
+    },
+    {
+      "metadata": {
+        "name": "mongodb-deployment-75d755c48f.16d26460243d9dea",
+        "namespace": "default",
+        "uid": "4cc148bf-e212-4a18-8f03-96794ac559af",
+        "resourceVersion": "10948",
+        "creationTimestamp": "2022-02-10T09:59:38Z",
+        "managedFields": [
+          {
+            "manager": "kube-controller-manager",
+            "operation": "Update",
+            "apiVersion": "v1",
+            "time": "2022-02-10T09:59:38Z",
+            "fieldsType": "FieldsV1",
+            "fieldsV1": {"f:count":{},"f:firstTimestamp":{},"f:involvedObject":{"f:apiVersion":{},"f:kind":{},"f:name":{},"f:namespace":{},"f:resourceVersion":{},"f:uid":{}},"f:lastTimestamp":{},"f:message":{},"f:reason":{},"f:source":{"f:component":{}},"f:type":{}}
+          }
+        ]
+      },
+      "eventTime": null,
+      "reason": "SuccessfulDelete",
+      "regarding": {
+        "kind": "ReplicaSet",
+        "namespace": "default",
+        "name": "mongodb-deployment-75d755c48f",
+        "uid": "fc35802c-dc88-4daf-b16f-035e1e46d442",
+        "apiVersion": "apps/v1",
+        "resourceVersion": "10918"
+      },
+      "note": "Deleted pod: mongodb-deployment-75d755c48f-bx89z",
+      "type": "Normal",
+      "deprecatedSource": {
+        "component": "replicaset-controller"
+      },
+      "deprecatedFirstTimestamp": "2022-02-10T09:59:38Z",
+      "deprecatedLastTimestamp": "2022-02-10T09:59:38Z",
+      "deprecatedCount": 1
+    },
+    {
+      "metadata": {
+        "name": "mongodb-deployment-75d755c48f.16d26460243f84ce",
+        "namespace": "default",
+        "uid": "2229c7bf-bae3-4f52-aa60-8eef1928d39f",
+        "resourceVersion": "10955",
+        "creationTimestamp": "2022-02-10T09:59:38Z",
+        "managedFields": [
+          {
+            "manager": "kube-controller-manager",
+            "operation": "Update",
+            "apiVersion": "v1",
+            "time": "2022-02-10T09:59:38Z",
+            "fieldsType": "FieldsV1",
+            "fieldsV1": {"f:count":{},"f:firstTimestamp":{},"f:involvedObject":{"f:apiVersion":{},"f:kind":{},"f:name":{},"f:namespace":{},"f:resourceVersion":{},"f:uid":{}},"f:lastTimestamp":{},"f:message":{},"f:reason":{},"f:source":{"f:component":{}},"f:type":{}}
+          }
+        ]
+      },
+      "eventTime": null,
+      "reason": "SuccessfulDelete",
+      "regarding": {
+        "kind": "ReplicaSet",
+        "namespace": "default",
+        "name": "mongodb-deployment-75d755c48f",
+        "uid": "fc35802c-dc88-4daf-b16f-035e1e46d442",
+        "apiVersion": "apps/v1",
+        "resourceVersion": "10918"
+      },
+      "note": "Deleted pod: mongodb-deployment-75d755c48f-8bqd7",
+      "type": "Normal",
+      "deprecatedSource": {
+        "component": "replicaset-controller"
+      },
+      "deprecatedFirstTimestamp": "2022-02-10T09:59:38Z",
+      "deprecatedLastTimestamp": "2022-02-10T09:59:38Z",
+      "deprecatedCount": 1
+    },
+    {
+      "metadata": {
+        "name": "mongodb-deployment-75d755c48f.16d2646024898f8a",
+        "namespace": "default",
+        "uid": "bd247edd-eccb-4dab-80fd-861a0429f40f",
+        "resourceVersion": "10959",
+        "creationTimestamp": "2022-02-10T09:59:38Z",
+        "managedFields": [
+          {
+            "manager": "kube-controller-manager",
+            "operation": "Update",
+            "apiVersion": "v1",
+            "time": "2022-02-10T09:59:38Z",
+            "fieldsType": "FieldsV1",
+            "fieldsV1": {"f:count":{},"f:firstTimestamp":{},"f:involvedObject":{"f:apiVersion":{},"f:kind":{},"f:name":{},"f:namespace":{},"f:resourceVersion":{},"f:uid":{}},"f:lastTimestamp":{},"f:message":{},"f:reason":{},"f:source":{"f:component":{}},"f:type":{}}
+          }
+        ]
+      },
+      "eventTime": null,
+      "reason": "SuccessfulDelete",
+      "regarding": {
+        "kind": "ReplicaSet",
+        "namespace": "default",
+        "name": "mongodb-deployment-75d755c48f",
+        "uid": "fc35802c-dc88-4daf-b16f-035e1e46d442",
+        "apiVersion": "apps/v1",
+        "resourceVersion": "10918"
+      },
+      "note": "Deleted pod: mongodb-deployment-75d755c48f-7fkhc",
+      "type": "Normal",
+      "deprecatedSource": {
+        "component": "replicaset-controller"
+      },
+      "deprecatedFirstTimestamp": "2022-02-10T09:59:38Z",
+      "deprecatedLastTimestamp": "2022-02-10T09:59:38Z",
+      "deprecatedCount": 1
+    },
+    {
+      "metadata": {
+        "name": "mongodb-deployment-75d755c48f.16d26460248a76d5",
+        "namespace": "default",
+        "uid": "34690b2f-d744-425e-808b-40877a88e1d9",
+        "resourceVersion": "10961",
+        "creationTimestamp": "2022-02-10T09:59:38Z",
+        "managedFields": [
+          {
+            "manager": "kube-controller-manager",
+            "operation": "Update",
+            "apiVersion": "v1",
+            "time": "2022-02-10T09:59:38Z",
+            "fieldsType": "FieldsV1",
+            "fieldsV1": {"f:count":{},"f:firstTimestamp":{},"f:involvedObject":{"f:apiVersion":{},"f:kind":{},"f:name":{},"f:namespace":{},"f:resourceVersion":{},"f:uid":{}},"f:lastTimestamp":{},"f:message":{},"f:reason":{},"f:source":{"f:component":{}},"f:type":{}}
+          }
+        ]
+      },
+      "eventTime": null,
+      "reason": "SuccessfulDelete",
+      "regarding": {
+        "kind": "ReplicaSet",
+        "namespace": "default",
+        "name": "mongodb-deployment-75d755c48f",
+        "uid": "fc35802c-dc88-4daf-b16f-035e1e46d442",
+        "apiVersion": "apps/v1",
+        "resourceVersion": "10918"
+      },
+      "note": "Deleted pod: mongodb-deployment-75d755c48f-ztbtf",
+      "type": "Normal",
+      "deprecatedSource": {
+        "component": "replicaset-controller"
+      },
+      "deprecatedFirstTimestamp": "2022-02-10T09:59:38Z",
+      "deprecatedLastTimestamp": "2022-02-10T09:59:38Z",
+      "deprecatedCount": 1
+    },
+    {
+      "metadata": {
+        "name": "mongodb-deployment-75d755c48f.16d26460277cdcf8",
+        "namespace": "default",
+        "uid": "da28f6d8-ddeb-40b7-8a06-665ae2815e32",
+        "resourceVersion": "10964",
+        "creationTimestamp": "2022-02-10T09:59:38Z",
+        "managedFields": [
+          {
+            "manager": "kube-controller-manager",
+            "operation": "Update",
+            "apiVersion": "v1",
+            "time": "2022-02-10T09:59:38Z",
+            "fieldsType": "FieldsV1",
+            "fieldsV1": {"f:count":{},"f:firstTimestamp":{},"f:involvedObject":{"f:apiVersion":{},"f:kind":{},"f:name":{},"f:namespace":{},"f:resourceVersion":{},"f:uid":{}},"f:lastTimestamp":{},"f:message":{},"f:reason":{},"f:source":{"f:component":{}},"f:type":{}}
+          }
+        ]
+      },
+      "eventTime": null,
+      "reason": "SuccessfulDelete",
+      "regarding": {
+        "kind": "ReplicaSet",
+        "namespace": "default",
+        "name": "mongodb-deployment-75d755c48f",
+        "uid": "fc35802c-dc88-4daf-b16f-035e1e46d442",
+        "apiVersion": "apps/v1",
+        "resourceVersion": "10918"
+      },
+      "note": "Deleted pod: mongodb-deployment-75d755c48f-blfw2",
+      "type": "Normal",
+      "deprecatedSource": {
+        "component": "replicaset-controller"
+      },
+      "deprecatedFirstTimestamp": "2022-02-10T09:59:38Z",
+      "deprecatedLastTimestamp": "2022-02-10T09:59:38Z",
+      "deprecatedCount": 1
+    },
+    {
+      "metadata": {
+        "name": "mongodb-deployment-75d755c48f.16d26460277ebcc6",
+        "namespace": "default",
+        "uid": "e7876e22-10e3-446e-accc-0b1a989f3674",
+        "resourceVersion": "10965",
+        "creationTimestamp": "2022-02-10T09:59:38Z",
+        "managedFields": [
+          {
+            "manager": "kube-controller-manager",
+            "operation": "Update",
+            "apiVersion": "v1",
+            "time": "2022-02-10T09:59:38Z",
+            "fieldsType": "FieldsV1",
+            "fieldsV1": {"f:count":{},"f:firstTimestamp":{},"f:involvedObject":{"f:apiVersion":{},"f:kind":{},"f:name":{},"f:namespace":{},"f:resourceVersion":{},"f:uid":{}},"f:lastTimestamp":{},"f:message":{},"f:reason":{},"f:source":{"f:component":{}},"f:type":{}}
+          }
+        ]
+      },
+      "eventTime": null,
+      "reason": "SuccessfulDelete",
+      "regarding": {
+        "kind": "ReplicaSet",
+        "namespace": "default",
+        "name": "mongodb-deployment-75d755c48f",
+        "uid": "fc35802c-dc88-4daf-b16f-035e1e46d442",
+        "apiVersion": "apps/v1",
+        "resourceVersion": "10918"
+      },
+      "note": "Deleted pod: mongodb-deployment-75d755c48f-q6s9r",
+      "type": "Normal",
+      "deprecatedSource": {
+        "component": "replicaset-controller"
+      },
+      "deprecatedFirstTimestamp": "2022-02-10T09:59:38Z",
+      "deprecatedLastTimestamp": "2022-02-10T09:59:38Z",
+      "deprecatedCount": 1
+    },
+    {
+      "metadata": {
+        "name": "mongodb-deployment-75d755c48f.16d2646027eb61fe",
+        "namespace": "default",
+        "uid": "82cfff77-9f12-4954-986b-c5e89e0be8e7",
+        "resourceVersion": "10967",
+        "creationTimestamp": "2022-02-10T09:59:38Z",
+        "managedFields": [
+          {
+            "manager": "kube-controller-manager",
+            "operation": "Update",
+            "apiVersion": "v1",
+            "time": "2022-02-10T09:59:38Z",
+            "fieldsType": "FieldsV1",
+            "fieldsV1": {"f:count":{},"f:firstTimestamp":{},"f:involvedObject":{"f:apiVersion":{},"f:kind":{},"f:name":{},"f:namespace":{},"f:resourceVersion":{},"f:uid":{}},"f:lastTimestamp":{},"f:message":{},"f:reason":{},"f:source":{"f:component":{}},"f:type":{}}
+          }
+        ]
+      },
+      "eventTime": null,
+      "reason": "SuccessfulDelete",
+      "regarding": {
+        "kind": "ReplicaSet",
+        "namespace": "default",
+        "name": "mongodb-deployment-75d755c48f",
+        "uid": "fc35802c-dc88-4daf-b16f-035e1e46d442",
+        "apiVersion": "apps/v1",
+        "resourceVersion": "10918"
+      },
+      "note": "Deleted pod: mongodb-deployment-75d755c48f-7jrz7",
+      "type": "Normal",
+      "deprecatedSource": {
+        "component": "replicaset-controller"
+      },
+      "deprecatedFirstTimestamp": "2022-02-10T09:59:38Z",
+      "deprecatedLastTimestamp": "2022-02-10T09:59:38Z",
+      "deprecatedCount": 1
+    },
+    {
+      "metadata": {
+        "name": "mongodb-deployment-75d755c48f.16d2646172c8f600",
+        "namespace": "default",
+        "uid": "308c9f43-9a83-49ca-b9cc-1ba1de78edc5",
+        "resourceVersion": "11001",
+        "creationTimestamp": "2022-02-10T09:59:43Z",
+        "managedFields": [
+          {
+            "manager": "kube-controller-manager",
+            "operation": "Update",
+            "apiVersion": "v1",
+            "time": "2022-02-10T09:59:43Z",
+            "fieldsType": "FieldsV1",
+            "fieldsV1": {"f:count":{},"f:firstTimestamp":{},"f:involvedObject":{"f:apiVersion":{},"f:kind":{},"f:name":{},"f:namespace":{},"f:resourceVersion":{},"f:uid":{}},"f:lastTimestamp":{},"f:message":{},"f:reason":{},"f:source":{"f:component":{}},"f:type":{}}
+          }
+        ]
+      },
+      "eventTime": null,
+      "reason": "SuccessfulDelete",
+      "regarding": {
+        "kind": "ReplicaSet",
+        "namespace": "default",
+        "name": "mongodb-deployment-75d755c48f",
+        "uid": "fc35802c-dc88-4daf-b16f-035e1e46d442",
+        "apiVersion": "apps/v1",
+        "resourceVersion": "10996"
+      },
+      "note": "(combined from similar events): Deleted pod: mongodb-deployment-75d755c48f-h5bh9",
+      "type": "Normal",
+      "deprecatedSource": {
+        "component": "replicaset-controller"
+      },
+      "deprecatedFirstTimestamp": "2022-02-10T09:59:43Z",
+      "deprecatedLastTimestamp": "2022-02-10T09:59:43Z",
+      "deprecatedCount": 1
+    },
+    {
+      "metadata": {
+        "name": "mongodb-deployment.16d263e1fe9125f1",
+        "namespace": "default",
+        "uid": "4a048caf-247a-46b6-b25e-d70b8dcd3db1",
+        "resourceVersion": "10280",
+        "creationTimestamp": "2022-02-10T09:50:36Z",
+        "managedFields": [
+          {
+            "manager": "kube-controller-manager",
+            "operation": "Update",
+            "apiVersion": "v1",
+            "time": "2022-02-10T09:50:36Z",
+            "fieldsType": "FieldsV1",
+            "fieldsV1": {"f:count":{},"f:firstTimestamp":{},"f:involvedObject":{"f:apiVersion":{},"f:kind":{},"f:name":{},"f:namespace":{},"f:resourceVersion":{},"f:uid":{}},"f:lastTimestamp":{},"f:message":{},"f:reason":{},"f:source":{"f:component":{}},"f:type":{}}
+          }
+        ]
+      },
+      "eventTime": null,
+      "reason": "ScalingReplicaSet",
+      "regarding": {
+        "kind": "Deployment",
+        "namespace": "default",
+        "name": "mongodb-deployment",
+        "uid": "fe2a8511-8739-419a-855e-13abbf2f4163",
+        "apiVersion": "apps/v1",
+        "resourceVersion": "10277"
+      },
+      "note": "Scaled up replica set mongodb-deployment-59d764c46 to 20",
+      "type": "Normal",
+      "deprecatedSource": {
+        "component": "deployment-controller"
+      },
+      "deprecatedFirstTimestamp": "2022-02-10T09:50:36Z",
+      "deprecatedLastTimestamp": "2022-02-10T09:50:36Z",
+      "deprecatedCount": 1
+    },
+    {
+      "metadata": {
+        "name": "mongodb-deployment.16d263e9c61ba571",
+        "namespace": "default",
+        "uid": "f8d7b7ba-b5e4-49d6-93c7-ca12142029f8",
+        "resourceVersion": "11315",
+        "creationTimestamp": "2022-02-10T09:51:09Z",
+        "managedFields": [
+          {
+            "manager": "kube-controller-manager",
+            "operation": "Update",
+            "apiVersion": "v1",
+            "time": "2022-02-10T09:51:09Z",
+            "fieldsType": "FieldsV1",
+            "fieldsV1": {"f:count":{},"f:firstTimestamp":{},"f:involvedObject":{"f:apiVersion":{},"f:kind":{},"f:name":{},"f:namespace":{},"f:resourceVersion":{},"f:uid":{}},"f:lastTimestamp":{},"f:message":{},"f:reason":{},"f:source":{"f:component":{}},"f:type":{}}
+          }
+        ]
+      },
+      "eventTime": null,
+      "reason": "ScalingReplicaSet",
+      "regarding": {
+        "kind": "Deployment",
+        "namespace": "default",
+        "name": "mongodb-deployment",
+        "uid": "fe2a8511-8739-419a-855e-13abbf2f4163",
+        "apiVersion": "apps/v1",
+        "resourceVersion": "10343"
+      },
+      "note": "Scaled down replica set mongodb-deployment-59d764c46 to 1",
+      "type": "Normal",
+      "deprecatedSource": {
+        "component": "deployment-controller"
+      },
+      "deprecatedFirstTimestamp": "2022-02-10T09:51:09Z",
+      "deprecatedLastTimestamp": "2022-02-10T10:04:14Z",
+      "deprecatedCount": 2
+    },
+    {
+      "metadata": {
+        "name": "mongodb-deployment.16d263e9c8b490dd",
+        "namespace": "default",
+        "uid": "194bda9d-e646-4811-acd8-2877f90bf390",
+        "resourceVersion": "10392",
+        "creationTimestamp": "2022-02-10T09:51:09Z",
+        "managedFields": [
+          {
+            "manager": "kube-controller-manager",
+            "operation": "Update",
+            "apiVersion": "v1",
+            "time": "2022-02-10T09:51:09Z",
+            "fieldsType": "FieldsV1",
+            "fieldsV1": {"f:count":{},"f:firstTimestamp":{},"f:involvedObject":{"f:apiVersion":{},"f:kind":{},"f:name":{},"f:namespace":{},"f:resourceVersion":{},"f:uid":{}},"f:lastTimestamp":{},"f:message":{},"f:reason":{},"f:source":{"f:component":{}},"f:type":{}}
+          }
+        ]
+      },
+      "eventTime": null,
+      "reason": "ScalingReplicaSet",
+      "regarding": {
+        "kind": "Deployment",
+        "namespace": "default",
+        "name": "mongodb-deployment",
+        "uid": "fe2a8511-8739-419a-855e-13abbf2f4163",
+        "apiVersion": "apps/v1",
+        "resourceVersion": "10343"
+      },
+      "note": "Scaled up replica set mongodb-deployment-75d755c48f to 1",
+      "type": "Normal",
+      "deprecatedSource": {
+        "component": "deployment-controller"
+      },
+      "deprecatedFirstTimestamp": "2022-02-10T09:51:09Z",
+      "deprecatedLastTimestamp": "2022-02-10T09:51:09Z",
+      "deprecatedCount": 1
+    },
+    {
+      "metadata": {
+        "name": "mongodb-deployment.16d263ea776eef80",
+        "namespace": "default",
+        "uid": "827ab33b-06b6-4545-a1c1-938a265e3026",
+        "resourceVersion": "10420",
+        "creationTimestamp": "2022-02-10T09:51:12Z",
+        "managedFields": [
+          {
+            "manager": "kube-controller-manager",
+            "operation": "Update",
+            "apiVersion": "v1",
+            "time": "2022-02-10T09:51:12Z",
+            "fieldsType": "FieldsV1",
+            "fieldsV1": {"f:count":{},"f:firstTimestamp":{},"f:involvedObject":{"f:apiVersion":{},"f:kind":{},"f:name":{},"f:namespace":{},"f:resourceVersion":{},"f:uid":{}},"f:lastTimestamp":{},"f:message":{},"f:reason":{},"f:source":{"f:component":{}},"f:type":{}}
+          }
+        ]
+      },
+      "eventTime": null,
+      "reason": "ScalingReplicaSet",
+      "regarding": {
+        "kind": "Deployment",
+        "namespace": "default",
+        "name": "mongodb-deployment",
+        "uid": "fe2a8511-8739-419a-855e-13abbf2f4163",
+        "apiVersion": "apps/v1",
+        "resourceVersion": "10407"
+      },
+      "note": "Scaled down replica set mongodb-deployment-59d764c46 to 0",
+      "type": "Normal",
+      "deprecatedSource": {
+        "component": "deployment-controller"
+      },
+      "deprecatedFirstTimestamp": "2022-02-10T09:51:12Z",
+      "deprecatedLastTimestamp": "2022-02-10T09:51:12Z",
+      "deprecatedCount": 1
+    },
+    {
+      "metadata": {
+        "name": "mongodb-deployment.16d263ed87b6fd01",
+        "namespace": "default",
+        "uid": "82780233-4e42-4c81-be8f-5fe3ed235c50",
+        "resourceVersion": "10445",
+        "creationTimestamp": "2022-02-10T09:51:25Z",
+        "managedFields": [
+          {
+            "manager": "kube-controller-manager",
+            "operation": "Update",
+            "apiVersion": "v1",
+            "time": "2022-02-10T09:51:25Z",
+            "fieldsType": "FieldsV1",
+            "fieldsV1": {"f:count":{},"f:firstTimestamp":{},"f:involvedObject":{"f:apiVersion":{},"f:kind":{},"f:name":{},"f:namespace":{},"f:resourceVersion":{},"f:uid":{}},"f:lastTimestamp":{},"f:message":{},"f:reason":{},"f:source":{"f:component":{}},"f:type":{}}
+          }
+        ]
+      },
+      "eventTime": null,
+      "reason": "ScalingReplicaSet",
+      "regarding": {
+        "kind": "Deployment",
+        "namespace": "default",
+        "name": "mongodb-deployment",
+        "uid": "fe2a8511-8739-419a-855e-13abbf2f4163",
+        "apiVersion": "apps/v1",
+        "resourceVersion": "10442"
+      },
+      "note": "Scaled up replica set mongodb-deployment-75d755c48f to 10",
+      "type": "Normal",
+      "deprecatedSource": {
+        "component": "deployment-controller"
+      },
+      "deprecatedFirstTimestamp": "2022-02-10T09:51:25Z",
+      "deprecatedLastTimestamp": "2022-02-10T09:51:25Z",
+      "deprecatedCount": 1
+    },
+    {
+      "metadata": {
+        "name": "mongodb-deployment.16d26460237b282f",
+        "namespace": "default",
+        "uid": "3bcbbb88-53ed-4924-b3f6-87417ebc3973",
+        "resourceVersion": "10919",
+        "creationTimestamp": "2022-02-10T09:59:38Z",
+        "managedFields": [
+          {
+            "manager": "kube-controller-manager",
+            "operation": "Update",
+            "apiVersion": "v1",
+            "time": "2022-02-10T09:59:38Z",
+            "fieldsType": "FieldsV1",
+            "fieldsV1": {"f:count":{},"f:firstTimestamp":{},"f:involvedObject":{"f:apiVersion":{},"f:kind":{},"f:name":{},"f:namespace":{},"f:resourceVersion":{},"f:uid":{}},"f:lastTimestamp":{},"f:message":{},"f:reason":{},"f:source":{"f:component":{}},"f:type":{}}
+          }
+        ]
+      },
+      "eventTime": null,
+      "reason": "ScalingReplicaSet",
+      "regarding": {
+        "kind": "Deployment",
+        "namespace": "default",
+        "name": "mongodb-deployment",
+        "uid": "fe2a8511-8739-419a-855e-13abbf2f4163",
+        "apiVersion": "apps/v1",
+        "resourceVersion": "10915"
+      },
+      "note": "Scaled down replica set mongodb-deployment-75d755c48f to 1",
+      "type": "Normal",
+      "deprecatedSource": {
+        "component": "deployment-controller"
+      },
+      "deprecatedFirstTimestamp": "2022-02-10T09:59:38Z",
+      "deprecatedLastTimestamp": "2022-02-10T09:59:38Z",
+      "deprecatedCount": 1
+    },
+    {
+      "metadata": {
+        "name": "mongodb-deployment.16d26460273e4129",
+        "namespace": "default",
+        "uid": "312f84e3-e6c4-4ea3-97a2-708e50cd4cb9",
+        "resourceVersion": "10943",
+        "creationTimestamp": "2022-02-10T09:59:38Z",
+        "managedFields": [
+          {
+            "manager": "kube-controller-manager",
+            "operation": "Update",
+            "apiVersion": "v1",
+            "time": "2022-02-10T09:59:38Z",
+            "fieldsType": "FieldsV1",
+            "fieldsV1": {"f:count":{},"f:firstTimestamp":{},"f:involvedObject":{"f:apiVersion":{},"f:kind":{},"f:name":{},"f:namespace":{},"f:resourceVersion":{},"f:uid":{}},"f:lastTimestamp":{},"f:message":{},"f:reason":{},"f:source":{"f:component":{}},"f:type":{}}
+          }
+        ]
+      },
+      "eventTime": null,
+      "reason": "ScalingReplicaSet",
+      "regarding": {
+        "kind": "Deployment",
+        "namespace": "default",
+        "name": "mongodb-deployment",
+        "uid": "fe2a8511-8739-419a-855e-13abbf2f4163",
+        "apiVersion": "apps/v1",
+        "resourceVersion": "10917"
+      },
+      "note": "Scaled up replica set mongodb-deployment-59d764c46 to 1",
+      "type": "Normal",
+      "deprecatedSource": {
+        "component": "deployment-controller"
+      },
+      "deprecatedFirstTimestamp": "2022-02-10T09:59:38Z",
+      "deprecatedLastTimestamp": "2022-02-10T09:59:38Z",
+      "deprecatedCount": 1
+    },
+    {
+      "metadata": {
+        "name": "mongodb-deployment.16d264617249a7c9",
+        "namespace": "default",
+        "uid": "10bc2271-c0f4-4dfe-b76d-9fa4eb0ad408",
+        "resourceVersion": "10997",
+        "creationTimestamp": "2022-02-10T09:59:43Z",
+        "managedFields": [
+          {
+            "manager": "kube-controller-manager",
+            "operation": "Update",
+            "apiVersion": "v1",
+            "time": "2022-02-10T09:59:43Z",
+            "fieldsType": "FieldsV1",
+            "fieldsV1": {"f:count":{},"f:firstTimestamp":{},"f:involvedObject":{"f:apiVersion":{},"f:kind":{},"f:name":{},"f:namespace":{},"f:resourceVersion":{},"f:uid":{}},"f:lastTimestamp":{},"f:message":{},"f:reason":{},"f:source":{"f:component":{}},"f:type":{}}
+          }
+        ]
+      },
+      "eventTime": null,
+      "reason": "ScalingReplicaSet",
+      "regarding": {
+        "kind": "Deployment",
+        "namespace": "default",
+        "name": "mongodb-deployment",
+        "uid": "fe2a8511-8739-419a-855e-13abbf2f4163",
+        "apiVersion": "apps/v1",
+        "resourceVersion": "10966"
+      },
+      "note": "Scaled down replica set mongodb-deployment-75d755c48f to 0",
+      "type": "Normal",
+      "deprecatedSource": {
+        "component": "deployment-controller"
+      },
+      "deprecatedFirstTimestamp": "2022-02-10T09:59:43Z",
+      "deprecatedLastTimestamp": "2022-02-10T09:59:43Z",
+      "deprecatedCount": 1
+    },
+    {
+      "metadata": {
+        "name": "mongodb-deployment.16d264862007dcda",
+        "namespace": "default",
+        "uid": "ee686f7a-6d37-4c90-bd9a-f2feaefafaf4",
+        "resourceVersion": "11205",
+        "creationTimestamp": "2022-02-10T10:02:21Z",
+        "managedFields": [
+          {
+            "manager": "kube-controller-manager",
+            "operation": "Update",
+            "apiVersion": "v1",
+            "time": "2022-02-10T10:02:21Z",
+            "fieldsType": "FieldsV1",
+            "fieldsV1": {"f:count":{},"f:firstTimestamp":{},"f:involvedObject":{"f:apiVersion":{},"f:kind":{},"f:name":{},"f:namespace":{},"f:resourceVersion":{},"f:uid":{}},"f:lastTimestamp":{},"f:message":{},"f:reason":{},"f:source":{"f:component":{}},"f:type":{}}
+          }
+        ]
+      },
+      "eventTime": null,
+      "reason": "ScalingReplicaSet",
+      "regarding": {
+        "kind": "Deployment",
+        "namespace": "default",
+        "name": "mongodb-deployment",
+        "uid": "fe2a8511-8739-419a-855e-13abbf2f4163",
+        "apiVersion": "apps/v1",
+        "resourceVersion": "11203"
+      },
+      "note": "Scaled up replica set mongodb-deployment-59d764c46 to 2",
+      "type": "Normal",
+      "deprecatedSource": {
+        "component": "deployment-controller"
+      },
+      "deprecatedFirstTimestamp": "2022-02-10T10:02:21Z",
+      "deprecatedLastTimestamp": "2022-02-10T10:02:21Z",
+      "deprecatedCount": 1
+    },
+    {
+      "metadata": {
+        "name": "my-specific-pod.16d26453cc5c948a",
+        "namespace": "default",
+        "uid": "6eaa867a-e50d-4d49-8ff6-753e940acecf",
+        "resourceVersion": "10848",
+        "creationTimestamp": "2022-02-10T09:58:45Z",
+        "managedFields": [
+          {
+            "manager": "kube-scheduler",
+            "operation": "Update",
+            "apiVersion": "events.k8s.io/v1",
+            "time": "2022-02-10T09:58:45Z",
+            "fieldsType": "FieldsV1",
+            "fieldsV1": {"f:action":{},"f:eventTime":{},"f:note":{},"f:reason":{},"f:regarding":{"f:apiVersion":{},"f:kind":{},"f:name":{},"f:namespace":{},"f:resourceVersion":{},"f:uid":{}},"f:reportingController":{},"f:reportingInstance":{},"f:type":{}}
+          }
+        ]
+      },
+      "eventTime": "2022-02-10T09:58:45.017329Z",
+      "reportingController": "my-scheduler",
+      "reportingInstance": "my-scheduler-ittaq-tower",
+      "action": "Scheduling",
+      "reason": "FailedScheduling",
+      "regarding": {
+        "kind": "Pod",
+        "namespace": "default",
+        "name": "my-specific-pod",
+        "uid": "4c13671e-abea-476d-b8d8-94cf313b1dd2",
+        "apiVersion": "v1",
+        "resourceVersion": "3797"
+      },
+      "note": "0/1 nodes are available: 1 node(s) didn't match Pod's node affinity/selector.",
+      "type": "Warning",
+      "deprecatedSource": {
+
+      },
+      "deprecatedFirstTimestamp": null,
+      "deprecatedLastTimestamp": null
+    },
+    {
+      "metadata": {
+        "name": "my-specific-pod.16d2645813938fd9",
+        "namespace": "default",
+        "uid": "43210f38-d42a-48e4-bf49-574e179be2d6",
+        "resourceVersion": "11071",
+        "creationTimestamp": "2022-02-10T09:59:03Z",
+        "managedFields": [
+          {
+            "manager": "kube-scheduler",
+            "operation": "Update",
+            "apiVersion": "events.k8s.io/v1",
+            "time": "2022-02-10T10:00:33Z",
+            "fieldsType": "FieldsV1",
+            "fieldsV1": {"f:action":{},"f:eventTime":{},"f:note":{},"f:reason":{},"f:regarding":{"f:apiVersion":{},"f:kind":{},"f:name":{},"f:namespace":{},"f:resourceVersion":{},"f:uid":{}},"f:reportingController":{},"f:reportingInstance":{},"f:series":{".":{},"f:count":{},"f:lastObservedTime":{}},"f:type":{}}
+          }
+        ]
+      },
+      "eventTime": "2022-02-10T09:59:03.391978Z",
+      "series": {
+        "count": 1,
+        "lastObservedTime": "2022-02-10T10:00:33.393304Z"
+      },
+      "reportingController": "my-scheduler",
+      "reportingInstance": "my-scheduler-ittaq-tower",
+      "action": "Scheduling",
+      "reason": "FailedScheduling",
+      "regarding": {
+        "kind": "Pod",
+        "namespace": "default",
+        "name": "my-specific-pod",
+        "uid": "4c13671e-abea-476d-b8d8-94cf313b1dd2",
+        "apiVersion": "v1",
+        "resourceVersion": "10847"
+      },
+      "note": "0/1 nodes are available: 1 node(s) didn't match Pod's node affinity/selector.",
+      "type": "Warning",
+      "deprecatedSource": {
+
+      },
+      "deprecatedFirstTimestamp": null,
+      "deprecatedLastTimestamp": null
+    },
+    {
+      "metadata": {
+        "name": "my-specific-pod.16d2647a82305848",
+        "namespace": "default",
+        "uid": "1a7f227e-080f-4f6b-a5cb-fd8b2435117a",
+        "resourceVersion": "11142",
+        "creationTimestamp": "2022-02-10T10:01:31Z",
+        "managedFields": [
+          {
+            "manager": "kube-scheduler",
+            "operation": "Update",
+            "apiVersion": "events.k8s.io/v1",
+            "time": "2022-02-10T10:01:31Z",
+            "fieldsType": "FieldsV1",
+            "fieldsV1": {"f:action":{},"f:eventTime":{},"f:note":{},"f:reason":{},"f:regarding":{"f:apiVersion":{},"f:kind":{},"f:name":{},"f:namespace":{},"f:resourceVersion":{},"f:uid":{}},"f:reportingController":{},"f:reportingInstance":{},"f:type":{}}
+          }
+        ]
+      },
+      "eventTime": "2022-02-10T10:01:31.276628Z",
+      "reportingController": "my-scheduler",
+      "reportingInstance": "my-scheduler-ittaq-tower",
+      "action": "Scheduling",
+      "reason": "FailedScheduling",
+      "regarding": {
+        "kind": "Pod",
+        "namespace": "default",
+        "name": "my-specific-pod",
+        "uid": "4c13671e-abea-476d-b8d8-94cf313b1dd2",
+        "apiVersion": "v1",
+        "resourceVersion": "10847"
+      },
+      "note": "0/1 nodes are available: 1 node(s) didn't match Pod's node affinity/selector.",
+      "type": "Warning",
+      "deprecatedSource": {
+
+      },
+      "deprecatedFirstTimestamp": null,
+      "deprecatedLastTimestamp": null
+    },
+    {
+      "metadata": {
+        "name": "my-specific-pod.16d264a6e0d1abe2",
+        "namespace": "default",
+        "uid": "c0e00562-2f45-43af-8c80-faf10003908a",
+        "resourceVersion": "11419",
+        "creationTimestamp": "2022-02-10T10:04:41Z",
+        "managedFields": [
+          {
+            "manager": "kube-scheduler",
+            "operation": "Update",
+            "apiVersion": "events.k8s.io/v1",
+            "time": "2022-02-10T10:05:41Z",
+            "fieldsType": "FieldsV1",
+            "fieldsV1": {"f:action":{},"f:eventTime":{},"f:note":{},"f:reason":{},"f:regarding":{"f:apiVersion":{},"f:kind":{},"f:name":{},"f:namespace":{},"f:resourceVersion":{},"f:uid":{}},"f:reportingController":{},"f:reportingInstance":{},"f:series":{".":{},"f:count":{},"f:lastObservedTime":{}},"f:type":{}}
+          }
+        ]
+      },
+      "eventTime": "2022-02-10T10:04:41.842827Z",
+      "series": {
+        "count": 1,
+        "lastObservedTime": "2022-02-10T10:05:41.844157Z"
+      },
+      "reportingController": "my-scheduler",
+      "reportingInstance": "my-scheduler-ittaq-tower",
+      "action": "Scheduling",
+      "reason": "FailedScheduling",
+      "regarding": {
+        "kind": "Pod",
+        "namespace": "default",
+        "name": "my-specific-pod",
+        "uid": "4c13671e-abea-476d-b8d8-94cf313b1dd2",
+        "apiVersion": "v1",
+        "resourceVersion": "10847"
+      },
+      "note": "0/1 nodes are available: 1 node(s) didn't match Pod's node affinity/selector.",
+      "type": "Warning",
+      "deprecatedSource": {
+
+      },
+      "deprecatedFirstTimestamp": null,
+      "deprecatedLastTimestamp": null
+    }
+  ]
+}

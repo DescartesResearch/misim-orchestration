@@ -1,7 +1,7 @@
 package cambio.simulator.orchestration.events;
 
 import cambio.simulator.misc.Priority;
-import cambio.simulator.orchestration.environment.Pod;
+import cambio.simulator.orchestration.entities.kubernetes.Pod;
 import co.paralleluniverse.fibers.SuspendExecution;
 import desmoj.core.simulator.Event;
 import desmoj.core.simulator.Model;

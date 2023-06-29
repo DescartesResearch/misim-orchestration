@@ -2,8 +2,8 @@ package cambio.simulator.orchestration.events;
 
 import cambio.simulator.events.SelfScheduledExperimentAction;
 import cambio.simulator.misc.Priority;
-import cambio.simulator.orchestration.Util;
-import cambio.simulator.orchestration.k8objects.Deployment;
+import cambio.simulator.orchestration.util.Util;
+import cambio.simulator.orchestration.entities.kubernetes.Deployment;
 import cambio.simulator.parsing.JsonTypeName;
 import co.paralleluniverse.fibers.SuspendExecution;
 import com.google.gson.annotations.Expose;
@@ -64,7 +64,6 @@ public class AimingChaosMonkeyForPodsEvent extends SelfScheduledExperimentAction
             deployment.killPodInstances(instances, retries, service);
 
             sendTraceNote("Aiming Chaos Monkey was applied on " + service + " from the "+ deployment.getQuotedName());
-            boolean hasServicesLeft = deployment.getCurrentRunningOrPendingReplicaCount() > 0;
         } else {
             sendTraceNote("Could not execute AimingChaosMonkeyForPodsEvent because the deployment from the " +
                     "given experiment file with the name '" + deploymentName + "' is unknown");

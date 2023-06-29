@@ -1,0 +1,37 @@
+{
+  "kind": "StorageClassList",
+  "apiVersion": "storage.k8s.io/v1",
+  "metadata": {
+    "resourceVersion": "317"
+  },
+  "items": [
+    {
+      "metadata": {
+        "name": "standard",
+        "uid": "3178d5cf-947b-4291-9423-d52f24c454a3",
+        "resourceVersion": "317",
+        "creationTimestamp": "2022-01-21T18:40:04Z",
+        "labels": {
+          "addonmanager.kubernetes.io/mode": "EnsureExists"
+        },
+        "annotations": {
+          "kubectl.kubernetes.io/last-applied-configuration": "{\"apiVersion\":\"storage.k8s.io/v1\",\"kind\":\"StorageClass\",\"metadata\":{\"annotations\":{\"storageclass.kubernetes.io/is-default-class\":\"true\"},\"labels\":{\"addonmanager.kubernetes.io/mode\":\"EnsureExists\"},\"name\":\"standard\"},\"provisioner\":\"k8s.io/minikube-hostpath\"}\n",
+          "storageclass.kubernetes.io/is-default-class": "true"
+        },
+        "managedFields": [
+          {
+            "manager": "kubectl-client-side-apply",
+            "operation": "Update",
+            "apiVersion": "storage.k8s.io/v1",
+            "time": "2022-01-21T18:40:04Z",
+            "fieldsType": "FieldsV1",
+            "fieldsV1": {"f:metadata":{"f:annotations":{".":{},"f:kubectl.kubernetes.io/last-applied-configuration":{},"f:storageclass.kubernetes.io/is-default-class":{}},"f:labels":{".":{},"f:addonmanager.kubernetes.io/mode":{}}},"f:provisioner":{},"f:reclaimPolicy":{},"f:volumeBindingMode":{}}
+          }
+        ]
+      },
+      "provisioner": "k8s.io/minikube-hostpath",
+      "reclaimPolicy": "Delete",
+      "volumeBindingMode": "Immediate"
+    }
+  ]
+}

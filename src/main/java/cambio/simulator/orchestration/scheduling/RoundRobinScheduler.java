@@ -1,11 +1,7 @@
 package cambio.simulator.orchestration.scheduling;
 
-import cambio.simulator.orchestration.Stats;
-import cambio.simulator.orchestration.environment.Node;
-import cambio.simulator.orchestration.environment.Pod;
-import cambio.simulator.orchestration.management.ManagementPlane;
-
-import java.util.stream.Collectors;
+import cambio.simulator.orchestration.entities.kubernetes.Node;
+import cambio.simulator.orchestration.entities.kubernetes.Pod;
 
 public class RoundRobinScheduler extends Scheduler {
 
@@ -42,9 +38,9 @@ public class RoundRobinScheduler extends Scheduler {
         if (pod != null) {
             Node candidateNode = null;
             int candidateNodeSize = Integer.MAX_VALUE;
-            int cpuDemand = pod.getCPUDemand();
+            double cpuDemand = pod.getCPUDemand();
             for (Node node : cluster.getNodes()) {
-                int size = node.getPods().stream().filter(pod1 -> pod1.getOwner().getPlainName().equals(plainName)).collect(Collectors.toList()).size();
+                int size = (int) node.getPods().stream().filter(pod1 -> pod1.getOwner().getPlainName().equals(plainName)).count();
                 if (size < candidateNodeSize) {
                     if (node.getReserved() + cpuDemand <= node.getTotalCPU()) {
                         candidateNodeSize = size;

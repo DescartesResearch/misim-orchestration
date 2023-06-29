@@ -1,8 +1,10 @@
 package cambio.simulator.orchestration.scaling;
 
-import cambio.simulator.entities.microservice.MicroserviceInstance;
-import cambio.simulator.orchestration.environment.*;
-import cambio.simulator.orchestration.k8objects.Deployment;
+import cambio.simulator.orchestration.entities.Container;
+import cambio.simulator.orchestration.entities.ContainerState;
+import cambio.simulator.orchestration.entities.kubernetes.Deployment;
+import cambio.simulator.orchestration.entities.kubernetes.Pod;
+import cambio.simulator.orchestration.entities.kubernetes.PodState;
 
 import java.util.ArrayList;
 import java.util.List;

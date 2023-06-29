@@ -1,13 +1,14 @@
 package cambio.simulator.orchestration.management;
 
-
-import cambio.simulator.entities.microservice.InstanceState;
 import cambio.simulator.entities.microservice.MicroserviceInstance;
 import cambio.simulator.models.MiSimModel;
-import cambio.simulator.orchestration.Util;
-import cambio.simulator.orchestration.environment.*;
+import cambio.simulator.orchestration.entities.Cluster;
+import cambio.simulator.orchestration.entities.Container;
+import cambio.simulator.orchestration.entities.kubernetes.Node;
+import cambio.simulator.orchestration.entities.kubernetes.Pod;
+import cambio.simulator.orchestration.util.Util;
 import cambio.simulator.orchestration.events.CheckPodRemovableEvent;
-import cambio.simulator.orchestration.k8objects.Deployment;
+import cambio.simulator.orchestration.entities.kubernetes.Deployment;
 import cambio.simulator.orchestration.scheduling.Scheduler;
 import cambio.simulator.orchestration.scheduling.SchedulerType;
 import desmoj.core.simulator.Model;
@@ -16,8 +17,7 @@ import desmoj.core.simulator.TimeSpan;
 import java.util.*;
 import java.util.stream.Collectors;
 
-public class
-ManagementPlane {
+public class ManagementPlane {
     List<Deployment> deployments;
     Cluster cluster;
     Model model;
@@ -91,7 +91,7 @@ ManagementPlane {
      */
     public void checkIfPodRemovableFromNode(Pod pod, Node node) {
         for (Container container : pod.getContainers()) {
-            double relativeWorkDemand = container.getMicroserviceInstance().getRelativeWorkDemand();
+            double relativeWorkDemand = (container.getMicroserviceInstance() != null ? container.getMicroserviceInstance().getRelativeWorkDemand() : 0);
             if (relativeWorkDemand > 0) {
                 getModel().sendTraceNote("Cannot remove pod with " + container.getMicroserviceInstance().getName() + " because at least one container is still calculating. Current Relative WorkDemand: " + relativeWorkDemand);
                 final CheckPodRemovableEvent checkPodRemovableEvent = new CheckPodRemovableEvent(getModel(), "Check if pod can be removed", getModel().traceIsOn());
@@ -108,7 +108,7 @@ ManagementPlane {
     }
 
     public void populateSchedulers() {
-        final Set<SchedulerType> usedSchedulerTypes = deployments.stream().map(deployment -> deployment.getSchedulerType()).collect(Collectors.toSet());
+        final Set<SchedulerType> usedSchedulerTypes = deployments.stream().map(Deployment::getSchedulerType).collect(Collectors.toSet());
         usedSchedulerTypes.forEach(schedulerType -> {
             try {
                 schedulerMap.put(schedulerType, Util.getInstance().getSchedulerInstanceByType(schedulerType));
@@ -123,12 +123,9 @@ ManagementPlane {
     }
 
     public Pod getPodByName(String name) {
-        List<Pod> collect = deployments.stream().map(deployment -> deployment.getReplicaSet().stream().collect(Collectors.toList())).flatMap(Collection::stream).collect(Collectors.toList());
+        List<Pod> collect = deployments.stream().map(deployment -> new ArrayList<>(deployment.getReplicaSet())).flatMap(Collection::stream).collect(Collectors.toList());
         Optional<Pod> first = collect.stream().filter(pod -> pod.getName().equals(name)).findFirst();
-        if (first.isPresent()) {
-            return first.get();
-        }
-        return null;
+        return first.orElse(null);
     }
 
     /**
@@ -138,25 +135,18 @@ ManagementPlane {
      * @return
      */
     public List<Pod> getAllPodsPlacedOnNodes() {
-        List<Pod> collect = cluster.getNodes().stream().map(node -> node.getPods().stream().collect(Collectors.toList())).flatMap(Collection::stream).collect(Collectors.toList());
-        return collect;
+        return cluster.getNodes().stream().map(node -> new ArrayList<>(node.getPods())).flatMap(Collection::stream).collect(Collectors.toList());
     }
 
     public Pod getPodForContainer(Container container) {
-        List<Pod> collect = deployments.stream().map(deployment -> deployment.getReplicaSet()).flatMap(Collection::stream).collect(Collectors.toList());
+        List<Pod> collect = deployments.stream().map(Deployment::getReplicaSet).flatMap(Collection::stream).collect(Collectors.toList());
         Optional<Pod> first = collect.stream().filter(pod -> pod.getContainers().contains(container)).findFirst();
-        if (first.isPresent()) {
-            return first.get();
-        }
-        return null;
+        return first.orElse(null);
     }
 
     public Container getContainerForMicroServiceInstance(MicroserviceInstance microserviceInstance) {
-        Optional<Container> any = deployments.stream().map(deployment -> deployment.getReplicaSet()).flatMap(Collection::stream).map(pod -> pod.getContainers()).flatMap(Collection::stream).filter(container -> container.getMicroserviceInstance().equals(microserviceInstance)).findAny();
-        if (any.isPresent()) {
-            return any.get();
-        }
-        return null;
+        Optional<Container> any = deployments.stream().map(Deployment::getReplicaSet).flatMap(Collection::stream).map(Pod::getContainers).flatMap(Collection::stream).filter(container -> container.getMicroserviceInstance() != null && container.getMicroserviceInstance().equals(microserviceInstance)).findAny();
+        return any.orElse(null);
 
     }
 
@@ -170,13 +160,11 @@ ManagementPlane {
     }
 
     public int getAmountOfPodsOnNodes(Deployment deployment){
-        List<Pod> collect = deployment.getReplicaSet().stream().collect(Collectors.toList());
+        List<Pod> collect = new ArrayList<>(deployment.getReplicaSet());
         List<Pod> allPodsPlacedOnNodes = getAllPodsPlacedOnNodes();
 
-        return allPodsPlacedOnNodes.stream()
-                .filter(collect::contains)
-                .collect(Collectors
-                        .toList()).size();
+        return (int) allPodsPlacedOnNodes.stream()
+                .filter(collect::contains).count();
 
     }
 
@@ -190,6 +178,7 @@ ManagementPlane {
 
     public void setCluster(Cluster cluster) {
         this.cluster = cluster;
+        System.out.printf("[INFO] Created cluster with %d nodes\n", cluster.getNodes().size());
     }
 
     public Model getModel() {

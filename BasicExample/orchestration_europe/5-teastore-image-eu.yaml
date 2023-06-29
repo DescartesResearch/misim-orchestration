@@ -1,0 +1,41 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: teastore-image
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: teastore
+      run: teastore-image
+  template:
+    metadata:
+      labels:
+        app: teastore
+        run: teastore-image
+    spec:
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+            - matchExpressions:
+              - key: compute-zone
+                operator: In
+                values:
+                - europe
+      schedulerName: custom-scheduler
+      containers:
+        - name: teastore-image
+          image: descartesresearch/teastore-image
+          resources:
+            requests:
+              cpu: "0.8"
+            limits:
+              cpu: "0.8"
+          ports:
+            - containerPort: 8080
+          env:
+            - name: HOST_NAME
+              value: "teastore-image"
+            - name: REGISTRY_HOST
+              value: "teastore-registry"

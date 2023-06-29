@@ -1,8 +1,8 @@
 package cambio.simulator.orchestration.management;
 
 import cambio.simulator.orchestration.events.HealthCheckEvent;
-import cambio.simulator.orchestration.parsing.ConfigDto;
-import cambio.simulator.orchestration.parsing.ParsingException;
+import cambio.simulator.orchestration.models.OrchestrationConfig;
+import cambio.simulator.parsing.ParsingException;
 import cambio.simulator.orchestration.scheduling.SchedulerType;
 
 import java.util.Arrays;
@@ -22,16 +22,16 @@ public class DefaultValues {
         return instance;
     }
 
-    public void setDefaultValuesFromConfigFile(ConfigDto configDto) throws ParsingException {
+    public void setDefaultValuesFromConfigFile(OrchestrationConfig configDto) throws ParsingException {
         final SchedulerType schedulerType = SchedulerType.fromString(configDto.getScheduler());
         if (schedulerType != null) {
             scheduler = schedulerType.getName();
         } else {
-            final List<String> possibleValues = Arrays.stream(SchedulerType.values()).map(schedulerType1 -> schedulerType1.getName()).collect(Collectors.toList());
+            final List<String> possibleValues = Arrays.stream(SchedulerType.values()).map(SchedulerType::getName).collect(Collectors.toList());
             throw new ParsingException("Unknown SchedulerType in config file: " + configDto.getScheduler() + "\nPossible values are: " + possibleValues);
         }
         if (configDto.getHealthCheckDelay()!=null){
-            HealthCheckEvent.delay = Integer.valueOf(configDto.getHealthCheckDelay());
+            HealthCheckEvent.delay = Integer.parseInt(configDto.getHealthCheckDelay());
         }
     }
 

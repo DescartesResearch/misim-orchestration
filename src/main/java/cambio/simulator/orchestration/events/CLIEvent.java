@@ -2,12 +2,11 @@ package cambio.simulator.orchestration.events;
 
 import cambio.simulator.entities.NamedExternalEvent;
 import cambio.simulator.misc.Priority;
-import cambio.simulator.orchestration.k8objects.Deployment;
+import cambio.simulator.orchestration.entities.kubernetes.Deployment;
 import cambio.simulator.orchestration.management.ManagementPlane;
 import cambio.simulator.orchestration.scheduling.SchedulerType;
 import co.paralleluniverse.fibers.SuspendExecution;
 import desmoj.core.simulator.Model;
-import desmoj.core.simulator.TimeInstant;
 import desmoj.core.simulator.TimeSpan;
 import org.javatuples.Pair;
 

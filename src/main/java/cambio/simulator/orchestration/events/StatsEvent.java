@@ -2,17 +2,9 @@ package cambio.simulator.orchestration.events;
 
 import cambio.simulator.entities.NamedExternalEvent;
 import cambio.simulator.misc.Priority;
-import cambio.simulator.orchestration.Stats;
-import cambio.simulator.orchestration.environment.Container;
-import cambio.simulator.orchestration.environment.ContainerState;
-import cambio.simulator.orchestration.environment.Pod;
-import cambio.simulator.orchestration.environment.PodState;
-import cambio.simulator.orchestration.k8objects.Deployment;
-import cambio.simulator.orchestration.management.ManagementPlane;
+import cambio.simulator.orchestration.export.Stats;
 import co.paralleluniverse.fibers.SuspendExecution;
 import desmoj.core.simulator.Model;
-
-import java.util.*;
 
 public class StatsEvent extends NamedExternalEvent {
 

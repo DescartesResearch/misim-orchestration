@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: teastore-recommender
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: teastore
+      run: teastore-recommender
+  template:
+    metadata:
+      labels:
+        app: teastore
+        run: teastore-recommender
+    spec:
+      schedulerName: custom-scheduler
+      containers:
+        - name: teastore-recommender
+          image: descartesresearch/teastore-recommender
+          resources:
+            requests:
+              cpu: "0.8"
+            limits:
+              cpu: "0.8"
+          ports:
+            - containerPort: 8080
+          env:
+            - name: HOST_NAME
+              value: "teastore-recommender"
+            - name: REGISTRY_HOST
+              value: "teastore-registry"

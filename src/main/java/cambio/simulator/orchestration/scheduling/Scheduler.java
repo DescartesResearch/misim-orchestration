@@ -1,21 +1,18 @@
 package cambio.simulator.orchestration.scheduling;
 
 import cambio.simulator.entities.NamedEntity;
-import cambio.simulator.orchestration.environment.Cluster;
-import cambio.simulator.orchestration.environment.Pod;
+import cambio.simulator.orchestration.entities.Cluster;
+import cambio.simulator.orchestration.entities.kubernetes.Pod;
 import cambio.simulator.orchestration.management.ManagementPlane;
-import desmoj.core.simulator.Model;
 
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.LinkedList;
 import java.util.List;
 
 public abstract class Scheduler extends NamedEntity implements Comparable<Scheduler> {
 
-    Cluster cluster;
-    List<Pod> podWaitingQueue;
-    int PRIO = Integer.MAX_VALUE;
+    protected Cluster cluster;
+    protected List<Pod> podWaitingQueue;
+    protected int PRIO = Integer.MAX_VALUE;
 
     public Scheduler() {
         super(ManagementPlane.getInstance().getModel(), "Scheduler", ManagementPlane.getInstance().getModel().traceIsOn());

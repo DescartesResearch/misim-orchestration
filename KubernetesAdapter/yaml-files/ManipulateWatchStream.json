@@ -1,0 +1,60 @@
+{
+  "type": "DELETED",
+  "object": {
+    "kind": "Pod",
+    "apiVersion": "v1",
+    
+  "metadata": {
+    "name": "Pod-users-deployment#3",
+    "namespace": "default",
+    "uid": "Pod-users-deployment#3",
+    "resourceVersion": "19302",
+    "creationTimestamp": "2022-01-26T14:02:05Z",
+"deletionTimestamp": "2022-01-26T14:04:05Z",
+"deletionGracePeriodSeconds": 0
+
+  },
+  "spec": {
+    "containers": [{
+  "name": "users",
+  "resources": {
+    "requests": {
+      "cpu": "5"
+    }
+  }
+}],
+    "restartPolicy": "Always",
+    "terminationGracePeriodSeconds": 30,
+    "dnsPolicy": "ClusterFirst",
+    "serviceAccountName": "default",
+    "serviceAccount": "default",
+    "securityContext": {
+    },
+    
+    "affinity": {},
+    "schedulerName": "my-scheduler",
+    "tolerations": [
+      {
+        "key": "node.kubernetes.io/not-ready",
+        "operator": "Exists",
+        "effect": "NoExecute",
+        "tolerationSeconds": 300
+      },
+      {
+        "key": "node.kubernetes.io/unreachable",
+        "operator": "Exists",
+        "effect": "NoExecute",
+        "tolerationSeconds": 300
+      }
+    ],
+    "priority": 0,
+    "enableServiceLinks": true,
+    "preemptionPolicy": "PreemptLowerPriority"
+  },
+  "status": {
+    "phase": "Pending",
+    "qosClass": "BestEffort"
+  }
+
+  }
+}

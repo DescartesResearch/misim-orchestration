@@ -1,10 +1,7 @@
 package cambio.simulator.orchestration.scheduling;
 
-import cambio.simulator.entities.NamedEntity;
-import cambio.simulator.models.MiSimModel;
-import cambio.simulator.orchestration.environment.Cluster;
-import cambio.simulator.orchestration.environment.Node;
-import cambio.simulator.orchestration.environment.Pod;
+import cambio.simulator.orchestration.entities.kubernetes.Node;
+import cambio.simulator.orchestration.entities.kubernetes.Pod;
 import cambio.simulator.orchestration.management.ManagementPlane;
 
 import java.util.*;
@@ -45,7 +42,7 @@ public class RandomScheduler extends Scheduler{
 
         if (pod != null) {
             Node candidateNote = null;
-            int cpuDemand = pod.getCPUDemand();
+            double cpuDemand = pod.getCPUDemand();
             //Doing the same like FirstFitScheduler but nodes are shuffled.
             List<Node> nodes = new ArrayList<>(cluster.getNodes());
             Collections.shuffle(nodes, random);
