@@ -1,8 +1,0 @@
-{
-  "kind": "CSIStorageCapacityList",
-  "apiVersion": "storage.k8s.io/v1beta1",
-  "metadata": {
-    "resourceVersion": "1"
-  },
-  "items": []
-}

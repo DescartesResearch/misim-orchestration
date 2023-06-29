@@ -1,13 +1,29 @@
-## WIP Note: This Repository and ReadMe are still WIP and not yet ready-to-use and maintained.
-
 # misim-orchestration - A MiSim plugin for simulating container orchestration
 
-## Build from source
+## Prerequisites
 
-TODO
-Clone via git and run
-`mvn -B package --file pom.xml "-DskipTests=true" "-Dmaven.javadoc.skip=true" "-Dcheckstyle.skipExec=true"`. You should
-see a `misim.jar` file in the resulting `target/` directory.
+- Apache Maven (`mvn`)
+- Java 8+
+
+## Build
+
+1. Install MiSim core dependency from [source repo](https://github.com/Cambio-Project/MiSim) or using the provided library: 
+
+```
+mvn install:install-file \
+  -Dfile=./libraries/misim-3.2.5-SNAPSHOT.jar \
+  -DgroupId=cambio.simulator \
+  -DartifactId=misim \
+  -Dversion=3.2.5-SNAPSHOT \
+  -Dpackaging=jar \
+  -DgeneratePom=true
+```
+
+2. Build this repository
+
+```
+mvn clean package
+```
 
 ### Execution
 
