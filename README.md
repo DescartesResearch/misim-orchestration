@@ -27,12 +27,12 @@ mvn clean package
 
 ## Examples
 
-Read our [hello-world example](https://github.com/DescartesResearch/misim-orchestration/docs/HelloWorldExample.md) to learn about how to run simulations.
+Read our [hello-world example](https://github.com/DescartesResearch/misim-orchestration/blob/main/docs/HelloWorldExample.md) to learn about how to run simulations.
 
 ## Configuration options
 
 For configuration options of the MiSim core, architecture and experiment model syntax, we refer to the [MiSim repository](https://github.com/Cambio-Project/MiSim).
-The configuration options of this orchestration plugin are described [here](https://github.com/DescartesResearch/misim-orchestration/docs/ConfigurationOptions.md).
+The configuration options of this orchestration plugin are described [here](https://github.com/DescartesResearch/misim-orchestration/blob/main/docs/ConfigurationOptions.md).
 
 ## Cite us
 
