@@ -183,7 +183,6 @@ public class Deployment extends NamedEntity {
         if (autoScaler != null) {
             autoScaler.apply(this);
         }
-        if (desiredReplicaCount < 242) setDesiredReplicaCount(desiredReplicaCount + 1);
     }
 
     public void addPodToWaitingQueue(Pod pod) {
