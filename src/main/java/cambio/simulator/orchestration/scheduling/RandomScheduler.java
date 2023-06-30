@@ -43,7 +43,6 @@ public class RandomScheduler extends Scheduler{
         if (pod != null) {
             Node candidateNote = null;
             double cpuDemand = pod.getCPUDemand();
-            //Doing the same like FirstFitScheduler but nodes are shuffled.
             List<Node> nodes = new ArrayList<>(cluster.getNodes());
             Collections.shuffle(nodes, random);
             for (Node node : nodes) {

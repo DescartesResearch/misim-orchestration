@@ -3,9 +3,13 @@ package cambio.simulator.orchestration.models;
 import cambio.simulator.events.ISelfScheduled;
 import cambio.simulator.events.SimulationEndEvent;
 import cambio.simulator.models.MiSimModel;
+import cambio.simulator.orchestration.entities.kubernetes.Deployment;
 import cambio.simulator.orchestration.parsing.OrchestrationModelLoader;
 import cambio.simulator.orchestration.entities.MicroserviceOrchestration;
 import cambio.simulator.orchestration.parsing.kubernetes.KubernetesParser;
+import cambio.simulator.orchestration.scaling.FakeAutoscaler;
+import cambio.simulator.orchestration.scaling.HorizontalPodAutoscaler;
+import cambio.simulator.orchestration.scaling.SimpleReactiveAutoscaler;
 import cambio.simulator.orchestration.util.Util;
 import cambio.simulator.orchestration.entities.Cluster;
 import cambio.simulator.orchestration.entities.kubernetes.Node;
@@ -98,6 +102,38 @@ public class MiSimOrchestrationModel extends MiSimModel {
         }
 
         KubernetesParser.initDeployments(targetDir, architectureModel, orchestrationConfig);
+
+        // Init scalers if not done
+        if (!orchestrationConfig.getScaler().isImportScaler()) {
+            List<Deployment> deployments = ManagementPlane.getInstance().getDeployments();
+            for (OrchestrationConfig.ScalerSpec spec : orchestrationConfig.getScaler().getScalerList()) {
+                Deployment referencedDeployment = null;
+                for (Deployment d : deployments) {
+                    if (d.getPlainName().equals(spec.getService())) {
+                        referencedDeployment = d;
+                        break;
+                    }
+                }
+                if (referencedDeployment == null) {
+                    System.out.println("[WARNING] Could not find deployment for scaler with service " + spec.getService());
+                    continue;
+                }
+                switch (spec.getScalerType()) {
+                    case "HPA":
+                        referencedDeployment.setAutoScaler(new HorizontalPodAutoscaler(spec.getTargetUtilization(), spec.getMinReplicas(), spec.getMaxReplicas()));
+                        break;
+                    case "Fake":
+                        referencedDeployment.setAutoScaler(new FakeAutoscaler(spec.getMaxReplicas(), spec.getIncrement(), spec.getDecrement()));
+                        break;
+                    case "SimpleReactive":
+                        referencedDeployment.setAutoScaler(new SimpleReactiveAutoscaler(spec.getLowerBound(), spec.getUpperBound(), spec.getHoldTime()));
+                        break;
+                    default:
+                        System.out.println("[WARNING] Unknown scaler type " + spec.getScalerType());
+                        break;
+                }
+            }
+        }
 
         final ScaleTaskExecutor scaleTaskExecutor = new ScaleTaskExecutor(getModel(), "MasterTaskExecutor", getModel().traceIsOn(), orchestrationConfig.getScalingInterval());
         scaleTaskExecutor.doInitialSelfSchedule();

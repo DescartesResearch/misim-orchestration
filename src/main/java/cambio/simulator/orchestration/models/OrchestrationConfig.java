@@ -1,5 +1,6 @@
 package cambio.simulator.orchestration.models;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -287,28 +288,122 @@ public class OrchestrationConfig {
     }
 
     public static class Scaler {
-        int holdTimeUpScaler;
-        int holdTimeDownScaler;
+
+        boolean importScaler;
+        List<ScalerSpec> scalerList;
 
         public Scaler() {
-            holdTimeUpScaler = 0;
-            holdTimeDownScaler = 0;
+            importScaler = false;
+            scalerList = new ArrayList<>();
         }
 
-        public int getHoldTimeUpScaler() {
-            return holdTimeUpScaler;
+        public boolean isImportScaler() {
+            return importScaler;
         }
 
-        public void setHoldTimeUpScaler(int holdTimeUpScaler) {
-            this.holdTimeUpScaler = holdTimeUpScaler;
+        public List<ScalerSpec> getScalerList() {
+            return scalerList;
         }
 
-        public int getHoldTimeDownScaler() {
-            return holdTimeDownScaler;
+        public void setImportScaler(boolean importScaler) {
+            this.importScaler = importScaler;
         }
 
-        public void setHoldTimeDownScaler(int holdTimeDownScaler) {
-            this.holdTimeDownScaler = holdTimeDownScaler;
+        public void setScalerList(List<ScalerSpec> scalerList) {
+            this.scalerList = scalerList;
+        }
+    }
+
+    public static class ScalerSpec {
+        String service;
+        String scalerType;
+        double targetUtilization;
+        int minReplicas;
+        int maxReplicas;
+        double lowerBound;
+        double upperBound;
+        int holdTime;
+        int increment;
+        int decrement;
+
+        public String getService() {
+            return service;
+        }
+
+        public void setService(String service) {
+            this.service = service;
+        }
+
+        public String getScalerType() {
+            return scalerType;
+        }
+
+        public void setScalerType(String scalerType) {
+            this.scalerType = scalerType;
+        }
+
+        public double getTargetUtilization() {
+            return targetUtilization;
+        }
+
+        public void setTargetUtilization(double targetUtilization) {
+            this.targetUtilization = targetUtilization;
+        }
+
+        public int getMinReplicas() {
+            return minReplicas;
+        }
+
+        public void setMinReplicas(int minReplicas) {
+            this.minReplicas = minReplicas;
+        }
+
+        public int getMaxReplicas() {
+            return maxReplicas;
+        }
+
+        public void setMaxReplicas(int maxReplicas) {
+            this.maxReplicas = maxReplicas;
+        }
+
+        public double getLowerBound() {
+            return lowerBound;
+        }
+
+        public void setLowerBound(double lowerBound) {
+            this.lowerBound = lowerBound;
+        }
+
+        public double getUpperBound() {
+            return upperBound;
+        }
+
+        public void setUpperBound(double upperBound) {
+            this.upperBound = upperBound;
+        }
+
+        public int getHoldTime() {
+            return holdTime;
+        }
+
+        public void setHoldTime(int holdTime) {
+            this.holdTime = holdTime;
+        }
+
+        public int getIncrement() {
+            return increment;
+        }
+
+        public void setIncrement(int increment) {
+            this.increment = increment;
+        }
+
+        public int getDecrement() {
+            return decrement;
+        }
+
+        public void setDecrement(int decrement) {
+            this.decrement = decrement;
         }
     }
 

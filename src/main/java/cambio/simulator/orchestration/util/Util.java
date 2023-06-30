@@ -73,11 +73,9 @@ public class Util {
     public Scheduler getSchedulerInstanceByType(SchedulerType schedulerType) {
         if(schedulerType.equals(SchedulerType.RANDOM)){
             return RandomScheduler.getInstance();
-        } else if(schedulerType.equals(SchedulerType.FIRSTFIT)){
-            return FirstFitScheduler.getInstance();
-        } else if(schedulerType.equals(SchedulerType.KUBE)) {
+        } else if (schedulerType.equals(SchedulerType.KUBE)) {
             return KubeScheduler.getInstance();
-        }else if(schedulerType.equals(SchedulerType.ROUNDROBIN)) {
+        } else if (schedulerType.equals(SchedulerType.ROUNDROBIN)) {
             return RoundRobinScheduler.getInstance();
         }
         throw new IllegalStateException("This SchedulerType is not linked to a Schedulerinstance yet. Do it here!");
