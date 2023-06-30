@@ -12,7 +12,6 @@ import cambio.simulator.orchestration.scheduling.Scheduler;
 import cambio.simulator.orchestration.scheduling.SchedulerType;
 import com.google.gson.Gson;
 import desmoj.core.simulator.Model;
-import desmoj.core.simulator.TimeInstant;
 import io.kubernetes.client.openapi.models.*;
 
 import java.util.*;
@@ -22,11 +21,7 @@ public class Deployment extends NamedEntity {
     private MicroserviceOrchestration service;
     private Set<Pod> replicaSet;
     private SchedulerType schedulerType;
-    private TimeInstant lastRescaling;
     private int desiredReplicaCount;
-    private int maxReplicaCount;
-    private int minReplicaCount;
-    private double averageUtilization;
     private AutoScaler autoScaler;
     private V1Deployment kubernetesRepresentation;
 
@@ -35,10 +30,6 @@ public class Deployment extends NamedEntity {
         this.service = microserviceOrchestration;
         this.desiredReplicaCount = desiredReplicaCount;
         this.schedulerType = schedulerType;
-        this.maxReplicaCount = 10;
-        this.minReplicaCount = 1;
-        this.averageUtilization = 50.0;
-        this.lastRescaling = new TimeInstant(0);
         replicaSet = new HashSet<>();
     }
 
@@ -244,38 +235,6 @@ public class Deployment extends NamedEntity {
 
     public void setSchedulerType(SchedulerType schedulerType) {
         this.schedulerType = schedulerType;
-    }
-
-    public int getMaxReplicaCount() {
-        return maxReplicaCount;
-    }
-
-    public void setMaxReplicaCount(int maxReplicaCount) {
-        this.maxReplicaCount = maxReplicaCount;
-    }
-
-    public int getMinReplicaCount() {
-        return minReplicaCount;
-    }
-
-    public void setMinReplicaCount(int minReplicaCount) {
-        this.minReplicaCount = minReplicaCount;
-    }
-
-    public TimeInstant getLastRescaling() {
-        return lastRescaling;
-    }
-
-    public void setLastRescaling(TimeInstant lastRescaling) {
-        this.lastRescaling = lastRescaling;
-    }
-
-    public double getAverageUtilization() {
-        return averageUtilization;
-    }
-
-    public void setAverageUtilization(double averageUtilization) {
-        this.averageUtilization = averageUtilization;
     }
 
     public AutoScaler getAutoScaler() {

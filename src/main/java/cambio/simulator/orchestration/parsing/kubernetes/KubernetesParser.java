@@ -97,37 +97,30 @@ public class KubernetesParser {
             }
 
             // Read other k8s objects that refer to deployments (e.g. HPA)
-            for (String fileName : fileNames) {
-                String filePath = dir + "/" + fileName;
-                V1HorizontalPodAutoscaler hpa = readHPAFromFile(filePath);
-                if (hpa != null) {
-                    namesToRemove.add(filePath);
-                    String targetDeploymentName = hpa.getSpec().getScaleTargetRef().getName();
-                    Optional<Deployment> optionalDeployment = ManagementPlane.getInstance().getDeployments().stream()
-                            .filter(deployment -> deployment.getPlainName().equals(targetDeploymentName))
-                            .findFirst();
-                    if (optionalDeployment.isPresent()) {
-                        Deployment deployment = optionalDeployment.get();
-                        deployment.setAutoScaler(new HorizontalPodAutoscaler());
-                        int minReplicas = hpa.getSpec().getMinReplicas().intValue();
-                        int maxReplicas = hpa.getSpec().getMaxReplicas().intValue();
-                        int targetCPUUtilizationPercentage = hpa.getSpec().getTargetCPUUtilizationPercentage().intValue();
-                        deployment.setMinReplicaCount(minReplicas);
-                        deployment.setMaxReplicaCount(maxReplicas);
-                        deployment.setAverageUtilization(targetCPUUtilizationPercentage / 100.0);
-                    } else {
-                        throw new ParsingException("Could not find an existing deployment object by the given name: " + targetDeploymentName);
+            if (orchestrationConfig.getScaler().isImportScaler()) {
+                for (String fileName : fileNames) {
+                    String filePath = dir + "/" + fileName;
+                    V1HorizontalPodAutoscaler hpa = readHPAFromFile(filePath);
+                    if (hpa != null) {
+                        namesToRemove.add(filePath);
+                        String targetDeploymentName = hpa.getSpec().getScaleTargetRef().getName();
+                        Optional<Deployment> optionalDeployment = ManagementPlane.getInstance().getDeployments().stream()
+                                .filter(deployment -> deployment.getPlainName().equals(targetDeploymentName))
+                                .findFirst();
+                        if (optionalDeployment.isPresent()) {
+                            Deployment deployment = optionalDeployment.get();
+                            int minReplicas = hpa.getSpec().getMinReplicas().intValue();
+                            int maxReplicas = hpa.getSpec().getMaxReplicas().intValue();
+                            int targetCPUUtilizationPercentage = hpa.getSpec().getTargetCPUUtilizationPercentage().intValue();
+                            deployment.setAutoScaler(new HorizontalPodAutoscaler(targetCPUUtilizationPercentage / 100.0, minReplicas, maxReplicas));
+                        } else {
+                            throw new ParsingException("Could not find an existing deployment object by the given name: " + targetDeploymentName);
+                        }
                     }
                 }
+                fileNames.removeAll(namesToRemove);
+                namesToRemove.clear();
             }
-            fileNames.removeAll(namesToRemove);
-            namesToRemove.clear();
-
-            //set AutoScaler Hold Times from configDto
-            ManagementPlane.getInstance().getDeployments().stream().filter(deployment -> deployment.getAutoScaler() != null).forEach(deployment -> {
-                        deployment.getAutoScaler().setHoldTimeUp(orchestrationConfig.getScaler().getHoldTimeUpScaler());
-                        deployment.getAutoScaler().setHoldTimeDown(orchestrationConfig.getScaler().getHoldTimeDownScaler());
-            });
 
             //Init only schedulers that are used
             ManagementPlane.getInstance().populateSchedulers();

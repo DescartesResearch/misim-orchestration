@@ -1,19 +1,22 @@
 package cambio.simulator.orchestration.scaling;
 
-import cambio.simulator.orchestration.entities.Container;
-import cambio.simulator.orchestration.entities.ContainerState;
 import cambio.simulator.orchestration.entities.kubernetes.Deployment;
-import cambio.simulator.orchestration.entities.kubernetes.Pod;
-import cambio.simulator.orchestration.entities.kubernetes.PodState;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class HorizontalPodAutoscaler extends AutoScaler {
 
+    // TODO Maybe also include via adapter, upscaling/downscaling behavior not 100% as in Kubernetes, e.g. see HorizontalPodAutoscalerBehavior
+    // https://github.com/kubernetes/kubernetes/blob/master/pkg/apis/autoscaling/types.go#L113
 
-    public HorizontalPodAutoscaler() {
+    private final double targetUtilization;
+    private final int minReplicas;
+    private final int maxReplicas;
+
+    public HorizontalPodAutoscaler(double targetUtilization, int minReplicas, int maxReplicas) {
+        super();
         this.rename("HPA");
+        this.targetUtilization = targetUtilization;
+        this.minReplicas = minReplicas;
+        this.maxReplicas = maxReplicas;
     }
 
     @Override
@@ -22,75 +25,30 @@ public class HorizontalPodAutoscaler extends AutoScaler {
 //        Scale-up can only happen if there was no rescaling within the last 3 minutes. Scale-down will wait for 5 minutes from the last rescaling.
 //        Moreover any scaling will only be made if: avg(CurrentPodsConsumption) / Target drops below 0.9 or increases above 1.1 (10% tolerance)
 
-        final double lastRescaling = deployment.getLastRescaling().getTimeAsDouble();
-
-        final double timePassed = presentTime().getTimeAsDouble() - lastRescaling;
-        boolean upscalingAllowed = timePassed >= holdTimeUp;
-        boolean downscalingAllowed = timePassed >= holdTimeDown;
-
-        //This allows scaling after initialization is complete and no rescaling was applied before
-        if (lastRescaling == 0 && presentTime().getTimeAsDouble() > 0) {
-            upscalingAllowed = true;
-            downscalingAllowed = true;
+        double avg2Target = ScalingUtils.getAverageCPUUtilizationOfDeployment(deployment) / targetUtilization;
+        // Tolerance area
+        if (avg2Target > 0.9 && avg2Target < 1.1) {
+            sendTraceNote("No Scaling required for " + deployment + ".");
+            return;
         }
 
-        double target = deployment.getAverageUtilization(); //in percent
-        target = target / 100;
-        if (upscalingAllowed || downscalingAllowed) {
-            List<Double> podConsumptions = new ArrayList<>();
-            for (Pod pod : deployment.getReplicaSet()) {
-                if (pod.getPodState() == PodState.RUNNING) {
-                    double podCPUUtilization = 0;
-                    for (Container container : pod.getContainers()) {
-                        if (container.getContainerState() == ContainerState.RUNNING) {
-                            double relativeWorkDemand = container.getMicroserviceInstance().getRelativeWorkDemand();
-                            podCPUUtilization += relativeWorkDemand;
-                        }
-                    }
-                    podConsumptions.add(podCPUUtilization);
-                }
-            }
-            double avg2Target = podConsumptions.stream().mapToDouble(d -> d).average().orElse(0) / target;
-            if (avg2Target > 0.9 && avg2Target < 1.1) {
-                sendTraceNote("No Scaling required for " + deployment + ".");
-                return;
-            }
+        int desiredReplicas = (int) Math.ceil(avg2Target * deployment.getCurrentRunningOrPendingReplicaCount());
 
-            double sumOfRelativeCPUUsage = podConsumptions.stream().mapToDouble(d-> d).sum();
-
-            int desiredReplicas = (int) Math.ceil((sumOfRelativeCPUUsage / target));
-
-            desiredReplicas = Math.min(desiredReplicas, deployment.getMaxReplicaCount());
-            desiredReplicas = Math.max(deployment.getMinReplicaCount(), desiredReplicas);
+        desiredReplicas = Math.min(desiredReplicas, maxReplicas);
+        desiredReplicas = Math.max(minReplicas, desiredReplicas);
 
 
-            if (desiredReplicas != deployment.getCurrentRunningOrPendingReplicaCount()) {
-                if (desiredReplicas > deployment.getCurrentRunningOrPendingReplicaCount()) {
-                    if (upscalingAllowed) {
-                        deployment.setDesiredReplicaCount(desiredReplicas);
-                        deployment.setLastRescaling(presentTime());
-                        sendTraceNote("Scaling Up " + deployment + ". From " + deployment.getCurrentRunningOrPendingReplicaCount() + " -> " + desiredReplicas);
-                    } else {
-                        sendTraceNote("Up scaling not allowed for " + deployment + " due to hold time.");
-                    }
-                } else {
-                    if (downscalingAllowed) {
-                        deployment.setDesiredReplicaCount(desiredReplicas);
-                        deployment.setLastRescaling(presentTime());
-                        sendTraceNote("Scaling Down " + deployment + ". From " + deployment.getCurrentRunningOrPendingReplicaCount() + " -> " + desiredReplicas);
-                    } else {
-                        sendTraceNote("Down scaling not allowed for " + deployment + " due to hold time.");
-                    }
-                }
+        if (desiredReplicas != deployment.getCurrentRunningOrPendingReplicaCount()) {
+            if (desiredReplicas > deployment.getCurrentRunningOrPendingReplicaCount()) {
+                deployment.setDesiredReplicaCount(desiredReplicas);
+                sendTraceNote("Scaling Up " + deployment + ". From " + deployment.getCurrentRunningOrPendingReplicaCount() + " -> " + desiredReplicas);
+
             } else {
-                sendTraceNote("No Scaling required for " + deployment + ".");
+                deployment.setDesiredReplicaCount(desiredReplicas);
+                sendTraceNote("Scaling Down " + deployment + ". From " + deployment.getCurrentRunningOrPendingReplicaCount() + " -> " + desiredReplicas);
             }
         } else {
-            if (presentTime().getTimeAsDouble() == 0) {
-                sendTraceNote("No scaling allowed for " + deployment + " during initialization.");
-            } else {
-                sendTraceNote("No scaling allowed for " + deployment + " due to hold times.");
-            }
+            sendTraceNote("No Scaling required for " + deployment + ".");
         }
     }
 }

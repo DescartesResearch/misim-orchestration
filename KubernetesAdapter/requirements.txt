@@ -1,4 +1,0 @@
-waiting
-uvicorn
-fastapi
-pydantic

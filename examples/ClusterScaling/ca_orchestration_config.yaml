@@ -1,0 +1,18 @@
+orchestrate: true
+orchestrationDir: "./examples/ClusterScaling/orchestration_clusterscaling"
+importNodes: true
+networkDelays:
+  enabled: false
+scheduler: kube
+initialSchedulingOrder:
+  enabled: false
+scalingInterval: 15
+scaler:
+  scalerList:
+    - service: teastore-registry
+      scalerType: "Fake"
+      maxReplicas: 242
+      increment: 1
+      decrement: 240
+healthCheckDelay: 0
+useClusterAutoscaler: true

@@ -1,5 +1,6 @@
 package cambio.simulator.orchestration.models;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -14,11 +15,18 @@ public class OrchestrationConfig {
     private String scheduler;
     private InitialSchedulingOrder initialSchedulingOrder;
     private int scalingInterval;
-    private String healthCheckDelay;
+    private int healthCheckDelay;
     private List<CustomNodes> customNodes;
     private List<SchedulerPrio> schedulerPrio;
     private List<StartUpTimeContainer> startUpTimeContainer;
     private boolean useClusterAutoscaler;
+
+    public OrchestrationConfig() {
+        importNodes = false;
+        scaler = new Scaler();
+        scalingInterval = 15;
+        healthCheckDelay = 0;
+    }
 
     public boolean isOrchestrate() {
         return orchestrate;
@@ -116,11 +124,11 @@ public class OrchestrationConfig {
         this.scalingInterval = scalingInterval;
     }
 
-    public String getHealthCheckDelay() {
+    public int getHealthCheckDelay() {
         return healthCheckDelay;
     }
 
-    public void setHealthCheckDelay(String healthCheckDelay) {
+    public void setHealthCheckDelay(int healthCheckDelay) {
         this.healthCheckDelay = healthCheckDelay;
     }
 
@@ -280,23 +288,122 @@ public class OrchestrationConfig {
     }
 
     public static class Scaler {
-        int holdTimeUpScaler;
-        int holdTimeDownScaler;
 
-        public int getHoldTimeUpScaler() {
-            return holdTimeUpScaler;
+        boolean importScaler;
+        List<ScalerSpec> scalerList;
+
+        public Scaler() {
+            importScaler = false;
+            scalerList = new ArrayList<>();
         }
 
-        public void setHoldTimeUpScaler(int holdTimeUpScaler) {
-            this.holdTimeUpScaler = holdTimeUpScaler;
+        public boolean isImportScaler() {
+            return importScaler;
         }
 
-        public int getHoldTimeDownScaler() {
-            return holdTimeDownScaler;
+        public List<ScalerSpec> getScalerList() {
+            return scalerList;
         }
 
-        public void setHoldTimeDownScaler(int holdTimeDownScaler) {
-            this.holdTimeDownScaler = holdTimeDownScaler;
+        public void setImportScaler(boolean importScaler) {
+            this.importScaler = importScaler;
+        }
+
+        public void setScalerList(List<ScalerSpec> scalerList) {
+            this.scalerList = scalerList;
+        }
+    }
+
+    public static class ScalerSpec {
+        String service;
+        String scalerType;
+        double targetUtilization;
+        int minReplicas;
+        int maxReplicas;
+        double lowerBound;
+        double upperBound;
+        int holdTime;
+        int increment;
+        int decrement;
+
+        public String getService() {
+            return service;
+        }
+
+        public void setService(String service) {
+            this.service = service;
+        }
+
+        public String getScalerType() {
+            return scalerType;
+        }
+
+        public void setScalerType(String scalerType) {
+            this.scalerType = scalerType;
+        }
+
+        public double getTargetUtilization() {
+            return targetUtilization;
+        }
+
+        public void setTargetUtilization(double targetUtilization) {
+            this.targetUtilization = targetUtilization;
+        }
+
+        public int getMinReplicas() {
+            return minReplicas;
+        }
+
+        public void setMinReplicas(int minReplicas) {
+            this.minReplicas = minReplicas;
+        }
+
+        public int getMaxReplicas() {
+            return maxReplicas;
+        }
+
+        public void setMaxReplicas(int maxReplicas) {
+            this.maxReplicas = maxReplicas;
+        }
+
+        public double getLowerBound() {
+            return lowerBound;
+        }
+
+        public void setLowerBound(double lowerBound) {
+            this.lowerBound = lowerBound;
+        }
+
+        public double getUpperBound() {
+            return upperBound;
+        }
+
+        public void setUpperBound(double upperBound) {
+            this.upperBound = upperBound;
+        }
+
+        public int getHoldTime() {
+            return holdTime;
+        }
+
+        public void setHoldTime(int holdTime) {
+            this.holdTime = holdTime;
+        }
+
+        public int getIncrement() {
+            return increment;
+        }
+
+        public void setIncrement(int increment) {
+            this.increment = increment;
+        }
+
+        public int getDecrement() {
+            return decrement;
+        }
+
+        public void setDecrement(int decrement) {
+            this.decrement = decrement;
         }
     }
 
