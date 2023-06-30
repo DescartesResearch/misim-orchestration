@@ -75,7 +75,7 @@ public class ExtendedReporter {
             // removeFilters.add("scheduler");
 
             // copyDirectory("orchestration", directoryConfigFiles.getPath(), removeFilters);
-            copyDirectory("BasicExample", directoryConfigFiles.getPath(), Arrays.asList(""));
+            // copyDirectory("BasicExample", directoryConfigFiles.getPath(), Arrays.asList(""));
             copyDirectory(model.getExperimentMetaData().getReportLocation().toAbsolutePath().toString(), directoryMiSimStandardReportFiles.getPath(), Arrays.asList(""));
 
         } catch (IOException e) {
