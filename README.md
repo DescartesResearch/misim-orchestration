@@ -11,10 +11,10 @@
 
 ```
 mvn install:install-file \
-  -Dfile=./libraries/misim-3.2.5-SNAPSHOT.jar \
+  -Dfile=./libraries/misim-3.2.5.jar \
   -DgroupId=cambio.simulator \
   -DartifactId=misim \
-  -Dversion=3.2.5-SNAPSHOT \
+  -Dversion=3.2.5 \
   -Dpackaging=jar \
   -DgeneratePom=true
 ```
