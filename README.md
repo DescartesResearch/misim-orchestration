@@ -36,7 +36,22 @@ The configuration options of this orchestration plugin are described [here](http
 
 ## Cite us
 
-The paper related to this repository is currently under review. We will add citation info as soon as available.
+```
+@inproceedings{straesser2023kubernetesintheloop,
+  abstract = {Microservices deployed and managed by container orchestration frameworks like Kubernetes are the bases of modern cloud applications. In microservice performance modeling and prediction, simulations provide a lightweight alternative to experimental analysis, which requires dedicated infrastructure and a laborious setup. However, existing simulators cannot run realistic scenarios, as performance-critical orchestration mechanisms (like scheduling or autoscaling) are manually modeled and can consequently not be represented in their full complexity and configuration space. This work combines a state-of-the-art simulation for microservice performance with Kubernetes container orchestration. Hereby, we include the original implementation of Kubernetes artifacts enabling realistic scenarios and testing of orchestration policies with low overhead. In two experiments with Kubernetes' kube-scheduler and cluster-autoscaler, we demonstrate that our framework can correctly handle different configurations of these orchestration mechanisms boosting both the simulation's use cases and authenticity.},
+  added-at = {2023-08-17T01:05:43.000+0200},
+  author = {Straesser, Martin and Haas, Patrick and Frank, Sebastian and Hakamian, Alireza and Van Hoorn, André and Kounev, Samuel},
+  biburl = {https://www.bibsonomy.org/bibtex/23ea9a74ebfc49b6a1a29bce1d6083855/samuel.kounev},
+  booktitle = {Performance Evaluation Methodologies and Tools},
+  interhash = {373d040402db63c40b7b0b707adf66ad},
+  intrahash = {3ea9a74ebfc49b6a1a29bce1d6083855},
+  keywords = {cloud_computing container_orchestration descartes discrete_event_simulation kubernetes microservices software_performance t_full myown},
+  note = {In print.},
+  timestamp = {2023-08-17T01:05:43.000+0200},
+  title = {Kubernetes-in-the-Loop: Enriching Microservice Simulation Through Authentic Container Orchestration},
+  year = 2023
+}
+```
 
 ## Any questions?
 
