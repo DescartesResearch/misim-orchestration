@@ -15,7 +15,7 @@ public class OrchestrationStartupConfig extends ExperimentStartupConfig {
     public OrchestrationStartupConfig(String archDescLoc, String expDescLoc, String scenario,
                                       String reportLocation,
                                       boolean showProgressBar, boolean debug, boolean traces, String orchLoc) {
-        super(archDescLoc, expDescLoc, scenario, reportLocation, showProgressBar, debug, traces);
+        super(archDescLoc, expDescLoc, scenario, reportLocation, null, showProgressBar, debug, traces);
         this.orchestrationConfigLocation = orchLoc;
     }
 

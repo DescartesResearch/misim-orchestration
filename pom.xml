@@ -19,8 +19,18 @@
         <dependency>
             <groupId>cambio.simulator</groupId>
             <artifactId>misim</artifactId>
-            <version>3.2.5</version>
+            <version>3.3.1</version>
         </dependency>
+
+        <dependency>
+            <groupId>cambio.simulator</groupId>
+            <artifactId>misim</artifactId>
+            <version>3.3.1</version>
+            <classifier>tests</classifier>
+            <scope>test</scope>
+            <optional>true</optional>
+        </dependency>
+
 
         <dependency>
             <groupId>io.kubernetes</groupId>

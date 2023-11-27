@@ -2,6 +2,7 @@ package cambio.simulator.orchestration.models;
 
 import cambio.simulator.events.ISelfScheduled;
 import cambio.simulator.events.SimulationEndEvent;
+import cambio.simulator.export.MiSimReporters;
 import cambio.simulator.models.MiSimModel;
 import cambio.simulator.orchestration.entities.kubernetes.Deployment;
 import cambio.simulator.orchestration.parsing.OrchestrationModelLoader;
@@ -51,6 +52,7 @@ public class MiSimOrchestrationModel extends MiSimModel {
     public void init() {
         this.architectureModel = OrchestrationModelLoader.loadArchitectureModel(this);
         this.experimentModel = ModelLoader.loadExperimentModel(this);
+        MiSimReporters.initializeStaticReporters(this);
         this.experimentMetaData.setStartDate(LocalDateTime.now());
     }
 

@@ -2,7 +2,6 @@ package cambio.simulator.orchestration;
 
 import cambio.simulator.CLI;
 import cambio.simulator.ExperimentStartupConfig;
-import cambio.simulator.export.ReportCollector;
 import cambio.simulator.misc.RNGStorage;
 import cambio.simulator.models.MiSimModel;
 import cambio.simulator.orchestration.export.ExtendedReporter;
@@ -116,7 +115,7 @@ public class OrchestrationMain {
 
         MiSimModel miSimModel = (MiSimModel) experiment.getModel();
         // Pure MiSim command line output
-        ReportCollector.getInstance().printReport(miSimModel);
+        //ReportCollector.getInstance().printReport(miSimModel);
 
         DateFormat format = new SimpleDateFormat("yyyy-MM-dd'T'HH-mm-ss.SSSZ");
         String dateString = format.format(new Date());

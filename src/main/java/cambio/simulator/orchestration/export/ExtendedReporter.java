@@ -106,7 +106,6 @@ public class ExtendedReporter {
             ExperimentMetaData metaData = model.getExperimentMetaData();
             content.add(String.valueOf(Util.nanoSecondsToMilliSeconds(metaData.getSetupExecutionDuration())));
             content.add(String.valueOf(Util.nanoSecondsToMilliSeconds(metaData.getExperimentExecutionDuration())));
-            content.add(String.valueOf(Util.nanoSecondsToMilliSeconds(metaData.getReportExecutionDuration())));
             content.add(String.valueOf(Util.nanoSecondsToMilliSeconds(metaData.getExecutionDuration())));
             pw.println(convertToCSV(content));
         } catch (FileNotFoundException e) {
