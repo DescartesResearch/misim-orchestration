@@ -3,6 +3,8 @@ package cambio.simulator.orchestration;
 import cambio.simulator.CLI;
 import cambio.simulator.ExperimentStartupConfig;
 import cambio.simulator.misc.RNGStorage;
+import cambio.simulator.misc.Util;
+import cambio.simulator.models.ExperimentMetaData;
 import cambio.simulator.models.MiSimModel;
 import cambio.simulator.orchestration.export.ExtendedReporter;
 import cambio.simulator.parsing.ParsingException;
@@ -75,6 +77,7 @@ public class OrchestrationMain {
                 System.exit(16);
             } else {
                 System.out.println("[INFO] Simulation finished successfully.");
+                writeCommandLineReport((MiSimModel) experiment.getModel());
                 System.exit(0);
             }
         } catch (ParsingException | JsonParseException e) {
@@ -108,20 +111,13 @@ public class OrchestrationMain {
 
 
     private static Experiment runExperiment(String[] args) {
-
         ExperimentStartupConfig startupConfig = parseArgsToConfig(args);
-
         Experiment experiment = runExperiment(startupConfig);
-
         MiSimModel miSimModel = (MiSimModel) experiment.getModel();
-        // Pure MiSim command line output
-        //ReportCollector.getInstance().printReport(miSimModel);
-
         DateFormat format = new SimpleDateFormat("yyyy-MM-dd'T'HH-mm-ss.SSSZ");
         String dateString = format.format(new Date());
         String currentRunName = miSimModel.getExperimentMetaData().getExperimentName() + "_" + dateString;
         ExtendedReporter.createReport(currentRunName, miSimModel);
-
         return experiment;
 
     }
@@ -156,4 +152,21 @@ public class OrchestrationMain {
 
         return experiment;
     }
+
+    // This is private in MiSim Main class, so we reimplement it here... generally not a good idea to reimplement
+    private static void writeCommandLineReport(MiSimModel model) {
+        ExperimentMetaData metaData = model.getExperimentMetaData();
+        System.out.println("\n*** MiSim Report ***");
+        System.out.println("Simulation of Architecture: "
+                + metaData.getArchitectureDescriptionLocation().getAbsolutePath());
+        System.out.println("Executed Experiment:        "
+                + metaData.getExperimentDescriptionLocation().getAbsolutePath());
+        System.out.println("Report Location:            "
+                + metaData.getReportLocation().toAbsolutePath());
+        System.out.println("Setup took:                 " + Util.timeFormat(metaData.getSetupExecutionDuration()));
+        System.out.println("Experiment took:            " + Util.timeFormat(metaData.getExperimentExecutionDuration()));
+        System.out.println("Execution took:             " + Util.timeFormat(metaData.getExecutionDuration()));
+    }
+
+
 }

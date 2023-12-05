@@ -52,8 +52,8 @@ public class MiSimOrchestrationModel extends MiSimModel {
     public void init() {
         this.architectureModel = OrchestrationModelLoader.loadArchitectureModel(this);
         this.experimentModel = ModelLoader.loadExperimentModel(this);
-        MiSimReporters.initializeStaticReporters(this);
         this.experimentMetaData.setStartDate(LocalDateTime.now());
+        MiSimReporters.initializeStaticReporters(this);
     }
 
     @Override
