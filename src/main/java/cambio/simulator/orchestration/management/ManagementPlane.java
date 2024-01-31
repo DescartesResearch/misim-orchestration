@@ -13,18 +13,23 @@ import cambio.simulator.orchestration.scheduling.Scheduler;
 import cambio.simulator.orchestration.scheduling.SchedulerType;
 import desmoj.core.simulator.Model;
 import desmoj.core.simulator.TimeSpan;
+import lombok.Getter;
 
 import java.util.*;
 import java.util.stream.Collectors;
 
 public class ManagementPlane {
+    @Getter
     List<Deployment> deployments;
+    @Getter
     Cluster cluster;
+    @Getter
     Model model;
     Map<SchedulerType, Scheduler> schedulerMap;
     Map<String, String> defaultValues;
     public int podsRemovedFromNode = 0;
 
+    @Getter
     private static final ManagementPlane instance = new ManagementPlane();
 
     //private constructor to avoid client applications to use constructor
@@ -32,10 +37,6 @@ public class ManagementPlane {
         schedulerMap = new HashMap<>();
         deployments = new ArrayList<>();
         defaultValues = new HashMap<>();
-    }
-
-    public static ManagementPlane getInstance() {
-        return instance;
     }
 
 
@@ -168,21 +169,9 @@ public class ManagementPlane {
 
     }
 
-    public List<Deployment> getDeployments() {
-        return deployments;
-    }
-
-    public Cluster getCluster() {
-        return cluster;
-    }
-
     public void setCluster(Cluster cluster) {
         this.cluster = cluster;
         System.out.printf("[INFO] Created cluster with %d nodes\n", cluster.getNodes().size());
-    }
-
-    public Model getModel() {
-        return model;
     }
 
     public int getExperimentSeed() {

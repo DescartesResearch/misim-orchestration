@@ -5,6 +5,7 @@ import cambio.simulator.orchestration.entities.Cluster;
 import cambio.simulator.orchestration.entities.kubernetes.Pod;
 import cambio.simulator.orchestration.management.ManagementPlane;
 
+import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,7 +25,7 @@ public abstract class Scheduler extends NamedEntity implements Comparable<Schedu
 
     public abstract void schedulePods();
 
-    public Pod getNextPodFromWaitingQueue() {
+    public @Nullable Pod getNextPodFromWaitingQueue() {
         if (!podWaitingQueue.isEmpty()) {
             Pod pod = podWaitingQueue.get(0);
             podWaitingQueue.remove(pod);

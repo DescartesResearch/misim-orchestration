@@ -8,6 +8,8 @@ import cambio.simulator.orchestration.scheduling.SchedulerType;
 import co.paralleluniverse.fibers.SuspendExecution;
 import desmoj.core.simulator.Model;
 import desmoj.core.simulator.TimeSpan;
+import lombok.Getter;
+import lombok.Setter;
 import org.javatuples.Pair;
 
 import java.util.*;
@@ -15,6 +17,8 @@ import java.util.stream.Collectors;
 
 public class CLIEvent extends NamedExternalEvent {
 
+    @Getter
+    @Setter
     private static Queue<Pair<TimeSpan, Integer>> cliInformation = new LinkedList<>();
 
     public CLIEvent(Model model, String name, boolean showInTrace) {
@@ -46,13 +50,5 @@ public class CLIEvent extends NamedExternalEvent {
             throw new IllegalStateException("There should be only one deployment for the tests");
         }
 
-    }
-
-    public static Queue<Pair<TimeSpan, Integer>> getCliInformation() {
-        return cliInformation;
-    }
-
-    public static void setCliInformation(Queue<Pair<TimeSpan, Integer>> cliInformation) {
-        CLIEvent.cliInformation = cliInformation;
     }
 }

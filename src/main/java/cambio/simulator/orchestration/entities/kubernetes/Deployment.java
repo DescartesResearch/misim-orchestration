@@ -13,10 +13,13 @@ import cambio.simulator.orchestration.scheduling.SchedulerType;
 import com.google.gson.Gson;
 import desmoj.core.simulator.Model;
 import io.kubernetes.client.openapi.models.*;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.util.*;
 import java.util.stream.Collectors;
-
+@Getter
+@Setter
 public class Deployment extends NamedEntity {
     private MicroserviceOrchestration service;
     private Set<Pod> replicaSet;
@@ -189,22 +192,6 @@ public class Deployment extends NamedEntity {
         ManagementPlane.getInstance().addPodToSpecificSchedulerQueue(pod, this.getSchedulerType());
     }
 
-    public MicroserviceOrchestration getService() {
-        return service;
-    }
-
-    public void setService(MicroserviceOrchestration service) {
-        this.service = service;
-    }
-
-    public int getDesiredReplicaCount() {
-        return desiredReplicaCount;
-    }
-
-    public void setDesiredReplicaCount(int desiredReplicaCount) {
-        this.desiredReplicaCount = desiredReplicaCount;
-    }
-
     public int getCurrentReplicaCount() {
         return getReplicaSet().size();
     }
@@ -221,35 +208,4 @@ public class Deployment extends NamedEntity {
         return getReplicaSet().stream().filter(pod -> pod.getPodState() == PodState.RUNNING).collect(Collectors.toSet());
     }
 
-    public Set<Pod> getReplicaSet() {
-        return replicaSet;
-    }
-
-    public void setReplicaSet(Set<Pod> replicaSet) {
-        this.replicaSet = replicaSet;
-    }
-
-    public SchedulerType getSchedulerType() {
-        return schedulerType;
-    }
-
-    public void setSchedulerType(SchedulerType schedulerType) {
-        this.schedulerType = schedulerType;
-    }
-
-    public AutoScaler getAutoScaler() {
-        return autoScaler;
-    }
-
-    public void setAutoScaler(AutoScaler autoScaler) {
-        this.autoScaler = autoScaler;
-    }
-
-    public V1Deployment getKubernetesRepresentation() {
-        return kubernetesRepresentation;
-    }
-
-    public void setKubernetesRepresentation(V1Deployment kubernetesRepresentation) {
-        this.kubernetesRepresentation = kubernetesRepresentation;
-    }
 }

@@ -10,6 +10,7 @@ import cambio.simulator.orchestration.management.ManagementPlane;
 import cambio.simulator.orchestration.scheduling.kubernetes.KubeScheduler;
 import cambio.simulator.parsing.ParsingException;
 import cambio.simulator.orchestration.scheduling.*;
+import lombok.Getter;
 
 import java.io.File;
 import java.util.*;
@@ -19,14 +20,11 @@ import java.util.stream.Stream;
 
 public class Util {
 
+    @Getter
     private static final Util instance = new Util();
 
     //private constructor to avoid client applications to use constructor
     private Util() {}
-
-    public static Util getInstance() {
-        return instance;
-    }
 
     public Set<String> listFilesUsingJavaIO(String dir) throws ParsingException {
         final File directory = new File(dir);

@@ -2,9 +2,13 @@ package cambio.simulator.orchestration.scheduling.kubernetes;
 
 import com.google.gson.annotations.SerializedName;
 import io.kubernetes.client.openapi.models.V1Node;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.util.List;
 
+@Getter
+@Setter
 public class SchedulerResponse {
     @SerializedName("Binded")
     private List<BindingInformation> binded;
@@ -16,38 +20,6 @@ public class SchedulerResponse {
     private List<V1Node> deletedNodes;
 
     public SchedulerResponse() {
-    }
-
-    public List<BindingFailureInformation> getFailed() {
-        return failed;
-    }
-
-    public List<BindingInformation> getBinded() {
-        return binded;
-    }
-
-    public void setBinded(List<BindingInformation> binded) {
-        this.binded = binded;
-    }
-
-    public void setFailed(List<BindingFailureInformation> failed) {
-        this.failed = failed;
-    }
-
-    public List<V1Node> getNewNodes() {
-        return newNodes;
-    }
-
-    public List<V1Node> getDeletedNodes() {
-        return deletedNodes;
-    }
-
-    public void setDeletedNodes(List<V1Node> deletedNodes) {
-        this.deletedNodes = deletedNodes;
-    }
-
-    public void setNewNodes(List<V1Node> newNodes) {
-        this.newNodes = newNodes;
     }
 
     @Override

@@ -5,11 +5,14 @@ import cambio.simulator.orchestration.entities.kubernetes.Deployment;
 import cambio.simulator.orchestration.management.ManagementPlane;
 import cambio.simulator.orchestration.loadbalancing.LoadBalancerOrchestration;
 import desmoj.core.simulator.Model;
+import lombok.Getter;
+import lombok.Setter;
 
+@Getter
+@Setter
 public class MicroserviceOrchestration extends Microservice {
 
     LoadBalancerOrchestration loadBalancerOrchestration;
-
     private int startTime = 0;
 
     /**
@@ -29,8 +32,7 @@ public class MicroserviceOrchestration extends Microservice {
 
     @Override
     public synchronized void killInstance() {
-        MicroserviceInstance instanceToKill =
-                instancesSet.stream().filter(microserviceInstance -> microserviceInstance.getState().equals(InstanceState.RUNNING)).findFirst().orElse(null); //selects an element of the stream, not
+        MicroserviceInstance instanceToKill = instancesSet.stream().filter(microserviceInstance -> microserviceInstance.getState().equals(InstanceState.RUNNING)).findFirst().orElse(null); //selects an element of the stream, not
         if (instanceToKill == null) {
             return;
         }
@@ -40,9 +42,7 @@ public class MicroserviceOrchestration extends Microservice {
 
     public MicroserviceInstance createMicroServiceInstance() {
         MicroserviceInstance changedInstance;
-        changedInstance =
-                new MicroserviceOrchestrationInstance(getModel(), String.format("[%s]_I%d", getName(), instanceSpawnCounter),
-                        this.traceIsOn(), this, instanceSpawnCounter);
+        changedInstance = new MicroserviceOrchestrationInstance(getModel(), String.format("[%s]_I%d", getName(), instanceSpawnCounter), this.traceIsOn(), this, instanceSpawnCounter);
         changedInstance.activatePatterns(instanceOwnedPatternConfigurations);
 
         instanceSpawnCounter++;
@@ -57,18 +57,6 @@ public class MicroserviceOrchestration extends Microservice {
             }
         }
         return null;
-    }
-
-    public void setLoadBalancerOrchestration(LoadBalancerOrchestration loadBalancerOrchestration) {
-        this.loadBalancerOrchestration = loadBalancerOrchestration;
-    }
-
-    public int getStartTime() {
-        return startTime;
-    }
-
-    public void setStartTime(int startTime) {
-        this.startTime = startTime;
     }
 
 }

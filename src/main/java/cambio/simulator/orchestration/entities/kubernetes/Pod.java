@@ -5,6 +5,8 @@ import cambio.simulator.orchestration.entities.Container;
 import cambio.simulator.orchestration.entities.ContainerState;
 import desmoj.core.simulator.Model;
 import io.kubernetes.client.openapi.models.V1Pod;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.util.HashSet;
 import java.util.List;
@@ -12,11 +14,24 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 public class Pod extends NamedEntity {
+
+    @Getter
+    @Setter
     private PodState podState;
+
+    @Getter
+    @Setter
     private Set<Container> containers;
+
+    @Getter
+    @Setter
     private Node lastKnownNode;
+
+    @Getter
     private final Deployment owner;
     private final double cpuDemand;
+    @Getter
+    @Setter
     private V1Pod kubernetesRepresentation;
 
     public Pod(Model model, String name, boolean showInTrace, Deployment deployment, double cpuDemandCores) {
@@ -47,22 +62,6 @@ public class Pod extends NamedEntity {
 //        containers.forEach(container -> container.restartTerminatedContainer());
 //    }
 
-    public Set<Container> getContainers() {
-        return containers;
-    }
-
-    public void setContainers(Set<Container> containers) {
-        this.containers = containers;
-    }
-
-    public PodState getPodState() {
-        return podState;
-    }
-
-    public void setPodState(PodState podState) {
-        this.podState = podState;
-    }
-
     public void setPodStateAndApplyEffects(PodState podState) {
         this.podState = podState;
         if (podState == PodState.TERMINATING && owner.getService() != null) {
@@ -75,26 +74,6 @@ public class Pod extends NamedEntity {
             List<Container> collect = getContainers().stream().filter(container -> !container.getContainerState().equals(ContainerState.RUNNING)).collect(Collectors.toList());
             collect.forEach(Container::start);
         }
-    }
-
-    public Node getLastKnownNode() {
-        return lastKnownNode;
-    }
-
-    public void setLastKnownNode(Node lastKnownNode) {
-        this.lastKnownNode = lastKnownNode;
-    }
-
-    public Deployment getOwner() {
-        return owner;
-    }
-
-    public V1Pod getKubernetesRepresentation() {
-        return kubernetesRepresentation;
-    }
-
-    public void setKubernetesRepresentation(V1Pod kubernetesRepresentation) {
-        this.kubernetesRepresentation = kubernetesRepresentation;
     }
 
     public void bindToNode(String nodeName) {

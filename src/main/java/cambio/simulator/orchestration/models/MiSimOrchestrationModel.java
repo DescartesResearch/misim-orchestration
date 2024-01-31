@@ -4,24 +4,25 @@ import cambio.simulator.events.ISelfScheduled;
 import cambio.simulator.events.SimulationEndEvent;
 import cambio.simulator.export.MiSimReporters;
 import cambio.simulator.models.MiSimModel;
-import cambio.simulator.orchestration.entities.kubernetes.Deployment;
-import cambio.simulator.orchestration.parsing.OrchestrationModelLoader;
+import cambio.simulator.orchestration.entities.Cluster;
 import cambio.simulator.orchestration.entities.MicroserviceOrchestration;
+import cambio.simulator.orchestration.entities.kubernetes.Deployment;
+import cambio.simulator.orchestration.entities.kubernetes.Node;
+import cambio.simulator.orchestration.export.StatsTasksExecutor;
+import cambio.simulator.orchestration.management.ManagementPlane;
+import cambio.simulator.orchestration.management.ScaleTaskExecutor;
+import cambio.simulator.orchestration.parsing.OrchestrationModelLoader;
 import cambio.simulator.orchestration.parsing.kubernetes.KubernetesParser;
 import cambio.simulator.orchestration.scaling.FakeAutoscaler;
 import cambio.simulator.orchestration.scaling.HorizontalPodAutoscaler;
 import cambio.simulator.orchestration.scaling.SimpleReactiveAutoscaler;
-import cambio.simulator.orchestration.util.Util;
-import cambio.simulator.orchestration.entities.Cluster;
-import cambio.simulator.orchestration.entities.kubernetes.Node;
-import cambio.simulator.orchestration.management.ManagementPlane;
-import cambio.simulator.orchestration.management.ScaleTaskExecutor;
-import cambio.simulator.orchestration.export.StatsTasksExecutor;
-import cambio.simulator.parsing.ParsingException;
 import cambio.simulator.orchestration.scheduling.Scheduler;
 import cambio.simulator.orchestration.scheduling.SchedulerType;
+import cambio.simulator.orchestration.util.Util;
 import cambio.simulator.parsing.ModelLoader;
+import cambio.simulator.parsing.ParsingException;
 import desmoj.core.simulator.TimeInstant;
+import lombok.Getter;
 
 import java.io.File;
 import java.io.IOException;
@@ -30,8 +31,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-public class MiSimOrchestrationModel extends MiSimModel {
 
+@Getter
+public class MiSimOrchestrationModel extends MiSimModel {
     private OrchestrationConfig orchestrationConfig;
 
     public MiSimOrchestrationModel(File architectureModelLocation, File experimentModelOrScenarioLocation, String orchestrationConfigLocation) {
@@ -42,10 +44,6 @@ public class MiSimOrchestrationModel extends MiSimModel {
             e.printStackTrace();
             System.exit(1);
         }
-    }
-
-    public OrchestrationConfig getOrchestrationConfig() {
-        return orchestrationConfig;
     }
 
     @Override

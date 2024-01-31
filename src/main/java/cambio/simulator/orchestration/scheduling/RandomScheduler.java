@@ -3,6 +3,7 @@ package cambio.simulator.orchestration.scheduling;
 import cambio.simulator.orchestration.entities.kubernetes.Node;
 import cambio.simulator.orchestration.entities.kubernetes.Pod;
 import cambio.simulator.orchestration.management.ManagementPlane;
+import lombok.Getter;
 
 import java.util.*;
 
@@ -10,16 +11,13 @@ public class RandomScheduler extends Scheduler{
 
     Random random = new Random(ManagementPlane.getInstance().getExperimentSeed());
 
+    @Getter
     private static final RandomScheduler instance = new RandomScheduler();
 
     //private constructor to avoid client applications to use constructor
     private RandomScheduler() {
         this.rename("RandomScheduler");
 
-    }
-
-    public static RandomScheduler getInstance() {
-        return instance;
     }
 
     @Override
