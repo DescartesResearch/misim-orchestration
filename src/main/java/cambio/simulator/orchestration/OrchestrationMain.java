@@ -6,7 +6,7 @@ import cambio.simulator.misc.RNGStorage;
 import cambio.simulator.misc.Util;
 import cambio.simulator.models.ExperimentMetaData;
 import cambio.simulator.models.MiSimModel;
-import cambio.simulator.orchestration.export.ExtendedReporter;
+import cambio.simulator.orchestration.export.reporters.MainReporter;
 import cambio.simulator.parsing.ParsingException;
 import com.google.gson.JsonParseException;
 import desmoj.core.simulator.Experiment;
@@ -117,7 +117,7 @@ public class OrchestrationMain {
         DateFormat format = new SimpleDateFormat("yyyy-MM-dd'T'HH-mm-ss.SSSZ");
         String dateString = format.format(new Date());
         String currentRunName = miSimModel.getExperimentMetaData().getExperimentName() + "_" + dateString;
-        ExtendedReporter.createReport(currentRunName, miSimModel);
+        MainReporter.generateReports(currentRunName, miSimModel);
         return experiment;
 
     }

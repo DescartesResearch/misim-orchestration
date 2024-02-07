@@ -8,6 +8,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import static cambio.simulator.orchestration.util.FileOps.createDirectoryIfDoesntExist;
+
 public class CSVBuilder {
     private List<String> headers;
     private final List<List<String>> rows;
@@ -36,6 +38,8 @@ public class CSVBuilder {
 
     public void build(Path path) throws CSVBuilderException {
         checkFormat(path);
+        Path dirPath = path.getParent();
+        createDirectoryIfDoesntExist(dirPath);
         try (Writer writer = Files.newBufferedWriter(path)) {
             writer.write(convertToCSVLine(headers));
             writer.write("\n");
