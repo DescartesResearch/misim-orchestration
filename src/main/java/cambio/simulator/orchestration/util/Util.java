@@ -26,31 +26,11 @@ public class Util {
     //private constructor to avoid client applications to use constructor
     private Util() {}
 
-    public Set<String> listFilesUsingJavaIO(String dir) throws ParsingException {
-        final File directory = new File(dir);
-        if(directory.exists()){
-            return Stream.of(directory.listFiles())
-                    .filter(file -> !file.isDirectory())
-                    .map(File::getName)
-                    .collect(Collectors.toSet());
-        }
-        throw new ParsingException("Could not find the directory: " + dir);
-    }
 
     public Deployment findDeploymentByName(String name){
         final Optional<Deployment> first =
                 ManagementPlane.getInstance().getDeployments().stream().filter(deployment -> deployment.getPlainName().equals(name)).findFirst();
         return first.orElse(null);
-    }
-
-    public static <T extends Enum<?>> T searchEnum(Class<T> enumeration,
-                                                   String search) {
-        for (T each : enumeration.getEnumConstants()) {
-            if (each.name().compareToIgnoreCase(search) == 0) {
-                return each;
-            }
-        }
-        return null;
     }
 
     public SchedulerType getSchedulerTypeByNameOrStandard(String schedulerName, String deploymentName) {
