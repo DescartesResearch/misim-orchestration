@@ -2,18 +2,15 @@ package cambio.simulator.orchestration.scheduling;
 
 import cambio.simulator.orchestration.entities.kubernetes.Node;
 import cambio.simulator.orchestration.entities.kubernetes.Pod;
+import lombok.Getter;
 
 public class RoundRobinScheduler extends Scheduler {
-
+    @Getter
     private static final RoundRobinScheduler instance = new RoundRobinScheduler();
 
     //private constructor to avoid client applications to use constructor
     private RoundRobinScheduler() {
         this.rename("RoundRobinScheduler");
-    }
-
-    public static RoundRobinScheduler getInstance() {
-        return instance;
     }
 
     @Override

@@ -2,25 +2,27 @@ package cambio.simulator.orchestration.models;
 
 import cambio.simulator.events.ISelfScheduled;
 import cambio.simulator.events.SimulationEndEvent;
+import cambio.simulator.export.MiSimReporters;
 import cambio.simulator.models.MiSimModel;
-import cambio.simulator.orchestration.entities.kubernetes.Deployment;
-import cambio.simulator.orchestration.parsing.OrchestrationModelLoader;
+import cambio.simulator.orchestration.entities.Cluster;
 import cambio.simulator.orchestration.entities.MicroserviceOrchestration;
+import cambio.simulator.orchestration.entities.kubernetes.Deployment;
+import cambio.simulator.orchestration.entities.kubernetes.Node;
+import cambio.simulator.orchestration.export.StatsTasksExecutor;
+import cambio.simulator.orchestration.management.ManagementPlane;
+import cambio.simulator.orchestration.management.ScaleTaskExecutor;
+import cambio.simulator.orchestration.parsing.OrchestrationModelLoader;
 import cambio.simulator.orchestration.parsing.kubernetes.KubernetesParser;
 import cambio.simulator.orchestration.scaling.FakeAutoscaler;
 import cambio.simulator.orchestration.scaling.HorizontalPodAutoscaler;
 import cambio.simulator.orchestration.scaling.SimpleReactiveAutoscaler;
-import cambio.simulator.orchestration.util.Util;
-import cambio.simulator.orchestration.entities.Cluster;
-import cambio.simulator.orchestration.entities.kubernetes.Node;
-import cambio.simulator.orchestration.management.ManagementPlane;
-import cambio.simulator.orchestration.management.ScaleTaskExecutor;
-import cambio.simulator.orchestration.export.StatsTasksExecutor;
-import cambio.simulator.parsing.ParsingException;
 import cambio.simulator.orchestration.scheduling.Scheduler;
 import cambio.simulator.orchestration.scheduling.SchedulerType;
+import cambio.simulator.orchestration.util.Util;
 import cambio.simulator.parsing.ModelLoader;
+import cambio.simulator.parsing.ParsingException;
 import desmoj.core.simulator.TimeInstant;
+import lombok.Getter;
 
 import java.io.File;
 import java.io.IOException;
@@ -29,11 +31,13 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-public class MiSimOrchestrationModel extends MiSimModel {
 
+@Getter
+public class MiSimOrchestrationModel extends MiSimModel {
     private OrchestrationConfig orchestrationConfig;
 
-    public MiSimOrchestrationModel(File architectureModelLocation, File experimentModelOrScenarioLocation, String orchestrationConfigLocation) {
+    public MiSimOrchestrationModel(File architectureModelLocation, File experimentModelOrScenarioLocation,
+                                   String orchestrationConfigLocation) {
         super(architectureModelLocation, experimentModelOrScenarioLocation);
         try {
             this.orchestrationConfig = OrchestrationModelLoader.loadOrchestrationConfig(orchestrationConfigLocation);
@@ -43,15 +47,12 @@ public class MiSimOrchestrationModel extends MiSimModel {
         }
     }
 
-    public OrchestrationConfig getOrchestrationConfig() {
-        return orchestrationConfig;
-    }
-
     @Override
     public void init() {
         this.architectureModel = OrchestrationModelLoader.loadArchitectureModel(this);
         this.experimentModel = ModelLoader.loadExperimentModel(this);
         this.experimentMetaData.setStartDate(LocalDateTime.now());
+        MiSimReporters.initializeStaticReporters(this);
     }
 
     @Override
@@ -120,13 +121,16 @@ public class MiSimOrchestrationModel extends MiSimModel {
                 }
                 switch (spec.getScalerType()) {
                     case "HPA":
-                        referencedDeployment.setAutoScaler(new HorizontalPodAutoscaler(spec.getTargetUtilization(), spec.getMinReplicas(), spec.getMaxReplicas()));
+                        referencedDeployment.setAutoScaler(new HorizontalPodAutoscaler(spec.getTargetUtilization(),
+                                spec.getMinReplicas(), spec.getMaxReplicas()));
                         break;
                     case "Fake":
-                        referencedDeployment.setAutoScaler(new FakeAutoscaler(spec.getMaxReplicas(), spec.getIncrement(), spec.getDecrement()));
+                        referencedDeployment.setAutoScaler(new FakeAutoscaler(spec.getMaxReplicas(),
+                                spec.getIncrement(), spec.getDecrement()));
                         break;
                     case "SimpleReactive":
-                        referencedDeployment.setAutoScaler(new SimpleReactiveAutoscaler(spec.getLowerBound(), spec.getUpperBound(), spec.getHoldTime()));
+                        referencedDeployment.setAutoScaler(new SimpleReactiveAutoscaler(spec.getLowerBound(),
+                                spec.getUpperBound(), spec.getHoldTime()));
                         break;
                     default:
                         System.out.println("[WARNING] Unknown scaler type " + spec.getScalerType());
@@ -135,10 +139,12 @@ public class MiSimOrchestrationModel extends MiSimModel {
             }
         }
 
-        final ScaleTaskExecutor scaleTaskExecutor = new ScaleTaskExecutor(getModel(), "MasterTaskExecutor", getModel().traceIsOn(), orchestrationConfig.getScalingInterval());
+        final ScaleTaskExecutor scaleTaskExecutor = new ScaleTaskExecutor(getModel(), "MasterTaskExecutor",
+                getModel().traceIsOn(), orchestrationConfig.getScalingInterval());
         scaleTaskExecutor.doInitialSelfSchedule();
         System.out.println("[INFO]: Orchestration Report will be created afterwards\n");
-        final StatsTasksExecutor statsTasksExecutor = new StatsTasksExecutor(getModel(), "StatsExecutor", getModel().traceIsOn());
+        final StatsTasksExecutor statsTasksExecutor = new StatsTasksExecutor(getModel(), "StatsExecutor",
+                getModel().traceIsOn());
         statsTasksExecutor.doInitialSelfSchedule();
         System.out.println("### Initialization of Container Orchestration finished ###");
         System.out.println();
@@ -166,7 +172,7 @@ public class MiSimOrchestrationModel extends MiSimModel {
             for (OrchestrationConfig.SchedulerPrio schedulerPrio : configDto.getSchedulerPrio()) {
                 String name = schedulerPrio.getName();
                 SchedulerType schedulerType1 = SchedulerType.fromString(name);
-                Scheduler schedulerInstanceByType = Util.getInstance().getSchedulerInstanceByType(schedulerType1);
+                Scheduler schedulerInstanceByType = Util.getSchedulerInstanceByType(schedulerType1);
                 schedulerInstanceByType.setPRIO(schedulerPrio.getPrio());
             }
         }
@@ -174,7 +180,8 @@ public class MiSimOrchestrationModel extends MiSimModel {
 
     private void assignStartUpTimesToInstances(OrchestrationConfig orchestrationConfig) {
         if (orchestrationConfig.getStartUpTimeContainer() != null) {
-            for (OrchestrationConfig.StartUpTimeContainer startUpTimeContainer : orchestrationConfig.getStartUpTimeContainer()) {
+            for (OrchestrationConfig.StartUpTimeContainer startUpTimeContainer :
+                    orchestrationConfig.getStartUpTimeContainer()) {
                 String name = startUpTimeContainer.getName();
                 architectureModel.getMicroservices().stream().filter(microservice -> microservice.getPlainName().equals(name)).findAny().ifPresent(service -> ((MicroserviceOrchestration) service).setStartTime(startUpTimeContainer.getTime()));
             }

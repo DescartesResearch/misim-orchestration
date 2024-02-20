@@ -4,6 +4,8 @@ import cambio.simulator.orchestration.entities.kubernetes.Node;
 import cambio.simulator.orchestration.management.ManagementPlane;
 import cambio.simulator.orchestration.models.OrchestrationConfig;
 import cambio.simulator.orchestration.parsing.kubernetes.KubernetesObjectWithMetadataSpec;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.util.List;
 import java.util.Map;
@@ -12,8 +14,17 @@ import java.util.Random;
 
 public class Cluster {
     private static final Random random = new Random(ManagementPlane.getInstance().getExperimentSeed());
+
+    @Getter
+    @Setter
     private List<Node> nodes;
+
+    @Getter
+    @Setter
     private List<KubernetesObjectWithMetadataSpec> machineSets;
+
+    @Getter
+    @Setter
     private List<KubernetesObjectWithMetadataSpec> machines;
     private Map<String, Map<String, OrchestrationConfig.NetworkDelays.NetworkInfo>> delayMap;
 
@@ -22,7 +33,7 @@ public class Cluster {
         this.delayMap = network;
     }
 
-    public Node getNodeByName(String name){
+    public Node getNodeByName(String name) {
         Optional<Node> first = nodes.stream().filter(node -> node.getPlainName().equals(name)).findFirst();
         return first.orElse(null);
     }
@@ -33,30 +44,6 @@ public class Cluster {
 
     public void deleteNode(Node node) {
         nodes.remove(node);
-    }
-
-    public List<Node> getNodes() {
-        return nodes;
-    }
-
-    public void setNodes(List<Node> nodes) {
-        this.nodes = nodes;
-    }
-
-    public void setMachineSets(List<KubernetesObjectWithMetadataSpec> machineSets) {
-        this.machineSets = machineSets;
-    }
-
-    public List<KubernetesObjectWithMetadataSpec> getMachineSets() {
-        return machineSets;
-    }
-
-    public List<KubernetesObjectWithMetadataSpec> getMachines() {
-        return machines;
-    }
-
-    public void setMachines(List<KubernetesObjectWithMetadataSpec> machines) {
-        this.machines = machines;
     }
 
     public double getNetworkDelay(String sourceNode, String targetNode) {

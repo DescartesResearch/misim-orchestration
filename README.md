@@ -7,32 +7,49 @@
 
 ## Build
 
-1. Install MiSim core dependency from [source repo](https://github.com/Cambio-Project/MiSim) or using the provided library: 
+1. Install MiSim dependency
+    - Core dependency from the [source repo](https://github.com/Cambio-Project/MiSim) or using the provided library:
 
-```
-mvn install:install-file \
-  -Dfile=./libraries/misim-3.2.5.jar \
-  -DgroupId=cambio.simulator \
-  -DartifactId=misim \
-  -Dversion=3.2.5 \
-  -Dpackaging=jar \
-  -DgeneratePom=true
-```
+       ```
+       mvn install:install-file \
+         -Dfile=./libraries/misim-3.3.1.jar \
+         -DgroupId=cambio.simulator \
+         -DartifactId=misim \
+         -Dversion=3.3.1 \
+         -Dpackaging=jar \
+         -DgeneratePom=true
+       ```
+    - (Optional) For running tests, install MiSim tests dependency:
+
+       ```
+       mvn install:install-file \
+       -Dfile=./libraries/misim-tests-3.3.1.jar \
+       -DgroupId=cambio.simulator \
+       -DartifactId=misim \
+       -Dversion=3.3.1 \
+       -Dpackaging=jar \
+       -Dclassifier=tests \
+       -DgeneratePom=true
+       ```
 
 2. Build this repository
 
-```
-mvn clean package
-```
+   ```
+   mvn clean package
+   ```
 
 ## Examples
 
-Read our [hello-world example](https://github.com/DescartesResearch/misim-orchestration/blob/main/docs/HelloWorldExample.md) to learn about how to run simulations.
+Read
+our [hello-world example](https://github.com/DescartesResearch/misim-orchestration/blob/main/docs/HelloWorldExample.md)
+to learn about how to run simulations.
 
 ## Configuration options
 
-For configuration options of the MiSim core, architecture and experiment model syntax, we refer to the [MiSim repository](https://github.com/Cambio-Project/MiSim).
-The configuration options of this orchestration plugin are described [here](https://github.com/DescartesResearch/misim-orchestration/blob/main/docs/ConfigurationOptions.md).
+For configuration options of the MiSim core, architecture and experiment model syntax, we refer to
+the [MiSim repository](https://github.com/Cambio-Project/MiSim).
+The configuration options of this orchestration plugin are
+described [here](https://github.com/DescartesResearch/misim-orchestration/blob/main/docs/ConfigurationOptions.md).
 
 ## Cite us
 
@@ -55,4 +72,5 @@ The configuration options of this orchestration plugin are described [here](http
 
 ## Any questions?
 
-For questions contact [Martin Straesser](https://se.informatik.uni-wuerzburg.de/software-engineering-group/staff/martin-straesser/).
+For questions
+contact [Martin Straesser](https://se.informatik.uni-wuerzburg.de/software-engineering-group/staff/martin-straesser/).

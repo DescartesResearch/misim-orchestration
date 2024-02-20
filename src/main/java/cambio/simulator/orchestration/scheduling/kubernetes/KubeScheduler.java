@@ -11,6 +11,7 @@ import com.google.gson.Gson;
 import io.kubernetes.client.openapi.models.V1Node;
 import io.kubernetes.client.openapi.models.V1PodList;
 import io.kubernetes.client.openapi.models.V1WatchEvent;
+import lombok.Getter;
 
 import java.io.*;
 import java.net.HttpURLConnection;
@@ -31,6 +32,7 @@ public class KubeScheduler extends Scheduler {
     Set<Pod> internalPendingPods = new HashSet<>();
     static int COUNTER = 1;
 
+    @Getter
     private static final KubeScheduler instance = new KubeScheduler();
 
     //private constructor to avoid client applications to use constructor
@@ -46,11 +48,6 @@ public class KubeScheduler extends Scheduler {
             //e.printStackTrace();
         }
     }
-
-    public static KubeScheduler getInstance() {
-        return instance;
-    }
-
 
     @Override
     public SchedulerType getSchedulerType() {

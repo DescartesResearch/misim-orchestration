@@ -1,5 +1,8 @@
 package cambio.simulator.orchestration.scheduling;
 
+import lombok.Getter;
+
+@Getter
 public enum SchedulerType {
 
     RANDOM("random", "RandomScheduler"),
@@ -12,14 +15,6 @@ public enum SchedulerType {
     }
     final String name;
     final String displayName;
-
-    public String getName() {
-        return name;
-    }
-
-    public String getDisplayName() {
-        return displayName;
-    }
 
     public static SchedulerType fromString(String name) {
         for (SchedulerType schedulerType : SchedulerType.values()) {

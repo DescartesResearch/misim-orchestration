@@ -1,22 +1,22 @@
 package cambio.simulator.orchestration.entities.kubernetes;
 
 import cambio.simulator.entities.NamedEntity;
-import cambio.simulator.orchestration.export.Stats;
 import cambio.simulator.orchestration.events.CheckPodRemovableEvent;
 import cambio.simulator.orchestration.events.HealthCheckEvent;
 import cambio.simulator.orchestration.events.StartPodEvent;
-import cambio.simulator.orchestration.entities.kubernetes.Deployment;
-import cambio.simulator.orchestration.entities.kubernetes.Pod;
-import cambio.simulator.orchestration.entities.kubernetes.PodState;
+import cambio.simulator.orchestration.export.Stats;
 import cambio.simulator.orchestration.management.ManagementPlane;
 import cambio.simulator.orchestration.scheduling.SchedulerType;
 import desmoj.core.simulator.Model;
 import desmoj.core.simulator.TimeSpan;
 import io.kubernetes.client.openapi.models.V1Node;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.util.ArrayList;
 import java.util.List;
 
+@Getter
 public class Node extends NamedEntity {
 
     private static final String BASE_IP_ADDRESS = "192.168.49.";
@@ -25,7 +25,9 @@ public class Node extends NamedEntity {
 
     private final double totalCPU;
     private double reserved = 0;
+    @Setter
     private List<Pod> pods;
+    @Setter
     private V1Node kubernetesRepresentation;
 
     public Node(Model model, String name, boolean showInTrace, double totalCPU) {
@@ -47,16 +49,16 @@ public class Node extends NamedEntity {
         return false;
     }
 
-    public void startRemovingPod(Pod pod){
+    public void startRemovingPod(Pod pod) {
         Stats.NodePodEventRecord record = new Stats.NodePodEventRecord();
         record.setTime((int) presentTime().getTimeAsDouble());
         record.setPodName(pod.getName());
         record.setNodeName(this.getPlainName());
         String schedulerName = "N/A";
         Deployment deploymentForPod = pod.getOwner();
-        if(deploymentForPod!=null){
+        if (deploymentForPod != null) {
             SchedulerType schedulerType = deploymentForPod.getSchedulerType();
-            if(schedulerType!=null){
+            if (schedulerType != null) {
                 schedulerName = schedulerType.getName();
             }
         }
@@ -73,7 +75,7 @@ public class Node extends NamedEntity {
         checkPodRemovableEvent.schedule(pod, this, new TimeSpan(0));
     }
 
-    public void removePod(Pod pod){
+    public void removePod(Pod pod) {
         pod.setPodStateAndApplyEffects(PodState.SUCCEEDED);
         this.reserved -= pod.getCPUDemand();
         if (pods.remove(pod)) {
@@ -85,9 +87,9 @@ public class Node extends NamedEntity {
 
             String schedulerName = "N/A";
             Deployment deploymentForPod = pod.getOwner();
-            if(deploymentForPod!=null){
+            if (deploymentForPod != null) {
                 SchedulerType schedulerType = deploymentForPod.getSchedulerType();
-                if(schedulerType!=null){
+                if (schedulerType != null) {
                     schedulerName = schedulerType.getName();
                 }
             }
@@ -104,35 +106,6 @@ public class Node extends NamedEntity {
         } else {
             throw new IllegalArgumentException("Pod " + pod.getQuotedPlainName() + " does not belong to this node" + this.getPlainName());
         }
-    }
-
-
-    public List<Pod> getPods() {
-        return pods;
-    }
-
-    public void setPods(List<Pod> pods) {
-        this.pods = pods;
-    }
-
-    public double getTotalCPU() {
-        return totalCPU;
-    }
-
-    public double getReserved() {
-        return reserved;
-    }
-
-    public String getNodeIpAddress() {
-        return nodeIpAddress;
-    }
-
-    public V1Node getKubernetesRepresentation() {
-        return kubernetesRepresentation;
-    }
-
-    public void setKubernetesRepresentation(V1Node kubernetesRepresentation) {
-        this.kubernetesRepresentation = kubernetesRepresentation;
     }
 
     @Override

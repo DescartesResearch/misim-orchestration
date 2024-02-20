@@ -4,15 +4,21 @@ import cambio.simulator.entities.microservice.Microservice;
 import cambio.simulator.entities.microservice.MicroserviceInstance;
 import cambio.simulator.orchestration.entities.Container;
 import cambio.simulator.orchestration.entities.ContainerState;
-import cambio.simulator.orchestration.entities.kubernetes.Node;
 import cambio.simulator.orchestration.entities.kubernetes.Deployment;
+import cambio.simulator.orchestration.entities.kubernetes.Node;
 import cambio.simulator.orchestration.entities.kubernetes.Pod;
 import cambio.simulator.orchestration.entities.kubernetes.PodState;
 import cambio.simulator.orchestration.management.ManagementPlane;
 import desmoj.core.simulator.Model;
+import lombok.Getter;
+import lombok.Setter;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
+@Getter
 public class Stats {
     //only for MiSim
     Map<Microservice, List<ScalingRecord>> microServiceRecordsMap = new HashMap<>();
@@ -24,7 +30,9 @@ public class Stats {
 
     List<NodePodEventRecord> nodePodEventRecords = new ArrayList<>();
 
-    public static class NodePodEventRecord{
+    @Getter
+    @Setter
+    public static class NodePodEventRecord {
         int time;
         String podName;
         String nodeName;
@@ -34,150 +42,26 @@ public class Stats {
         String info;
         int desiredState;
         int currentState;
-
-        public int getTime() {
-            return time;
-        }
-
-        public void setTime(int time) {
-            this.time = time;
-        }
-
-        public String getPodName() {
-            return podName;
-        }
-
-        public void setPodName(String podName) {
-            this.podName = podName;
-        }
-
-        public String getNodeName() {
-            return nodeName;
-        }
-
-        public void setNodeName(String nodeName) {
-            this.nodeName = nodeName;
-        }
-
-        public String getScheduler() {
-            return scheduler;
-        }
-
-        public void setScheduler(String scheduler) {
-            this.scheduler = scheduler;
-        }
-
-        public String getEvent() {
-            return event;
-        }
-
-        public void setEvent(String event) {
-            this.event = event;
-        }
-
-        public String getInfo() {
-            return info;
-        }
-
-        public void setInfo(String info) {
-            this.info = info;
-        }
-
-        public String getOutcome() {
-            return outcome;
-        }
-
-        public void setOutcome(String outcome) {
-            this.outcome = outcome;
-        }
-
-        public int getDesiredState() {
-            return desiredState;
-        }
-
-        public void setDesiredState(int desiredState) {
-            this.desiredState = desiredState;
-        }
-
-        public int getCurrentState() {
-            return currentState;
-        }
-
-        public void setCurrentState(int currentState) {
-            this.currentState = currentState;
-        }
     }
 
-
+    @Getter
+    @Setter
     public static class NodePodSchedulingRecord {
         int time;
         Map<Deployment, Integer> deploymentPodScheduledMap = new HashMap<>();
-
-        public int getTime() {
-            return time;
-        }
-
-        public void setTime(int time) {
-            this.time = time;
-        }
-
-        public Map<Deployment, Integer> getDeploymentPodScheduledMap() {
-            return deploymentPodScheduledMap;
-        }
-
-        public void setDeploymentPodScheduledMap(Map<Deployment, Integer> deploymentPodScheduledMap) {
-            this.deploymentPodScheduledMap = deploymentPodScheduledMap;
-        }
     }
 
+    @Getter
+    @Setter
     public static class SchedulingRecord {
         int time;
         double capacityTogether;
         double reservedTogether;
         int amountPodsOnNodes;
         int amountPodsWaiting;
-
-        public int getAmountPodsWaiting() {
-            return amountPodsWaiting;
-        }
-
-        public void setAmountPodsWaiting(int amountPodsWaiting) {
-            this.amountPodsWaiting = amountPodsWaiting;
-        }
-
-        public int getAmountPodsOnNodes() {
-            return amountPodsOnNodes;
-        }
-
-        public void setAmountPodsOnNodes(int amountPodsOnNodes) {
-            this.amountPodsOnNodes = amountPodsOnNodes;
-        }
-
-        public int getTime() {
-            return time;
-        }
-
-        public void setTime(int time) {
-            this.time = time;
-        }
-
-        public double getCapacityTogether() {
-            return capacityTogether;
-        }
-
-        public void setCapacityTogether(double capacityTogether) {
-            this.capacityTogether = capacityTogether;
-        }
-
-        public double getReservedTogether() {
-            return reservedTogether;
-        }
-
-        public void setReservedTogether(double reservedTogether) {
-            this.reservedTogether = reservedTogether;
-        }
     }
-
+    @Getter
+    @Setter
     public static class ScalingRecord {
         int time;
         double avgConsumption;
@@ -186,83 +70,15 @@ public class Stats {
         Map<Pod, Double> podDoubleHashMap = new HashMap<>();
         Map<MicroserviceInstance, Double> microserviceInstanceDoubleHashMap = new HashMap<>();
 
-
         public ScalingRecord() {
-        }
-
-        public int getTime() {
-            return time;
-        }
-
-        public void setTime(int time) {
-            this.time = time;
-        }
-
-        public double getAvgConsumption() {
-            return avgConsumption;
-        }
-
-        public void setAvgConsumption(double avgConsumption) {
-            this.avgConsumption = avgConsumption;
-        }
-
-        public int getAmountPods() {
-            return amountPods;
-        }
-
-        public void setAmountPods(int amountPods) {
-            this.amountPods = amountPods;
-        }
-
-        public Map<Microservice, Integer> getMicroserviceCanceledMap() {
-            return microserviceCanceledMap;
-        }
-
-        public void setMicroserviceCanceledMap(Map<Microservice, Integer> microserviceCanceledMap) {
-            this.microserviceCanceledMap = microserviceCanceledMap;
-        }
-
-        public Map<Pod, Double> getPodDoubleHashMap() {
-            return podDoubleHashMap;
-        }
-
-        public void setPodDoubleHashMap(Map<Pod, Double> podDoubleHashMap) {
-            this.podDoubleHashMap = podDoubleHashMap;
-        }
-
-        public Map<MicroserviceInstance, Double> getMicroserviceInstanceDoubleHashMap() {
-            return microserviceInstanceDoubleHashMap;
-        }
-
-        public void setMicroserviceInstanceDoubleHashMap(Map<MicroserviceInstance, Double> microserviceInstanceDoubleHashMap) {
-            this.microserviceInstanceDoubleHashMap = microserviceInstanceDoubleHashMap;
         }
     }
 
+    @Getter
     private static final Stats instance = new Stats();
 
     //private constructor to avoid client applications to use constructor
     private Stats() {
-    }
-
-    public static Stats getInstance() {
-        return instance;
-    }
-
-    public Map<Deployment, List<ScalingRecord>> getDeploymentRecordsMap() {
-        return deploymentRecordsMap;
-    }
-
-    public List<SchedulingRecord> getSchedulingRecords() {
-        return schedulingRecords;
-    }
-
-    public void setSchedulingRecords(List<SchedulingRecord> schedulingRecords) {
-        this.schedulingRecords = schedulingRecords;
-    }
-
-    public void setDeploymentRecordsMap(Map<Deployment, List<ScalingRecord>> deploymentRecordsMap) {
-        this.deploymentRecordsMap = deploymentRecordsMap;
     }
 
     public void createSchedulingStats(Model model) {
@@ -379,29 +195,5 @@ public class Stats {
                 deploymentRecordsMap.put(deployment, scalingRecordList);
             }
         }
-    }
-
-    public Map<Microservice, List<ScalingRecord>> getMicroServiceRecordsMap() {
-        return microServiceRecordsMap;
-    }
-
-    public void setMicroServiceRecordsMap(Map<Microservice, List<ScalingRecord>> microServiceRecordsMap) {
-        this.microServiceRecordsMap = microServiceRecordsMap;
-    }
-
-    public Map<Node, List<NodePodSchedulingRecord>> getNode2PodMap() {
-        return node2PodMap;
-    }
-
-    public void setNode2PodMap(Map<Node, List<NodePodSchedulingRecord>> node2PodMap) {
-        this.node2PodMap = node2PodMap;
-    }
-
-    public List<NodePodEventRecord> getNodePodEventRecords() {
-        return nodePodEventRecords;
-    }
-
-    public void setNodePodEventRecords(List<NodePodEventRecord> nodePodEventRecords) {
-        this.nodePodEventRecords = nodePodEventRecords;
     }
 }

@@ -11,10 +11,14 @@ import cambio.simulator.orchestration.management.ManagementPlane;
 import desmoj.core.simulator.Model;
 import desmoj.core.simulator.TimeInstant;
 import desmoj.core.simulator.TimeSpan;
+import lombok.Getter;
+import lombok.Setter;
 
 /**
  * Basically represents a 1:1-relationsship to @link{MicroserviceInstance} with a coupled @link{ContainerState}
  */
+@Getter
+@Setter
 public class Container extends NamedEntity {
     private MicroserviceInstance microserviceInstance;
     private ContainerState containerState;
@@ -71,22 +75,6 @@ public class Container extends NamedEntity {
         }
     }
 
-    public MicroserviceInstance getMicroserviceInstance() {
-        return microserviceInstance;
-    }
-
-    public void setMicroserviceInstance(MicroserviceInstance microserviceInstance) {
-        this.microserviceInstance = microserviceInstance;
-    }
-
-    public ContainerState getContainerState() {
-        return containerState;
-    }
-
-    public void setContainerState(ContainerState containerState) {
-        this.containerState = containerState;
-    }
-
     public void incrementBackOffDelay() {
         int LIMIT_BACK_OFF_DELAY = 300;
         if (backOffDelay == LIMIT_BACK_OFF_DELAY) {
@@ -99,9 +87,6 @@ public class Container extends NamedEntity {
         backOffDelay = 10;
     }
 
-    public int getBackOffDelay() {
-        return backOffDelay;
-    }
 
     public void applyBackOffDelayResetIfNecessary() {
         if (lastRetry != null) {
@@ -111,22 +96,6 @@ public class Container extends NamedEntity {
                 resetBackOffDelay();
             }
         }
-    }
-
-    public TimeInstant getLastRetry() {
-        return lastRetry;
-    }
-
-    public void setLastRetry(TimeInstant lastRetry) {
-        this.lastRetry = lastRetry;
-    }
-
-    public int getRestartAttemptsLeft() {
-        return restartAttemptsLeft;
-    }
-
-    public void setRestartAttemptsLeft(int restartAttemptsLeft) {
-        this.restartAttemptsLeft = restartAttemptsLeft;
     }
 
     public boolean canRestartOtherwiseDecrease(){

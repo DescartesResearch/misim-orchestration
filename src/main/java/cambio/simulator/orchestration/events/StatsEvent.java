@@ -7,8 +7,6 @@ import co.paralleluniverse.fibers.SuspendExecution;
 import desmoj.core.simulator.Model;
 
 public class StatsEvent extends NamedExternalEvent {
-
-
     public StatsEvent(Model model, String name, boolean showInTrace) {
         super(model, name, showInTrace);
         this.setSchedulingPriority(Priority.HIGH);

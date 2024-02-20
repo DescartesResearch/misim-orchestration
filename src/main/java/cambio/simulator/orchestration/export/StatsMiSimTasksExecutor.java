@@ -11,7 +11,6 @@ import desmoj.core.simulator.Model;
 import desmoj.core.simulator.TimeInstant;
 
 public class StatsMiSimTasksExecutor extends NamedEntity implements ISelfScheduled {
-
     private final Model model;
     IntervalLoadGeneratorDescription intervalLoadGeneratorDescription;
 

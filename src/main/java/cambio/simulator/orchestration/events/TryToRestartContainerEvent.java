@@ -14,7 +14,6 @@ public class TryToRestartContainerEvent extends Event<Container> {
         this.setSchedulingPriority(Priority.HIGH);
         counter++;
     }
-
     @Override
     public void eventRoutine(Container container) {
 
