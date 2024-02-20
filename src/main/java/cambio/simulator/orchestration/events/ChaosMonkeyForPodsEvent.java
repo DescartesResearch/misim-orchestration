@@ -2,8 +2,8 @@ package cambio.simulator.orchestration.events;
 
 import cambio.simulator.events.SelfScheduledExperimentAction;
 import cambio.simulator.misc.Priority;
-import cambio.simulator.orchestration.util.Util;
 import cambio.simulator.orchestration.entities.kubernetes.Deployment;
+import cambio.simulator.orchestration.util.Util;
 import cambio.simulator.parsing.JsonTypeName;
 import co.paralleluniverse.fibers.SuspendExecution;
 import com.google.gson.annotations.Expose;
@@ -34,7 +34,8 @@ public class ChaosMonkeyForPodsEvent extends SelfScheduledExperimentAction {
      * @param instances      int: The number of instances of the specified deployment you want to shut down, can be
      *                       greater than the number of currently running instances
      */
-    public ChaosMonkeyForPodsEvent(Model owner, String name, boolean showInTrace, String deploymentName, int instances, int retries) {
+    public ChaosMonkeyForPodsEvent(Model owner, String name, boolean showInTrace, String deploymentName,
+                                   int instances, int retries) {
         super(owner, name, showInTrace);
 
         this.deploymentName = deploymentName;
@@ -43,20 +44,22 @@ public class ChaosMonkeyForPodsEvent extends SelfScheduledExperimentAction {
     }
 
     /**
-     * The eventRoutine of the <code>ChaosMonkeyForPodsEvent</code>. Terminates a specified number of instances of a specified
+     * The eventRoutine of the <code>ChaosMonkeyForPodsEvent</code>. Terminates a specified number of instances of a
+     * specified
      * <code>Deployment</code>.
      * Also tries to note the remaining number of instances in the trace.
      */
     @Override
     public void eventRoutine() throws SuspendExecution {
-        final Deployment deployment = Util.getInstance().findDeploymentByName(deploymentName);
+        final Deployment deployment = Util.findDeploymentByName(deploymentName);
         if (deployment != null) {
             deployment.killPodInstances(instances, 0, null);
 
             sendTraceNote("Chaos Monkey for Pods was applied on " + deployment.getQuotedName());
             boolean hasServicesLeft = deployment.getCurrentRunningOrPendingReplicaCount() > 0;
             sendTraceNote(String.format("There are %s pods left of deployment %s",
-                    hasServicesLeft ? String.format("still %d", deployment.getCurrentRunningOrPendingReplicaCount()) : "no",
+                    hasServicesLeft ? String.format("still %d", deployment.getCurrentRunningOrPendingReplicaCount())
+                            : "no",
                     deployment.getName()));
         } else {
             sendTraceNote("Could not execute ChaosMonkeyForPodsEvent because the deployment from the " +

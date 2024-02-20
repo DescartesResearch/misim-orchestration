@@ -5,19 +5,23 @@ import cambio.simulator.entities.microservice.MicroserviceInstance;
 import cambio.simulator.orchestration.entities.Container;
 import cambio.simulator.orchestration.entities.ContainerState;
 import cambio.simulator.orchestration.entities.MicroserviceOrchestration;
-import cambio.simulator.orchestration.util.Util;
 import cambio.simulator.orchestration.management.ManagementPlane;
 import cambio.simulator.orchestration.scaling.AutoScaler;
 import cambio.simulator.orchestration.scheduling.Scheduler;
 import cambio.simulator.orchestration.scheduling.SchedulerType;
+import cambio.simulator.orchestration.util.Util;
 import com.google.gson.Gson;
 import desmoj.core.simulator.Model;
 import io.kubernetes.client.openapi.models.*;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.util.*;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Optional;
+import java.util.Set;
 import java.util.stream.Collectors;
+
 @Getter
 @Setter
 public class Deployment extends NamedEntity {
@@ -28,7 +32,9 @@ public class Deployment extends NamedEntity {
     private AutoScaler autoScaler;
     private V1Deployment kubernetesRepresentation;
 
-    public Deployment(Model model, String name, boolean showInTrace, MicroserviceOrchestration microserviceOrchestration, int desiredReplicaCount, SchedulerType schedulerType) {
+    public Deployment(Model model, String name, boolean showInTrace,
+                      MicroserviceOrchestration microserviceOrchestration, int desiredReplicaCount,
+                      SchedulerType schedulerType) {
         super(model, name, showInTrace);
         this.service = microserviceOrchestration;
         this.desiredReplicaCount = desiredReplicaCount;
@@ -67,7 +73,8 @@ public class Deployment extends NamedEntity {
         Container container;
         if (service != null) {
             MicroserviceInstance microServiceInstance = service.createMicroServiceInstance();
-            container = new Container(getModel(), "Container[" + service.getPlainName() + "]", traceIsOn(), microServiceInstance);
+            container = new Container(getModel(), "Container[" + service.getPlainName() + "]", traceIsOn(),
+                    microServiceInstance);
         } else {
             container = new Container(getModel(), "Container[" + this.getPlainName() + "]", traceIsOn(), null);
         }
@@ -86,19 +93,21 @@ public class Deployment extends NamedEntity {
         result.setMetadata(new V1ObjectMeta().name(name).namespace("default").uid(name));
         // We need to make a deep copy of the template here -> safest way is to serialize and deserialize
         Gson gson = new Gson();
-        V1PodSpec spec = gson.fromJson(gson.toJson(kubernetesRepresentation.getSpec().getTemplate().getSpec()), V1PodSpec.class);
+        V1PodSpec spec = gson.fromJson(gson.toJson(kubernetesRepresentation.getSpec().getTemplate().getSpec()),
+                V1PodSpec.class);
         result.setSpec(spec);
         result.setStatus(new V1PodStatus().phase("Pending"));
         return result;
     }
 
     public void removePod() {
-        final Optional<Pod> optionalPendingPod = replicaSet.stream().filter(pod -> pod.getPodState() == PodState.PENDING).findFirst();
+        final Optional<Pod> optionalPendingPod =
+                replicaSet.stream().filter(pod -> pod.getPodState() == PodState.PENDING).findFirst();
         if (optionalPendingPod.isPresent()) {
             Pod pod = optionalPendingPod.get();
             //find corresponding waiting queue and remove pod there as well
             try {
-                Scheduler scheduler = Util.getInstance().getSchedulerInstanceByType(this.schedulerType);
+                Scheduler scheduler = Util.getSchedulerInstanceByType(this.schedulerType);
                 scheduler.getPodWaitingQueue().remove(pod);
                 this.getReplicaSet().remove(optionalPendingPod.get());
                 sendTraceNote("A pending pod was removed from " + this.getPlainName() + " and from " + scheduler.getSchedulerType().getDisplayName());
@@ -109,9 +118,11 @@ public class Deployment extends NamedEntity {
             return;
         }
 
-        final List<Pod> pods = replicaSet.stream().filter(pod -> pod.getPodState() == PodState.RUNNING).collect(Collectors.toList());
+        final List<Pod> pods =
+                replicaSet.stream().filter(pod -> pod.getPodState() == PodState.RUNNING).collect(Collectors.toList());
         if (pods.isEmpty()) {
-            //Should not happen. If there is neither a pending nor a running pod, then this method should not have been called
+            //Should not happen. If there is neither a pending nor a running pod, then this method should not have
+            // been called
             sendTraceNote("There is no pod that could be removed");
             return;
         }
@@ -168,13 +179,15 @@ public class Deployment extends NamedEntity {
             return;
         }
         if (service != null) {
-            Optional<Container> any = instanceToKill.getContainers().stream().filter(container -> container.getMicroserviceInstance().getPlainName().contains(service)).findAny();
+            Optional<Container> any =
+                    instanceToKill.getContainers().stream().filter(container -> container.getMicroserviceInstance().getPlainName().contains(service)).findAny();
             if (any.isPresent()) {
                 Container container = any.get();
                 container.setRestartAttemptsLeft(retries);
                 container.die();
             } else {
-                sendTraceNote("AimingChaosMonkeyForPods did not find the microService with the name " + service + ". Did not kill mircoServiceInstance");
+                sendTraceNote("AimingChaosMonkeyForPods did not find the microService with the name " + service + ". " +
+                        "Did not kill mircoServiceInstance");
             }
         } else {
             instanceToKill.die();

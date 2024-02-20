@@ -2,38 +2,28 @@ package cambio.simulator.orchestration.util;
 
 import cambio.simulator.entities.patterns.*;
 import cambio.simulator.orchestration.entities.MicroserviceOrchestration;
-import cambio.simulator.orchestration.loadbalancing.IOrchestrationLoadBalancingStrategy;
 import cambio.simulator.orchestration.entities.kubernetes.Deployment;
 import cambio.simulator.orchestration.loadbalancing.*;
 import cambio.simulator.orchestration.management.DefaultValues;
 import cambio.simulator.orchestration.management.ManagementPlane;
+import cambio.simulator.orchestration.scheduling.RandomScheduler;
+import cambio.simulator.orchestration.scheduling.RoundRobinScheduler;
+import cambio.simulator.orchestration.scheduling.Scheduler;
+import cambio.simulator.orchestration.scheduling.SchedulerType;
 import cambio.simulator.orchestration.scheduling.kubernetes.KubeScheduler;
-import cambio.simulator.parsing.ParsingException;
-import cambio.simulator.orchestration.scheduling.*;
-import lombok.Getter;
 
-import java.io.File;
-import java.util.*;
+import java.util.Optional;
 import java.util.concurrent.TimeUnit;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 public class Util {
 
-    @Getter
-    private static final Util instance = new Util();
-
-    //private constructor to avoid client applications to use constructor
-    private Util() {}
-
-
-    public Deployment findDeploymentByName(String name){
+    public static Deployment findDeploymentByName(String name) {
         final Optional<Deployment> first =
                 ManagementPlane.getInstance().getDeployments().stream().filter(deployment -> deployment.getPlainName().equals(name)).findFirst();
         return first.orElse(null);
     }
 
-    public SchedulerType getSchedulerTypeByNameOrStandard(String schedulerName, String deploymentName) {
+    public static SchedulerType getSchedulerTypeByNameOrStandard(String schedulerName, String deploymentName) {
         if (schedulerName != null) {
             final SchedulerType schedulerType = SchedulerType.fromString(schedulerName);
             if (schedulerType != null) {
@@ -48,8 +38,8 @@ public class Util {
         return SchedulerType.fromString(DefaultValues.getInstance().getScheduler());
     }
 
-    public Scheduler getSchedulerInstanceByType(SchedulerType schedulerType) {
-        if(schedulerType.equals(SchedulerType.RANDOM)){
+    public static Scheduler getSchedulerInstanceByType(SchedulerType schedulerType) {
+        if (schedulerType.equals(SchedulerType.RANDOM)) {
             return RandomScheduler.getInstance();
         } else if (schedulerType.equals(SchedulerType.KUBE)) {
             return KubeScheduler.getInstance();
@@ -59,9 +49,10 @@ public class Util {
         throw new IllegalStateException("This SchedulerType is not linked to a Schedulerinstance yet. Do it here!");
     }
 
-    public void connectLoadBalancer(MicroserviceOrchestration microserviceOrchestration) {
+    public static void connectLoadBalancer(MicroserviceOrchestration microserviceOrchestration) {
         // If no load balancer specified we use the random load balancer (same as misim)
-        ILoadBalancingStrategy loadBalancingStrategy = microserviceOrchestration.getLoadBalancer().getLoadBalancingStrategy();
+        ILoadBalancingStrategy loadBalancingStrategy =
+                microserviceOrchestration.getLoadBalancer().getLoadBalancingStrategy();
         IOrchestrationLoadBalancingStrategy convertedStrategy;
         String name;
         if (loadBalancingStrategy instanceof RandomLoadBalanceStrategy) {

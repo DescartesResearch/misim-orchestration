@@ -49,12 +49,14 @@ public class KubernetesParser {
     }
 
     public static Node createNodeFromKubernetesObject(Model model, boolean trace, V1Node v1Node) {
-        Node node = new Node(model, v1Node.getMetadata().getName(), trace, v1Node.getStatus().getAllocatable().get("cpu").getNumber().intValue());
+        Node node = new Node(model, v1Node.getMetadata().getName(), trace, v1Node.getStatus().getAllocatable().get(
+                "cpu").getNumber().intValue());
         node.setKubernetesRepresentation(v1Node);
         return node;
     }
 
-    public static void initDeployments(String dir, ArchitectureModel architectureModel, OrchestrationConfig orchestrationConfig) {
+    public static void initDeployments(String dir, ArchitectureModel architectureModel,
+                                       OrchestrationConfig orchestrationConfig) {
         List<String> fileNames;
         Set<V1Deployment> deployments = new HashSet<>();
         try {
@@ -105,15 +107,18 @@ public class KubernetesParser {
                     if (hpa != null) {
                         namesToRemove.add(filePath);
                         String targetDeploymentName = hpa.getSpec().getScaleTargetRef().getName();
-                        Optional<Deployment> optionalDeployment = ManagementPlane.getInstance().getDeployments().stream().filter(deployment -> deployment.getPlainName().equals(targetDeploymentName)).findFirst();
+                        Optional<Deployment> optionalDeployment =
+                                ManagementPlane.getInstance().getDeployments().stream().filter(deployment -> deployment.getPlainName().equals(targetDeploymentName)).findFirst();
                         if (optionalDeployment.isPresent()) {
                             Deployment deployment = optionalDeployment.get();
                             int minReplicas = hpa.getSpec().getMinReplicas().intValue();
                             int maxReplicas = hpa.getSpec().getMaxReplicas().intValue();
-                            int targetCPUUtilizationPercentage = hpa.getSpec().getTargetCPUUtilizationPercentage().intValue();
+                            int targetCPUUtilizationPercentage =
+                                    hpa.getSpec().getTargetCPUUtilizationPercentage().intValue();
                             deployment.setAutoScaler(new HorizontalPodAutoscaler(targetCPUUtilizationPercentage / 100.0, minReplicas, maxReplicas));
                         } else {
-                            throw new ParsingException("Could not find an existing deployment object by the given name: " + targetDeploymentName);
+                            throw new ParsingException("Could not find an existing deployment object by the given " +
+                                    "name: " + targetDeploymentName);
                         }
                     }
                 }
@@ -140,17 +145,21 @@ public class KubernetesParser {
         return v1Deployment;
     }
 
-    private static Map<V1Deployment, Microservice> createMapping(Set<Microservice> microservices, Set<V1Deployment> deployments) {
+    private static Map<V1Deployment, Microservice> createMapping(Set<Microservice> microservices,
+                                                                 Set<V1Deployment> deployments) {
         Map<V1Deployment, Microservice> map = new HashMap<>();
         for (V1Deployment d : deployments) {
-            Optional<Microservice> optionalService = microservices.stream().filter(service -> service.getPlainName().equals(d.getMetadata().getName())).findFirst();
+            Optional<Microservice> optionalService =
+                    microservices.stream().filter(service -> service.getPlainName().equals(d.getMetadata().getName())).findFirst();
             if (optionalService.isPresent()) {
                 MicroserviceOrchestration service = (MicroserviceOrchestration) optionalService.get();
                 microservices.remove(service);
                 map.put(d, service);
             } else {
                 map.put(d, null);
-                System.out.println("[WARNING]: The deployment " + d.getMetadata().getName() + " will be scheduled, but" + " is not simulated because there is no corresponding microservice in the architecture file.");
+                System.out.println("[WARNING]: The deployment " + d.getMetadata().getName() + " will be scheduled, " +
+                        "but" + " is not simulated because there is no corresponding microservice in the architecture" +
+                        " file.");
             }
         }
         //create default deployments for remaining microservices from the architecture file
@@ -166,7 +175,8 @@ public class KubernetesParser {
     private static V1Deployment createDefaultDeployment(Microservice microservice) {
         V1Deployment d = new V1Deployment();
         d.setMetadata(new V1ObjectMeta().name(microservice.getPlainName() + "-deployment"));
-        System.out.println("[INFO]: Creating deployment " + d.getMetadata().getName() + " from architecture file only. There is no corresponding YAML file");
+        System.out.println("[INFO]: Creating deployment " + d.getMetadata().getName() + " from architecture file only" +
+                ". There is no corresponding YAML file");
         return d;
     }
 
@@ -175,13 +185,17 @@ public class KubernetesParser {
         MicroserviceOrchestration casted = null;
         if (microservice != null) {
             casted = (MicroserviceOrchestration) microservice;
-            Util.getInstance().connectLoadBalancer(casted);
+            Util.connectLoadBalancer(casted);
             if (casted.getStartingInstanceCount() != v1Deployment.getSpec().getReplicas().intValue()) {
-                throw new ParsingException("Replica count for service " + casted.getPlainName() + " in architecture file does not match the replica count" + "provided in the deployment file for " + deploymentName + " (" + casted.getStartingInstanceCount() + "/" + v1Deployment.getSpec().getReplicas().intValue() + ")");
+                throw new ParsingException("Replica count for service " + casted.getPlainName() + " in architecture " +
+                        "file does not match the replica count" + "provided in the deployment file for " + deploymentName + " (" + casted.getStartingInstanceCount() + "/" + v1Deployment.getSpec().getReplicas().intValue() + ")");
             }
         }
-        SchedulerType schedulerType = Util.getInstance().getSchedulerTypeByNameOrStandard(v1Deployment.getSpec().getTemplate().getSpec().getSchedulerName(), v1Deployment.getMetadata().getName());
-        Deployment deployment = new Deployment(ManagementPlane.getInstance().getModel(), deploymentName, ManagementPlane.getInstance().getModel().traceIsOn(), casted, v1Deployment.getSpec().getReplicas(), schedulerType);
+        SchedulerType schedulerType =
+                Util.getSchedulerTypeByNameOrStandard(v1Deployment.getSpec().getTemplate().getSpec().getSchedulerName(), v1Deployment.getMetadata().getName());
+        Deployment deployment = new Deployment(ManagementPlane.getInstance().getModel(), deploymentName,
+                ManagementPlane.getInstance().getModel().traceIsOn(), casted, v1Deployment.getSpec().getReplicas(),
+                schedulerType);
         if (schedulerType.getName().equals("kube") && (v1Deployment.getSpec().getTemplate().getSpec().getSchedulerName() == null || v1Deployment.getSpec().getTemplate().getSpec().getSchedulerName().equals(""))) {
             v1Deployment.getSpec().getTemplate().getSpec().setSchedulerName("default-scheduler");
         }
