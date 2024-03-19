@@ -9,18 +9,20 @@ import java.nio.file.FileSystems;
 import java.nio.file.Path;
 
 import static cambio.simulator.orchestration.export.reporters.EventsReporter.generateEventsReport;
+import static cambio.simulator.orchestration.export.reporters.EventsReporter.generateK8sEventsLog;
 import static cambio.simulator.orchestration.export.reporters.KubernetesReporter.generateKubernetesReports;
 import static cambio.simulator.orchestration.export.reporters.MiSimReporter.generateMiSimScalingReports;
 import static cambio.simulator.orchestration.export.reporters.PerformanceReporter.generatePerformanceReport;
 
 public class MainReporter {
-    final static String ORCHESTRATION_MAIN_REPORTS_DIR = "orchestration_reports_new";
+    final static String ORCHESTRATION_MAIN_REPORTS_DIR = "orchestration_reports";
     final static String MISIM_STANDARD_SUBDIR = "misim_standard";
     final static String MISIM_SCALING_SUBDIR = "misim_scaling";
     final static String PERFORMANCE_SUBDIR = "performance";
     final static String ORCHESTRATION_SUBDIR = "orchestration";
     final static String PERFORMANCE_RESULTS_FILE = "performance_results.csv";
     final static String EVENTS_RESULTS_FILE = "events_results.csv";
+    final static String K8S_EVENTS_LOG_FILE = "k8s_events_log.csv";
 
     public static void generateReports(String currentRunName, MiSimModel model) {
         Path workingDirectoryPath = FileSystems.getDefault().getPath("").toAbsolutePath();
@@ -40,7 +42,7 @@ public class MainReporter {
 
         generatePerformanceReport(model, performancePath.resolve(PERFORMANCE_RESULTS_FILE));
         generateEventsReport(performancePath.resolve(EVENTS_RESULTS_FILE));
-
+        generateK8sEventsLog(orchestrationPath.resolve(K8S_EVENTS_LOG_FILE));
         boolean isOrchestrationRun =
                 model instanceof MiSimOrchestrationModel && ((MiSimOrchestrationModel) model).getOrchestrationConfig().isOrchestrate();
         if (isOrchestrationRun) {
