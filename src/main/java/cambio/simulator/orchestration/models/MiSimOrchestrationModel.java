@@ -3,6 +3,7 @@ package cambio.simulator.orchestration.models;
 import cambio.simulator.events.ISelfScheduled;
 import cambio.simulator.events.SimulationEndEvent;
 import cambio.simulator.export.MiSimReporters;
+import cambio.simulator.models.ExperimentModel;
 import cambio.simulator.models.MiSimModel;
 import cambio.simulator.orchestration.entities.Cluster;
 import cambio.simulator.orchestration.entities.MicroserviceOrchestration;
@@ -19,8 +20,9 @@ import cambio.simulator.orchestration.scaling.SimpleReactiveAutoscaler;
 import cambio.simulator.orchestration.scheduling.Scheduler;
 import cambio.simulator.orchestration.scheduling.SchedulerType;
 import cambio.simulator.orchestration.util.Util;
-import cambio.simulator.parsing.ModelLoader;
 import cambio.simulator.parsing.ParsingException;
+import cambio.simulator.parsing.adapter.scenario.ScenarioDescriptionAdapter;
+import com.google.gson.TypeAdapter;
 import desmoj.core.simulator.TimeInstant;
 import lombok.Getter;
 
@@ -30,6 +32,9 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.function.Function;
+
+import static cambio.simulator.parsing.ModelLoader.loadModel;
 
 
 @Getter
@@ -50,7 +55,7 @@ public class MiSimOrchestrationModel extends MiSimModel {
     @Override
     public void init() {
         this.architectureModel = OrchestrationModelLoader.loadArchitectureModel(this);
-        this.experimentModel = ModelLoader.loadExperimentModel(this);
+        this.experimentModel = loadOrchestrationExperimentModel(this);
         this.experimentMetaData.setStartDate(LocalDateTime.now());
         MiSimReporters.initializeStaticReporters(this);
     }
@@ -65,9 +70,22 @@ public class MiSimOrchestrationModel extends MiSimModel {
             for (ISelfScheduled selfScheduledEvent : experimentModel.getAllSelfSchedulesEntities()) {
                 selfScheduledEvent.doInitialSelfSchedule();
             }
-            SimulationEndEvent simulationEndEvent =
-                    new SimulationEndEvent(this, SimulationEndEvent.class.getSimpleName(), true);
+            SimulationEndEvent simulationEndEvent = new SimulationEndEvent(this,
+                    SimulationEndEvent.class.getSimpleName(), true);
             simulationEndEvent.schedule(new TimeInstant(this.experimentMetaData.getDuration()));
+        }
+    }
+
+    public static ExperimentModel loadOrchestrationExperimentModel(MiSimModel baseModel) {
+        File modelLocation = baseModel.getExperimentMetaData().getExperimentDescriptionLocation();
+        Function<TypeAdapter<ExperimentModel>, ExperimentModel> loadFunction =
+                (adapter) -> (ExperimentModel) loadModel(modelLocation, ExperimentModel.class, adapter);
+        try {
+            return loadFunction.apply(new ScenarioDescriptionAdapter(baseModel));
+        } catch (ParsingException var4) {
+            System.out.printf("[Info] Could not detect %s as scenario. Trying to detect an experiment.%n",
+                    modelLocation);
+            return loadFunction.apply(new OrchestrationExperimentModelAdapter(baseModel));
         }
     }
 

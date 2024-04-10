@@ -1,6 +1,5 @@
 package cambio.simulator.orchestration.events;
 
-import cambio.simulator.events.SelfScheduledExperimentAction;
 import cambio.simulator.misc.Priority;
 import cambio.simulator.orchestration.entities.kubernetes.Deployment;
 import cambio.simulator.orchestration.util.Util;
@@ -11,7 +10,7 @@ import com.google.gson.annotations.SerializedName;
 import desmoj.core.simulator.Model;
 
 @JsonTypeName(value = "aiming_chaos_monkey_pods")
-public class AimingChaosMonkeyForPodsEvent extends SelfScheduledExperimentAction {
+public class AimingChaosMonkeyForPodsEvent extends OrchestrationSelfScheduledExperimentAction {
     @Expose
     @SerializedName(value = "instances", alternate = {"instance_count", "killed_instance_count", "killed_instances"})
     private int instances;
