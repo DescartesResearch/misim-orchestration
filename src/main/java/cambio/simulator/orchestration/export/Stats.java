@@ -9,6 +9,8 @@ import cambio.simulator.orchestration.entities.kubernetes.Node;
 import cambio.simulator.orchestration.entities.kubernetes.Pod;
 import cambio.simulator.orchestration.entities.kubernetes.PodState;
 import cambio.simulator.orchestration.management.ManagementPlane;
+import cambio.simulator.orchestration.rest.dto.BindingFailureInformation;
+import cambio.simulator.orchestration.rest.dto.BindingInformation;
 import desmoj.core.simulator.Model;
 import lombok.Getter;
 import lombok.Setter;
@@ -33,15 +35,114 @@ public class Stats {
     @Getter
     @Setter
     public static class NodePodEventRecord {
-        int time;
-        String podName;
-        String nodeName;
-        String scheduler;
-        String event;
-        String outcome;
-        String info;
-        int desiredState;
-        int currentState;
+        private int time;
+        private String podName;
+        private String nodeName;
+        private String scheduler;
+        private String event;
+        private String outcome;
+        private String info;
+        private int desiredState;
+        private int currentState;
+
+        private NodePodEventRecord(Builder builder) {
+            this.time = builder.time;
+            this.podName = builder.podName;
+            this.nodeName = builder.nodeName;
+            this.scheduler = builder.scheduler;
+            this.event = builder.event;
+            this.outcome = builder.outcome;
+            this.info = builder.info;
+            this.desiredState = builder.desiredState;
+            this.currentState = builder.currentState;
+        }
+
+        public static Builder builder() {
+            return new Builder();
+        }
+
+        public static class Builder {
+            private int time;
+            private String podName;
+            private String nodeName;
+            private String scheduler;
+            private String event;
+            private String outcome;
+            private String info;
+            private int desiredState;
+            private int currentState;
+
+
+            public Builder fromBindingInformation(BindingInformation bindSuccess) {
+                this.podName = bindSuccess.getPod();
+                this.nodeName = bindSuccess.getNode();
+                this.scheduler = "kube"; // in case of binding failure, it is always the kube scheduler
+                this.event = "Binding";
+                this.outcome = "Success";
+                this.info = "N/A";
+                return this;
+            }
+
+            public Builder fromBindingFailureInformation(BindingFailureInformation bindFail) {
+                this.podName = bindFail.getPod();
+                this.nodeName = "N/A"; // Fail, so not bound to a node
+                this.scheduler = "kube"; // in case of binding failure, it is always the kube scheduler
+                this.event = "Binding";
+                this.outcome = "Failed";
+                this.info = bindFail.getMessage();
+                return this;
+            }
+
+
+            public Builder time(int time) {
+                this.time = time;
+                return this;
+            }
+
+            public Builder podName(String podName) {
+                this.podName = podName;
+                return this;
+            }
+
+            public Builder nodeName(String nodeName) {
+                this.nodeName = nodeName;
+                return this;
+            }
+
+            public Builder scheduler(String scheduler) {
+                this.scheduler = scheduler;
+                return this;
+            }
+
+            public Builder event(String event) {
+                this.event = event;
+                return this;
+            }
+
+            public Builder outcome(String outcome) {
+                this.outcome = outcome;
+                return this;
+            }
+
+            public Builder info(String info) {
+                this.info = info;
+                return this;
+            }
+
+            public Builder desiredState(int desiredState) {
+                this.desiredState = desiredState;
+                return this;
+            }
+
+            public Builder currentState(int currentState) {
+                this.currentState = currentState;
+                return this;
+            }
+
+            public NodePodEventRecord build() {
+                return new NodePodEventRecord(this);
+            }
+        }
     }
 
     @Getter
@@ -60,6 +161,7 @@ public class Stats {
         int amountPodsOnNodes;
         int amountPodsWaiting;
     }
+
     @Getter
     @Setter
     public static class ScalingRecord {
@@ -117,7 +219,8 @@ public class Stats {
                 if (deploymentForPod != null) {
                     if (deployments.contains(deploymentForPod)) {
                         if (deploymentPodScheduledMap.get(deploymentForPod) != null) {
-                            deploymentPodScheduledMap.put(deploymentForPod, deploymentPodScheduledMap.get(deploymentForPod) + 1);
+                            deploymentPodScheduledMap.put(deploymentForPod,
+                                    deploymentPodScheduledMap.get(deploymentForPod) + 1);
                         }
                     }
                 }

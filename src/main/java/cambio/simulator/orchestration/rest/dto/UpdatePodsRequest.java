@@ -1,4 +1,4 @@
-package cambio.simulator.orchestration.scheduling.kubernetes;
+package cambio.simulator.orchestration.rest.dto;
 
 import io.kubernetes.client.openapi.models.V1PodList;
 import io.kubernetes.client.openapi.models.V1WatchEvent;

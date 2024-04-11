@@ -1,4 +1,4 @@
-package cambio.simulator.orchestration.scheduling.kubernetes;
+package cambio.simulator.orchestration.rest.dto;
 
 import cambio.simulator.orchestration.parsing.kubernetes.KubernetesObjectWithMetadataSpec;
 import io.kubernetes.client.openapi.models.V1NodeList;

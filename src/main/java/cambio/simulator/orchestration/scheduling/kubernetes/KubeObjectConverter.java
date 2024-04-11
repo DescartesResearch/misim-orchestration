@@ -4,10 +4,14 @@ import cambio.simulator.orchestration.entities.Container;
 import cambio.simulator.orchestration.entities.kubernetes.Node;
 import cambio.simulator.orchestration.entities.kubernetes.Pod;
 import cambio.simulator.orchestration.management.ManagementPlane;
+import cambio.simulator.orchestration.rest.dto.UpdateNodesRequest;
 import io.kubernetes.client.custom.Quantity;
 import io.kubernetes.client.openapi.models.*;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class KubeObjectConverter {
     public static UpdateNodesRequest convertNodes(List<Node> clusterNodes) {

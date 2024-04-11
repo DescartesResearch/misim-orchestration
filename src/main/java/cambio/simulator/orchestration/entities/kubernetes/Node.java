@@ -6,7 +6,6 @@ import cambio.simulator.orchestration.events.HealthCheckEvent;
 import cambio.simulator.orchestration.events.StartPodEvent;
 import cambio.simulator.orchestration.export.Stats;
 import cambio.simulator.orchestration.management.ManagementPlane;
-import cambio.simulator.orchestration.scheduling.SchedulerType;
 import desmoj.core.simulator.Model;
 import desmoj.core.simulator.TimeSpan;
 import io.kubernetes.client.openapi.models.V1Node;
@@ -38,73 +37,43 @@ public class Node extends NamedEntity {
     }
 
     public synchronized boolean addPod(Pod pod) {
-        if (this.getReserved() + pod.getCPUDemand() <= this.getTotalCPU()) {
-            this.reserved += pod.getCPUDemand();
-            pods.add(pod);
-            final StartPodEvent startPodEvent = new StartPodEvent(getModel(), "StartPodEvent", traceIsOn());
-            startPodEvent.schedule(pod, presentTime());
-            pod.setLastKnownNode(this);
-            return true;
-        }
-        return false;
+        boolean notEnoughCPUAvailable = this.getReserved() + pod.getCPUDemand() > this.getTotalCPU();
+        if (notEnoughCPUAvailable) return false;
+        this.reserved += pod.getCPUDemand();
+        pods.add(pod);
+        final StartPodEvent startPodEvent = new StartPodEvent(getModel(), "StartPodEvent", traceIsOn());
+        startPodEvent.schedule(pod, presentTime());
+        pod.setLastKnownNode(this);
+        return true;
     }
 
     public void startRemovingPod(Pod pod) {
-        Stats.NodePodEventRecord record = new Stats.NodePodEventRecord();
-        record.setTime((int) presentTime().getTimeAsDouble());
-        record.setPodName(pod.getName());
-        record.setNodeName(this.getPlainName());
-        String schedulerName = "N/A";
-        Deployment deploymentForPod = pod.getOwner();
-        if (deploymentForPod != null) {
-            SchedulerType schedulerType = deploymentForPod.getSchedulerType();
-            if (schedulerType != null) {
-                schedulerName = schedulerType.getName();
-            }
-        }
-        record.setScheduler(schedulerName);
-        record.setEvent("Start Pod Removal");
-        record.setOutcome("Initiating");
-        record.setInfo(pod.getName() + " needs to be removed from " + this.getPlainName());
-        record.setDesiredState(deploymentForPod.getDesiredReplicaCount());
-        record.setCurrentState(ManagementPlane.getInstance().getAmountOfPodsOnNodes(deploymentForPod));
+        Stats.NodePodEventRecord record =
+                Stats.NodePodEventRecord.builder().time((int) presentTime().getTimeAsDouble()).podName(pod.getName()).nodeName(this.getPlainName()).scheduler(pod.getSchedulerName()).event("Start Pod Removal").outcome("Initiating").info(pod.getName() + " needs to be removed from " + this.getPlainName()).desiredState(pod.getOwner().getDesiredReplicaCount()).currentState(ManagementPlane.getInstance().getAmountOfPodsOnNodes(pod.getOwner())).build();
         Stats.getInstance().getNodePodEventRecords().add(record);
-
-        pod.setPodStateAndApplyEffects(PodState.TERMINATING);
-        final CheckPodRemovableEvent checkPodRemovableEvent = new CheckPodRemovableEvent(getModel(), "Check if pod can be removed", traceIsOn());
+        pod.transitionToState(PodState.TERMINATING);
+        final CheckPodRemovableEvent checkPodRemovableEvent = new CheckPodRemovableEvent(getModel(),
+                "Check if pod " + "can be removed", traceIsOn());
         checkPodRemovableEvent.schedule(pod, this, new TimeSpan(0));
     }
 
     public void removePod(Pod pod) {
-        pod.setPodStateAndApplyEffects(PodState.SUCCEEDED);
+        pod.transitionToState(PodState.SUCCEEDED);
         this.reserved -= pod.getCPUDemand();
-        if (pods.remove(pod)) {
-            //only for reporting
-            Stats.NodePodEventRecord record = new Stats.NodePodEventRecord();
-            record.setTime((int) presentTime().getTimeAsDouble());
-            record.setPodName(pod.getName());
-            record.setNodeName(this.getPlainName());
+        if (!pods.contains(pod)) throw new PodDoesNotBelongToNodeException(pod, this);
+        pods.remove(pod);
+        Stats.NodePodEventRecord record =
+                Stats.NodePodEventRecord.builder().time((int) presentTime().getTimeAsDouble()).podName(pod.getName()).nodeName(this.getPlainName()).scheduler(pod.getSchedulerName()).event("Pod Removal").outcome("Success").info(pod.getName() + " was removed from " + this.getPlainName()).desiredState(pod.getOwner().getDesiredReplicaCount()).currentState(ManagementPlane.getInstance().getAmountOfPodsOnNodes(pod.getOwner())).build();
+        Stats.getInstance().getNodePodEventRecords().add(record);
+        sendTraceNote(pod.getQuotedName() + " was removed from " + this.getQuotedName());
+        HealthCheckEvent healthCheckEvent = new HealthCheckEvent(getModel(), "HealthCheckEvent - After Scaling",
+                traceIsOn());
+        healthCheckEvent.schedule(new TimeSpan(HealthCheckEvent.delay));
+    }
 
-            String schedulerName = "N/A";
-            Deployment deploymentForPod = pod.getOwner();
-            if (deploymentForPod != null) {
-                SchedulerType schedulerType = deploymentForPod.getSchedulerType();
-                if (schedulerType != null) {
-                    schedulerName = schedulerType.getName();
-                }
-            }
-            record.setScheduler(schedulerName);
-            record.setEvent("Pod Removal");
-            record.setOutcome("Success");
-            record.setInfo(pod.getName() + " was removed from " + this.getPlainName());
-            record.setDesiredState(deploymentForPod.getDesiredReplicaCount());
-            record.setCurrentState(ManagementPlane.getInstance().getAmountOfPodsOnNodes(deploymentForPod));
-            Stats.getInstance().getNodePodEventRecords().add(record);
-            sendTraceNote(pod.getQuotedName() + " was removed from " + this.getQuotedName());
-            HealthCheckEvent healthCheckEvent = new HealthCheckEvent(getModel(), "HealthCheckEvent - After Scaling", traceIsOn());
-            healthCheckEvent.schedule(new TimeSpan(HealthCheckEvent.delay));
-        } else {
-            throw new IllegalArgumentException("Pod " + pod.getQuotedPlainName() + " does not belong to this node" + this.getPlainName());
+    private static class PodDoesNotBelongToNodeException extends IllegalArgumentException {
+        public PodDoesNotBelongToNodeException(Pod pod, Node node) {
+            super("Pod " + pod.getQuotedPlainName() + " does not belong to node " + node.getQuotedPlainName());
         }
     }
 

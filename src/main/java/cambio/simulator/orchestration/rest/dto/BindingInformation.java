@@ -1,4 +1,4 @@
-package cambio.simulator.orchestration.scheduling.kubernetes;
+package cambio.simulator.orchestration.rest.dto;
 
 import com.google.gson.annotations.SerializedName;
 import lombok.Getter;
