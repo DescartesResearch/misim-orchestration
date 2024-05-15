@@ -24,12 +24,6 @@ import java.util.Set;
 
 public class KubeScheduler extends Scheduler {
 
-    static String API_URL = "http://127.0.0.1:8000/";
-    static String PATH_PODS = "updatePods";
-    static String PATH_NODES = "updateNodes";
-
-    // private static int counter = 1;
-
     // mirrors the internal cache of running pods that are known by the scheduler
     Set<Pod> internalRunningPods = new HashSet<>();
     Set<Pod> internalPendingPods = new HashSet<>();
