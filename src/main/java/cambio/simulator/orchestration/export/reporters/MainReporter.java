@@ -8,7 +8,7 @@ import java.io.IOException;
 import java.nio.file.FileSystems;
 import java.nio.file.Path;
 
-import static cambio.simulator.orchestration.export.reporters.EventsReporter.generateEventsReport;
+import static cambio.simulator.orchestration.export.reporters.EventsReporter.generateInternalEventsReport;
 import static cambio.simulator.orchestration.export.reporters.EventsReporter.generateK8sEventsLog;
 import static cambio.simulator.orchestration.export.reporters.KubernetesReporter.generateKubernetesReports;
 import static cambio.simulator.orchestration.export.reporters.MiSimReporter.generateMiSimScalingReports;
@@ -18,10 +18,10 @@ public class MainReporter {
     final static String ORCHESTRATION_MAIN_REPORTS_DIR = "orchestration_reports";
     final static String MISIM_STANDARD_SUBDIR = "misim_standard";
     final static String MISIM_SCALING_SUBDIR = "misim_scaling";
-    final static String PERFORMANCE_SUBDIR = "performance";
+    final static String SIMULATION_SUBDIR = "simulation";
     final static String ORCHESTRATION_SUBDIR = "orchestration";
     final static String PERFORMANCE_RESULTS_FILE = "performance_results.csv";
-    final static String EVENTS_RESULTS_FILE = "events_results.csv";
+    final static String INTERNAL_EVENTS_FILE = "internal_events.csv";
     final static String K8S_EVENTS_LOG_FILE = "k8s_events_log.csv";
 
     public static void generateReports(String currentRunName, MiSimModel model) {
@@ -31,7 +31,7 @@ public class MainReporter {
 
         Path miSimReportsPath = runSpecificReportsPath.resolve(MISIM_STANDARD_SUBDIR);
         Path miSimScalingPath = runSpecificReportsPath.resolve(MISIM_SCALING_SUBDIR);
-        Path performancePath = runSpecificReportsPath.resolve(PERFORMANCE_SUBDIR);
+        Path simulationPath = runSpecificReportsPath.resolve(SIMULATION_SUBDIR);
         Path orchestrationPath = runSpecificReportsPath.resolve(ORCHESTRATION_SUBDIR);
 
         try {
@@ -40,8 +40,8 @@ public class MainReporter {
             System.err.println("Could not copy MiSim reports to report directory.\n" + e.getMessage());
         }
 
-        generatePerformanceReport(model, performancePath.resolve(PERFORMANCE_RESULTS_FILE));
-        generateEventsReport(performancePath.resolve(EVENTS_RESULTS_FILE));
+        generatePerformanceReport(model, simulationPath.resolve(PERFORMANCE_RESULTS_FILE));
+        generateInternalEventsReport(simulationPath.resolve(INTERNAL_EVENTS_FILE));
         generateK8sEventsLog(orchestrationPath.resolve(K8S_EVENTS_LOG_FILE));
         boolean isOrchestrationRun =
                 model instanceof MiSimOrchestrationModel && ((MiSimOrchestrationModel) model).getOrchestrationConfig().isOrchestrate();

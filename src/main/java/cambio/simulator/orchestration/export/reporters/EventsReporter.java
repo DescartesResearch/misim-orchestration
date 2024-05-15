@@ -5,18 +5,15 @@ import cambio.simulator.orchestration.events.*;
 import cambio.simulator.orchestration.export.CSVBuilder;
 import cambio.simulator.orchestration.management.ManagementPlane;
 import cambio.simulator.orchestration.rest.EventsController;
-import com.google.gson.annotations.SerializedName;
 import io.kubernetes.client.openapi.models.*;
 
 import java.nio.file.Path;
-import java.time.OffsetDateTime;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
 
 public class EventsReporter {
-    public static void generateEventsReport(Path csvPath) {
+    public static void generateInternalEventsReport(Path csvPath) {
         // Headers
         List<String> headers = Arrays.asList("PodsRemovedFromNode", "ScaleEvent", "TryToRestartContainerEvent",
                 "RestartStartContainerAndMicroserviceInstanceEvent", "StartContainerAndMicroserviceInstanceEvent",
