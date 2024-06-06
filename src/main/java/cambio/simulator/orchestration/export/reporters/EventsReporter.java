@@ -40,12 +40,12 @@ public class EventsReporter {
         }
     }
 
-    public static void generateK8sEventsLog(Path csvPath) {
+    public static void generateK8sEventsApiEventsLog(Path csvPath) {
         try {
             EventsV1EventList k8sEventsListObj = EventsController.getEvents();
             List<EventsV1Event> eventsList = k8sEventsListObj.getItems();
             if (eventsList == null || eventsList.isEmpty()) {
-                System.out.println("No kubernetes events found");
+                System.out.println("No kubernetes events API events found");
                 return;
             }
             eventsList.sort(Comparator.comparing(EventsV1Event::getEventTime));
@@ -66,8 +66,49 @@ public class EventsReporter {
             }
 
         } catch (Exception e) {
-            System.err.println("Error building K8s events log: " + e.getMessage());
+            System.err.println("Error building K8s events API events log: " + e.getMessage());
         }
     }
+
+    public static void generateK8sCoreApiEventsLog(Path csvPath) {
+        try {
+            CoreV1EventList k8sEventsListObj = EventsController.getCoreApiEvents();
+            List<CoreV1Event> eventsList = k8sEventsListObj.getItems();
+            if (eventsList == null || eventsList.isEmpty()) {
+                System.out.println("No kubernetes core API events found");
+                return;
+            }
+            eventsList.sort(Comparator.comparing(CoreV1Event::getEventTime,
+                    Comparator.nullsLast(Comparator.naturalOrder())));
+            List<String> headers = Arrays.asList("Event Time", "Action", "API Version", "Count", "First Timestamp",
+                    "Involved Object", "Kind", "Last Timestamp", "Message", "Metadata", "Reason", "Related",
+                    "Reporting Component", "Reporting Instance", "Series", "Source", "Type");
+
+            CSVBuilder csvBuilder = new CSVBuilder().headers(headers);
+            for (CoreV1Event event : eventsList) {
+                List<String> rowData = Arrays.asList(event.getEventTime() == null ? "" :
+                        event.getEventTime().toString(), event.getAction() == null ? "" : event.getAction(),
+                        event.getApiVersion() == null ? "" : event.getApiVersion(), event.getCount() == null ? "" :
+                                event.getCount().toString(), event.getFirstTimestamp() == null ? "" :
+                                event.getFirstTimestamp().toString(), event.getInvolvedObject() == null ? "" :
+                                event.getInvolvedObject().toString(), event.getKind() == null ? "" : event.getKind(),
+                        event.getLastTimestamp() == null ? "" : event.getLastTimestamp().toString(),
+                        event.getMessage() == null ? "" : event.getMessage(), event.getMetadata() == null ? "" :
+                                event.getMetadata().toString(), event.getReason() == null ? "" : event.getReason(),
+                        event.getRelated() == null ? "" : event.getRelated().toString(),
+                        event.getReportingComponent() == null ? "" : event.getReportingComponent(),
+                        event.getReportingInstance() == null ? "" : event.getReportingInstance(),
+                        event.getSeries() == null ? "" : event.getSeries().toString(), event.getSource() == null ?
+                                "" : event.getSource().toString(), event.getType() == null ? "" : event.getType());
+
+                csvBuilder = csvBuilder.row(rowData);
+            }
+            csvBuilder.build(csvPath);
+
+        } catch (Exception e) {
+            System.err.println("Error building K8s core API events log: " + e.getMessage());
+        }
+    }
+
 }
 
