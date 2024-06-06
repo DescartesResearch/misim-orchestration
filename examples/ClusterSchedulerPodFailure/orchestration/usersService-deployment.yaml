@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: usersService
+  labels:
+    app: usersService
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: usersService
+  template:
+    metadata:
+      labels:
+        app: usersService
+    spec:
+      schedulerName: kube
+      containers:
+        - name: usersService
+          resources:
+            requests:
+              cpu: "0.25"

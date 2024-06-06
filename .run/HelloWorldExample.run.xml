@@ -1,0 +1,11 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="HelloWorldExample" type="Application" factoryName="Application">
+    <option name="ALTERNATIVE_JRE_PATH" value="1.8" />
+    <option name="MAIN_CLASS_NAME" value="cambio.simulator.orchestration.OrchestrationMain" />
+    <module name="misim-orchestration" />
+    <option name="PROGRAM_PARAMETERS" value="-a ./examples/HelloWorldExample/architecture_model.json -e ./examples/HelloWorldExample/example_model.json --orchestration ./examples/HelloWorldExample/orchestration_config.yaml -d" />
+    <method v="2">
+      <option name="Make" enabled="true" />
+    </method>
+  </configuration>
+</component>

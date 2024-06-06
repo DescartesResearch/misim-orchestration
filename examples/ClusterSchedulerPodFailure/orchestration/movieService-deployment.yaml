@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: movieService
+  labels:
+    app: movieService
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: movieService
+  template:
+    metadata:
+      labels:
+        app: movieService
+    spec:
+      schedulerName: kube
+      containers:
+        - name: movieService
+          resources:
+            requests:
+              cpu: "0.25"

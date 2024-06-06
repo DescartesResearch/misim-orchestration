@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: subscriptionService
+  labels:
+    app: subscriptionService
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: subscriptionService
+  template:
+    metadata:
+      labels:
+        app: subscriptionService
+    spec:
+      schedulerName: kube
+      containers:
+        - name: subscriptionService
+          resources:
+            requests:
+              cpu: "0.25"

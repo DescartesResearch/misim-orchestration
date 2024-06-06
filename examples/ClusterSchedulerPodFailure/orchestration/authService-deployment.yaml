@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: authService
+  labels:
+    app: authService
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: authService
+  template:
+    metadata:
+      labels:
+        app: authService
+    spec:
+      schedulerName: kube
+      containers:
+        - name: authService
+          resources:
+            requests:
+              cpu: "0.25"

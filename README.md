@@ -3,12 +3,12 @@
 ## Prerequisites
 
 - Apache Maven (`mvn`)
-- Java 8+
+- Java 8 (**only runs with Java 8 currently**, due to the MiSim dependency)
 
 ## Build
 
-1. Install MiSim dependency
-    - Core dependency from the [source repo](https://github.com/Cambio-Project/MiSim) or using the provided library:
+1. Install MiSim dependencies
+    - Install the provided MiSim core dependency:
 
        ```
        mvn install:install-file \
@@ -19,7 +19,7 @@
          -Dpackaging=jar \
          -DgeneratePom=true
        ```
-    - (Optional) For running tests, install MiSim tests dependency:
+    - Install the provided MiSim tests dependency:
 
        ```
        mvn install:install-file \
@@ -38,6 +38,7 @@
    mvn clean package
    ```
 
+
 ## Examples
 
 Read
@@ -45,12 +46,15 @@ our [hello-world example](https://github.com/DescartesResearch/misim-orchestrati
 to learn about how to run simulations.
 
 ## Configuration options
+- For an overview of MiSim configuration options, which are set in the JSON format via an experiment model and an architecture model, we recommend the [MiSim wiki](https://github.com/Cambio-Project/MiSim/wiki).
+- For a description of misim-orchestration options, set via a YAML file, see the [ConfigurationOptions.md](./docs/ConfigurationOptions.md) file.
+- Working sample configurations can be found in the [examples](./examples)
 
-For configuration options of the MiSim core, architecture and experiment model syntax, we refer to
-the [MiSim repository](https://github.com/Cambio-Project/MiSim).
-The configuration options of this orchestration plugin are
-described [here](https://github.com/DescartesResearch/misim-orchestration/blob/main/docs/ConfigurationOptions.md).
+## Development
 
+- For development with IntelliJ IDEA, annotation processing should be enabled in the IDE settings and the Lombok plugin is required.
+- Predefined IntelliJ run configurations for some of the example simulations are available for running and debugging. Ensure that the misim-k8s-adapter and required kubernetes artifacts are running before debugging or runnning the simulation. Instructions can be found in the if the steps in the main [docs](./docs) directory.
+- As mentioned previously, Java 8 is **required**. MiSim and misim-orchestration are currently not compatible with higher versions!
 ## Cite us
 
 ```

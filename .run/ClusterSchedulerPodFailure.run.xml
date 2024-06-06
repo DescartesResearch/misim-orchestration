@@ -1,0 +1,10 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="ClusterSchedulerPodFailure" type="Application" factoryName="Application">
+    <option name="MAIN_CLASS_NAME" value="cambio.simulator.orchestration.OrchestrationMain" />
+    <module name="misim-orchestration" />
+    <option name="PROGRAM_PARAMETERS" value="-a ./examples/ClusterSchedulerPodFailure/cspf_architecture_model.json -e ./examples/ClusterSchedulerPodFailure/cspf_example_model.json -d --orchestration ./examples/ClusterSchedulerPodFailure/cspf_orchestration_config.yaml" />
+    <method v="2">
+      <option name="Make" enabled="true" />
+    </method>
+  </configuration>
+</component>

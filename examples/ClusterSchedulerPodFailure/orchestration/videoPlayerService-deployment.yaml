@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: videoPlayerService
+  labels:
+    app: videoPlayerService
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: videoPlayerService
+  template:
+    metadata:
+      labels:
+        app: videoPlayerService
+    spec:
+      schedulerName: kube
+      containers:
+        - name: videoPlayerService
+          resources:
+            requests:
+              cpu: "0.25"

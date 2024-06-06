@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: recommendationService
+  labels:
+    app: recommendationService
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: recommendationService
+  template:
+    metadata:
+      labels:
+        app: recommendationService
+    spec:
+      schedulerName: kube
+      containers:
+        - name: recommendationService
+          resources:
+            requests:
+              cpu: "0.25"

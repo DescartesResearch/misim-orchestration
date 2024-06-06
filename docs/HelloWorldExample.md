@@ -5,9 +5,9 @@ microservices.
 
 ## Prepare the adapter
 
-Prerequisites: `go`
+Prerequisites: `go` (see https://go.dev/doc/install)
 
-1. Download the adapter code from the [repository](https://github.com/DescartesResearch/misim-k8s-adapter)
+1. Download the adapter code from the [repository](https://github.com/DescartesResearch/misim-k8s-adapter) 
 
 ```
 git clone https://github.com/DescartesResearch/misim-k8s-adapter.git
@@ -42,23 +42,37 @@ chmod +x kube-scheduler
     --leader-elect=false
 ```
 
-## Run the simulation
+## Build and run the simulation
 
-1. Build the simulation
+1. Install MiSim dependencies if the steps in the main [readme](../README.md) have not been executed yet)
+    - Install the provided MiSim core dependency:
+       ```
+       mvn install:install-file \
+         -Dfile=./libraries/misim-3.3.1.jar \
+         -DgroupId=cambio.simulator \
+         -DartifactId=misim \
+         -Dversion=3.3.1 \
+         -Dpackaging=jar \
+         -DgeneratePom=true
+       ```
+    - Install the provided MiSim tests dependency:
+       ```
+       mvn install:install-file \
+       -Dfile=./libraries/misim-tests-3.3.1.jar \
+       -DgroupId=cambio.simulator \
+       -DartifactId=misim \
+       -Dversion=3.3.1 \
+       -Dpackaging=jar \
+       -Dclassifier=tests \
+       -DgeneratePom=true
+       ```
+      
+2. Build this repository
 
-```
-mvn install:install-file \
-    -Dfile=./libraries/misim-3.2.5.jar \
-    -DgroupId="cambio.simulator" \
-    -DartifactId=misim \
-    -Dversion="3.2.5" \
-    -Dpackaging=jar \
-    -DgeneratePom=true
-mvn clean package
-```
-
-2. Run the simulation
-
+   ```
+   mvn clean package
+   ```
+3. Run the simulation (also provided as an IntelliJ run configuration)
 ```
 java -jar ./target/misim-orchestration.jar \
   -a ./examples/HelloWorldExample/architecture_model.json \
