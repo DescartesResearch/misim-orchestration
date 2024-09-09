@@ -111,9 +111,11 @@ public class KubeScheduler extends Scheduler {
 
     private void handleSchedulerResponse(SchedulerResponse schedulerResponse) throws KubeSchedulerException {
         Model model = ManagementPlane.getInstance().getModel();
+        List<String> newlyCreatedNodes = new ArrayList<>();
         for (V1Node createdNode : schedulerResponse.getNewNodes()) {
             Node newNode = KubernetesParser.createNodeFromKubernetesObject(model, traceIsOn(), createdNode);
             ManagementPlane.getInstance().getCluster().addNode(newNode);
+            newlyCreatedNodes.add(newNode.getPlainName());
         }
 
         for (V1Node deletedNode : schedulerResponse.getDeletedNodes()) {
@@ -129,7 +131,13 @@ public class KubeScheduler extends Scheduler {
 
             if (candidateNode == null) throw new KubeSchedulerException.NodeDoesNotExist();
             else if (pod == null) throw new KubeSchedulerException.PodDoesNotExist();
-            else if (!candidateNode.addPod(pod)) throw new KubeSchedulerException.NodeFull();
+
+            int nodeStartTime = 0;
+            if (newlyCreatedNodes.contains(candidateNode.getPlainName())) {
+                nodeStartTime = candidateNode.getStartTime();
+            }
+
+            if (!candidateNode.addPod(pod, nodeStartTime)) throw new KubeSchedulerException.NodeFull();
 
             internalRunningPods.add(pod);
             internalPendingPods.remove(pod);

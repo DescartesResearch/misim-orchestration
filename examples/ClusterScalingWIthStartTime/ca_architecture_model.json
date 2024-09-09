@@ -1,0 +1,26 @@
+{
+  "microservices": [
+    {
+      "name": "teastore-registry",
+      "instances": 1,
+      "capacity": 1000000,
+      "operations": [
+        {
+          "name": "register",
+          "demand": 30,
+          "dependencies": []
+        },
+        {
+          "name": "unregister",
+          "demand": 30,
+          "dependencies": []
+        },
+        {
+          "name": "getInstances",
+          "demand": 30,
+          "dependencies": []
+        }
+      ]
+    }
+  ]
+}

@@ -50,7 +50,7 @@ public class RandomScheduler extends Scheduler{
                 }
             }
             if (candidateNote != null) {
-                candidateNote.addPod(pod);
+                candidateNote.addPod(pod, 0);
                 sendTraceNote(this.getQuotedName() + " has scheduled " + pod.getQuotedName() + " on node " + candidateNote);
                 return true;
             } else {

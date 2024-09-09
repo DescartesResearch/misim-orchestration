@@ -28,21 +28,24 @@ public class Node extends NamedEntity {
     private List<Pod> pods;
     @Setter
     private V1Node kubernetesRepresentation;
+    @Setter
+    private int startTime;
 
-    public Node(Model model, String name, boolean showInTrace, double totalCPU) {
+    public Node(Model model, String name, boolean showInTrace, double totalCPU, int startTime) {
         super(model, name, showInTrace);
         this.totalCPU = totalCPU;
         this.pods = new ArrayList<>();
         this.nodeIpAddress = BASE_IP_ADDRESS + IP_ADDRESS_COUNTER++;
+        this.startTime = startTime;
     }
 
-    public synchronized boolean addPod(Pod pod) {
+    public synchronized boolean addPod(Pod pod, int additionalDelay) {
         boolean notEnoughCPUAvailable = this.getReserved() + pod.getCPUDemand() > this.getTotalCPU();
         if (notEnoughCPUAvailable) return false;
         this.reserved += pod.getCPUDemand();
         pods.add(pod);
         final StartPodEvent startPodEvent = new StartPodEvent(getModel(), "StartPodEvent", traceIsOn());
-        startPodEvent.schedule(pod, presentTime());
+        startPodEvent.schedule(pod, new TimeSpan(additionalDelay));
         pod.setLastKnownNode(this);
         return true;
     }

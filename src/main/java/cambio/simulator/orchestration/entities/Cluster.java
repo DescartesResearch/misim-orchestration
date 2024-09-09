@@ -11,6 +11,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.Random;
+import java.util.regex.Pattern;
 
 public class Cluster {
     private static final Random random = new Random(ManagementPlane.getInstance().getExperimentSeed());
@@ -27,10 +28,12 @@ public class Cluster {
     @Setter
     private List<KubernetesObjectWithMetadataSpec> machines;
     private Map<String, Map<String, OrchestrationConfig.NetworkDelays.NetworkInfo>> delayMap;
+    private List<OrchestrationConfig.StartUpTimeNode> nodeStartTimes;
 
-    public Cluster(List<Node> nodes, Map<String, Map<String, OrchestrationConfig.NetworkDelays.NetworkInfo>> network) {
+    public Cluster(List<Node> nodes, Map<String, Map<String, OrchestrationConfig.NetworkDelays.NetworkInfo>> network, List<OrchestrationConfig.StartUpTimeNode> nodeStartTimes) {
         this.nodes = nodes;
         this.delayMap = network;
+        this.nodeStartTimes = nodeStartTimes;
     }
 
     public Node getNodeByName(String name) {
@@ -39,6 +42,16 @@ public class Cluster {
     }
 
     public void addNode(Node node) {
+        if (node.getStartTime() == -1 && nodeStartTimes != null) {
+            Optional<OrchestrationConfig.StartUpTimeNode> startTime = nodeStartTimes.stream().filter(x -> Pattern.compile(x.getPattern()).matcher(node.getPlainName()).find()).findFirst();
+            if (startTime.isPresent()) {
+                node.setStartTime(startTime.get().getTime());
+            } else {
+                node.setStartTime(0);
+            }
+        } else {
+            node.setStartTime(0);
+        }
         nodes.add(node);
     }
 

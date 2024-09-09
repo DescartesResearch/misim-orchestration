@@ -24,6 +24,7 @@ public class OrchestrationConfig {
     private List<CustomNodes> customNodes;
     private List<SchedulerPrio> schedulerPrio;
     private List<StartUpTimeContainer> startUpTimeContainer;
+    private List<StartUpTimeNode> startUpTimeNode;
     private boolean useClusterAutoscaler;
 
     public OrchestrationConfig() {
@@ -72,6 +73,13 @@ public class OrchestrationConfig {
     @Setter
     public static class StartUpTimeContainer {
         String name;
+        int time;
+    }
+
+    @Getter
+    @Setter
+    public static class StartUpTimeNode {
+        String pattern;
         int time;
     }
 

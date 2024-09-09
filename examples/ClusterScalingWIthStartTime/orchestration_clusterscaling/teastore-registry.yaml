@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: teastore-registry
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: teastore
+      run: teastore-registry
+  template:
+    metadata:
+      labels:
+        app: teastore
+        run: teastore-registry
+    spec:
+      schedulerName: custom-scheduler
+      containers:
+        - name: teastore-registry
+          image: descartesresearch/teastore-registry
+          resources:
+            requests:
+              cpu: "0.5"
+            limits:
+              cpu: "0.5"
+          ports:
+            - containerPort: 8080

@@ -101,9 +101,9 @@ public class MiSimOrchestrationModel extends MiSimModel {
             delayMap = orchestrationConfig.getNetworkDelays().getDelayMap();
         }
         if (orchestrationConfig.isImportNodes()) {
-            cluster = new Cluster(KubernetesParser.importNodes(getModel(), traceIsOn(), targetDir), delayMap);
+            cluster = new Cluster(KubernetesParser.importNodes(getModel(), traceIsOn(), targetDir), delayMap, orchestrationConfig.getStartUpTimeNode());
         } else {
-            cluster = new Cluster(createNodesFromConfigDto(orchestrationConfig), delayMap);
+            cluster = new Cluster(createNodesFromConfigDto(orchestrationConfig), delayMap, orchestrationConfig.getStartUpTimeNode());
         }
         if (orchestrationConfig.isUseClusterAutoscaler()) {
             cluster.setMachineSets(KubernetesParser.parseGenericKubernetesFiles(orchestrationConfig.getOrchestrationDir(), "MachineSet"));
@@ -172,12 +172,12 @@ public class MiSimOrchestrationModel extends MiSimModel {
     private List<Node> createNodesFromConfigDto(OrchestrationConfig configDto) {
         List<Node> nodes = new ArrayList<>();
         for (int i = 0; i < configDto.getNodes().getAmount(); i++) {
-            nodes.add(new Node(getModel(), "Node" + i, traceIsOn(), configDto.getNodes().getCpu()));
+            nodes.add(new Node(getModel(), "Node" + i, traceIsOn(), configDto.getNodes().getCpu(), 0));
         }
 
         if (configDto.getCustomNodes() != null) {
             for (OrchestrationConfig.CustomNodes customNode : configDto.getCustomNodes()) {
-                nodes.add(new Node(getModel(), customNode.getName(), traceIsOn(), customNode.getCpu()));
+                nodes.add(new Node(getModel(), customNode.getName(), traceIsOn(), customNode.getCpu(), 0));
             }
         }
 

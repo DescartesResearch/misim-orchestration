@@ -47,7 +47,7 @@ public class RoundRobinScheduler extends Scheduler {
 
             }
             if (candidateNode != null) {
-                candidateNode.addPod(pod);
+                candidateNode.addPod(pod, 0);
                 sendTraceNote(this.getQuotedName() + " has scheduled " + pod.getQuotedName() + " on node " + candidateNode);
                 return true;
             } else {
