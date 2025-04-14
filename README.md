@@ -11,25 +11,12 @@
     - Install the provided MiSim core dependency:
 
        ```
-       mvn install:install-file \
-         -Dfile=./libraries/misim-3.3.1.jar \
-         -DgroupId=cambio.simulator \
-         -DartifactId=misim \
-         -Dversion=3.3.1 \
-         -Dpackaging=jar \
-         -DgeneratePom=true
+       mvn install:install-file -Dfile=./libraries/misim-3.3.1.jar -DgroupId=cambio.simulator -DartifactId=misim -Dversion=3.3.1 -Dpackaging=jar -DgeneratePom=true
        ```
     - Install the provided MiSim tests dependency:
 
        ```
-       mvn install:install-file \
-       -Dfile=./libraries/misim-tests-3.3.1.jar \
-       -DgroupId=cambio.simulator \
-       -DartifactId=misim \
-       -Dversion=3.3.1 \
-       -Dpackaging=jar \
-       -Dclassifier=tests \
-       -DgeneratePom=true
+       mvn install:install-file -Dfile=./libraries/misim-tests-3.3.1.jar -DgroupId=cambio.simulator -DartifactId=misim -Dversion=3.3.1 -Dpackaging=jar -Dclassifier=tests -DgeneratePom=true
        ```
 
 2. Build this repository
