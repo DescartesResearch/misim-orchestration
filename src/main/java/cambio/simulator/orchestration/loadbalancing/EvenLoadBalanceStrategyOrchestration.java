@@ -21,7 +21,7 @@ public class EvenLoadBalanceStrategyOrchestration implements IOrchestrationLoadB
     @Override
     public MicroserviceInstance getNextInstance(MicroserviceOrchestration microserviceOrchestration) throws NoInstanceAvailableException {
         final Set<Pod> replicaSet = microserviceOrchestration.getDeployment().getRunningReplicas();
-        if (distribution.keySet().size() != replicaSet.size()) {
+        if (!replicaSet.containsAll(distribution.keySet()) || !distribution.keySet().containsAll(replicaSet)) {
             distribution = new HashMap<>(replicaSet.size());
             for (Pod pod : replicaSet) {
                 distribution.put(pod, 0);

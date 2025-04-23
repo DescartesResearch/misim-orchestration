@@ -9,3 +9,6 @@ initialSchedulingOrder:
 scalingInterval: 15
 healthCheckDelay: 0
 useClusterAutoscaler: false
+startUpTimeContainer:
+  - name: catalogue
+    time: 5

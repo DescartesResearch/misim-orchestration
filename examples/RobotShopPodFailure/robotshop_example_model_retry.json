@@ -1,7 +1,7 @@
 {
   "simulation_meta_data": {
     "experiment_name": "RobotShop_PodFailure",
-    "model_name": "architecture_model",
+    "model_name": "architecture_model_retry",
     "duration": 180,
     "report": "",
     "datapoints": 20,
