@@ -50,6 +50,17 @@ public class KubeScheduler extends Scheduler {
         return SchedulerType.KUBE;
     }
 
+    @Override
+    public void onNodesRemoval(List<Node> nodes) {
+        super.onNodesRemoval(nodes);
+        try {
+            UpdateNodesRequest nodeList = KubeObjectConverter.deleteNodes(cluster.getNodes(), nodes);
+            KubeSchedulerController.updateNodes(nodeList);
+        } catch (IOException e) {
+            System.out.println("[INFO]: No connection to API server established. The kube scheduler is not supported "
+                    + "in this run");
+        }
+    }
 
     @Override
     public void schedulePods() {

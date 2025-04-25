@@ -1,0 +1,626 @@
+{
+  "microservices": [
+    {
+      "name": "web",
+      "instances": 2,
+      "loadbalancer_strategy": "even",
+      "patterns": [
+        {
+          "type": "circuitbreaker",
+          "config": {
+            "threshold": 0.1,
+            "rollingWindow": 30,
+            "sleepWindow": 30
+          }
+        }
+      ],
+      "capacity": 1000,
+      "operations": [
+        {
+          "name": "index",
+          "demand": 1,
+          "dependencies": []
+        },
+        {
+          "name": "payment_pay",
+          "demand": 1,
+          "dependencies": [
+            {
+              "service": "payment",
+              "operation": "pay",
+              "probability": 1.0
+            }
+          ]
+        },
+        {
+          "name": "user_login",
+          "demand": 1,
+          "dependencies": [
+            {
+              "service": "user",
+              "operation": "login",
+              "probability": 1.0
+            }
+          ]
+        },
+        {
+          "name": "user_uniqueid",
+          "demand": 1,
+          "dependencies": [
+            {
+              "service": "user",
+              "operation": "uniqueid",
+              "probability": 1.0
+            }
+          ]
+        },
+        {
+          "name": "catalogue_categories",
+          "demand": 1,
+          "dependencies": [
+            {
+              "service": "catalogue",
+              "operation": "categories",
+              "probability": 1.0
+            }
+          ]
+        },
+        {
+          "name": "catalogue_products",
+          "demand": 1,
+          "dependencies": [
+            {
+              "service": "catalogue",
+              "operation": "products",
+              "probability": 1.0
+            }
+          ]
+        },
+        {
+          "name": "catalogue_product",
+          "demand": 1,
+          "dependencies": [
+            {
+              "service": "catalogue",
+              "operation": "product",
+              "probability": 1.0
+            }
+          ]
+        },
+        {
+          "name": "ratings_rate",
+          "demand": 1,
+          "dependencies": [
+            {
+              "service": "ratings",
+              "operation": "rate",
+              "probability": 1.0
+            }
+          ]
+        },
+        {
+          "name": "ratings_fetch",
+          "demand": 1,
+          "dependencies": [
+            {
+              "service": "ratings",
+              "operation": "fetch",
+              "probability": 1.0
+            }
+          ]
+        },
+        {
+          "name": "cart_add",
+          "demand": 1,
+          "dependencies": [
+            {
+              "service": "cart",
+              "operation": "add",
+              "probability": 1.0
+            }
+          ]
+        },
+        {
+          "name": "cart_cart",
+          "demand": 1,
+          "dependencies": [
+            {
+              "service": "cart",
+              "operation": "cart",
+              "probability": 1.0
+            }
+          ]
+        },
+        {
+          "name": "cart_update",
+          "demand": 1,
+          "dependencies": [
+            {
+              "service": "cart",
+              "operation": "update",
+              "probability": 1.0
+            }
+          ]
+        },
+        {
+          "name": "shipping_confirm",
+          "demand": 1,
+          "dependencies": [
+            {
+              "service": "shipping",
+              "operation": "confirm",
+              "probability": 1.0
+            }
+          ]
+        },
+        {
+          "name": "shipping_codes",
+          "demand": 1,
+          "dependencies": [
+            {
+              "service": "shipping",
+              "operation": "codes",
+              "probability": 1.0
+            }
+          ]
+        },
+        {
+          "name": "shipping_cities",
+          "demand": 1,
+          "dependencies": [
+            {
+              "service": "shipping",
+              "operation": "cities",
+              "probability": 1.0
+            }
+          ]
+        },
+        {
+          "name": "shipping_calc",
+          "demand": 1,
+          "dependencies": [
+            {
+              "service": "shipping",
+              "operation": "calc",
+              "probability": 1.0
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "cart",
+      "instances": 1,
+      "loadbalancer_strategy": "even",
+      "patterns": [],
+      "capacity": 1000,
+      "operations": [
+        {
+          "name": "add",
+          "demand": 49,
+          "dependencies": [
+            {
+              "service": "catalogue",
+              "operation": "product",
+              "probability": 1.0
+            },
+            {
+              "service": "redis",
+              "operation": "cart_add",
+              "probability": 1.0
+            }
+          ]
+        },
+        {
+          "name": "cart",
+          "demand": 21,
+          "dependencies": [
+            {
+              "service": "redis",
+              "operation": "cart_cart",
+              "probability": 1.0
+            }
+          ]
+        },
+        {
+          "name": "update",
+          "demand": 22,
+          "dependencies": [
+            {
+              "service": "redis",
+              "operation": "cart_update",
+              "probability": 1.0
+            }
+          ]
+        },
+        {
+          "name": "shipping",
+          "demand": 1,
+          "dependencies": [
+            {
+              "service": "redis",
+              "operation": "cart_shipping",
+              "probability": 1.0
+            }
+          ]
+        },
+        {
+          "name": "delete",
+          "demand": 1,
+          "dependencies": [
+            {
+              "service": "redis",
+              "operation": "cart_delete",
+              "probability": 1.0
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "catalogue",
+      "instances": 1,
+      "loadbalancer_strategy": "even",
+      "patterns": [],
+      "capacity": 1000,
+      "operations": [
+        {
+          "name": "categories",
+          "demand": 27,
+          "dependencies": [
+            {
+              "service": "mongodb",
+              "operation": "catalogue_categories",
+              "probability": 1.0
+            }
+          ]
+        },
+        {
+          "name": "product",
+          "demand": 31,
+          "dependencies": [
+            {
+              "service": "mongodb",
+              "operation": "catalogue_product",
+              "probability": 1.0
+            }
+          ]
+        },
+        {
+          "name": "products",
+          "demand": 31,
+          "dependencies": [
+            {
+              "service": "mongodb",
+              "operation": "catalogue_products",
+              "probability": 1.0
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "ratings",
+      "instances": 1,
+      "loadbalancer_strategy": "even",
+      "patterns": [],
+      "capacity": 1000,
+      "operations": [
+        {
+          "name": "fetch",
+          "demand": 9,
+          "dependencies": [
+            {
+              "service": "mysql",
+              "operation": "ratings_fetch",
+              "probability": 1.0
+            }
+          ]
+        },
+        {
+          "name": "rate",
+          "demand": 20,
+          "dependencies": [
+            {
+              "service": "catalogue",
+              "operation": "product",
+              "probability": 1.0
+            },
+            {
+              "service": "mysql",
+              "operation": "ratings_rate",
+              "probability": 1.0
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "shipping",
+      "instances": 1,
+      "loadbalancer_strategy": "even",
+      "patterns": [],
+      "capacity": 1000,
+      "operations": [
+        {
+          "name": "calc",
+          "demand": 6,
+          "dependencies": [
+            {
+              "service": "mysql",
+              "operation": "shipping_calc",
+              "probability": 1.0
+            }
+          ]
+        },
+        {
+          "name": "cities",
+          "demand": 2000,
+          "dependencies": [
+            {
+              "service": "mysql",
+              "operation": "shipping_cities",
+              "probability": 1.0
+            }
+          ]
+        },
+        {
+          "name": "codes",
+          "demand": 6,
+          "dependencies": [
+            {
+              "service": "mysql",
+              "operation": "shipping_codes",
+              "probability": 1.0
+            }
+          ]
+        },
+        {
+          "name": "confirm",
+          "demand": 13,
+          "dependencies": [
+            {
+              "service": "cart",
+              "operation": "shipping",
+              "probability": 1.0
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "user",
+      "instances": 1,
+      "loadbalancer_strategy": "even",
+      "patterns": [],
+      "capacity": 1000,
+      "operations": [
+        {
+          "name": "login",
+          "demand": 34,
+          "dependencies": [
+            {
+              "service": "mongodb",
+              "operation": "user_login",
+              "probability": 1.0
+            }
+          ]
+        },
+        {
+          "name": "uniqueid",
+          "demand": 22,
+          "dependencies": [
+            {
+              "service": "redis",
+              "operation": "user_uniqueid",
+              "probability": 1.0
+            }
+          ]
+        },
+        {
+          "name": "check",
+          "demand": 1,
+          "dependencies": [
+            {
+              "service": "mongodb",
+              "operation": "user_check",
+              "probability": 1.0
+            }
+          ]
+        },
+        {
+          "name": "order",
+          "demand": 1,
+          "dependencies": [
+            {
+              "service": "mongodb",
+              "operation": "user_order",
+              "probability": 1.0
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "payment",
+      "instances": 1,
+      "loadbalancer_strategy": "even",
+      "patterns": [],
+      "capacity": 1000,
+      "operations": [
+        {
+          "name": "pay",
+          "demand": 1,
+          "dependencies": [
+            {
+              "service": "rabbitmq",
+              "operation": "forwardMessage",
+              "probability": 1.0
+            },
+            {
+              "service": "user",
+              "operation": "check",
+              "probability": 1.0
+            },
+            {
+              "service": "user",
+              "operation": "order",
+              "probability": 1.0
+            },
+            {
+              "service": "cart",
+              "operation": "delete",
+              "probability": 1.0
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "rabbitmq",
+      "instances": 1,
+      "loadbalancer_strategy": "even",
+      "patterns": [],
+      "capacity": 1000,
+      "operations": [
+        {
+          "name": "forwardMessage",
+          "demand": 1,
+          "dependencies": [
+            {
+              "service": "dispatch",
+              "operation": "receiveMessage",
+              "probability": 1.0
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "dispatch",
+      "instances": 1,
+      "loadbalancer_strategy": "even",
+      "patterns": [],
+      "capacity": 1000,
+      "operations": [
+        {
+          "name": "receiveMessage",
+          "demand": 1,
+          "dependencies": []
+        }
+      ]
+    },
+    {
+      "name": "mongodb",
+      "instances": 1,
+      "loadbalancer_strategy": "even",
+      "patterns": [],
+      "capacity": 1000,
+      "operations": [
+        {
+          "name": "user_login",
+          "demand": 1,
+          "dependencies": []
+        },
+        {
+          "name": "user_check",
+          "demand": 1,
+          "dependencies": []
+        },
+        {
+          "name": "user_order",
+          "demand": 3,
+          "dependencies": []
+        },
+        {
+          "name": "catalogue_categories",
+          "demand": 1,
+          "dependencies": []
+        },
+        {
+          "name": "catalogue_products",
+          "demand": 1,
+          "dependencies": []
+        },
+        {
+          "name": "catalogue_product",
+          "demand": 1,
+          "dependencies": []
+        }
+      ]
+    },
+    {
+      "name": "redis",
+      "instances": 1,
+      "loadbalancer_strategy": "even",
+      "patterns": [],
+      "capacity": 1000,
+      "operations": [
+        {
+          "name": "user_uniqueid",
+          "demand": 1,
+          "dependencies": []
+        },
+        {
+          "name": "cart_add",
+          "demand": 2,
+          "dependencies": []
+        },
+        {
+          "name": "cart_cart",
+          "demand": 1,
+          "dependencies": []
+        },
+        {
+          "name": "cart_update",
+          "demand": 2,
+          "dependencies": []
+        },
+        {
+          "name": "cart_shipping",
+          "demand": 2,
+          "dependencies": []
+        },
+        {
+          "name": "cart_delete",
+          "demand": 1,
+          "dependencies": []
+        }
+      ]
+    },
+    {
+      "name": "mysql",
+      "instances": 1,
+      "loadbalancer_strategy": "even",
+      "patterns": [],
+      "capacity": 1000,
+      "operations": [
+        {
+          "name": "ratings_rate",
+          "demand": 2,
+          "dependencies": []
+        },
+        {
+          "name": "ratings_fetch",
+          "demand": 1,
+          "dependencies": []
+        },
+        {
+          "name": "shipping_codes",
+          "demand": 1,
+          "dependencies": []
+        },
+        {
+          "name": "shipping_cities",
+          "demand": 1,
+          "dependencies": []
+        },
+        {
+          "name": "shipping_calc",
+          "demand": 1,
+          "dependencies": []
+        }
+      ]
+    }
+  ]
+}

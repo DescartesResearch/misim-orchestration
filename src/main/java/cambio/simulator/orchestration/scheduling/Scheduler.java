@@ -2,6 +2,7 @@ package cambio.simulator.orchestration.scheduling;
 
 import cambio.simulator.entities.NamedEntity;
 import cambio.simulator.orchestration.entities.Cluster;
+import cambio.simulator.orchestration.entities.kubernetes.Node;
 import cambio.simulator.orchestration.entities.kubernetes.Pod;
 import cambio.simulator.orchestration.management.ManagementPlane;
 
@@ -24,6 +25,12 @@ public abstract class Scheduler extends NamedEntity implements Comparable<Schedu
     public abstract SchedulerType getSchedulerType();
 
     public abstract void schedulePods();
+
+    public void onNodesRemoval(List<Node> nodes) {
+        for (Node n : nodes) {
+            cluster.deleteNode(n);
+        }
+    }
 
     public @Nullable Pod getNextPodFromWaitingQueue() {
         if (!podWaitingQueue.isEmpty()) {
@@ -61,7 +68,7 @@ public abstract class Scheduler extends NamedEntity implements Comparable<Schedu
 
     @Override
     public int compareTo(Scheduler scheduler) {
-        return this.getPRIO() < scheduler.getPRIO() ? -1 : 1;
+        return Integer.compare(this.getPRIO(), scheduler.getPRIO());
     }
 
 

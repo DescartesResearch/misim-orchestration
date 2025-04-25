@@ -127,6 +127,10 @@ public class ManagementPlane {
 
     }
 
+    public List<Scheduler> getActiveSchedulers() {
+        return new ArrayList<>(schedulerMap.values());
+    }
+
     public Pod getPodByName(String name) {
         List<Pod> collect =
                 deployments.stream().map(deployment -> new ArrayList<>(deployment.getReplicaSet())).flatMap(Collection::stream).collect(Collectors.toList());
@@ -138,7 +142,7 @@ public class ManagementPlane {
      * Returns all pods that are known by all nodes. That means they either are running or at least placed on the node
      * while waiting for being started
      *
-     * @return
+     * @return Returns all pods that are known by all nodes
      */
     public List<Pod> getAllPodsPlacedOnNodes() {
         return cluster.getNodes().stream().map(node -> new ArrayList<>(node.getPods())).flatMap(Collection::stream).collect(Collectors.toList());

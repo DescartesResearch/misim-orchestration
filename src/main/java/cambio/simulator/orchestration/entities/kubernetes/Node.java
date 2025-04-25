@@ -40,14 +40,21 @@ public class Node extends NamedEntity {
     }
 
     public synchronized boolean addPod(Pod pod, int additionalDelay) {
-        boolean notEnoughCPUAvailable = this.getReserved() + pod.getCPUDemand() > this.getTotalCPU();
-        if (notEnoughCPUAvailable) return false;
-        this.reserved += pod.getCPUDemand();
+        boolean notEnoughCPUAvailable = roundByThreeDecimals(this.getReserved() + pod.getCPUDemand()) > this.getTotalCPU();
+        if (notEnoughCPUAvailable) {
+            System.out.printf("Node: %s, Capacity: %.3f, Reserved: %.3f, Additional Demand: %.3f\n", getPlainName(), totalCPU, reserved, pod.getCPUDemand());
+            return false;
+        }
+        this.reserved = roundByThreeDecimals(reserved + pod.getCPUDemand());
         pods.add(pod);
         final StartPodEvent startPodEvent = new StartPodEvent(getModel(), "StartPodEvent", traceIsOn());
         startPodEvent.schedule(pod, new TimeSpan(additionalDelay));
         pod.setLastKnownNode(this);
         return true;
+    }
+
+    private double roundByThreeDecimals(double d) {
+        return Math.round(d * 100.0) / 100.0;
     }
 
     public void startRemovingPod(Pod pod) {
@@ -72,6 +79,17 @@ public class Node extends NamedEntity {
         HealthCheckEvent healthCheckEvent = new HealthCheckEvent(getModel(), "HealthCheckEvent - After Scaling",
                 traceIsOn());
         healthCheckEvent.schedule(new TimeSpan(HealthCheckEvent.delay));
+    }
+
+    public void failInstantly() {
+        sendTraceNote("Node " + this.getQuotedName() + " fails, results in failure of all pods on node");
+        for (Pod pod : pods) {
+            sendTraceNote("Pod " + pod.getQuotedName() + " fails due to node failure");
+            pod.transitionToState(PodState.FAILED);
+            Stats.NodePodEventRecord record =
+                    Stats.NodePodEventRecord.builder().time((int) presentTime().getTimeAsDouble()).podName(pod.getName()).nodeName(this.getPlainName()).scheduler(pod.getSchedulerName()).event("Pod Failure").outcome("Success").info(pod.getName() + " has failed on node " + this.getPlainName()).desiredState(pod.getOwner().getDesiredReplicaCount()).currentState(ManagementPlane.getInstance().getAmountOfPodsOnNodes(pod.getOwner())).build();
+            Stats.getInstance().getNodePodEventRecords().add(record);
+        }
     }
 
     private static class PodDoesNotBelongToNodeException extends IllegalArgumentException {

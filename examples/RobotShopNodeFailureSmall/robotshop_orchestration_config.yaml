@@ -1,0 +1,54 @@
+orchestrate: true
+orchestrationDir: "./examples/RobotShopNodeFailureSmall/orchestration"
+importNodes: true
+networkDelays:
+  enabled: false
+scheduler: kube
+initialSchedulingOrder:
+  enabled: true
+  order:
+    - web
+    - user
+    - shipping
+    - redis
+    - ratings
+    - rabbitmq
+    - payment
+    - mysql
+    - mongodb
+    - dispatch
+    - catalogue
+    - cart
+scalingInterval: 15
+healthCheckDelay: 0
+useClusterAutoscaler: true
+startUpTimeContainer:
+  - name: cart
+    time: 5
+  - name: catalogue
+    time: 5
+  - name: dispatch
+    time: 5
+  - name: mongodb
+    time: 5
+  - name: mysql
+    time: 5
+  - name: payment
+    time: 5
+  - name: rabbitmq
+    time: 5
+  - name: ratings
+    time: 5
+  - name: redis
+    time: 5
+  - name: shipping
+    time: 5
+  - name: user
+    time: 5
+  - name: web
+    time: 5
+startUpTimeNode:
+  - pattern: large
+    time: 120
+  - pattern: small
+    time: 120
