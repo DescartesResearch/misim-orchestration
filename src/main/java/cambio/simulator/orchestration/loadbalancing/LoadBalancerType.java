@@ -6,7 +6,8 @@ public enum LoadBalancerType {
     LEAST_UTIL("LeastUtilBalancer"),
     EVEN("EvenLoadBalancer"),
     QUICK_ROUND_ROBIN("QuickRoundRobinLoadBalancer"),
-    ROUND_ROBIN("RoundRobinLoadBalancer");
+    ROUND_ROBIN("RoundRobinLoadBalancer"),
+    TOPOLOGY_AWARE("TopologyAwareLoadBalancer");
 
     LoadBalancerType(String displayName) {
         this.displayName = displayName;

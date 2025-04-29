@@ -90,9 +90,20 @@ public class Deployment extends NamedEntity {
         V1Pod result = new V1Pod();
         result.setApiVersion("v1");
         result.setKind("Pod");
-        result.setMetadata(new V1ObjectMeta().name(name).namespace("default").uid(name));
-        // We need to make a deep copy of the template here -> safest way is to serialize and deserialize
+        V1ObjectMeta meta;
         Gson gson = new Gson();
+        if (kubernetesRepresentation.getSpec().getTemplate().getMetadata() == null) {
+            meta = new V1ObjectMeta();
+        } else {
+            // We need to make a deep copy of the template here -> safest way is to serialize and deserialize
+            meta = gson.fromJson(gson.toJson(kubernetesRepresentation.getSpec().getTemplate().getMetadata()),
+                    V1ObjectMeta.class);
+        }
+        meta.setName(name);
+        meta.setNamespace("default");
+        meta.setUid(name);
+        result.setMetadata(meta);
+        // We need to make a deep copy of the template here -> safest way is to serialize and deserialize
         V1PodSpec spec = gson.fromJson(gson.toJson(kubernetesRepresentation.getSpec().getTemplate().getSpec()),
                 V1PodSpec.class);
         result.setSpec(spec);

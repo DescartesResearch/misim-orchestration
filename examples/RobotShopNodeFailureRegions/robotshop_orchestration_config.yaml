@@ -1,0 +1,132 @@
+orchestrate: true
+orchestrationDir: "./examples/RobotShopNodeFailureRegions/orchestration"
+importNodes: true
+networkDelays:
+  enabled: true
+  delayMap:
+    web-eu:
+      worker-eu:
+        mean: 0.000319
+        std: 0.000129
+      worker-asia:
+        mean: 0.296453
+        std: 0.000656
+      worker-southamerica:
+        mean: 0.199707
+        std: 0.000601
+      worker-us:
+        mean: 0.110386
+        std: 0.000474
+    worker-eu:
+      worker-eu:
+        mean: 0.000319
+        std: 0.000129
+      worker-asia:
+        mean: 0.296453
+        std: 0.000656
+      worker-southamerica:
+        mean: 0.199707
+        std: 0.000601
+      worker-us:
+        mean: 0.110386
+        std: 0.000474
+    web-asia:
+      worker-eu:
+        mean: 0.296453
+        std: 0.000656
+      worker-asia:
+        mean: 0.000319
+        std: 0.000129
+      worker-southamerica:
+        mean: 0.339583
+        std: 0.00124
+      worker-us:
+        mean: 0.185847
+        std: 0.000594
+    worker-asia:
+      worker-asia:
+        mean: 0.000319
+        std: 0.000129
+      worker-southamerica:
+        mean: 0.339583
+        std: 0.00124
+      worker-us:
+        mean: 0.185847
+        std: 0.000594
+    web-southamerica:
+      worker-eu:
+        mean: 0.199707
+        std: 0.000601
+      worker-asia:
+        mean: 0.339583
+        std: 0.00124
+      worker-southamerica:
+        mean: 0.000319
+        std: 0.000129
+      worker-us:
+        mean: 0.143903
+        std: 0.000191
+    worker-southamerica:
+      worker-southamerica:
+        mean: 0.000319
+        std: 0.000129
+      worker-us:
+        mean: 0.143903
+        std: 0.000191
+    web-us:
+      worker-eu:
+        mean: 0.110386
+        std: 0.000474
+      worker-asia:
+        mean: 0.185847
+        std: 0.000594
+      worker-southamerica:
+        mean: 0.143903
+        std: 0.000191
+      worker-us:
+        mean: 0.000319
+        std: 0.000129
+scheduler: kube
+initialSchedulingOrder:
+  enabled: true
+  order:
+    - web
+    - user
+    - shipping
+    - redis
+    - ratings
+    - rabbitmq
+    - payment
+    - mysql
+    - mongodb
+    - dispatch
+    - catalogue
+    - cart
+scalingInterval: 15
+healthCheckDelay: 0
+useClusterAutoscaler: false
+startUpTimeContainer:
+  - name: cart
+    time: 5
+  - name: catalogue
+    time: 5
+  - name: dispatch
+    time: 5
+  - name: mongodb
+    time: 5
+  - name: mysql
+    time: 5
+  - name: payment
+    time: 5
+  - name: rabbitmq
+    time: 5
+  - name: ratings
+    time: 5
+  - name: redis
+    time: 5
+  - name: shipping
+    time: 5
+  - name: user
+    time: 5
+  - name: web
+    time: 5

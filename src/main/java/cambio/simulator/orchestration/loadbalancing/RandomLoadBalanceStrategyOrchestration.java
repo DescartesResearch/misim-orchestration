@@ -2,6 +2,7 @@ package cambio.simulator.orchestration.loadbalancing;
 
 import cambio.simulator.entities.microservice.MicroserviceInstance;
 import cambio.simulator.entities.microservice.NoInstanceAvailableException;
+import cambio.simulator.entities.networking.Request;
 import cambio.simulator.orchestration.entities.Container;
 import cambio.simulator.orchestration.entities.ContainerState;
 import cambio.simulator.orchestration.entities.kubernetes.Pod;
@@ -15,12 +16,12 @@ public class RandomLoadBalanceStrategyOrchestration implements IOrchestrationLoa
     Random random = new Random(ManagementPlane.getInstance().getExperimentSeed());
 
     @Override
-    public MicroserviceInstance getNextInstance(Collection<MicroserviceInstance> runningInstances) throws NoInstanceAvailableException {
+    public MicroserviceInstance getNextInstance(Collection<MicroserviceInstance> runningInstances, Request request) throws NoInstanceAvailableException {
         throw new UnsupportedOperationException("Not supposed to be called in orchestration mode");
     }
 
     @Override
-    public MicroserviceInstance getNextInstance(MicroserviceOrchestration microserviceOrchestration) throws NoInstanceAvailableException {
+    public MicroserviceInstance getNextInstance(MicroserviceOrchestration microserviceOrchestration, Request request) throws NoInstanceAvailableException {
         final Set<Pod> replicaSet = microserviceOrchestration.getDeployment().getRunningReplicas();
 
         List<Pod> pods = new ArrayList<>(replicaSet);

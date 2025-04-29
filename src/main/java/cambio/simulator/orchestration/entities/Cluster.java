@@ -62,6 +62,7 @@ public class Cluster {
     public double getNetworkDelay(String sourceNode, String targetNode) {
         if (delayMap == null) return 0;
         OrchestrationConfig.NetworkDelays.NetworkInfo networkInfo = null;
+        // Search for exact match
         if (delayMap.containsKey(sourceNode)) {
             if (delayMap.get(sourceNode).containsKey(targetNode)) {
                 networkInfo = delayMap.get(sourceNode).get(targetNode);
@@ -70,6 +71,23 @@ public class Cluster {
         if (networkInfo == null && delayMap.containsKey(targetNode)) {
             if (delayMap.get(targetNode).containsKey(sourceNode)) {
                 networkInfo = delayMap.get(targetNode).get(sourceNode);
+            }
+        }
+        // Search for pattern
+        Optional<String> sourceMatch = delayMap.keySet().stream().filter(s -> Pattern.compile(s).matcher(sourceNode).find()).findFirst();
+        if (sourceMatch.isPresent()) {
+            Optional<String> targetMatch = delayMap.get(sourceMatch.get()).keySet().stream().filter(s -> Pattern.compile(s).matcher(targetNode).find()).findFirst();
+            if (targetMatch.isPresent()) {
+                networkInfo = delayMap.get(sourceMatch.get()).get(targetMatch.get());
+            }
+        }
+        if (networkInfo == null) {
+            Optional<String> targetMatch = delayMap.keySet().stream().filter(s -> Pattern.compile(s).matcher(targetNode).find()).findFirst();
+            if (targetMatch.isPresent()) {
+                sourceMatch = delayMap.get(targetMatch.get()).keySet().stream().filter(s -> Pattern.compile(s).matcher(sourceNode).find()).findFirst();
+                if (sourceMatch.isPresent()) {
+                    networkInfo = delayMap.get(targetMatch.get()).get(sourceMatch.get());
+                }
             }
         }
         if (networkInfo == null) {

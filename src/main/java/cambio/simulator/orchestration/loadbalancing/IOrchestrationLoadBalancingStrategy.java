@@ -2,6 +2,7 @@ package cambio.simulator.orchestration.loadbalancing;
 
 import cambio.simulator.entities.microservice.MicroserviceInstance;
 import cambio.simulator.entities.microservice.NoInstanceAvailableException;
+import cambio.simulator.entities.networking.Request;
 import cambio.simulator.entities.patterns.ILoadBalancingStrategy;
 import cambio.simulator.orchestration.entities.MicroserviceOrchestration;
 
@@ -12,10 +13,11 @@ public interface IOrchestrationLoadBalancingStrategy extends ILoadBalancingStrat
      * compatability with old version. Inside the orchestration plugin, only this method is used. Other method throws
      * UnsupportedOperationException if used in orchestration mode.
      * @param microserviceOrchestration
+     * @param request
      * @return
      * @throws NoInstanceAvailableException
      */
-    default MicroserviceInstance getNextInstance(MicroserviceOrchestration microserviceOrchestration) throws
+    default MicroserviceInstance getNextInstance(MicroserviceOrchestration microserviceOrchestration, Request request) throws
             NoInstanceAvailableException {
         return null;
     }

@@ -24,15 +24,14 @@ public class MicroserviceOrchestrationInstance extends MicroserviceInstance {
         }
     }
 
-    @Override
-    protected void submitProcessToCPU(CPUProcess newProcess) {
+    protected void submitProcessToCPU(CPUProcess newProcess, Request request) {
         MiSimOrchestrationModel model = (MiSimOrchestrationModel) getModel();
         if (model.getOrchestrationConfig().isOrchestrate()){
             MicroserviceOrchestration owner = (MicroserviceOrchestration) this.getOwner();
-            MicroserviceInstance nextAvailableInstance = owner.getNextAvailableInstance();
+            MicroserviceInstance nextAvailableInstance = owner.getNextAvailableInstance(request);
             nextAvailableInstance.getCpu().submitProcess(newProcess);
         } else {
-            super.submitProcessToCPU(newProcess);
+            submitProcessToCPU(newProcess);
         }
     }
 
@@ -76,7 +75,7 @@ public class MicroserviceOrchestrationInstance extends MicroserviceInstance {
         } else if (request.getDependencies().isEmpty() || request.areDependenciesCompleted()) {
             waiting--;
             CPUProcess newProcess = new CPUProcess(request);
-            submitProcessToCPU(newProcess);
+            submitProcessToCPU(newProcess, request);
         } else {
             for (ServiceDependencyInstance dependency : request.getDependencies()) {
                 currentlyOpenDependencies.add(dependency);

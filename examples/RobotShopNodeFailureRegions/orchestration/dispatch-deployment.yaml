@@ -1,0 +1,71 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: dispatch
+  labels:
+    service: dispatch
+spec:
+  replicas: 4
+  selector:
+    matchLabels:
+      service: dispatch
+  template:
+    metadata:
+      labels:
+        service: dispatch
+    spec:
+      nodeSelector:
+        node-role: worker
+      affinity:
+        podAntiAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            - labelSelector:
+                matchExpressions:
+                  - key: service
+                    operator: In
+                    values:
+                      - dispatch
+              topologyKey: "kubernetes.io/hostname"
+      serviceAccountName: robot-shop
+      schedulerName: kube
+      initContainers: # Adding init container here
+        - name: check-rabbitmq
+          image: busybox:1.28 # or any suitable image containing curl or netcat
+          command:
+            - 'sh'
+            - '-c'
+            - 'until nc -z rabbitmq 5672; do echo waiting for rabbitmq; sleep 2; done'
+      containers:
+        - name: dispatch
+          image: rs-dispatch
+          imagePullPolicy: Always
+          env:
+            # agent networking access
+            - name: INSTANA_AGENT_HOST
+              valueFrom:
+                fieldRef:
+                  fieldPath: status.hostIP
+          resources:
+            limits:
+              cpu: 50m
+              memory: 100Mi
+            requests:
+              cpu: 50m
+              memory: 100Mi
+          readinessProbe:
+            httpGet:
+              path: /mqready
+              port: 8080
+            initialDelaySeconds: 30
+            periodSeconds: 10
+            successThreshold: 1
+            failureThreshold: 3
+          livenessProbe:
+            httpGet:
+              path: /mqready
+              port: 8080
+            initialDelaySeconds: 60
+            periodSeconds: 30
+            successThreshold: 1
+            failureThreshold: 3
+      restartPolicy: Always

@@ -158,7 +158,7 @@ public class KubernetesReporter {
         CSVBuilder csvBuilder = new CSVBuilder();
 
         // Set headers
-        List<String> headers = Arrays.asList("Time", "desiredDeplState", "currentDeplStateOnNode", "Pod", "Node",
+        List<String> headers = Arrays.asList("Time", "desiredDeplState", "currentDeplStateOnNode", "Pod", "Node", "MicroserviceInstance",
                 "Scheduler", "Event", "Status", "Details");
         csvBuilder.headers(headers);
 
@@ -167,8 +167,8 @@ public class KubernetesReporter {
             List<String> row = Arrays.asList(String.valueOf(nodePodEventRecord.getTime()),
                     String.valueOf(nodePodEventRecord.getDesiredState()),
                     String.valueOf(nodePodEventRecord.getCurrentState()),
-                    String.valueOf(nodePodEventRecord.getPodName()), String.valueOf(nodePodEventRecord.getNodeName())
-                    , String.valueOf(nodePodEventRecord.getScheduler()),
+                    String.valueOf(nodePodEventRecord.getPodName()), String.valueOf(nodePodEventRecord.getNodeName()),
+                    String.valueOf(nodePodEventRecord.getMicroserviceInstanceName()), String.valueOf(nodePodEventRecord.getScheduler()),
                     String.valueOf(nodePodEventRecord.getEvent()), String.valueOf(nodePodEventRecord.getOutcome()),
                     String.valueOf(nodePodEventRecord.getInfo()));
             csvBuilder.row(row);

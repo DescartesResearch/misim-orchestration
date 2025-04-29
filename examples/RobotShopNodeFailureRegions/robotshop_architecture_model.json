@@ -2,18 +2,9 @@
   "microservices": [
     {
       "name": "web",
-      "instances": 2,
-      "loadbalancer_strategy": "random",
-      "patterns": [
-        {
-          "type": "circuitbreaker",
-          "config": {
-            "threshold": 0.1,
-            "rollingWindow": 300,
-            "sleepWindow": 300
-          }
-        }
-      ],
+      "instances": 4,
+      "loadbalancer_strategy": "othertopology_aware",
+      "patterns": [],
       "capacity": 1000,
       "operations": [
         {
@@ -190,18 +181,9 @@
     },
     {
       "name": "cart",
-      "instances": 1,
-      "loadbalancer_strategy": "random",
-      "patterns": [
-        {
-          "type": "circuitbreaker",
-          "config": {
-            "threshold": 0.1,
-            "rollingWindow": 300,
-            "sleepWindow": 300
-          }
-        }
-      ],
+      "instances": 4,
+      "loadbalancer_strategy": "othertopology_aware",
+      "patterns": [],
       "capacity": 1000,
       "operations": [
         {
@@ -268,8 +250,8 @@
     },
     {
       "name": "catalogue",
-      "instances": 1,
-      "loadbalancer_strategy": "random",
+      "instances": 4,
+      "loadbalancer_strategy": "othertopology_aware",
       "patterns": [],
       "capacity": 1000,
       "operations": [
@@ -310,18 +292,9 @@
     },
     {
       "name": "ratings",
-      "instances": 1,
-      "loadbalancer_strategy": "random",
-      "patterns": [
-        {
-          "type": "circuitbreaker",
-          "config": {
-            "threshold": 0.1,
-            "rollingWindow": 300,
-            "sleepWindow": 300
-          }
-        }
-      ],
+      "instances": 4,
+      "loadbalancer_strategy": "othertopology_aware",
+      "patterns": [],
       "capacity": 1000,
       "operations": [
         {
@@ -355,8 +328,8 @@
     },
     {
       "name": "shipping",
-      "instances": 1,
-      "loadbalancer_strategy": "random",
+      "instances": 4,
+      "loadbalancer_strategy": "othertopology_aware",
       "patterns": [],
       "capacity": 1000,
       "operations": [
@@ -408,8 +381,8 @@
     },
     {
       "name": "user",
-      "instances": 1,
-      "loadbalancer_strategy": "random",
+      "instances": 4,
+      "loadbalancer_strategy": "othertopology_aware",
       "patterns": [],
       "capacity": 1000,
       "operations": [
@@ -461,8 +434,8 @@
     },
     {
       "name": "payment",
-      "instances": 1,
-      "loadbalancer_strategy": "random",
+      "instances": 4,
+      "loadbalancer_strategy": "othertopology_aware",
       "patterns": [],
       "capacity": 1000,
       "operations": [
@@ -496,8 +469,8 @@
     },
     {
       "name": "rabbitmq",
-      "instances": 1,
-      "loadbalancer_strategy": "random",
+      "instances": 4,
+      "loadbalancer_strategy": "othertopology_aware",
       "patterns": [],
       "capacity": 1000,
       "operations": [
@@ -516,8 +489,8 @@
     },
     {
       "name": "dispatch",
-      "instances": 1,
-      "loadbalancer_strategy": "random",
+      "instances": 4,
+      "loadbalancer_strategy": "othertopology_aware",
       "patterns": [],
       "capacity": 1000,
       "operations": [
@@ -530,8 +503,8 @@
     },
     {
       "name": "mongodb",
-      "instances": 1,
-      "loadbalancer_strategy": "random",
+      "instances": 4,
+      "loadbalancer_strategy": "othertopology_aware",
       "patterns": [],
       "capacity": 1000,
       "operations": [
@@ -569,8 +542,8 @@
     },
     {
       "name": "redis",
-      "instances": 1,
-      "loadbalancer_strategy": "random",
+      "instances": 4,
+      "loadbalancer_strategy": "othertopology_aware",
       "patterns": [],
       "capacity": 1000,
       "operations": [
@@ -608,8 +581,8 @@
     },
     {
       "name": "mysql",
-      "instances": 1,
-      "loadbalancer_strategy": "random",
+      "instances": 4,
+      "loadbalancer_strategy": "othertopology_aware",
       "patterns": [],
       "capacity": 1000,
       "operations": [

@@ -1,0 +1,65 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: rabbitmq
+  labels:
+    service: rabbitmq
+spec:
+  replicas: 4
+  selector:
+    matchLabels:
+      service: rabbitmq
+  template:
+    metadata:
+      labels:
+        service: rabbitmq
+    spec:
+      nodeSelector:
+        node-role: worker
+      affinity:
+        podAntiAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            - labelSelector:
+                matchExpressions:
+                  - key: service
+                    operator: In
+                    values:
+                      - rabbitmq
+              topologyKey: "kubernetes.io/hostname"
+      serviceAccountName: robot-shop
+      schedulerName: kube
+      containers:
+      - name: rabbitmq
+        image: rabbitmq:3.7-management-alpine
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 5672
+        - containerPort: 15672
+        resources:
+          limits:
+            cpu: 200m
+            memory: 512Mi
+          requests:
+            cpu: 100m
+            memory: 256Mi
+        livenessProbe:
+          exec:
+            command:
+            - rabbitmq-diagnostics
+            - -q
+            - ping
+          initialDelaySeconds: 30
+          periodSeconds: 150
+          failureThreshold: 3
+          timeoutSeconds: 120
+        readinessProbe:
+          exec:
+            command:
+            - rabbitmq-diagnostics
+            - -q
+            - ping
+          initialDelaySeconds: 30
+          periodSeconds: 160
+          failureThreshold: 3
+          timeoutSeconds: 120
+      restartPolicy: Always

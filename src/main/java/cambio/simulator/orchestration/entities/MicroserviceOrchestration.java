@@ -1,6 +1,7 @@
 package cambio.simulator.orchestration.entities;
 
 import cambio.simulator.entities.microservice.*;
+import cambio.simulator.entities.networking.Request;
 import cambio.simulator.orchestration.entities.kubernetes.Deployment;
 import cambio.simulator.orchestration.management.ManagementPlane;
 import cambio.simulator.orchestration.loadbalancing.LoadBalancerOrchestration;
@@ -23,10 +24,10 @@ public class MicroserviceOrchestration extends Microservice {
     }
 
     @Override
-    public MicroserviceInstance getNextAvailableInstance() throws NoInstanceAvailableException {
+    public MicroserviceInstance getNextAvailableInstance(Request request) throws NoInstanceAvailableException {
         //TraceNote For debugging purposes
         //sendTraceNote("Finding next instance using " + loadBalancerOrchestration.getPlainName());
-        return loadBalancerOrchestration.getNextServiceInstance();
+        return loadBalancerOrchestration.getNextServiceInstance(request);
     }
 
 

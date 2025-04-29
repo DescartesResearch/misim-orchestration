@@ -3,7 +3,7 @@
     {
       "name": "web",
       "instances": 2,
-      "loadbalancer_strategy": "even",
+      "loadbalancer_strategy": "random",
       "patterns": [],
       "capacity": 1000,
       "operations": [
@@ -182,7 +182,7 @@
     {
       "name": "cart",
       "instances": 1,
-      "loadbalancer_strategy": "even",
+      "loadbalancer_strategy": "random",
       "patterns": [],
       "capacity": 1000,
       "operations": [
@@ -251,7 +251,7 @@
     {
       "name": "catalogue",
       "instances": 1,
-      "loadbalancer_strategy": "even",
+      "loadbalancer_strategy": "random",
       "patterns": [],
       "capacity": 1000,
       "operations": [
@@ -293,7 +293,7 @@
     {
       "name": "ratings",
       "instances": 1,
-      "loadbalancer_strategy": "even",
+      "loadbalancer_strategy": "random",
       "patterns": [],
       "capacity": 1000,
       "operations": [
@@ -329,7 +329,7 @@
     {
       "name": "shipping",
       "instances": 1,
-      "loadbalancer_strategy": "even",
+      "loadbalancer_strategy": "random",
       "patterns": [],
       "capacity": 1000,
       "operations": [
@@ -382,7 +382,7 @@
     {
       "name": "user",
       "instances": 1,
-      "loadbalancer_strategy": "even",
+      "loadbalancer_strategy": "random",
       "patterns": [],
       "capacity": 1000,
       "operations": [
@@ -435,7 +435,7 @@
     {
       "name": "payment",
       "instances": 1,
-      "loadbalancer_strategy": "even",
+      "loadbalancer_strategy": "random",
       "patterns": [],
       "capacity": 1000,
       "operations": [
@@ -470,7 +470,7 @@
     {
       "name": "rabbitmq",
       "instances": 1,
-      "loadbalancer_strategy": "even",
+      "loadbalancer_strategy": "random",
       "patterns": [],
       "capacity": 1000,
       "operations": [
@@ -490,7 +490,7 @@
     {
       "name": "dispatch",
       "instances": 1,
-      "loadbalancer_strategy": "even",
+      "loadbalancer_strategy": "random",
       "patterns": [],
       "capacity": 1000,
       "operations": [
@@ -504,7 +504,7 @@
     {
       "name": "mongodb",
       "instances": 1,
-      "loadbalancer_strategy": "even",
+      "loadbalancer_strategy": "random",
       "patterns": [],
       "capacity": 1000,
       "operations": [
@@ -543,7 +543,7 @@
     {
       "name": "redis",
       "instances": 1,
-      "loadbalancer_strategy": "even",
+      "loadbalancer_strategy": "random",
       "patterns": [],
       "capacity": 1000,
       "operations": [
@@ -582,7 +582,7 @@
     {
       "name": "mysql",
       "instances": 1,
-      "loadbalancer_strategy": "even",
+      "loadbalancer_strategy": "random",
       "patterns": [],
       "capacity": 1000,
       "operations": [

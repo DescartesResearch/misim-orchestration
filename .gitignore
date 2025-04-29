@@ -10,6 +10,9 @@
 # Orchestration reports
 [Oo]rchestration_reports/
 
+# Template folder
+template_scripts/
+
 # target folder
 [Tt]arget/
 

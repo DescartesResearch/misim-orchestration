@@ -2,6 +2,7 @@ package cambio.simulator.orchestration.loadbalancing;
 
 import cambio.simulator.entities.NamedEntity;
 import cambio.simulator.entities.microservice.MicroserviceInstance;
+import cambio.simulator.entities.networking.Request;
 import cambio.simulator.orchestration.entities.MicroserviceOrchestration;
 import desmoj.core.simulator.Model;
 
@@ -15,7 +16,7 @@ public class LoadBalancerOrchestration extends NamedEntity {
         this.microserviceOrchestration = microserviceOrchestration;
     }
 
-    public MicroserviceInstance getNextServiceInstance() {
-        return loadBalancingStrategy.getNextInstance(this.microserviceOrchestration);
+    public MicroserviceInstance getNextServiceInstance(Request request) {
+        return loadBalancingStrategy.getNextInstance(this.microserviceOrchestration, request);
     }
 }

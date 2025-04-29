@@ -158,7 +158,7 @@ public class KubeScheduler extends Scheduler {
             int currentState = ManagementPlane.getInstance().getAmountOfPodsOnNodes(pod.getOwner());
             int time = (int) presentTime().getTimeAsDouble();
             Stats.NodePodEventRecord record =
-                    Stats.NodePodEventRecord.builder().fromBindingInformation(bind).time(time).desiredState(desiredState).currentState(currentState).build();
+                    Stats.NodePodEventRecord.builder().fromBindingInformation(bind).time(time).desiredState(desiredState).currentState(currentState).microserviceInstanceName(pod.getMicroserviceInstanceName()).build();
             Stats.getInstance().getNodePodEventRecords().add(record);
             System.out.println(podName + " was bound on " + boundNode);
             sendTraceNote(this.getQuotedName() + " has scheduled " + pod.getQuotedName() + " on node " + candidateNode);
@@ -172,7 +172,7 @@ public class KubeScheduler extends Scheduler {
             int currentState = ManagementPlane.getInstance().getAmountOfPodsOnNodes(pod.getOwner());
             int time = (int) presentTime().getTimeAsDouble();
             Stats.NodePodEventRecord record =
-                    Stats.NodePodEventRecord.builder().fromBindingFailureInformation(fail).time(time).desiredState(desiredState).currentState(currentState).build();
+                    Stats.NodePodEventRecord.builder().fromBindingFailureInformation(fail).time(time).desiredState(desiredState).currentState(currentState).microserviceInstanceName(pod.getMicroserviceInstanceName()).build();
             Stats.getInstance().getNodePodEventRecords().add(record);
             System.out.println(this.getQuotedName() + " was not able to schedule pod " + pod + ". Reason: " + fail.getMessage());
             sendTraceNote(this.getQuotedName() + " was not able to schedule pod " + pod + ". Reason: " + fail.getMessage());

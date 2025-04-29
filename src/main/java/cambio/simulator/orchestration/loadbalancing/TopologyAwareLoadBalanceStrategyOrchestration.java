@@ -7,12 +7,14 @@ import cambio.simulator.orchestration.entities.MicroserviceOrchestration;
 import cambio.simulator.orchestration.entities.Container;
 import cambio.simulator.orchestration.entities.ContainerState;
 import cambio.simulator.orchestration.entities.kubernetes.Pod;
+import cambio.simulator.orchestration.management.ManagementPlane;
 
 import java.util.*;
 import java.util.stream.Collectors;
 
-public class EvenLoadBalanceStrategyOrchestration implements IOrchestrationLoadBalancingStrategy {
-    private Map<Pod, Integer> distribution = new HashMap<>();
+public class TopologyAwareLoadBalanceStrategyOrchestration implements IOrchestrationLoadBalancingStrategy {
+
+    Random random = new Random(ManagementPlane.getInstance().getExperimentSeed());
 
     @Override
     public MicroserviceInstance getNextInstance(Collection<MicroserviceInstance> runningInstances, Request request) throws NoInstanceAvailableException {
@@ -22,14 +24,18 @@ public class EvenLoadBalanceStrategyOrchestration implements IOrchestrationLoadB
     @Override
     public MicroserviceInstance getNextInstance(MicroserviceOrchestration microserviceOrchestration, Request request) throws NoInstanceAvailableException {
         final Set<Pod> replicaSet = microserviceOrchestration.getDeployment().getRunningReplicas();
-        if (!replicaSet.containsAll(distribution.keySet()) || !distribution.keySet().containsAll(replicaSet)) {
-            distribution = new HashMap<>(replicaSet.size());
-            for (Pod pod : replicaSet) {
-                distribution.put(pod, 0);
-            }
+        List<Pod> sorted;
+        if (request.getRequester() == null) {
+            sorted = new ArrayList<>(replicaSet);
+            Collections.shuffle(sorted, random);
+        } else {
+            Container sourceContainer = ManagementPlane.getInstance().getContainerForMicroServiceInstance(request.getRequester());
+            Pod sourcePod = ManagementPlane.getInstance().getPodForContainer(sourceContainer);
+            String sourceNodeName = sourcePod.getLastKnownNode().getPlainName();
+            sorted = replicaSet.stream()
+                    .sorted(Comparator.comparingDouble(o -> ManagementPlane.getInstance().getCluster().getNetworkDelay(sourceNodeName, o.getLastKnownNode().getPlainName())))
+                    .collect(Collectors.toList());
         }
-
-        List<Pod> sorted = distribution.entrySet().stream().sorted(Comparator.comparingInt(Map.Entry::getValue)).map(Map.Entry::getKey).collect(Collectors.toList());
 
         for (Pod pod : sorted) {
             final Set<Container> containers = pod.getContainers();
@@ -44,3 +50,4 @@ public class EvenLoadBalanceStrategyOrchestration implements IOrchestrationLoadB
         return null;
     }
 }
+

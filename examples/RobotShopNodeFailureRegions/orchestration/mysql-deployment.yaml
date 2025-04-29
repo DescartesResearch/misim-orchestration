@@ -1,0 +1,60 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mysql
+  labels:
+    service: mysql
+spec:
+  replicas: 4
+  selector:
+    matchLabels:
+      service: mysql
+  template:
+    metadata:
+      labels:
+        service: mysql
+    spec:
+      nodeSelector:
+        node-role: worker
+      affinity:
+        podAntiAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            - labelSelector:
+                matchExpressions:
+                  - key: service
+                    operator: In
+                    values:
+                      - mysql
+              topologyKey: "kubernetes.io/hostname"
+      serviceAccountName: robot-shop
+      schedulerName: kube
+      containers:
+        - name: mysql
+          image: rs-mysql-db
+          imagePullPolicy: Always
+          # added for Istio
+          securityContext:
+            capabilities:
+              add: ["NET_ADMIN"]
+          ports:
+            - containerPort: 3306
+          resources:
+            requests:
+              cpu: 300m
+              memory: 1400Mi
+          livenessProbe:
+            exec:
+              command: ["mysqladmin", "ping"]
+            initialDelaySeconds: 30
+            periodSeconds: 10
+            timeoutSeconds: 5
+          readinessProbe:
+            exec:
+              command:
+                - sh
+                - -c
+                - "mysql -h 127.0.0.1 -e 'SELECT 1 FROM information_schema.tables WHERE table_schema = \"cities\" AND table_name = \"cities\" LIMIT 1;'"
+            initialDelaySeconds: 60
+            periodSeconds: 30
+            timeoutSeconds: 1
+      restartPolicy: Always

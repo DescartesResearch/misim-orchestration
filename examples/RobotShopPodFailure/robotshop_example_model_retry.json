@@ -1,6 +1,6 @@
 {
   "simulation_meta_data": {
-    "experiment_name": "RobotShop_PodFailure",
+    "experiment_name": "RobotShop_PodFailure_retry",
     "model_name": "architecture_model_retry",
     "duration": 180,
     "report": "",

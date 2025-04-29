@@ -38,6 +38,7 @@ public class Stats {
         private int time;
         private String podName;
         private String nodeName;
+        private String microserviceInstanceName;
         private String scheduler;
         private String event;
         private String outcome;
@@ -49,6 +50,7 @@ public class Stats {
             this.time = builder.time;
             this.podName = builder.podName;
             this.nodeName = builder.nodeName;
+            this.microserviceInstanceName = builder.microserviceInstanceName;
             this.scheduler = builder.scheduler;
             this.event = builder.event;
             this.outcome = builder.outcome;
@@ -65,6 +67,7 @@ public class Stats {
             private int time;
             private String podName;
             private String nodeName;
+            private String microserviceInstanceName;
             private String scheduler;
             private String event;
             private String outcome;
@@ -106,6 +109,11 @@ public class Stats {
 
             public Builder nodeName(String nodeName) {
                 this.nodeName = nodeName;
+                return this;
+            }
+
+            public Builder microserviceInstanceName(String microserviceInstanceName) {
+                this.microserviceInstanceName = microserviceInstanceName;
                 return this;
             }
 

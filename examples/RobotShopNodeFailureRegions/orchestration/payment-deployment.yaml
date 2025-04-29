@@ -1,0 +1,67 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: payment
+  labels:
+    service: payment
+    stage: prod
+spec:
+  replicas: 4
+  selector:
+    matchLabels:
+      service: payment
+      stage: prod
+  template:
+    metadata:
+      labels:
+        service: payment
+        stage: prod
+    spec:
+      nodeSelector:
+        node-role: worker
+      affinity:
+        podAntiAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            - labelSelector:
+                matchExpressions:
+                  - key: service
+                    operator: In
+                    values:
+                      - payment
+              topologyKey: "kubernetes.io/hostname"
+      serviceAccountName: robot-shop
+      schedulerName: kube
+      initContainers:
+        - name: check-dispatch
+          image: busybox:1.28 # or another suitable image containing netcat or curl
+          command:
+            - 'sh'
+            - '-c'
+            - 'until nc -z dispatch 8080; do echo waiting for dispatch; sleep 2; done' # Replace with the correct hostname and port if different
+
+      containers:
+        - name: payment
+          image: rs-payment
+          imagePullPolicy: Always
+          # agent networking access
+          env:
+            - name: INSTANA_AGENT_HOST
+              valueFrom:
+                fieldRef:
+                  fieldPath: status.hostIP
+            - name: PAYMENT_GATEWAY
+              value: "paypal.com"
+          ports:
+            - containerPort: 8080
+          resources:
+            limits:
+              cpu: 200m
+              memory: 100Mi
+            requests:
+              cpu: 200m
+              memory: 100Mi
+      restartPolicy: Always
+      securityContext:
+        sysctls:
+          - name: net.core.somaxconn
+            value: "200"

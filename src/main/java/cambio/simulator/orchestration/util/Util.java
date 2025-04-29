@@ -70,6 +70,17 @@ public class Util {
         } else if (loadBalancingStrategy instanceof QuickRoundRobinLoadbalancer) {
             convertedStrategy = new QuickRRLoadBalanceStrategyOrchestration();
             name = LoadBalancerType.QUICK_ROUND_ROBIN.getDisplayName();
+        } else if (loadBalancingStrategy instanceof GenericLoadBalancer) {
+            String descriptor = ((GenericLoadBalancer) loadBalancingStrategy).getDescriptor();
+            if (descriptor.equals("topology_aware")) {
+                convertedStrategy = new TopologyAwareLoadBalanceStrategyOrchestration();
+                name = LoadBalancerType.TOPOLOGY_AWARE.getDisplayName();
+            } else {
+                System.out.println("[WARNING] Unknown Load Balancing Strategy: " + descriptor);
+                System.out.println("Using default: random");
+                convertedStrategy = new RandomLoadBalanceStrategyOrchestration();
+                name = LoadBalancerType.RANDOM.getDisplayName();
+            }
         } else {
             System.out.println("[WARNING] Unknown Load Balancing Strategy: " + loadBalancingStrategy);
             System.out.println("Using default: random");

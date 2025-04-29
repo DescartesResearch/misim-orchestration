@@ -1,6 +1,7 @@
 package cambio.simulator.orchestration.entities.kubernetes;
 
 import cambio.simulator.entities.NamedEntity;
+import cambio.simulator.entities.microservice.MicroserviceInstance;
 import cambio.simulator.orchestration.entities.Container;
 import cambio.simulator.orchestration.entities.ContainerState;
 import cambio.simulator.orchestration.scheduling.SchedulerType;
@@ -81,6 +82,13 @@ public class Pod extends NamedEntity {
                     getContainers().stream().filter(container -> !container.getContainerState().equals(ContainerState.RUNNING)).collect(Collectors.toList());
             collect.forEach(Container::start);
         }
+    }
+
+    public String getMicroserviceInstanceName() {
+        for (Container c : containers) {
+            if (c.getMicroserviceInstance() != null) return c.getMicroserviceInstance().getPlainName();
+        }
+        return "null";
     }
 
     public void bindToNode(String nodeName) {
