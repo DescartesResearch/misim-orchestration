@@ -1,6 +1,11 @@
 package cambio.simulator.orchestration.scaling;
 
 import cambio.simulator.orchestration.entities.kubernetes.Deployment;
+import cambio.simulator.orchestration.management.ManagementPlane;
+import cambio.simulator.orchestration.models.MiSimOrchestrationModel;
+
+import java.util.ArrayDeque;
+import java.util.Queue;
 
 public class HorizontalPodAutoscaler extends AutoScaler {
 
@@ -10,6 +15,8 @@ public class HorizontalPodAutoscaler extends AutoScaler {
     private final double targetUtilization;
     private final int minReplicas;
     private final int maxReplicas;
+    private final int scalingInterval;
+    private final Queue<Integer> monitoredWindow;
 
     public HorizontalPodAutoscaler(double targetUtilization, int minReplicas, int maxReplicas) {
         super();
@@ -17,6 +24,9 @@ public class HorizontalPodAutoscaler extends AutoScaler {
         this.targetUtilization = targetUtilization;
         this.minReplicas = minReplicas;
         this.maxReplicas = maxReplicas;
+        this.scalingInterval = ((MiSimOrchestrationModel) ManagementPlane.getInstance().getModel()).getOrchestrationConfig().getScalingInterval();
+        this.monitoredWindow = new ArrayDeque<>(300 / scalingInterval);
+
     }
 
     @Override
@@ -29,6 +39,7 @@ public class HorizontalPodAutoscaler extends AutoScaler {
         // Tolerance area
         if (avg2Target > 0.9 && avg2Target < 1.1) {
             sendTraceNote("No Scaling required for " + deployment + ".");
+            updateMonitoredWindow(deployment.getCurrentRunningOrPendingReplicaCount());
             return;
         }
 
@@ -37,6 +48,8 @@ public class HorizontalPodAutoscaler extends AutoScaler {
         desiredReplicas = Math.min(desiredReplicas, maxReplicas);
         desiredReplicas = Math.max(minReplicas, desiredReplicas);
 
+        updateMonitoredWindow(desiredReplicas);
+        desiredReplicas = getMaxOfQueue();
 
         if (desiredReplicas != deployment.getCurrentRunningOrPendingReplicaCount()) {
             if (desiredReplicas > deployment.getCurrentRunningOrPendingReplicaCount()) {
@@ -50,5 +63,18 @@ public class HorizontalPodAutoscaler extends AutoScaler {
         } else {
             sendTraceNote("No Scaling required for " + deployment + ".");
         }
+    }
+
+    private void updateMonitoredWindow(int value) {
+        // Downscale stabilization: 300 STU
+        int maxLength = 300 / scalingInterval;
+        if (monitoredWindow.size() == maxLength) {
+            monitoredWindow.poll();
+        }
+        monitoredWindow.add(value);
+    }
+
+    private int getMaxOfQueue() {
+        return monitoredWindow.stream().mapToInt(i -> i).max().getAsInt();
     }
 }

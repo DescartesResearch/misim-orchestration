@@ -1,0 +1,51 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ratings
+  labels:
+    service: ratings
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      service: ratings
+  template:
+    metadata:
+      labels:
+        service: ratings
+    spec:
+      schedulerName: kube
+      initContainers:
+        - name: wait-for-mysql
+          image: mysql:5.7
+          command:
+            - sh
+            - -c
+            - |
+              until mysql -h mysql -e "SELECT 1 FROM information_schema.tables WHERE table_schema = 'ratings' AND table_name = 'ratings' LIMIT 1;" ; do
+                echo 'waiting for ratings.ratings table';
+                sleep 2;
+              done
+      serviceAccountName: robot-shop
+      containers:
+        - name: ratings
+          image: rs-ratings
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 80
+          resources:
+            limits:
+              cpu: 800m
+              memory: 600Mi
+            requests:
+              cpu: 800m
+              memory: 600Mi
+          readinessProbe:
+            httpGet:
+              path: /_health
+              port: 80
+            initialDelaySeconds: 5
+            periodSeconds: 5
+            failureThreshold: 30
+            successThreshold: 1
+      restartPolicy: Always

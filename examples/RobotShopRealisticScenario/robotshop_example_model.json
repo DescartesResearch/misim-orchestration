@@ -1,0 +1,133 @@
+{
+  "simulation_meta_data": {
+    "experiment_name": "RobotShop_RealisticScenario",
+    "model_name": "architecture_model",
+    "duration": 10800,
+    "report": "",
+    "datapoints": 20,
+    "seed": 979
+  },
+  "request_generators": [
+    {
+      "type": "limbo",
+      "config": {
+        "microservice": "web",
+        "operation": "cart_add",
+        "model": "./examples/RobotShopRealisticScenario/load/cart_add.txt"
+      }
+    },
+    {
+      "type": "limbo",
+      "config": {
+        "microservice": "web",
+        "operation": "cart_cart",
+        "model": "./examples/RobotShopRealisticScenario/load/cart_cart.txt"
+      }
+    },
+    {
+      "type": "limbo",
+      "config": {
+        "microservice": "web",
+        "operation": "cart_update",
+        "model": "./examples/RobotShopRealisticScenario/load/cart_update.txt"
+      }
+    },
+    {
+      "type": "limbo",
+      "config": {
+        "microservice": "web",
+        "operation": "catalogue_categories",
+        "model": "./examples/RobotShopRealisticScenario/load/catalogue_categories.txt"
+      }
+    },
+    {
+      "type": "limbo",
+      "config": {
+        "microservice": "web",
+        "operation": "catalogue_product",
+        "model": "./examples/RobotShopRealisticScenario/load/catalogue_product.txt"
+      }
+    },
+    {
+      "type": "limbo",
+      "config": {
+        "microservice": "web",
+        "operation": "catalogue_products",
+        "model": "./examples/RobotShopRealisticScenario/load/catalogue_products.txt"
+      }
+    },
+    {
+      "type": "limbo",
+      "config": {
+        "microservice": "web",
+        "operation": "index",
+        "model": "./examples/RobotShopRealisticScenario/load/index.txt"
+      }
+    },
+    {
+      "type": "limbo",
+      "config": {
+        "microservice": "web",
+        "operation": "payment_pay",
+        "model": "./examples/RobotShopRealisticScenario/load/payment_pay.txt"
+      }
+    },
+    {
+      "type": "limbo",
+      "config": {
+        "microservice": "web",
+        "operation": "ratings_fetch",
+        "model": "./examples/RobotShopRealisticScenario/load/ratings_fetch.txt"
+      }
+    },
+    {
+      "type": "limbo",
+      "config": {
+        "microservice": "web",
+        "operation": "ratings_rate",
+        "model": "./examples/RobotShopRealisticScenario/load/ratings_rate.txt"
+      }
+    },
+    {
+      "type": "limbo",
+      "config": {
+        "microservice": "web",
+        "operation": "shipping_calc",
+        "model": "./examples/RobotShopRealisticScenario/load/shipping_calc.txt"
+      }
+    },
+    {
+      "type": "limbo",
+      "config": {
+        "microservice": "web",
+        "operation": "shipping_codes",
+        "model": "./examples/RobotShopRealisticScenario/load/shipping_codes.txt"
+      }
+    },
+    {
+      "type": "limbo",
+      "config": {
+        "microservice": "web",
+        "operation": "shipping_confirm",
+        "model": "./examples/RobotShopRealisticScenario/load/shipping_confirm.txt"
+      }
+    },
+    {
+      "type": "limbo",
+      "config": {
+        "microservice": "web",
+        "operation": "user_login",
+        "model": "./examples/RobotShopRealisticScenario/load/user_login.txt"
+      }
+    },
+    {
+      "type": "limbo",
+      "config": {
+        "microservice": "web",
+        "operation": "user_uniqueid",
+        "model": "./examples/RobotShopRealisticScenario/load/user_uniqueid.txt"
+      }
+    }
+  ],
+   "chaos_monkeys": []
+}

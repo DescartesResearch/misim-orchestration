@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    service: redis
+  name: redis
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      service: redis
+  template:
+    metadata:
+      labels:
+        service: redis
+    spec:
+      serviceAccountName: robot-shop
+      schedulerName: kube
+      containers:
+        - name: redis
+          image: redis:4
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 6379
+          volumeMounts:
+            - name: data
+              mountPath: /mnt/redis
+          resources:
+            requests:
+              cpu: 200m
+              memory: 100Mi
+      restartPolicy: Always

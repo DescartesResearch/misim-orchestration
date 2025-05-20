@@ -1,0 +1,59 @@
+orchestrate: true
+orchestrationDir: "./examples/RobotShopRealisticScenario/orchestration"
+importNodes: true
+networkDelays:
+  enabled: true
+  delayMap:
+    node:
+      node:
+        mean: 0.000319
+        std: 0.000129
+scheduler: kube
+scaler:
+  importScaler: true
+initialSchedulingOrder:
+  enabled: true
+  order:
+    - web
+    - user
+    - shipping
+    - redis
+    - ratings
+    - rabbitmq
+    - payment
+    - mysql
+    - mongodb
+    - dispatch
+    - catalogue
+    - cart
+scalingInterval: 15
+healthCheckDelay: 0
+useClusterAutoscaler: true
+startUpTimeContainer:
+  - name: cart
+    time: 5
+  - name: catalogue
+    time: 5
+  - name: dispatch
+    time: 5
+  - name: mongodb
+    time: 5
+  - name: mysql
+    time: 5
+  - name: payment
+    time: 5
+  - name: rabbitmq
+    time: 5
+  - name: ratings
+    time: 5
+  - name: redis
+    time: 5
+  - name: shipping
+    time: 5
+  - name: user
+    time: 5
+  - name: web
+    time: 5
+startUpTimeNode:
+  - pattern: node
+    time: 120

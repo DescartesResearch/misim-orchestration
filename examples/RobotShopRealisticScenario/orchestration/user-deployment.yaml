@@ -1,0 +1,58 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: user
+  labels:
+    service: user
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      service: user
+  template:
+    metadata:
+      labels:
+        service: user
+    spec:
+      schedulerName: kube
+      serviceAccountName: robot-shop
+      initContainers:
+        - name: check-mongodb
+          image: mongoclient/mongoclient:latest
+          command:
+            - sh
+            - -c
+            - |
+              until mongo --host mongodb:27017 --eval "db = db.getSiblingDB('users'); if (db.stats().ok == 0) { quit(1); }"; do
+                echo 'waiting for mongodb'
+                sleep 5
+              done
+      containers:
+        - name: user
+          image: rs-user
+          imagePullPolicy: Always
+          env:
+            # agent networking access
+            - name: INSTANA_AGENT_HOST
+              valueFrom:
+                fieldRef:
+                  fieldPath: status.hostIP
+          ports:
+            - containerPort: 8080
+          resources:
+            limits:
+              cpu: 100m
+              memory: 100Mi
+            requests:
+              cpu: 100m
+              memory: 100Mi
+          livenessProbe:
+            exec:
+              command:
+                - sh
+                - -c
+                - 'curl http://localhost:8080/health | grep -q true'
+            initialDelaySeconds: 15
+            periodSeconds: 30
+            failureThreshold: 3
+      restartPolicy: Always
