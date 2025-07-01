@@ -13,7 +13,8 @@
       "config": {
         "microservice": "web",
         "operation": "cart_add",
-        "model": "./examples/RobotShopNodeFailureSmall/load/constant_12rps_15min.csv"
+        "model": "./examples/RobotShopNodeFailureSmall/load/constant_12rps_15min.csv",
+        "seed": 979
       }
     },
     {
@@ -21,7 +22,8 @@
       "config": {
         "microservice": "web",
         "operation": "ratings_rate",
-        "model": "./examples/RobotShopNodeFailureSmall/load/constant_12rps_15min.csv"
+        "model": "./examples/RobotShopNodeFailureSmall/load/constant_12rps_15min.csv",
+        "seed": 979
       }
     },
     {
@@ -29,7 +31,8 @@
       "config": {
         "microservice": "web",
         "operation": "index",
-        "model": "./examples/RobotShopNodeFailureSmall/load/constant_12rps_15min.csv"
+        "model": "./examples/RobotShopNodeFailureSmall/load/constant_12rps_15min.csv",
+        "seed": 979
       }
     }
   ],

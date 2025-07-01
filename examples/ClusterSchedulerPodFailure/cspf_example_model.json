@@ -13,7 +13,8 @@
       "config": {
         "microservice": "frontend",
         "operation": "authenticate",
-        "model": "./examples/ClusterSchedulerPodFailure/load/sinus_avg10_2to18_length90_trans70_10min.csv"
+        "model": "./examples/ClusterSchedulerPodFailure/load/sinus_avg10_2to18_length90_trans70_10min.csv",
+        "seed": 979
       }
     },
     {
@@ -21,7 +22,8 @@
       "config": {
         "microservice": "frontend",
         "operation": "loadHomeScreen",
-        "model": "./examples/ClusterSchedulerPodFailure/load/sinus_avg10_2to18_length90_trans70_10min.csv"
+        "model": "./examples/ClusterSchedulerPodFailure/load/sinus_avg10_2to18_length90_trans70_10min.csv",
+        "seed": 979
       }
     },
     {
@@ -29,7 +31,8 @@
       "config": {
         "microservice": "frontend",
         "operation": "manageAccount",
-        "model": "./examples/ClusterSchedulerPodFailure/load/sinus_avg10_2to18_length90_trans70_10min.csv"
+        "model": "./examples/ClusterSchedulerPodFailure/load/sinus_avg10_2to18_length90_trans70_10min.csv",
+        "seed": 979
       }
     },
     {
@@ -37,7 +40,8 @@
       "config": {
         "microservice": "frontend",
         "operation": "watchMovie",
-        "model": "./examples/ClusterSchedulerPodFailure/load/sinus_avg10_2to18_length90_trans70_10min.csv"
+        "model": "./examples/ClusterSchedulerPodFailure/load/sinus_avg10_2to18_length90_trans70_10min.csv",
+        "seed": 979
       }
     },
     {
@@ -45,7 +49,8 @@
       "config": {
         "microservice": "frontend",
         "operation": "stopMovie",
-        "model": "./examples/ClusterSchedulerPodFailure/load/sinus_avg10_2to18_length90_trans70_10min.csv"
+        "model": "./examples/ClusterSchedulerPodFailure/load/sinus_avg10_2to18_length90_trans70_10min.csv",
+        "seed": 979
       }
     }
   ],

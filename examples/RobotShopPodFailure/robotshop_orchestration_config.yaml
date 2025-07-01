@@ -11,4 +11,4 @@ healthCheckDelay: 0
 useClusterAutoscaler: false
 startUpTimeContainer:
   - name: catalogue
-    time: 5
+    time: 2

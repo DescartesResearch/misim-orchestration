@@ -13,7 +13,8 @@
       "config": {
         "microservice": "web",
         "operation": "cart_add",
-        "model": "./examples/RobotShopPodFailure/load/constant_12rps_3min.csv"
+        "model": "./examples/RobotShopPodFailure/load/constant_12rps_3min.csv",
+        "seed": 979
       }
     }
   ],

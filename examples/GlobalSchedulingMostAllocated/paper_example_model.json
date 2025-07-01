@@ -14,7 +14,8 @@
         "operation": "teastore-webui.index",
         "limbo_model": "./examples/GlobalSchedulingMostAllocated/traces_mostalloc/webui.index.csv",
         "repeating": false,
-        "repetition_skip": 0
+        "repetition_skip": 0,
+        "seed": 979
       }
     },
     {
@@ -23,7 +24,8 @@
         "operation": "teastore-webui.loginAction_login",
         "limbo_model": "./examples/GlobalSchedulingMostAllocated/traces_mostalloc/webui.loginaction.login.csv",
         "repeating": false,
-        "repetition_skip": 0
+        "repetition_skip": 0,
+        "seed": 979
       }
     },
     {
@@ -32,7 +34,8 @@
         "operation": "teastore-webui.cartAction_addToCart",
         "limbo_model": "./examples/GlobalSchedulingMostAllocated/traces_mostalloc/webui.cartaction.addtocart.csv",
         "repeating": false,
-        "repetition_skip": 0
+        "repetition_skip": 0,
+        "seed": 979
       }
     },
     {
@@ -41,7 +44,8 @@
         "operation": "teastore-webui.loginAction_logout",
         "limbo_model": "./examples/GlobalSchedulingMostAllocated/traces_mostalloc/webui.loginaction.logout.csv",
         "repeating": false,
-        "repetition_skip": 0
+        "repetition_skip": 0,
+        "seed": 979
       }
     }
   ]
