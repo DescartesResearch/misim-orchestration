@@ -188,7 +188,7 @@
       "operations": [
         {
           "name": "add",
-          "demand": 49,
+          "demand": 36,
           "dependencies": [
             {
               "service": "catalogue",
