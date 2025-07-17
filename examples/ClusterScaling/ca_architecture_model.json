@@ -8,16 +8,22 @@
         {
           "name": "register",
           "demand": 30,
+          "standardDeviation": 0,
+          "seed": 979,
           "dependencies": []
         },
         {
           "name": "unregister",
           "demand": 30,
+          "standardDeviation": 0,
+          "seed": 979,
           "dependencies": []
         },
         {
           "name": "getInstances",
           "demand": 30,
+          "standardDeviation": 0,
+          "seed": 979,
           "dependencies": []
         }
       ]

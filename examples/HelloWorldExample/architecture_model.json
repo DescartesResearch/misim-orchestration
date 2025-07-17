@@ -10,6 +10,8 @@
         {
           "name": "authenticate",
           "demand": 7,
+          "standardDeviation": 0,
+          "seed": 979,
           "dependencies": [
             {
               "service": "authService",
@@ -26,6 +28,8 @@
         {
           "name": "loadHomeScreen",
           "demand": 6,
+          "standardDeviation": 0,
+          "seed": 979,
           "dependencies": [
             {
               "service": "movieService",
@@ -42,6 +46,8 @@
         {
           "name": "manageAccount",
           "demand": 5,
+          "standardDeviation": 0,
+          "seed": 979,
           "dependencies": [
             {
               "service": "usersService",
@@ -63,6 +69,8 @@
         {
           "name": "watchMovie",
           "demand": 5,
+          "standardDeviation": 0,
+          "seed": 979,
           "dependencies": [
             {
               "service": "movieService",
@@ -74,6 +82,8 @@
         {
           "name": "stopMovie",
           "demand": 4,
+          "standardDeviation": 0,
+          "seed": 979,
           "dependencies": [
             {
               "service": "movieService",
@@ -94,6 +104,8 @@
         {
           "name": "register",
           "demand": 19,
+          "standardDeviation": 0,
+          "seed": 979,
           "dependencies": [
             {
               "service": "db",
@@ -110,6 +122,8 @@
         {
           "name": "login",
           "demand": 10,
+          "standardDeviation": 0,
+          "seed": 979,
           "dependencies": [
             {
               "service": "db",
@@ -130,6 +144,8 @@
         {
           "name": "cancelSub",
           "demand": 11,
+          "standardDeviation": 0,
+          "seed": 979,
           "dependencies": [
             {
               "service": "subscriptionService",
@@ -141,6 +157,8 @@
         {
           "name": "changeSub",
           "demand": 11,
+          "standardDeviation": 0,
+          "seed": 979,
           "dependencies": [
             {
               "service": "subscriptionService",
@@ -152,6 +170,8 @@
         {
           "name": "changeName",
           "demand": 9,
+          "standardDeviation": 0,
+          "seed": 979,
           "dependencies": [
             {
               "service": "db",
@@ -172,6 +192,8 @@
         {
           "name": "cancelSub_subscriptionService",
           "demand": 12,
+          "standardDeviation": 0,
+          "seed": 979,
           "dependencies": [
             {
               "service": "db",
@@ -183,6 +205,8 @@
         {
           "name": "changeSub_subscriptionService",
           "demand": 12,
+          "standardDeviation": 0,
+          "seed": 979,
           "dependencies": [
             {
               "service": "db",
@@ -203,6 +227,8 @@
         {
           "name": "getMovies",
           "demand": 6,
+          "standardDeviation": 0,
+          "seed": 979,
           "dependencies": [
             {
               "service": "db",
@@ -214,6 +240,8 @@
         {
           "name": "recommendMovies",
           "demand": 8,
+          "standardDeviation": 0,
+          "seed": 979,
           "dependencies": [
             {
               "service": "recommendationService",
@@ -225,6 +253,8 @@
         {
           "name": "startMovie_movieService",
           "demand": 5,
+          "standardDeviation": 0,
+          "seed": 979,
           "dependencies": [
             {
               "service": "videoPlayerService",
@@ -236,6 +266,8 @@
         {
           "name": "stopMovie_movieService",
           "demand": 5,
+          "standardDeviation": 0,
+          "seed": 979,
           "dependencies": [
             {
               "service": "videoPlayerService",
@@ -256,6 +288,8 @@
         {
           "name": "recommendByMovie",
           "demand": 15,
+          "standardDeviation": 0,
+          "seed": 979,
           "dependencies": [
             {
               "service": "db",
@@ -276,11 +310,15 @@
         {
           "name": "start",
           "demand": 10,
+          "standardDeviation": 0,
+          "seed": 979,
           "dependencies": []
         },
         {
           "name": "stop",
           "demand": 10,
+          "standardDeviation": 0,
+          "seed": 979,
           "dependencies": []
         }
       ]
@@ -295,36 +333,50 @@
         {
           "name": "usersPOST",
           "demand": 1,
+          "standardDeviation": 0,
+          "seed": 979,
           "dependencies": []
         },
         {
           "name": "usersUPDATE",
           "demand": 1,
+          "standardDeviation": 0,
+          "seed": 979,
           "dependencies": []
         },
         {
           "name": "usersGET",
           "demand": 1,
+          "standardDeviation": 0,
+          "seed": 979,
           "dependencies": []
         },
         {
           "name": "subsUPDATE",
           "demand": 1,
+          "standardDeviation": 0,
+          "seed": 979,
           "dependencies": []
         },
         {
           "name": "subsGET",
           "demand": 1,
+          "standardDeviation": 0,
+          "seed": 979,
           "dependencies": []
         },
         {
           "name": "subsPOST",
           "demand": 1,
+          "standardDeviation": 0,
+          "seed": 979,
           "dependencies": []
         },
         {
           "name": "moviesGET",
           "demand": 1,
+          "standardDeviation": 0,
+          "seed": 979,
           "dependencies": []
         }
       ]

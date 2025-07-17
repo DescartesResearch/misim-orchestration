@@ -19,11 +19,15 @@
         {
           "name": "index",
           "demand": 1,
+          "standardDeviation": 0,
+          "seed": 979,
           "dependencies": []
         },
         {
           "name": "payment_pay",
           "demand": 1,
+          "standardDeviation": 0,
+          "seed": 979,
           "dependencies": [
             {
               "service": "payment",
@@ -35,6 +39,8 @@
         {
           "name": "user_login",
           "demand": 1,
+          "standardDeviation": 0,
+          "seed": 979,
           "dependencies": [
             {
               "service": "user",
@@ -46,6 +52,8 @@
         {
           "name": "user_uniqueid",
           "demand": 1,
+          "standardDeviation": 0,
+          "seed": 979,
           "dependencies": [
             {
               "service": "user",
@@ -57,6 +65,8 @@
         {
           "name": "catalogue_categories",
           "demand": 1,
+          "standardDeviation": 0,
+          "seed": 979,
           "dependencies": [
             {
               "service": "catalogue",
@@ -68,6 +78,8 @@
         {
           "name": "catalogue_products",
           "demand": 1,
+          "standardDeviation": 0,
+          "seed": 979,
           "dependencies": [
             {
               "service": "catalogue",
@@ -79,6 +91,8 @@
         {
           "name": "catalogue_product",
           "demand": 1,
+          "standardDeviation": 0,
+          "seed": 979,
           "dependencies": [
             {
               "service": "catalogue",
@@ -90,6 +104,8 @@
         {
           "name": "ratings_rate",
           "demand": 1,
+          "standardDeviation": 0,
+          "seed": 979,
           "dependencies": [
             {
               "service": "ratings",
@@ -101,6 +117,8 @@
         {
           "name": "ratings_fetch",
           "demand": 1,
+          "standardDeviation": 0,
+          "seed": 979,
           "dependencies": [
             {
               "service": "ratings",
@@ -111,7 +129,9 @@
         },
         {
           "name": "cart_add",
-          "demand": 1,
+          "demand": 16,
+          "standardDeviation": 2,
+          "seed": 979,
           "dependencies": [
             {
               "service": "cart",
@@ -123,6 +143,8 @@
         {
           "name": "cart_cart",
           "demand": 1,
+          "standardDeviation": 0,
+          "seed": 979,
           "dependencies": [
             {
               "service": "cart",
@@ -134,6 +156,8 @@
         {
           "name": "cart_update",
           "demand": 1,
+          "standardDeviation": 0,
+          "seed": 979,
           "dependencies": [
             {
               "service": "cart",
@@ -145,6 +169,8 @@
         {
           "name": "shipping_confirm",
           "demand": 1,
+          "standardDeviation": 0,
+          "seed": 979,
           "dependencies": [
             {
               "service": "shipping",
@@ -156,6 +182,8 @@
         {
           "name": "shipping_codes",
           "demand": 1,
+          "standardDeviation": 0,
+          "seed": 979,
           "dependencies": [
             {
               "service": "shipping",
@@ -167,6 +195,8 @@
         {
           "name": "shipping_cities",
           "demand": 1,
+          "standardDeviation": 0,
+          "seed": 979,
           "dependencies": [
             {
               "service": "shipping",
@@ -178,6 +208,8 @@
         {
           "name": "shipping_calc",
           "demand": 1,
+          "standardDeviation": 0,
+          "seed": 979,
           "dependencies": [
             {
               "service": "shipping",
@@ -206,7 +238,9 @@
       "operations": [
         {
           "name": "add",
-          "demand": 36,
+          "demand": 52,
+          "standardDeviation": 5,
+          "seed": 979,
           "dependencies": [
             {
               "service": "catalogue",
@@ -223,6 +257,8 @@
         {
           "name": "cart",
           "demand": 21,
+          "standardDeviation": 0,
+          "seed": 979,
           "dependencies": [
             {
               "service": "redis",
@@ -234,6 +270,8 @@
         {
           "name": "update",
           "demand": 22,
+          "standardDeviation": 0,
+          "seed": 979,
           "dependencies": [
             {
               "service": "redis",
@@ -245,6 +283,8 @@
         {
           "name": "shipping",
           "demand": 1,
+          "standardDeviation": 0,
+          "seed": 979,
           "dependencies": [
             {
               "service": "redis",
@@ -256,6 +296,8 @@
         {
           "name": "delete",
           "demand": 1,
+          "standardDeviation": 0,
+          "seed": 979,
           "dependencies": [
             {
               "service": "redis",
@@ -276,6 +318,8 @@
         {
           "name": "categories",
           "demand": 27,
+          "standardDeviation": 0,
+          "seed": 979,
           "dependencies": [
             {
               "service": "mongodb",
@@ -286,7 +330,9 @@
         },
         {
           "name": "product",
-          "demand": 31,
+          "demand": 45,
+          "standardDeviation": 3.75,
+          "seed": 979,
           "dependencies": [
             {
               "service": "mongodb",
@@ -298,6 +344,8 @@
         {
           "name": "products",
           "demand": 31,
+          "standardDeviation": 0,
+          "seed": 979,
           "dependencies": [
             {
               "service": "mongodb",
@@ -327,6 +375,8 @@
         {
           "name": "fetch",
           "demand": 9,
+          "standardDeviation": 0,
+          "seed": 979,
           "dependencies": [
             {
               "service": "mysql",
@@ -338,6 +388,8 @@
         {
           "name": "rate",
           "demand": 20,
+          "standardDeviation": 0,
+          "seed": 979,
           "dependencies": [
             {
               "service": "catalogue",
@@ -363,6 +415,8 @@
         {
           "name": "calc",
           "demand": 6,
+          "standardDeviation": 0,
+          "seed": 979,
           "dependencies": [
             {
               "service": "mysql",
@@ -374,6 +428,8 @@
         {
           "name": "cities",
           "demand": 2000,
+          "standardDeviation": 0,
+          "seed": 979,
           "dependencies": [
             {
               "service": "mysql",
@@ -385,6 +441,8 @@
         {
           "name": "codes",
           "demand": 6,
+          "standardDeviation": 0,
+          "seed": 979,
           "dependencies": [
             {
               "service": "mysql",
@@ -396,6 +454,8 @@
         {
           "name": "confirm",
           "demand": 13,
+          "standardDeviation": 0,
+          "seed": 979,
           "dependencies": [
             {
               "service": "cart",
@@ -416,6 +476,8 @@
         {
           "name": "login",
           "demand": 34,
+          "standardDeviation": 0,
+          "seed": 979,
           "dependencies": [
             {
               "service": "mongodb",
@@ -427,6 +489,8 @@
         {
           "name": "uniqueid",
           "demand": 22,
+          "standardDeviation": 0,
+          "seed": 979,
           "dependencies": [
             {
               "service": "redis",
@@ -438,6 +502,8 @@
         {
           "name": "check",
           "demand": 1,
+          "standardDeviation": 0,
+          "seed": 979,
           "dependencies": [
             {
               "service": "mongodb",
@@ -449,6 +515,8 @@
         {
           "name": "order",
           "demand": 1,
+          "standardDeviation": 0,
+          "seed": 979,
           "dependencies": [
             {
               "service": "mongodb",
@@ -469,6 +537,8 @@
         {
           "name": "pay",
           "demand": 1,
+          "standardDeviation": 0,
+          "seed": 979,
           "dependencies": [
             {
               "service": "rabbitmq",
@@ -504,6 +574,8 @@
         {
           "name": "forwardMessage",
           "demand": 1,
+          "standardDeviation": 0,
+          "seed": 979,
           "dependencies": [
             {
               "service": "dispatch",
@@ -524,6 +596,8 @@
         {
           "name": "receiveMessage",
           "demand": 1,
+          "standardDeviation": 0,
+          "seed": 979,
           "dependencies": []
         }
       ]
@@ -538,31 +612,43 @@
         {
           "name": "user_login",
           "demand": 1,
+          "standardDeviation": 0,
+          "seed": 979,
           "dependencies": []
         },
         {
           "name": "user_check",
           "demand": 1,
+          "standardDeviation": 0,
+          "seed": 979,
           "dependencies": []
         },
         {
           "name": "user_order",
           "demand": 3,
+          "standardDeviation": 0,
+          "seed": 979,
           "dependencies": []
         },
         {
           "name": "catalogue_categories",
           "demand": 1,
+          "standardDeviation": 0,
+          "seed": 979,
           "dependencies": []
         },
         {
           "name": "catalogue_products",
           "demand": 1,
+          "standardDeviation": 0,
+          "seed": 979,
           "dependencies": []
         },
         {
           "name": "catalogue_product",
-          "demand": 1,
+          "demand": 9,
+          "standardDeviation": 1.06,
+          "seed": 979,
           "dependencies": []
         }
       ]
@@ -577,31 +663,43 @@
         {
           "name": "user_uniqueid",
           "demand": 1,
+          "standardDeviation": 0,
+          "seed": 979,
           "dependencies": []
         },
         {
           "name": "cart_add",
           "demand": 2,
+          "standardDeviation": 0,
+          "seed": 979,
           "dependencies": []
         },
         {
           "name": "cart_cart",
           "demand": 1,
+          "standardDeviation": 0,
+          "seed": 979,
           "dependencies": []
         },
         {
           "name": "cart_update",
           "demand": 2,
+          "standardDeviation": 0,
+          "seed": 979,
           "dependencies": []
         },
         {
           "name": "cart_shipping",
           "demand": 2,
+          "standardDeviation": 0,
+          "seed": 979,
           "dependencies": []
         },
         {
           "name": "cart_delete",
           "demand": 1,
+          "standardDeviation": 0,
+          "seed": 979,
           "dependencies": []
         }
       ]
@@ -616,26 +714,36 @@
         {
           "name": "ratings_rate",
           "demand": 2,
+          "standardDeviation": 0,
+          "seed": 979,
           "dependencies": []
         },
         {
           "name": "ratings_fetch",
           "demand": 1,
+          "standardDeviation": 0,
+          "seed": 979,
           "dependencies": []
         },
         {
           "name": "shipping_codes",
           "demand": 1,
+          "standardDeviation": 0,
+          "seed": 979,
           "dependencies": []
         },
         {
           "name": "shipping_cities",
           "demand": 1,
+          "standardDeviation": 0,
+          "seed": 979,
           "dependencies": []
         },
         {
           "name": "shipping_calc",
           "demand": 1,
+          "standardDeviation": 0,
+          "seed": 979,
           "dependencies": []
         }
       ]
