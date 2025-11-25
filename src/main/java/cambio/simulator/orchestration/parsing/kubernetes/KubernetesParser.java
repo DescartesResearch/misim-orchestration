@@ -181,6 +181,7 @@ public class KubernetesParser {
 
     private static Deployment createDeployment(V1Deployment v1Deployment, Microservice microservice) {
         final String deploymentName = v1Deployment.getMetadata().getName();
+        System.err.println(String.format("Creating deployment %s", deploymentName));
         MicroserviceOrchestration casted = null;
         if (microservice != null) {
             casted = (MicroserviceOrchestration) microservice;
