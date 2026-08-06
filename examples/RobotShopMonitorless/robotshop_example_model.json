@@ -1,0 +1,155 @@
+{
+  "simulation_meta_data": {
+    "experiment_name": "RobotShop_Monitorless",
+    "model_name": "architecture_model",
+    "duration": 600,
+    "report": "",
+    "seed": 979
+  },
+  "request_generators": [
+    {
+      "type": "limbo",
+      "config": {
+        "microservice": "web",
+        "operation": "index",
+        "model": "./examples/RobotShopMonitorless/load/index.csv",
+        "seed": 979
+      }
+    },
+    {
+      "type": "limbo",
+      "config": {
+        "microservice": "web",
+        "operation": "payment_pay",
+        "model": "./examples/RobotShopMonitorless/load/payment_pay.csv",
+        "seed": 979
+      }
+    },
+    {
+      "type": "limbo",
+      "config": {
+        "microservice": "web",
+        "operation": "user_login",
+        "model": "./examples/RobotShopMonitorless/load/user_login.csv",
+        "seed": 979
+      }
+    },
+    {
+      "type": "limbo",
+      "config": {
+        "microservice": "web",
+        "operation": "user_uniqueid",
+        "model": "./examples/RobotShopMonitorless/load/user_uniqueid.csv",
+        "seed": 979
+      }
+    },
+    {
+      "type": "limbo",
+      "config": {
+        "microservice": "web",
+        "operation": "catalogue_categories",
+        "model": "./examples/RobotShopMonitorless/load/catalogue_categories.csv",
+        "seed": 979
+      }
+    },
+    {
+      "type": "limbo",
+      "config": {
+        "microservice": "web",
+        "operation": "catalogue_products",
+        "model": "./examples/RobotShopMonitorless/load/catalogue_products.csv",
+        "seed": 979
+      }
+    },
+    {
+      "type": "limbo",
+      "config": {
+        "microservice": "web",
+        "operation": "catalogue_product",
+        "model": "./examples/RobotShopMonitorless/load/catalogue_product.csv",
+        "seed": 979
+      }
+    },
+    {
+      "type": "limbo",
+      "config": {
+        "microservice": "web",
+        "operation": "ratings_rate",
+        "model": "./examples/RobotShopMonitorless/load/ratings_rate.csv",
+        "seed": 979
+      }
+    },
+    {
+      "type": "limbo",
+      "config": {
+        "microservice": "web",
+        "operation": "ratings_fetch",
+        "model": "./examples/RobotShopMonitorless/load/ratings_fetch.csv",
+        "seed": 979
+      }
+    },
+    {
+      "type": "limbo",
+      "config": {
+        "microservice": "web",
+        "operation": "cart_add",
+        "model": "./examples/RobotShopMonitorless/load/cart_add.csv",
+        "seed": 979
+      }
+    },
+    {
+      "type": "limbo",
+      "config": {
+        "microservice": "web",
+        "operation": "cart_cart",
+        "model": "./examples/RobotShopMonitorless/load/cart_cart.csv",
+        "seed": 979
+      }
+    },
+    {
+      "type": "limbo",
+      "config": {
+        "microservice": "web",
+        "operation": "cart_update",
+        "model": "./examples/RobotShopMonitorless/load/cart_update.csv",
+        "seed": 979
+      }
+    },
+    {
+      "type": "limbo",
+      "config": {
+        "microservice": "web",
+        "operation": "shipping_confirm",
+        "model": "./examples/RobotShopMonitorless/load/shipping_confirm.csv",
+        "seed": 979
+      }
+    },
+    {
+      "type": "limbo",
+      "config": {
+        "microservice": "web",
+        "operation": "shipping_codes",
+        "model": "./examples/RobotShopMonitorless/load/shipping_codes.csv",
+        "seed": 979
+      }
+    },
+    {
+      "type": "limbo",
+      "config": {
+        "microservice": "web",
+        "operation": "shipping_cities",
+        "model": "./examples/RobotShopMonitorless/load/shipping_cities.csv",
+        "seed": 979
+      }
+    },
+    {
+      "type": "limbo",
+      "config": {
+        "microservice": "web",
+        "operation": "shipping_calc",
+        "model": "./examples/RobotShopMonitorless/load/shipping_calc.csv",
+        "seed": 979
+      }
+    }
+  ]
+}

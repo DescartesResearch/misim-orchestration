@@ -1,0 +1,15 @@
+orchestrate: false
+orchestrationDir: "./examples/RobotShopPodFailure/orchestration"
+importNodes: true
+networkDelays:
+  enabled: false
+scheduler: kube
+initialSchedulingOrder:
+  enabled: false
+scalingInterval: 15
+healthCheckDelay: 0
+useClusterAutoscaler: false
+startUpTimeContainer:
+  - name: catalogue
+    time: 2
+
