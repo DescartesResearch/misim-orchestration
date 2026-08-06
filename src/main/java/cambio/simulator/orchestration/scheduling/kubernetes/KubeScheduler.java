@@ -1,15 +1,22 @@
 package cambio.simulator.orchestration.scheduling.kubernetes;
 
 import cambio.simulator.orchestration.entities.kubernetes.Node;
+import cambio.simulator.orchestration.entities.kubernetes.NodeList;
 import cambio.simulator.orchestration.entities.kubernetes.Pod;
+import cambio.simulator.orchestration.entities.kubernetes.PodList;
+import cambio.simulator.orchestration.events.NodeNotReadyEvent;
+import cambio.simulator.orchestration.events.NodeNoExecuteTaintEvent;
+import cambio.simulator.orchestration.events.PodEvictionEvent;
 import cambio.simulator.orchestration.export.Stats;
 import cambio.simulator.orchestration.management.ManagementPlane;
+import cambio.simulator.orchestration.parsing.kubernetes.KubernetesObjectWithMetadataSpec;
 import cambio.simulator.orchestration.parsing.kubernetes.KubernetesParser;
 import cambio.simulator.orchestration.rest.KubeSchedulerController;
 import cambio.simulator.orchestration.rest.dto.*;
 import cambio.simulator.orchestration.scheduling.Scheduler;
 import cambio.simulator.orchestration.scheduling.SchedulerType;
 import desmoj.core.simulator.Model;
+import desmoj.core.simulator.TimeSpan;
 import io.kubernetes.client.openapi.models.V1Node;
 import io.kubernetes.client.openapi.models.V1PodList;
 import io.kubernetes.client.openapi.models.V1WatchEvent;
@@ -20,7 +27,9 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
+import java.util.concurrent.TimeUnit;
 
 public class KubeScheduler extends Scheduler {
 
@@ -32,7 +41,7 @@ public class KubeScheduler extends Scheduler {
     @Getter
     private static final KubeScheduler instance = new KubeScheduler();
 
-    //private constructor to avoid client applications to use constructor
+    // private constructor to avoid client applications to use constructor
     private KubeScheduler() {
         this.rename("KubeScheduler");
 
@@ -40,8 +49,10 @@ public class KubeScheduler extends Scheduler {
             UpdateNodesRequest nodeList = KubeObjectConverter.convertNodes(cluster.getNodes());
             KubeSchedulerController.updateNodes(nodeList);
         } catch (IOException e) {
+            e.printStackTrace();
             System.out.println("[INFO]: No connection to API server established. The kube scheduler is not supported "
                     + "in this run");
+            System.exit(1);
         }
     }
 
@@ -57,15 +68,165 @@ public class KubeScheduler extends Scheduler {
             UpdateNodesRequest nodeList = KubeObjectConverter.deleteNodes(cluster.getNodes(), nodes);
             KubeSchedulerController.updateNodes(nodeList);
         } catch (IOException e) {
+            e.printStackTrace();
             System.out.println("[INFO]: No connection to API server established. The kube scheduler is not supported "
                     + "in this run");
         }
     }
 
     @Override
+    public void onNodeFailure(List<Node> failedNodes, List<Pod> failedPods) {
+        super.onNodeFailure(failedNodes, failedPods);
+        try {
+            NodeFailureRequest request = KubeObjectConverter.failNodes(failedPods);
+            NodeFailureResponse response = KubeSchedulerController.failNodes(request);
+            handleNodeFailureResponse(failedNodes, response);
+        } catch (IOException e) {
+            e.printStackTrace();
+            System.out.println("[INFO]: No connection to API server established. The kube scheduler is not supported "
+                    + "in this run");
+        }
+
+    }
+
+    @Override
+    public void onPodFailure(Pod pod) {
+        super.onPodFailure(pod);
+        try {
+            PodFailureRequest request = KubeObjectConverter.failPod(pod);
+            KubeSchedulerController.failPod(request);
+        } catch (IOException e) {
+            e.printStackTrace();
+            System.out.println("[INFO]: No connection to API server established. The kube scheduler is not supported "
+                    + "in this run");
+        }
+    }
+
+    @Override
+    public void onNodeNotReady(List<Node> nodes) {
+        super.onNodeNotReady(nodes);
+        try {
+            NodeNotReadyRequest request = KubeObjectConverter.markNodesNotReady(nodes);
+            NodeNotReadyResponse response = KubeSchedulerController.markNodesNotReady(request);
+            handleNodeNotReadyResponse(nodes, response);
+        } catch (IOException e) {
+            e.printStackTrace();
+            System.out.println("[INFO]: No connection to API server established. The kube scheduler is not supported "
+                    + "in this run");
+        }
+
+    }
+
+    @Override
+    public void onNodeNoExecuteTaint(List<Node> nodes) {
+        super.onNodeNoExecuteTaint(nodes);
+        try {
+            NodeNoExecuteRequest request = KubeObjectConverter.addNoExecuteTaint(nodes);
+            NodeNoExecuteResponse response = KubeSchedulerController.addNoExecuteTaint(request);
+            handleNodeNoExecuteResponse(nodes, response);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+            System.out.println("[INFO]: No connection to API server established. The kube scheduler is not supported "
+                    + "in this run");
+        }
+    }
+
+    public void handleNodeFailureResponse(List<Node> failedNodes, NodeFailureResponse response) {
+        int nodeDelay = response.getNodeMonitorGracePeriodSeconds();
+        int noExecuteDelay = response.getNoExecuteTaintDelaySeconds();
+        NodeNotReadyEvent nodeEvent = new NodeNotReadyEvent(getModel(), "NodeNotReadyEvent", traceIsOn());
+        nodeEvent.schedule(new NodeList(getModel(), "NodeList", traceIsOn(), failedNodes),
+                new TimeSpan(nodeDelay, TimeUnit.SECONDS));
+        NodeNoExecuteTaintEvent taintEvent = new NodeNoExecuteTaintEvent(getModel(), "NodeUnreachableEvent",
+                traceIsOn());
+        taintEvent.schedule(new NodeList(getModel(), "NodeList", traceIsOn(), failedNodes),
+                new TimeSpan(nodeDelay + noExecuteDelay, TimeUnit.SECONDS));
+
+        response.getPodEvictionEvents().forEach((delay, pods) -> {
+            PodEvictionEvent event = new PodEvictionEvent(getModel(), "PodEvictionEvent", traceIsOn());
+            long finalDelay = nodeDelay + noExecuteDelay + delay;
+            event.schedule(new PodList(getModel(), "PodList", traceIsOn(), pods),
+                    new TimeSpan(finalDelay, TimeUnit.SECONDS));
+        });
+    }
+
+    public void handleNodeNotReadyResponse(List<Node> nodes, NodeNotReadyResponse response) {
+        for (V1Node repr : response.getNodes()) {
+            Optional<Node> node = nodes.stream().filter(n -> n.getKubernetesRepresentation().getMetadata()
+                    .getName().equals(repr.getMetadata().getName())).findFirst();
+            if (node.isPresent()) {
+                node.get().setKubernetesRepresentation(repr);
+            } else {
+                System.err.println("[WARNING] Did not find node '"
+                        + repr.getMetadata().getName()
+                        + "' in the list.");
+                System.exit(1);
+            }
+        }
+        for (KubernetesObjectWithMetadataSpec repr : response.getMachines()) {
+            String reprName = String.class.cast(repr.getMetadata().get("name"));
+            Optional<KubernetesObjectWithMetadataSpec> machine = ManagementPlane.getInstance().getCluster()
+                    .getMachines().stream().filter(m -> {
+                        String name = String.class.cast(m.getMetadata().get("name"));
+                        return name.equals(reprName);
+
+                    }).findFirst();
+            if (machine.isPresent()) {
+                machine.get().setMetadata(repr.getMetadata());
+                machine.get().setSpec(repr.getSpec());
+                machine.get().setStatus(repr.getStatus());
+            } else {
+                System.err.println("[WARNING] Did not find machine '"
+                        + reprName
+                        + "' in the list of known machines.");
+                System.exit(1);
+
+            }
+        }
+        for (KubernetesObjectWithMetadataSpec repr : response.getMachineSets()) {
+            String reprName = String.class.cast(repr.getMetadata().get("name"));
+            Optional<KubernetesObjectWithMetadataSpec> machineSet = ManagementPlane.getInstance().getCluster()
+                    .getMachineSets().stream().filter(m -> {
+                        String name = String.class.cast(m.getMetadata().get("name"));
+                        return name.equals(reprName);
+
+                    }).findFirst();
+            if (machineSet.isPresent()) {
+                machineSet.get().setMetadata(repr.getMetadata());
+                machineSet.get().setSpec(repr.getSpec());
+                machineSet.get().setStatus(repr.getStatus());
+            } else {
+                System.err.println("[WARNING] Did not find machineSet '"
+                        + reprName
+                        + "' in the list of known machines sets.");
+                System.exit(1);
+
+            }
+        }
+
+    }
+
+    public void handleNodeNoExecuteResponse(List<Node> nodes, NodeNoExecuteResponse response) {
+        for (V1Node repr : response.getNodes()) {
+            Optional<Node> node = nodes.stream().filter(n -> n.getKubernetesRepresentation().getMetadata()
+                    .getName().equals(repr.getMetadata().getName())).findFirst();
+            if (node.isPresent()) {
+                node.get().setKubernetesRepresentation(repr);
+            } else {
+                System.err.println("[WARNING] Did not find node '"
+                        + repr.getMetadata().getName()
+                        + "' in the list.");
+                System.exit(1);
+            }
+        }
+    }
+
+    @Override
     public void schedulePods() {
         try {
-            if (podWaitingQueue.isEmpty()) return;
+            if (podWaitingQueue.isEmpty())
+                return;
             List<Pod> allPodsPlacedOnNodes = ManagementPlane.getInstance().getAllPodsPlacedOnNodes();
             List<V1WatchEvent> events = removeInternalRunningPods(allPodsPlacedOnNodes);
             boolean removedRunningPods = !events.isEmpty();
@@ -73,7 +234,8 @@ public class KubeScheduler extends Scheduler {
             List<V1WatchEvent> pendingPodsEvents = removePendingPods();
             events.addAll(pendingPodsEvents);
 
-            //Tell the scheduler that pods are already running on nodes (Scheduled by other schedulers)
+            // Tell the scheduler that pods are already running on nodes (Scheduled by other
+            // schedulers)
             V1PodList v1PodList = new V1PodList();
             v1PodList.setApiVersion("v1");
             v1PodList.setKind("PodList");
@@ -85,7 +247,7 @@ public class KubeScheduler extends Scheduler {
                 }
             }
 
-            //Add pods from the waiting queue
+            // Add pods from the waiting queue
             V1PodList podsToBePlaced = new V1PodList();
             while (!podWaitingQueue.isEmpty()) {
                 Pod nextPod = getNextPodFromWaitingQueue();
@@ -94,7 +256,8 @@ public class KubeScheduler extends Scheduler {
                     internalPendingPods.add(nextPod);
                     podsToBePlaced.addItemsItem(KubeObjectConverter.convertPod(nextPod, "Pending"));
                 } else if (removedRunningPods) {
-                    // if pods have been removed, there is a chance that we get older pending pods placed
+                    // if pods have been removed, there is a chance that we get older pending pods
+                    // placed
                     podsToBePlaced.addItemsItem(KubeObjectConverter.convertPod(nextPod, "Pending"));
                 }
                 v1PodList.addItemsItem(KubeObjectConverter.convertPod(nextPod, "Pending"));
@@ -140,15 +303,18 @@ public class KubeScheduler extends Scheduler {
             Node candidateNode = ManagementPlane.getInstance().getCluster().getNodeByName(boundNode);
             Pod pod = ManagementPlane.getInstance().getPodByName(podName);
 
-            if (candidateNode == null) throw new KubeSchedulerException.NodeDoesNotExist();
-            else if (pod == null) throw new KubeSchedulerException.PodDoesNotExist();
+            if (candidateNode == null)
+                throw new KubeSchedulerException.NodeDoesNotExist(boundNode);
+            else if (pod == null)
+                throw new KubeSchedulerException.PodDoesNotExist(podName);
 
             int nodeStartTime = 0;
             if (newlyCreatedNodes.contains(candidateNode.getPlainName())) {
                 nodeStartTime = candidateNode.getStartTime();
             }
 
-            if (!candidateNode.addPod(pod, nodeStartTime)) throw new KubeSchedulerException.NodeFull();
+            if (!candidateNode.addPod(pod, nodeStartTime))
+                throw new KubeSchedulerException.NodeFull();
 
             internalRunningPods.add(pod);
             internalPendingPods.remove(pod);
@@ -157,8 +323,9 @@ public class KubeScheduler extends Scheduler {
             int desiredState = pod.getOwner().getDesiredReplicaCount();
             int currentState = ManagementPlane.getInstance().getAmountOfPodsOnNodes(pod.getOwner());
             int time = (int) presentTime().getTimeAsDouble();
-            Stats.NodePodEventRecord record =
-                    Stats.NodePodEventRecord.builder().fromBindingInformation(bind).time(time).desiredState(desiredState).currentState(currentState).microserviceInstanceName(pod.getMicroserviceInstanceName()).build();
+            Stats.NodePodEventRecord record = Stats.NodePodEventRecord.builder().fromBindingInformation(bind).time(time)
+                    .desiredState(desiredState).currentState(currentState)
+                    .microserviceInstanceName(pod.getMicroserviceInstanceName()).build();
             Stats.getInstance().getNodePodEventRecords().add(record);
             System.out.println(podName + " was bound on " + boundNode);
             sendTraceNote(this.getQuotedName() + " has scheduled " + pod.getQuotedName() + " on node " + candidateNode);
@@ -171,11 +338,14 @@ public class KubeScheduler extends Scheduler {
             int desiredState = pod.getOwner().getDesiredReplicaCount();
             int currentState = ManagementPlane.getInstance().getAmountOfPodsOnNodes(pod.getOwner());
             int time = (int) presentTime().getTimeAsDouble();
-            Stats.NodePodEventRecord record =
-                    Stats.NodePodEventRecord.builder().fromBindingFailureInformation(fail).time(time).desiredState(desiredState).currentState(currentState).microserviceInstanceName(pod.getMicroserviceInstanceName()).build();
+            Stats.NodePodEventRecord record = Stats.NodePodEventRecord.builder().fromBindingFailureInformation(fail)
+                    .time(time).desiredState(desiredState).currentState(currentState)
+                    .microserviceInstanceName(pod.getMicroserviceInstanceName()).build();
             Stats.getInstance().getNodePodEventRecords().add(record);
-            System.out.println(this.getQuotedName() + " was not able to schedule pod " + pod + ". Reason: " + fail.getMessage());
-            sendTraceNote(this.getQuotedName() + " was not able to schedule pod " + pod + ". Reason: " + fail.getMessage());
+            System.out.println(
+                    this.getQuotedName() + " was not able to schedule pod " + pod + ". Reason: " + fail.getMessage());
+            sendTraceNote(
+                    this.getQuotedName() + " was not able to schedule pod " + pod + ". Reason: " + fail.getMessage());
             sendTraceNote(this.getQuotedName() + " has send " + pod + " back to the Pod Waiting Queue");
         }
     }
@@ -183,7 +353,7 @@ public class KubeScheduler extends Scheduler {
     @NotNull
     private List<V1WatchEvent> removePendingPods() {
         List<V1WatchEvent> pendingPodsEvents = new ArrayList<>();
-        //Inform the scheduler that pods have been removed from the scheduling queue
+        // Inform the scheduler that pods have been removed from the scheduling queue
         List<Pod> internalPendingPodsToRemove = new ArrayList<>();
         for (Pod pod : internalPendingPods) {
             if (!podWaitingQueue.contains(pod)) {
@@ -200,16 +370,17 @@ public class KubeScheduler extends Scheduler {
         List<V1WatchEvent> events = new ArrayList<>(); // gather events for informing the scheduler that pods
         // have been removed from nodes
         for (Pod pod : internalRunningPods) {
-            //If MiSim does not hold the pod from the scheduler cache anymore, tell the scheduler that it was deleted
+            // If MiSim does not hold the pod from the scheduler cache anymore, tell the
+            // scheduler that it was deleted
             if (!allPodsPlacedOnNodes.contains(pod)) {
                 events.add(KubeObjectConverter.createPodDeletedEvent(pod, "Running"));
                 internalRunningPodsToRemove.add(pod);
-                System.out.println("In this iteration the following pod will be removed " + pod.getQuotedName() + " " + "from node " + pod.getLastKnownNode().getQuotedName());
+                System.out.println("In this iteration the following pod will be removed " + pod.getQuotedName() + " "
+                        + "from node " + pod.getLastKnownNode().getQuotedName());
             }
         }
         internalRunningPodsToRemove.forEach(internalRunningPods::remove);
         return events;
     }
-
 
 }

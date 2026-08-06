@@ -8,6 +8,7 @@ import desmoj.core.simulator.Model;
 
 public class StartContainerAndMicroserviceInstanceEvent extends Event<Container> {
     public static int counter = 0;
+
     public StartContainerAndMicroserviceInstanceEvent(Model model, String name, boolean showInTrace) {
         super(model, name, showInTrace);
         this.setSchedulingPriority(Priority.HIGH);
@@ -16,7 +17,8 @@ public class StartContainerAndMicroserviceInstanceEvent extends Event<Container>
 
     @Override
     public void eventRoutine(Container container) {
-        if (container.getMicroserviceInstance() != null) container.getMicroserviceInstance().start();
+        if (container.getMicroserviceInstance() != null)
+            container.getMicroserviceInstance().start();
         container.setContainerState(ContainerState.RUNNING);
     }
 }

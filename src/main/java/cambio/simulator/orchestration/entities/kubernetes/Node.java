@@ -40,9 +40,11 @@ public class Node extends NamedEntity {
     }
 
     public synchronized boolean addPod(Pod pod, int additionalDelay) {
-        boolean notEnoughCPUAvailable = roundByThreeDecimals(this.getReserved() + pod.getCPUDemand()) > this.getTotalCPU();
+        boolean notEnoughCPUAvailable = roundByThreeDecimals(this.getReserved() + pod.getCPUDemand()) > this
+                .getTotalCPU();
         if (notEnoughCPUAvailable) {
-            System.out.printf("Node: %s, Capacity: %.3f, Reserved: %.3f, Additional Demand: %.3f\n", getPlainName(), totalCPU, reserved, pod.getCPUDemand());
+            System.out.printf("Node: %s, Capacity: %.3f, Reserved: %.3f, Additional Demand: %.3f\n", getPlainName(),
+                    totalCPU, reserved, pod.getCPUDemand());
             return false;
         }
         this.reserved = roundByThreeDecimals(reserved + pod.getCPUDemand());
@@ -58,8 +60,13 @@ public class Node extends NamedEntity {
     }
 
     public void startRemovingPod(Pod pod) {
-        Stats.NodePodEventRecord record =
-                Stats.NodePodEventRecord.builder().time((int) presentTime().getTimeAsDouble()).podName(pod.getName()).nodeName(this.getPlainName()).microserviceInstanceName(pod.getMicroserviceInstanceName()).scheduler(pod.getSchedulerName()).event("Start Pod Removal").outcome("Initiating").info(pod.getName() + " needs to be removed from " + this.getPlainName()).desiredState(pod.getOwner().getDesiredReplicaCount()).currentState(ManagementPlane.getInstance().getAmountOfPodsOnNodes(pod.getOwner())).build();
+        Stats.NodePodEventRecord record = Stats.NodePodEventRecord.builder().time((int) presentTime().getTimeAsDouble())
+                .podName(pod.getName()).nodeName(this.getPlainName())
+                .microserviceInstanceName(pod.getMicroserviceInstanceName()).scheduler(pod.getSchedulerName())
+                .event("Start Pod Removal").outcome("Initiating")
+                .info(pod.getName() + " needs to be removed from " + this.getPlainName())
+                .desiredState(pod.getOwner().getDesiredReplicaCount())
+                .currentState(ManagementPlane.getInstance().getAmountOfPodsOnNodes(pod.getOwner())).build();
         Stats.getInstance().getNodePodEventRecords().add(record);
         pod.transitionToState(PodState.TERMINATING);
         final CheckPodRemovableEvent checkPodRemovableEvent = new CheckPodRemovableEvent(getModel(),
@@ -70,10 +77,16 @@ public class Node extends NamedEntity {
     public void removePod(Pod pod) {
         pod.transitionToState(PodState.SUCCEEDED);
         this.reserved -= pod.getCPUDemand();
-        if (!pods.contains(pod)) throw new PodDoesNotBelongToNodeException(pod, this);
+        if (!pods.contains(pod))
+            throw new PodDoesNotBelongToNodeException(pod, this);
         pods.remove(pod);
-        Stats.NodePodEventRecord record =
-                Stats.NodePodEventRecord.builder().time((int) presentTime().getTimeAsDouble()).podName(pod.getName()).nodeName(this.getPlainName()).microserviceInstanceName(pod.getMicroserviceInstanceName()).scheduler(pod.getSchedulerName()).event("Pod Removal").outcome("Success").info(pod.getName() + " was removed from " + this.getPlainName()).desiredState(pod.getOwner().getDesiredReplicaCount()).currentState(ManagementPlane.getInstance().getAmountOfPodsOnNodes(pod.getOwner())).build();
+        Stats.NodePodEventRecord record = Stats.NodePodEventRecord.builder().time((int) presentTime().getTimeAsDouble())
+                .podName(pod.getName()).nodeName(this.getPlainName())
+                .microserviceInstanceName(pod.getMicroserviceInstanceName()).scheduler(pod.getSchedulerName())
+                .event("Pod Removal").outcome("Success")
+                .info(pod.getName() + " was removed from " + this.getPlainName())
+                .desiredState(pod.getOwner().getDesiredReplicaCount())
+                .currentState(ManagementPlane.getInstance().getAmountOfPodsOnNodes(pod.getOwner())).build();
         Stats.getInstance().getNodePodEventRecords().add(record);
         sendTraceNote(pod.getQuotedName() + " was removed from " + this.getQuotedName());
         HealthCheckEvent healthCheckEvent = new HealthCheckEvent(getModel(), "HealthCheckEvent - After Scaling",
@@ -81,15 +94,26 @@ public class Node extends NamedEntity {
         healthCheckEvent.schedule(new TimeSpan(HealthCheckEvent.delay));
     }
 
-    public void failInstantly() {
+    public List<Pod> failInstantly() {
         sendTraceNote("Node " + this.getQuotedName() + " fails, results in failure of all pods on node");
         for (Pod pod : pods) {
             sendTraceNote("Pod " + pod.getQuotedName() + " fails due to node failure");
-            pod.transitionToState(PodState.FAILED);
-            Stats.NodePodEventRecord record =
-                    Stats.NodePodEventRecord.builder().time((int) presentTime().getTimeAsDouble()).podName(pod.getName()).nodeName(this.getPlainName()).microserviceInstanceName(pod.getMicroserviceInstanceName()).scheduler(pod.getSchedulerName()).event("Pod Failure").outcome("Success").info(pod.getName() + " has failed on node " + this.getPlainName()).desiredState(pod.getOwner().getDesiredReplicaCount()).currentState(ManagementPlane.getInstance().getAmountOfPodsOnNodes(pod.getOwner())).build();
+            pod.failSilently();
+            Stats.NodePodEventRecord record = Stats.NodePodEventRecord.builder()
+                    .time((int) presentTime().getTimeAsDouble())
+                    .podName(pod.getName())
+                    .nodeName(this.getPlainName())
+                    .microserviceInstanceName(pod.getMicroserviceInstanceName())
+                    .scheduler(pod.getSchedulerName())
+                    .event("Node Pod Failure")
+                    .outcome("Success")
+                    .info(pod.getName() + " has failed on node " + this.getPlainName())
+                    .desiredState(pod.getOwner().getDesiredReplicaCount())
+                    .currentState(ManagementPlane.getInstance().getAmountOfPodsOnNodes(pod.getOwner()))
+                    .build();
             Stats.getInstance().getNodePodEventRecords().add(record);
         }
+        return pods;
     }
 
     private static class PodDoesNotBelongToNodeException extends IllegalArgumentException {

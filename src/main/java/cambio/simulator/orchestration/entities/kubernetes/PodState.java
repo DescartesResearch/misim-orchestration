@@ -6,5 +6,6 @@ public enum PodState {
     SUCCEEDED,
     TERMINATING,
     FAILED,
+    // Unknown due to node failure that hasn't been detected yet.
     UNKNOWN
 }

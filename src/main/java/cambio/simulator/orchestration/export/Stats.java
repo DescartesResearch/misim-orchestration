@@ -22,15 +22,31 @@ import java.util.Map;
 
 @Getter
 public class Stats {
-    //only for MiSim
+    // only for MiSim
     Map<Microservice, List<ScalingRecord>> microServiceRecordsMap = new HashMap<>();
 
-    //only in orchestration mode
+    // only in orchestration mode
     Map<Deployment, List<ScalingRecord>> deploymentRecordsMap = new HashMap<>();
     List<SchedulingRecord> schedulingRecords = new ArrayList<>();
     Map<Node, List<NodePodSchedulingRecord>> node2PodMap = new HashMap<>();
 
     List<NodePodEventRecord> nodePodEventRecords = new ArrayList<>();
+
+    List<NodeStatusEventRecord> nodeStatusEventRecords = new ArrayList<>();
+
+    @Getter
+    @Setter
+    public class NodeStatusEventRecord {
+        private String node;
+        private int time;
+        private String status;
+
+        private NodeStatusEventRecord(int time, String node, String status) {
+            this.time = time;
+            this.node = node;
+            this.status = status;
+        }
+    }
 
     @Getter
     @Setter
@@ -75,7 +91,6 @@ public class Stats {
             private int desiredState;
             private int currentState;
 
-
             public Builder fromBindingInformation(BindingInformation bindSuccess) {
                 this.podName = bindSuccess.getPod();
                 this.nodeName = bindSuccess.getNode();
@@ -95,7 +110,6 @@ public class Stats {
                 this.info = bindFail.getMessage();
                 return this;
             }
-
 
             public Builder time(int time) {
                 this.time = time;
@@ -187,8 +201,13 @@ public class Stats {
     @Getter
     private static final Stats instance = new Stats();
 
-    //private constructor to avoid client applications to use constructor
+    // private constructor to avoid client applications to use constructor
     private Stats() {
+    }
+
+    public void createNodeStatusStats(int time, String node, String status) {
+        NodeStatusEventRecord record = new NodeStatusEventRecord(time, node, status);
+        nodeStatusEventRecords.add(record);
     }
 
     public void createSchedulingStats(Model model) {
@@ -208,8 +227,7 @@ public class Stats {
         schedulingRecord.setAmountPodsWaiting(ManagementPlane.getInstance().getAmountOfWaitingPods());
         schedulingRecords.add(schedulingRecord);
 
-        //Add node2pod records
-
+        // Add node2pod records
 
         List<Deployment> deployments = ManagementPlane.getInstance().getDeployments();
         List<Node> nodes = ManagementPlane.getInstance().getCluster().getNodes();
@@ -244,7 +262,6 @@ public class Stats {
             }
         }
 
-
     }
 
     public void createScalingStats(Model model) {
@@ -263,26 +280,31 @@ public class Stats {
 
                     for (Container container : pod.getContainers()) {
 
-/*                        //add event info timeoutEvent
-                        Microservice owner = container.getMicroserviceInstance().getOwner();
-                        Integer integer = NetworkRequestTimeoutEvent.getMicroserviceTimeoutMap().get(owner);
-                        if (integer != null) {
-                            scalingRecord.getMicroservicetimoutmap().put(owner, Integer.valueOf(integer));
-                        } else {
-                            scalingRecord.getMicroservicetimoutmap().put(owner, 0);
-                        }*/
+                        /*
+                         * //add event info timeoutEvent
+                         * Microservice owner = container.getMicroserviceInstance().getOwner();
+                         * Integer integer =
+                         * NetworkRequestTimeoutEvent.getMicroserviceTimeoutMap().get(owner);
+                         * if (integer != null) {
+                         * scalingRecord.getMicroservicetimoutmap().put(owner,
+                         * Integer.valueOf(integer));
+                         * } else {
+                         * scalingRecord.getMicroservicetimoutmap().put(owner, 0);
+                         * }
+                         */
 
-//                        //add event info canceledEvent
-//                        owner = container.getMicroserviceInstance().getOwner();
-//                        integer = microserviceCanceledMap.get(owner);
-//                        if (integer != null) {
-//                            scalingRecord.getMicroserviceCanceledMap().put(owner, Integer.valueOf(integer));
-//                        } else {
-//                            scalingRecord.getMicroserviceCanceledMap().put(owner, 0);
-//                        }
+                        // //add event info canceledEvent
+                        // owner = container.getMicroserviceInstance().getOwner();
+                        // integer = microserviceCanceledMap.get(owner);
+                        // if (integer != null) {
+                        // scalingRecord.getMicroserviceCanceledMap().put(owner,
+                        // Integer.valueOf(integer));
+                        // } else {
+                        // scalingRecord.getMicroserviceCanceledMap().put(owner, 0);
+                        // }
 
-
-                        if (container.getContainerState() == ContainerState.RUNNING && container.getMicroserviceInstance() != null) {
+                        if (container.getContainerState() == ContainerState.RUNNING
+                                && container.getMicroserviceInstance() != null) {
                             double relativeWorkDemand = container.getMicroserviceInstance().getRelativeWorkDemand();
                             podCPUUtilization += relativeWorkDemand;
                         }
@@ -292,10 +314,10 @@ public class Stats {
                 }
             }
             double avg = podConsumptions.stream().mapToDouble(d -> d).average().orElse(0);
-//            sendTraceNote("Average for  " + deployment.getQuotedName() + " has the current work demand: " + avg);
+            // sendTraceNote("Average for " + deployment.getQuotedName() + " has the current
+            // work demand: " + avg);
             scalingRecord.setAvgConsumption(avg);
             scalingRecord.setAmountPods(deployment.getRunningReplicas().size());
-
 
             List<Stats.ScalingRecord> scalingRecords = deploymentRecordsMap.get(deployment);
             if (scalingRecords != null) {

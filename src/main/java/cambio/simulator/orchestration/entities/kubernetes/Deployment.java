@@ -33,8 +33,8 @@ public class Deployment extends NamedEntity {
     private V1Deployment kubernetesRepresentation;
 
     public Deployment(Model model, String name, boolean showInTrace,
-                      MicroserviceOrchestration microserviceOrchestration, int desiredReplicaCount,
-                      SchedulerType schedulerType) {
+            MicroserviceOrchestration microserviceOrchestration, int desiredReplicaCount,
+            SchedulerType schedulerType) {
         super(model, name, showInTrace);
         this.service = microserviceOrchestration;
         this.desiredReplicaCount = desiredReplicaCount;
@@ -43,7 +43,7 @@ public class Deployment extends NamedEntity {
     }
 
     public void deploy() {
-        final int diff = Math.abs(getCurrentRunningOrPendingReplicaCount() - desiredReplicaCount);
+        final int diff = Math.abs(getCurrentRunningOrPendingOrUnknownReplicaCount() - desiredReplicaCount);
         int i = 0;
         sendTraceNote("Checking state of deployment " + this.getQuotedPlainName());
         if (diff == 0) {
@@ -51,7 +51,7 @@ public class Deployment extends NamedEntity {
         } else {
             while (i < diff) {
                 i++;
-                if (getCurrentRunningOrPendingReplicaCount() < desiredReplicaCount) {
+                if (getCurrentRunningOrPendingOrUnknownReplicaCount() < desiredReplicaCount) {
                     createPod();
                 } else {
                     removePod();
@@ -82,7 +82,7 @@ public class Deployment extends NamedEntity {
         V1Pod v1Pod = createKubernetesPodWithTemplate(pod.getName());
         pod.setKubernetesRepresentation(v1Pod);
         replicaSet.add(pod);
-        //add to specific scheduler queue
+        // add to specific scheduler queue
         addPodToWaitingQueue(pod);
     }
 
@@ -95,7 +95,8 @@ public class Deployment extends NamedEntity {
         if (kubernetesRepresentation.getSpec().getTemplate().getMetadata() == null) {
             meta = new V1ObjectMeta();
         } else {
-            // We need to make a deep copy of the template here -> safest way is to serialize and deserialize
+            // We need to make a deep copy of the template here -> safest way is to
+            // serialize and deserialize
             meta = gson.fromJson(gson.toJson(kubernetesRepresentation.getSpec().getTemplate().getMetadata()),
                     V1ObjectMeta.class);
         }
@@ -103,7 +104,8 @@ public class Deployment extends NamedEntity {
         meta.setNamespace("default");
         meta.setUid(name);
         result.setMetadata(meta);
-        // We need to make a deep copy of the template here -> safest way is to serialize and deserialize
+        // We need to make a deep copy of the template here -> safest way is to
+        // serialize and deserialize
         V1PodSpec spec = gson.fromJson(gson.toJson(kubernetesRepresentation.getSpec().getTemplate().getSpec()),
                 V1PodSpec.class);
         result.setSpec(spec);
@@ -112,16 +114,17 @@ public class Deployment extends NamedEntity {
     }
 
     public void removePod() {
-        final Optional<Pod> optionalPendingPod =
-                replicaSet.stream().filter(pod -> pod.getPodState() == PodState.PENDING).findFirst();
+        final Optional<Pod> optionalPendingPod = replicaSet.stream()
+                .filter(pod -> pod.getPodState() == PodState.PENDING).findFirst();
         if (optionalPendingPod.isPresent()) {
             Pod pod = optionalPendingPod.get();
-            //find corresponding waiting queue and remove pod there as well
+            // find corresponding waiting queue and remove pod there as well
             try {
                 Scheduler scheduler = Util.getSchedulerInstanceByType(this.schedulerType);
                 scheduler.getPodWaitingQueue().remove(pod);
                 this.getReplicaSet().remove(optionalPendingPod.get());
-                sendTraceNote("A pending pod was removed from " + this.getPlainName() + " and from " + scheduler.getSchedulerType().getDisplayName());
+                sendTraceNote("A pending pod was removed from " + this.getPlainName() + " and from "
+                        + scheduler.getSchedulerType().getDisplayName());
             } catch (Exception e) {
                 e.printStackTrace();
                 System.exit(1);
@@ -129,10 +132,11 @@ public class Deployment extends NamedEntity {
             return;
         }
 
-        final List<Pod> pods =
-                replicaSet.stream().filter(pod -> pod.getPodState() == PodState.RUNNING).collect(Collectors.toList());
+        final List<Pod> pods = replicaSet.stream().filter(pod -> pod.getPodState() == PodState.RUNNING)
+                .collect(Collectors.toList());
         if (pods.isEmpty()) {
-            //Should not happen. If there is neither a pending nor a running pod, then this method should not have
+            // Should not happen. If there is neither a pending nor a running pod, then this
+            // method should not have
             // been called
             sendTraceNote("There is no pod that could be removed");
             return;
@@ -172,7 +176,6 @@ public class Deployment extends NamedEntity {
         }
     }
 
-
     public synchronized void killPodInstances(final int numberOfInstances, final int retries, final String service) {
         final int maxKills = Math.max(0, Math.min(numberOfInstances, getRunningReplicas().size()));
         for (int i = 0; i < maxKills; i++) {
@@ -181,17 +184,24 @@ public class Deployment extends NamedEntity {
     }
 
     /**
-     * Kills a random instance. Can be called on a deployment that has 0 running instances.
+     * Kills a random instance. Can be called on a deployment that has 0 running
+     * instances.
      */
     public synchronized void killPodInstance(final int retries, final String service) {
-        Pod instanceToKill =
-                getRunningReplicas().stream().findFirst().orElse(null); //selects an element of the stream, not
+        Pod instanceToKill = getRunningReplicas().stream().findFirst().orElse(null); // selects an element of the
+                                                                                     // stream, not
         if (instanceToKill == null) {
             return;
         }
+
+        for (Scheduler s : ManagementPlane.getInstance().getActiveSchedulers()) {
+            s.onPodFailure(instanceToKill);
+        }
+
         if (service != null) {
-            Optional<Container> any =
-                    instanceToKill.getContainers().stream().filter(container -> container.getMicroserviceInstance().getPlainName().contains(service)).findAny();
+            Optional<Container> any = instanceToKill.getContainers().stream()
+                    .filter(container -> container.getMicroserviceInstance().getPlainName().contains(service))
+                    .findAny();
             if (any.isPresent()) {
                 Container container = any.get();
                 container.setRestartAttemptsLeft(retries);
@@ -220,16 +230,19 @@ public class Deployment extends NamedEntity {
         return getReplicaSet().size();
     }
 
-    public int getCurrentRunningOrPendingReplicaCount() {
-        return getCurrentRunningOrPendingReplicas().size();
+    public int getCurrentRunningOrPendingOrUnknownReplicaCount() {
+        return getCurrentRunningOrPendingOrUnknownReplicas().size();
     }
 
-    public Set<Pod> getCurrentRunningOrPendingReplicas() {
-        return getReplicaSet().stream().filter(pod -> pod.getPodState() == PodState.RUNNING || pod.getPodState() == PodState.PENDING).collect(Collectors.toSet());
+    public Set<Pod> getCurrentRunningOrPendingOrUnknownReplicas() {
+        return getReplicaSet().stream().filter(pod -> pod.getPodState() == PodState.RUNNING
+                || pod.getPodState() == PodState.PENDING || pod.getPodState() == PodState.UNKNOWN)
+                .collect(Collectors.toSet());
     }
 
     public Set<Pod> getRunningReplicas() {
-        return getReplicaSet().stream().filter(pod -> pod.getPodState() == PodState.RUNNING).collect(Collectors.toSet());
+        return getReplicaSet().stream().filter(pod -> pod.getPodState() == PodState.RUNNING)
+                .collect(Collectors.toSet());
     }
 
 }

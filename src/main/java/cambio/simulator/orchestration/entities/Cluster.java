@@ -7,6 +7,7 @@ import cambio.simulator.orchestration.parsing.kubernetes.KubernetesObjectWithMet
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -21,6 +22,9 @@ public class Cluster {
     private List<Node> nodes;
 
     @Getter
+    private List<Node> failedNodes = new ArrayList<>();
+
+    @Getter
     @Setter
     private List<KubernetesObjectWithMetadataSpec> machineSets;
 
@@ -30,7 +34,8 @@ public class Cluster {
     private Map<String, Map<String, OrchestrationConfig.NetworkDelays.NetworkInfo>> delayMap;
     private List<OrchestrationConfig.StartUpTimeNode> nodeStartTimes;
 
-    public Cluster(List<Node> nodes, Map<String, Map<String, OrchestrationConfig.NetworkDelays.NetworkInfo>> network, List<OrchestrationConfig.StartUpTimeNode> nodeStartTimes) {
+    public Cluster(List<Node> nodes, Map<String, Map<String, OrchestrationConfig.NetworkDelays.NetworkInfo>> network,
+            List<OrchestrationConfig.StartUpTimeNode> nodeStartTimes) {
         this.nodes = nodes;
         this.delayMap = network;
         this.nodeStartTimes = nodeStartTimes;
@@ -43,7 +48,8 @@ public class Cluster {
 
     public void addNode(Node node) {
         if (node.getStartTime() == -1 && nodeStartTimes != null) {
-            Optional<OrchestrationConfig.StartUpTimeNode> startTime = nodeStartTimes.stream().filter(x -> Pattern.compile(x.getPattern()).matcher(node.getPlainName()).find()).findFirst();
+            Optional<OrchestrationConfig.StartUpTimeNode> startTime = nodeStartTimes.stream()
+                    .filter(x -> Pattern.compile(x.getPattern()).matcher(node.getPlainName()).find()).findFirst();
             if (startTime.isPresent()) {
                 node.setStartTime(startTime.get().getTime());
             } else {
@@ -59,8 +65,14 @@ public class Cluster {
         nodes.remove(node);
     }
 
+    public void failNode(Node node) {
+        nodes.remove(node);
+        failedNodes.add(node);
+    }
+
     public double getNetworkDelay(String sourceNode, String targetNode) {
-        if (delayMap == null) return 0;
+        if (delayMap == null)
+            return 0;
         OrchestrationConfig.NetworkDelays.NetworkInfo networkInfo = null;
         // Search for exact match
         if (delayMap.containsKey(sourceNode)) {
@@ -74,28 +86,34 @@ public class Cluster {
             }
         }
         // Search for pattern
-        Optional<String> sourceMatch = delayMap.keySet().stream().filter(s -> Pattern.compile(s).matcher(sourceNode).find()).findFirst();
+        Optional<String> sourceMatch = delayMap.keySet().stream()
+                .filter(s -> Pattern.compile(s).matcher(sourceNode).find()).findFirst();
         if (sourceMatch.isPresent()) {
-            Optional<String> targetMatch = delayMap.get(sourceMatch.get()).keySet().stream().filter(s -> Pattern.compile(s).matcher(targetNode).find()).findFirst();
+            Optional<String> targetMatch = delayMap.get(sourceMatch.get()).keySet().stream()
+                    .filter(s -> Pattern.compile(s).matcher(targetNode).find()).findFirst();
             if (targetMatch.isPresent()) {
                 networkInfo = delayMap.get(sourceMatch.get()).get(targetMatch.get());
             }
         }
         if (networkInfo == null) {
-            Optional<String> targetMatch = delayMap.keySet().stream().filter(s -> Pattern.compile(s).matcher(targetNode).find()).findFirst();
+            Optional<String> targetMatch = delayMap.keySet().stream()
+                    .filter(s -> Pattern.compile(s).matcher(targetNode).find()).findFirst();
             if (targetMatch.isPresent()) {
-                sourceMatch = delayMap.get(targetMatch.get()).keySet().stream().filter(s -> Pattern.compile(s).matcher(sourceNode).find()).findFirst();
+                sourceMatch = delayMap.get(targetMatch.get()).keySet().stream()
+                        .filter(s -> Pattern.compile(s).matcher(sourceNode).find()).findFirst();
                 if (sourceMatch.isPresent()) {
                     networkInfo = delayMap.get(targetMatch.get()).get(sourceMatch.get());
                 }
             }
         }
         if (networkInfo == null) {
-            // System.out.printf("[DEBUG] No network info found for source node %s and target node %s\n", sourceNode, targetNode);
+            // System.out.printf("[DEBUG] No network info found for source node %s and
+            // target node %s\n", sourceNode, targetNode);
             return 0;
         } else {
             double delay = random.nextGaussian() * networkInfo.getStd() + networkInfo.getMean();
-            // System.out.printf("[DEBUG] Adding delay %f between node %s and node %s\n", delay, sourceNode, targetNode);
+            // System.out.printf("[DEBUG] Adding delay %f between node %s and node %s\n",
+            // delay, sourceNode, targetNode);
             return delay;
         }
     }

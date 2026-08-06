@@ -11,9 +11,10 @@ import java.math.RoundingMode;
 import java.nio.file.Path;
 import java.util.*;
 
-
 public class KubernetesReporter {
     public static void generateKubernetesReports(Path reportPath) {
+        generateNodeStatusReport(reportPath);
+
         // Scaling report
         Path scalingPath = reportPath.resolve("scaling");
         generateScalingReport(scalingPath);
@@ -27,13 +28,30 @@ public class KubernetesReporter {
         generateNodePodSchedulerEventReport(nodePodSchedulerEventPath);
     }
 
+    private static void generateNodeStatusReport(Path path) {
+        String csvFileName = "node-status-events.csv";
+        Path out = path.resolve(csvFileName);
+        CSVBuilder csvBuilder = new CSVBuilder();
+        csvBuilder.headers(Arrays.asList("Time", "Node", "Status"));
+        List<Stats.NodeStatusEventRecord> records = Stats.getInstance().getNodeStatusEventRecords();
+        for (Stats.NodeStatusEventRecord record : records) {
+            List<String> row = Arrays.asList(String.valueOf(record.getTime()), record.getNode(), record.getStatus());
+            csvBuilder.row(row);
+        }
+
+        try {
+            csvBuilder.build(out);
+        } catch (CSVBuilder.CSVBuilderException e) {
+            System.err.println(e.getMessage());
+        }
+    }
+
     private static void generateScalingReport(Path scalingPath) {
         Map<Deployment, List<Stats.ScalingRecord>> deploymentRecordsMap = Stats.getInstance().getDeploymentRecordsMap();
         for (Deployment deployment : deploymentRecordsMap.keySet()) {
             List<Stats.ScalingRecord> scalingRecords = deploymentRecordsMap.get(deployment);
             String deploymentCsvFileName = deployment.getPlainName() + ".csv";
             Path csvPath = scalingPath.resolve(deploymentCsvFileName);
-
 
             CSVBuilder csvBuilder = new CSVBuilder();
             List<String> headers = new ArrayList<>();
@@ -61,7 +79,6 @@ public class KubernetesReporter {
                     row.add(String.valueOf(scalingRecord.getPodDoubleHashMap().get(pod)));
                 }
 
-
                 csvBuilder.row(row);
             }
             try {
@@ -71,7 +88,6 @@ public class KubernetesReporter {
             }
         }
     }
-
 
     private static void generateSchedulingReport(Path schedulingPath) {
         List<Stats.SchedulingRecord> schedulingRecords = Stats.getInstance().getSchedulingRecords();
@@ -101,11 +117,11 @@ public class KubernetesReporter {
     private static double getPctScheduledPods(Stats.SchedulingRecord schedulingRecord) {
         int podsOnNodes = schedulingRecord.getAmountPodsOnNodes();
         int totalPods = podsOnNodes + schedulingRecord.getAmountPodsWaiting();
-        if (totalPods == 0) return 1.0;
+        if (totalPods == 0)
+            return 1.0;
         double result = (double) podsOnNodes / totalPods;
         return BigDecimal.valueOf(result).setScale(2, RoundingMode.HALF_UP).doubleValue();
     }
-
 
     private static void generateNodesAndPodsReport(Path nodesAndPodsPath) {
         Map<Node, List<Stats.NodePodSchedulingRecord>> node2PodMap = Stats.getInstance().getNode2PodMap();
@@ -120,8 +136,8 @@ public class KubernetesReporter {
             headers.add("Time");
             if (!nodePodSchedulingRecords.isEmpty()) {
                 Stats.NodePodSchedulingRecord nodePodSchedulingRecord = nodePodSchedulingRecords.get(0);
-                Map<Deployment, Integer> deploymentPodScheduledMap =
-                        nodePodSchedulingRecord.getDeploymentPodScheduledMap();
+                Map<Deployment, Integer> deploymentPodScheduledMap = nodePodSchedulingRecord
+                        .getDeploymentPodScheduledMap();
                 List<Deployment> deployments = new ArrayList<>(deploymentPodScheduledMap.keySet());
                 for (Deployment deployment : deployments) {
                     headers.add(deployment.getPlainName());
@@ -149,16 +165,16 @@ public class KubernetesReporter {
         }
     }
 
-
     private static void generateNodePodSchedulerEventReport(Path nodePodSchedulerEventPath) {
-        //### Get Node Pod Scheduler Event Report
+        // ### Get Node Pod Scheduler Event Report
         List<Stats.NodePodEventRecord> nodePodEventRecords = Stats.getInstance().getNodePodEventRecords();
 
         // Create an instance of CSVBuilder
         CSVBuilder csvBuilder = new CSVBuilder();
 
         // Set headers
-        List<String> headers = Arrays.asList("Time", "desiredDeplState", "currentDeplStateOnNode", "Pod", "Node", "MicroserviceInstance",
+        List<String> headers = Arrays.asList("Time", "desiredDeplState", "currentDeplStateOnNode", "Pod", "Node",
+                "MicroserviceInstance",
                 "Scheduler", "Event", "Status", "Details");
         csvBuilder.headers(headers);
 
@@ -168,7 +184,8 @@ public class KubernetesReporter {
                     String.valueOf(nodePodEventRecord.getDesiredState()),
                     String.valueOf(nodePodEventRecord.getCurrentState()),
                     String.valueOf(nodePodEventRecord.getPodName()), String.valueOf(nodePodEventRecord.getNodeName()),
-                    String.valueOf(nodePodEventRecord.getMicroserviceInstanceName()), String.valueOf(nodePodEventRecord.getScheduler()),
+                    String.valueOf(nodePodEventRecord.getMicroserviceInstanceName()),
+                    String.valueOf(nodePodEventRecord.getScheduler()),
                     String.valueOf(nodePodEventRecord.getEvent()), String.valueOf(nodePodEventRecord.getOutcome()),
                     String.valueOf(nodePodEventRecord.getInfo()));
             csvBuilder.row(row);
@@ -180,6 +197,5 @@ public class KubernetesReporter {
         }
 
     }
-
 
 }

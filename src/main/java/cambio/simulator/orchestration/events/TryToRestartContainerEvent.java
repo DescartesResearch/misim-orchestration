@@ -1,5 +1,6 @@
 package cambio.simulator.orchestration.events;
 
+import cambio.simulator.entities.microservice.InstanceState;
 import cambio.simulator.misc.Priority;
 import cambio.simulator.orchestration.entities.Container;
 import cambio.simulator.orchestration.entities.ContainerState;
@@ -11,13 +12,14 @@ public class TryToRestartContainerEvent extends Event<Container> {
 
     public TryToRestartContainerEvent(Model model, String name, boolean showInTrace) {
         super(model, name, showInTrace);
+        System.err.println("TryToRestartContainerEvent");
         this.setSchedulingPriority(Priority.HIGH);
         counter++;
     }
     @Override
     public void eventRoutine(Container container) {
 
-        if (container.getContainerState().equals(ContainerState.TERMINATED)) {
+        if (container.getContainerState().equals(ContainerState.TERMINATED) && !container.getMicroserviceInstance().getState().equals(InstanceState.KILLED)) {
             container.incrementBackOffDelay();
             container.setLastRetry(presentTime());
             if (container.canRestartOtherwiseDecrease()) {

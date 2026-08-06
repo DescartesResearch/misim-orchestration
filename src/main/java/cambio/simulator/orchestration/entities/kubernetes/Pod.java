@@ -1,7 +1,6 @@
 package cambio.simulator.orchestration.entities.kubernetes;
 
 import cambio.simulator.entities.NamedEntity;
-import cambio.simulator.entities.microservice.MicroserviceInstance;
 import cambio.simulator.orchestration.entities.Container;
 import cambio.simulator.orchestration.entities.ContainerState;
 import cambio.simulator.orchestration.scheduling.SchedulerType;
@@ -57,13 +56,13 @@ public class Pod extends NamedEntity {
         transitionToState(PodState.RUNNING);
     }
 
-//    /**
-//     * Should be called when a Pod has died due to a ChaosMonkeyForPodsEvents.
-//     * It restarts all containers that belong to this pod.
-//     */
-//    public void restartAllContainers() {
-//        containers.forEach(container -> container.restartTerminatedContainer());
-//    }
+    // /**
+    // * Should be called when a Pod has died due to a ChaosMonkeyForPodsEvents.
+    // * It restarts all containers that belong to this pod.
+    // */
+    // public void restartAllContainers() {
+    // containers.forEach(container -> container.restartTerminatedContainer());
+    // }
 
     public String getSchedulerName() {
         return Optional.ofNullable(owner).map(Deployment::getSchedulerType).map(SchedulerType::getName).orElse("N/A");
@@ -78,15 +77,22 @@ public class Pod extends NamedEntity {
         } else if (podState == PodState.FAILED) {
             getContainers().forEach(Container::die);
         } else if (podState == PodState.RUNNING) {
-            List<Container> collect =
-                    getContainers().stream().filter(container -> !container.getContainerState().equals(ContainerState.RUNNING)).collect(Collectors.toList());
+            List<Container> collect = getContainers().stream()
+                    .filter(container -> !container.getContainerState().equals(ContainerState.RUNNING))
+                    .collect(Collectors.toList());
             collect.forEach(Container::start);
         }
     }
 
+    // Fail the pod silently due to a node failure that has not been detected yet.
+    public void failSilently() {
+        getContainers().forEach(Container::failSilently);
+    }
+
     public String getMicroserviceInstanceName() {
         for (Container c : containers) {
-            if (c.getMicroserviceInstance() != null) return c.getMicroserviceInstance().getPlainName();
+            if (c.getMicroserviceInstance() != null)
+                return c.getMicroserviceInstance().getPlainName();
         }
         return "null";
     }

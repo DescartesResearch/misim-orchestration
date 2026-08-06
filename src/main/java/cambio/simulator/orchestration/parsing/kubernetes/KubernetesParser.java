@@ -15,6 +15,7 @@ import cambio.simulator.parsing.ParsingException;
 import desmoj.core.simulator.Model;
 import io.kubernetes.client.openapi.models.*;
 import io.kubernetes.client.util.Yaml;
+
 import org.yaml.snakeyaml.constructor.ConstructorException;
 
 import java.io.File;
@@ -29,7 +30,8 @@ public class KubernetesParser {
             for (String fileName : fileNames) {
                 String filePath = dir + "/" + fileName;
                 Node node = readNodeFromFile(model, trace, filePath);
-                if (node != null) result.add(node);
+                if (node != null)
+                    result.add(node);
             }
         } catch (IOException e) {
             e.printStackTrace();
@@ -43,19 +45,24 @@ public class KubernetesParser {
         try {
             v1Node = Yaml.loadAs(new File(path), V1Node.class);
         } catch (ConstructorException e) {
+            if (path.contains("node.yaml")) {
+                System.err.println("Could not parse node: " + path);
+                e.printStackTrace();
+            }
             return null;
         }
         return createNodeFromKubernetesObject(model, trace, v1Node);
     }
 
     public static Node createNodeFromKubernetesObject(Model model, boolean trace, V1Node v1Node) {
-        Node node = new Node(model, v1Node.getMetadata().getName(), trace, v1Node.getStatus().getAllocatable().get("cpu").getNumber().intValue(), -1);
+        double allocatable = v1Node.getStatus().getAllocatable().get("cpu").getNumber().doubleValue();
+        Node node = new Node(model, v1Node.getMetadata().getName(), trace, allocatable, -1);
         node.setKubernetesRepresentation(v1Node);
         return node;
     }
 
     public static void initDeployments(String dir, ArchitectureModel architectureModel,
-                                       OrchestrationConfig orchestrationConfig) {
+            OrchestrationConfig orchestrationConfig) {
         List<String> fileNames;
         Set<V1Deployment> deployments = new HashSet<>();
         try {
@@ -76,7 +83,8 @@ public class KubernetesParser {
 
             // Enforce initial scheduling order if enabled
             List<V1Deployment> deploymentList = new ArrayList<>(mapping.keySet());
-            if (orchestrationConfig.getInitialSchedulingOrder() != null && orchestrationConfig.getInitialSchedulingOrder().isEnabled()) {
+            if (orchestrationConfig.getInitialSchedulingOrder() != null
+                    && orchestrationConfig.getInitialSchedulingOrder().isEnabled()) {
                 List<String> order = orchestrationConfig.getInitialSchedulingOrder().getOrder();
                 deploymentList.sort((o1, o2) -> {
                     int index1 = order.indexOf(o1.getMetadata().getName());
@@ -106,15 +114,17 @@ public class KubernetesParser {
                     if (hpa != null) {
                         namesToRemove.add(filePath);
                         String targetDeploymentName = hpa.getSpec().getScaleTargetRef().getName();
-                        Optional<Deployment> optionalDeployment =
-                                ManagementPlane.getInstance().getDeployments().stream().filter(deployment -> deployment.getPlainName().equals(targetDeploymentName)).findFirst();
+                        Optional<Deployment> optionalDeployment = ManagementPlane.getInstance().getDeployments()
+                                .stream().filter(deployment -> deployment.getPlainName().equals(targetDeploymentName))
+                                .findFirst();
                         if (optionalDeployment.isPresent()) {
                             Deployment deployment = optionalDeployment.get();
                             int minReplicas = hpa.getSpec().getMinReplicas().intValue();
                             int maxReplicas = hpa.getSpec().getMaxReplicas().intValue();
-                            int targetCPUUtilizationPercentage =
-                                    hpa.getSpec().getTargetCPUUtilizationPercentage().intValue();
-                            deployment.setAutoScaler(new HorizontalPodAutoscaler(targetCPUUtilizationPercentage / 100.0, minReplicas, maxReplicas));
+                            int targetCPUUtilizationPercentage = hpa.getSpec().getTargetCPUUtilizationPercentage()
+                                    .intValue();
+                            deployment.setAutoScaler(new HorizontalPodAutoscaler(targetCPUUtilizationPercentage / 100.0,
+                                    minReplicas, maxReplicas));
                         } else {
                             throw new ParsingException("Could not find an existing deployment object by the given " +
                                     "name: " + targetDeploymentName);
@@ -125,7 +135,7 @@ public class KubernetesParser {
                 namesToRemove.clear();
             }
 
-            //Init only schedulers that are used
+            // Init only schedulers that are used
             ManagementPlane.getInstance().populateSchedulers();
         } catch (ParsingException | IOException e) {
             e.printStackTrace();
@@ -139,17 +149,20 @@ public class KubernetesParser {
         try {
             v1Deployment = Yaml.loadAs(new File(path), V1Deployment.class);
         } catch (ConstructorException e) {
+            if (path.contains("deployment") || path.contains("pod")) {
+                e.printStackTrace();
+            }
             return null;
         }
         return v1Deployment;
     }
 
     private static Map<V1Deployment, Microservice> createMapping(Set<Microservice> microservices,
-                                                                 Set<V1Deployment> deployments) {
+            Set<V1Deployment> deployments) {
         Map<V1Deployment, Microservice> map = new HashMap<>();
         for (V1Deployment d : deployments) {
-            Optional<Microservice> optionalService =
-                    microservices.stream().filter(service -> service.getPlainName().equals(d.getMetadata().getName())).findFirst();
+            Optional<Microservice> optionalService = microservices.stream()
+                    .filter(service -> service.getPlainName().equals(d.getMetadata().getName())).findFirst();
             if (optionalService.isPresent()) {
                 MicroserviceOrchestration service = (MicroserviceOrchestration) optionalService.get();
                 microservices.remove(service);
@@ -161,7 +174,8 @@ public class KubernetesParser {
                         " file.");
             }
         }
-        //create default deployments for remaining microservices from the architecture file
+        // create default deployments for remaining microservices from the architecture
+        // file
         for (Microservice microservice : microservices) {
             V1Deployment d = createDefaultDeployment(microservice);
             map.put(d, microservice);
@@ -181,22 +195,26 @@ public class KubernetesParser {
 
     private static Deployment createDeployment(V1Deployment v1Deployment, Microservice microservice) {
         final String deploymentName = v1Deployment.getMetadata().getName();
-        System.err.println(String.format("Creating deployment %s", deploymentName));
         MicroserviceOrchestration casted = null;
         if (microservice != null) {
             casted = (MicroserviceOrchestration) microservice;
             Util.connectLoadBalancer(casted);
             if (casted.getStartingInstanceCount() != v1Deployment.getSpec().getReplicas().intValue()) {
                 throw new ParsingException("Replica count for service " + casted.getPlainName() + " in architecture " +
-                        "file does not match the replica count" + "provided in the deployment file for " + deploymentName + " (" + casted.getStartingInstanceCount() + "/" + v1Deployment.getSpec().getReplicas().intValue() + ")");
+                        "file does not match the replica count" + "provided in the deployment file for "
+                        + deploymentName + " (" + casted.getStartingInstanceCount() + "/"
+                        + v1Deployment.getSpec().getReplicas().intValue() + ")");
             }
         }
-        SchedulerType schedulerType =
-                Util.getSchedulerTypeByNameOrStandard(v1Deployment.getSpec().getTemplate().getSpec().getSchedulerName(), v1Deployment.getMetadata().getName());
+        SchedulerType schedulerType = Util.getSchedulerTypeByNameOrStandard(
+                v1Deployment.getSpec().getTemplate().getSpec().getSchedulerName(),
+                v1Deployment.getMetadata().getName());
         Deployment deployment = new Deployment(ManagementPlane.getInstance().getModel(), deploymentName,
                 ManagementPlane.getInstance().getModel().traceIsOn(), casted, v1Deployment.getSpec().getReplicas(),
                 schedulerType);
-        if (schedulerType.getName().equals("kube") && (v1Deployment.getSpec().getTemplate().getSpec().getSchedulerName() == null || v1Deployment.getSpec().getTemplate().getSpec().getSchedulerName().equals(""))) {
+        if (schedulerType.getName().equals("kube")
+                && (v1Deployment.getSpec().getTemplate().getSpec().getSchedulerName() == null
+                        || v1Deployment.getSpec().getTemplate().getSpec().getSchedulerName().equals(""))) {
             v1Deployment.getSpec().getTemplate().getSpec().setSchedulerName("default-scheduler");
         }
         deployment.setKubernetesRepresentation(v1Deployment);
@@ -230,10 +248,10 @@ public class KubernetesParser {
             for (String fileName : fileNames) {
                 String filePath = path + "/" + fileName;
                 KubernetesObjectWithMetadataSpec obj = readObjectFromFile(filePath);
-                if (obj != null && obj.getKind().equals(type)) result.add(obj);
+                if (obj != null && obj.getKind().equals(type))
+                    result.add(obj);
             }
         } catch (IOException e) {
-            e.printStackTrace();
             System.exit(1);
         }
         return result;

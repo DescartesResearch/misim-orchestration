@@ -4,11 +4,17 @@ import cambio.simulator.orchestration.entities.Container;
 import cambio.simulator.orchestration.entities.kubernetes.Node;
 import cambio.simulator.orchestration.entities.kubernetes.Pod;
 import cambio.simulator.orchestration.management.ManagementPlane;
+import cambio.simulator.orchestration.parsing.kubernetes.KubernetesObjectWithMetadataSpec;
+import cambio.simulator.orchestration.rest.dto.NodeFailureRequest;
+import cambio.simulator.orchestration.rest.dto.NodeNoExecuteRequest;
+import cambio.simulator.orchestration.rest.dto.NodeNotReadyRequest;
+import cambio.simulator.orchestration.rest.dto.PodFailureRequest;
 import cambio.simulator.orchestration.rest.dto.UpdateNodesRequest;
 import io.kubernetes.client.custom.Quantity;
 import io.kubernetes.client.openapi.models.*;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class KubeObjectConverter {
     public static UpdateNodesRequest convertNodes(List<Node> clusterNodes) {
@@ -70,7 +76,8 @@ public class KubeObjectConverter {
             } else if (temp.getStatus().getConditions() == null) {
                 temp.getStatus().setConditions(conditionList);
             } else {
-                Optional<V1NodeCondition> condi = temp.getStatus().getConditions().stream().filter(c -> c.getType().equals("Ready")).findFirst();
+                Optional<V1NodeCondition> condi = temp.getStatus().getConditions().stream()
+                        .filter(c -> c.getType().equals("Ready")).findFirst();
                 if (condi.isPresent()) {
                     condi.get().setStatus("False");
                 } else {
@@ -85,7 +92,8 @@ public class KubeObjectConverter {
             } else if (temp.getSpec().getTaints() == null) {
                 temp.getSpec().setTaints(taintList);
             } else {
-                Optional<V1Taint> tain = temp.getSpec().getTaints().stream().filter(t -> t.getKey().equals("node.kubernetes.io/not-ready")).findFirst();
+                Optional<V1Taint> tain = temp.getSpec().getTaints().stream()
+                        .filter(t -> t.getKey().equals("node.kubernetes.io/not-ready")).findFirst();
                 if (tain.isPresent()) {
                     tain.get().setEffect("NoSchedule");
                     tain.get().setValue("True");
@@ -98,18 +106,60 @@ public class KubeObjectConverter {
         UpdateNodesRequest result = new UpdateNodesRequest();
         result.setAllNodes(nodeList);
         result.setEvents(events);
-        result.setMachineSets(ManagementPlane.getInstance().getCluster().getMachineSets());
-        result.setMachines(ManagementPlane.getInstance().getCluster().getMachines());
+
+        List<KubernetesObjectWithMetadataSpec> machineSets = ManagementPlane.getInstance().getCluster()
+                .getMachineSets();
+        List<KubernetesObjectWithMetadataSpec> machines = ManagementPlane.getInstance().getCluster().getMachines();
+        result.setMachines(machines);
+        result.setMachineSets(machineSets);
         return result;
+    }
+
+    public static NodeFailureRequest failNodes(List<Pod> failedPods) {
+        List<String> failedKubernetesPods = failedPods.stream()
+                .map(pod -> pod.getKubernetesRepresentation().getMetadata().getName())
+                .collect(Collectors.toList());
+
+        NodeFailureRequest request = new NodeFailureRequest();
+        request.setFailedPods(failedKubernetesPods);
+        return request;
+    }
+
+    public static PodFailureRequest failPod(Pod pod) {
+        String podName = pod.getKubernetesRepresentation().getMetadata().getName();
+
+        PodFailureRequest request = new PodFailureRequest();
+        request.setFailedPod(podName);
+        return request;
+    }
+
+    public static NodeNotReadyRequest markNodesNotReady(List<Node> nodes) {
+        List<String> unreadyNodes = nodes.stream()
+                .map(node -> node.getKubernetesRepresentation().getMetadata().getName())
+                .collect(Collectors.toList());
+        NodeNotReadyRequest request = new NodeNotReadyRequest();
+        request.setNodes(unreadyNodes);
+        return request;
+    }
+
+    public static NodeNoExecuteRequest addNoExecuteTaint(List<Node> nodes) {
+        List<String> nodesToTaint = nodes.stream()
+                .map(node -> node.getKubernetesRepresentation().getMetadata().getName())
+                .collect(Collectors.toList());
+        NodeNoExecuteRequest request = new NodeNoExecuteRequest();
+        request.setNodes(nodesToTaint);
+        return request;
     }
 
     private static V1Node createNodeRepresentation(Node node) {
         V1Node result = new V1Node();
         result.setApiVersion("v1");
         result.setKind("Node");
-        result.setMetadata(new V1ObjectMeta().name(node.getPlainName()).labels(new HashMap<String, String>() {{
-            put("kubernetes.io/hostname", node.getPlainName());
-        }}));
+        result.setMetadata(new V1ObjectMeta().name(node.getPlainName()).labels(new HashMap<String, String>() {
+            {
+                put("kubernetes.io/hostname", node.getPlainName());
+            }
+        }));
         Map<String, Quantity> nodeResources = new HashMap<>();
         nodeResources.put("cpu", new Quantity(Double.toString(node.getTotalCPU())));
         // Some default arbitrary values for the non-modeled resources
@@ -136,7 +186,8 @@ public class KubeObjectConverter {
                 tempContainer.setName(c.getPlainName());
                 Map<String, Quantity> limitsAndRequests = new HashMap<>();
                 limitsAndRequests.put("cpu", new Quantity(Double.toString(pod.getCPUDemand())));
-                tempContainer.setResources(new V1ResourceRequirements().limits(limitsAndRequests).requests(limitsAndRequests));
+                tempContainer.setResources(
+                        new V1ResourceRequirements().limits(limitsAndRequests).requests(limitsAndRequests));
                 tempContainers.add(tempContainer);
             }
             tempSpec.setContainers(tempContainers);

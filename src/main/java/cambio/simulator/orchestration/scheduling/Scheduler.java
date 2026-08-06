@@ -17,7 +17,8 @@ public abstract class Scheduler extends NamedEntity implements Comparable<Schedu
     protected int PRIO = Integer.MAX_VALUE;
 
     public Scheduler() {
-        super(ManagementPlane.getInstance().getModel(), "Scheduler", ManagementPlane.getInstance().getModel().traceIsOn());
+        super(ManagementPlane.getInstance().getModel(), "Scheduler",
+                ManagementPlane.getInstance().getModel().traceIsOn());
         this.cluster = ManagementPlane.getInstance().getCluster();
         this.podWaitingQueue = new ArrayList<>();
     }
@@ -32,6 +33,18 @@ public abstract class Scheduler extends NamedEntity implements Comparable<Schedu
         }
     }
 
+    public void onNodeFailure(List<Node> failedNodes, List<Pod> failedPods) {
+        for (Node n : failedNodes)
+            cluster.failNode(n);
+    }
+
+    public void onNodeNotReady(List<Node> nodes) {
+    }
+
+    public void onNodeNoExecuteTaint(List<Node> nodes) {
+
+    }
+
     public @Nullable Pod getNextPodFromWaitingQueue() {
         if (!podWaitingQueue.isEmpty()) {
             Pod pod = podWaitingQueue.get(0);
@@ -41,6 +54,8 @@ public abstract class Scheduler extends NamedEntity implements Comparable<Schedu
         return null;
     }
 
+    public void onPodFailure(Pod pod) {
+    }
 
     public Cluster getCluster() {
         return cluster;
@@ -70,6 +85,5 @@ public abstract class Scheduler extends NamedEntity implements Comparable<Schedu
     public int compareTo(Scheduler scheduler) {
         return Integer.compare(this.getPRIO(), scheduler.getPRIO());
     }
-
 
 }

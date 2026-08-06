@@ -9,7 +9,8 @@ import java.util.Queue;
 
 public class HorizontalPodAutoscaler extends AutoScaler {
 
-    // TODO Maybe also include via adapter, upscaling/downscaling behavior not 100% as in Kubernetes, e.g. see HorizontalPodAutoscalerBehavior
+    // TODO Maybe also include via adapter, upscaling/downscaling behavior not 100%
+    // as in Kubernetes, e.g. see HorizontalPodAutoscalerBehavior
     // https://github.com/kubernetes/kubernetes/blob/master/pkg/apis/autoscaling/types.go#L113
 
     private final double targetUtilization;
@@ -24,26 +25,30 @@ public class HorizontalPodAutoscaler extends AutoScaler {
         this.targetUtilization = targetUtilization;
         this.minReplicas = minReplicas;
         this.maxReplicas = maxReplicas;
-        this.scalingInterval = ((MiSimOrchestrationModel) ManagementPlane.getInstance().getModel()).getOrchestrationConfig().getScalingInterval();
+        this.scalingInterval = ((MiSimOrchestrationModel) ManagementPlane.getInstance().getModel())
+                .getOrchestrationConfig().getScalingInterval();
         this.monitoredWindow = new ArrayDeque<>(300 / scalingInterval);
 
     }
 
     @Override
     public void apply(Deployment deployment) {
-        //https://github.com/kubernetes/kubernetes/blob/8caeec429ee1d2a9df7b7a41b21c626346b456fb/docs/design/horizontal-pod-autoscaler.md#autoscaling-algorithm
-//        Scale-up can only happen if there was no rescaling within the last 3 minutes. Scale-down will wait for 5 minutes from the last rescaling.
-//        Moreover any scaling will only be made if: avg(CurrentPodsConsumption) / Target drops below 0.9 or increases above 1.1 (10% tolerance)
+        // https://github.com/kubernetes/kubernetes/blob/8caeec429ee1d2a9df7b7a41b21c626346b456fb/docs/design/horizontal-pod-autoscaler.md#autoscaling-algorithm
+        // Scale-up can only happen if there was no rescaling within the last 3 minutes.
+        // Scale-down will wait for 5 minutes from the last rescaling.
+        // Moreover any scaling will only be made if: avg(CurrentPodsConsumption) /
+        // Target drops below 0.9 or increases above 1.1 (10% tolerance)
 
         double avg2Target = ScalingUtils.getAverageCPUUtilizationOfDeployment(deployment) / targetUtilization;
         // Tolerance area
         if (avg2Target > 0.9 && avg2Target < 1.1) {
             sendTraceNote("No Scaling required for " + deployment + ".");
-            updateMonitoredWindow(deployment.getCurrentRunningOrPendingReplicaCount());
+            updateMonitoredWindow(deployment.getCurrentRunningOrPendingOrUnknownReplicaCount());
             return;
         }
 
-        int desiredReplicas = (int) Math.ceil(avg2Target * deployment.getCurrentRunningOrPendingReplicaCount());
+        int desiredReplicas = (int) Math
+                .ceil(avg2Target * deployment.getCurrentRunningOrPendingOrUnknownReplicaCount());
 
         desiredReplicas = Math.min(desiredReplicas, maxReplicas);
         desiredReplicas = Math.max(minReplicas, desiredReplicas);
@@ -51,14 +56,16 @@ public class HorizontalPodAutoscaler extends AutoScaler {
         updateMonitoredWindow(desiredReplicas);
         desiredReplicas = getMaxOfQueue();
 
-        if (desiredReplicas != deployment.getCurrentRunningOrPendingReplicaCount()) {
-            if (desiredReplicas > deployment.getCurrentRunningOrPendingReplicaCount()) {
+        if (desiredReplicas != deployment.getCurrentRunningOrPendingOrUnknownReplicaCount()) {
+            if (desiredReplicas > deployment.getCurrentRunningOrPendingOrUnknownReplicaCount()) {
                 deployment.setDesiredReplicaCount(desiredReplicas);
-                sendTraceNote("Scaling Up " + deployment + ". From " + deployment.getCurrentRunningOrPendingReplicaCount() + " -> " + desiredReplicas);
+                sendTraceNote("Scaling Up " + deployment + ". From "
+                        + deployment.getCurrentRunningOrPendingOrUnknownReplicaCount() + " -> " + desiredReplicas);
 
             } else {
                 deployment.setDesiredReplicaCount(desiredReplicas);
-                sendTraceNote("Scaling Down " + deployment + ". From " + deployment.getCurrentRunningOrPendingReplicaCount() + " -> " + desiredReplicas);
+                sendTraceNote("Scaling Down " + deployment + ". From "
+                        + deployment.getCurrentRunningOrPendingOrUnknownReplicaCount() + " -> " + desiredReplicas);
             }
         } else {
             sendTraceNote("No Scaling required for " + deployment + ".");

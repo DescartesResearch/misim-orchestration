@@ -33,6 +33,8 @@ public class MicroserviceOrchestrationAdapter extends MicroserviceAdapter {
         JsonObject root = JsonParser.parseReader(in).getAsJsonObject();
         String microserviceName = root.get("name").getAsString();
 
+        System.err.println(String.format("Parsing microservice: %s", microserviceName));
+
         Gson gson = GsonHelper
                 .getGsonBuilder()
                 .excludeFieldsWithoutExposeAnnotation()

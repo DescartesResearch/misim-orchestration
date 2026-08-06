@@ -24,10 +24,10 @@ public class SimpleReactiveAutoscaler extends AutoScaler {
     public void apply(Deployment deployment) {
 
         TimeInstant presentTime = deployment.presentTime();
-        int currentInstanceCount = deployment.getCurrentRunningOrPendingReplicaCount();
+        int currentInstanceCount = deployment.getCurrentRunningOrPendingOrUnknownReplicaCount();
         double avg = ScalingUtils.getAverageCPUUtilizationOfDeployment(deployment);
 
-        if (currentInstanceCount <= 0) { //starts a instances if there are none
+        if (currentInstanceCount <= 0) { // starts a instances if there are none
             deployment.setDesiredReplicaCount(1);
         } else if (avg >= upperBound) {
             double upScalingFactor = avg / (upperBound - 0.01);
@@ -43,7 +43,8 @@ public class SimpleReactiveAutoscaler extends AutoScaler {
             lastScale = presentTime;
         }
         if (deployment.getDesiredReplicaCount() != currentInstanceCount) {
-            sendTraceNote(String.format("Changed target instance count of deployment %s to %d", deployment.getPlainName(), deployment.getDesiredReplicaCount()));
+            sendTraceNote(String.format("Changed target instance count of deployment %s to %d",
+                    deployment.getPlainName(), deployment.getDesiredReplicaCount()));
         } else {
             sendTraceNote(String.format("No scaling needed for deployment %s", deployment.getPlainName()));
         }

@@ -9,10 +9,10 @@ import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 import desmoj.core.simulator.Model;
 
-@JsonTypeName(value = "chaosmonkey_pods", alternativeNames = {"chaos_monkey_pods", "monkey_pods"})
+@JsonTypeName(value = "chaosmonkey_pods", alternativeNames = { "chaos_monkey_pods", "monkey_pods" })
 public class ChaosMonkeyForPodsEvent extends OrchestrationSelfScheduledExperimentAction {
     @Expose
-    @SerializedName(value = "instances", alternate = {"instance_count", "killed_instance_count", "killed_instances"})
+    @SerializedName(value = "instances", alternate = { "instance_count", "killed_instance_count", "killed_instances" })
     private int instances;
 
     @Expose
@@ -28,13 +28,16 @@ public class ChaosMonkeyForPodsEvent extends OrchestrationSelfScheduledExperimen
      *
      * @param owner          Model: The model that owns this event
      * @param name           String: The name of this event
-     * @param showInTrace    boolean: Declaration if this event should be shown in the trace
-     * @param deploymentName String: The target deployment whose pod instances should be terminated
-     * @param instances      int: The number of instances of the specified deployment you want to shut down, can be
+     * @param showInTrace    boolean: Declaration if this event should be shown in
+     *                       the trace
+     * @param deploymentName String: The target deployment whose pod instances
+     *                       should be terminated
+     * @param instances      int: The number of instances of the specified
+     *                       deployment you want to shut down, can be
      *                       greater than the number of currently running instances
      */
     public ChaosMonkeyForPodsEvent(Model owner, String name, boolean showInTrace, String deploymentName,
-                                   int instances, int retries) {
+            int instances, int retries) {
         super(owner, name, showInTrace);
 
         this.deploymentName = deploymentName;
@@ -43,7 +46,8 @@ public class ChaosMonkeyForPodsEvent extends OrchestrationSelfScheduledExperimen
     }
 
     /**
-     * The eventRoutine of the <code>ChaosMonkeyForPodsEvent</code>. Terminates a specified number of instances of a
+     * The eventRoutine of the <code>ChaosMonkeyForPodsEvent</code>. Terminates a
+     * specified number of instances of a
      * specified
      * <code>Deployment</code>.
      * Also tries to note the remaining number of instances in the trace.
@@ -55,9 +59,10 @@ public class ChaosMonkeyForPodsEvent extends OrchestrationSelfScheduledExperimen
             deployment.killPodInstances(instances, 0, null);
 
             sendTraceNote("Chaos Monkey for Pods was applied on " + deployment.getQuotedName());
-            boolean hasServicesLeft = deployment.getCurrentRunningOrPendingReplicaCount() > 0;
+            boolean hasServicesLeft = deployment.getCurrentRunningOrPendingOrUnknownReplicaCount() > 0;
             sendTraceNote(String.format("There are %s pods left of deployment %s",
-                    hasServicesLeft ? String.format("still %d", deployment.getCurrentRunningOrPendingReplicaCount())
+                    hasServicesLeft
+                            ? String.format("still %d", deployment.getCurrentRunningOrPendingOrUnknownReplicaCount())
                             : "no",
                     deployment.getName()));
         } else {

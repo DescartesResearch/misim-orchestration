@@ -11,6 +11,7 @@ public class RestartStartContainerAndMicroserviceInstanceEvent extends Event<Con
     public static int counter = 0;
     public RestartStartContainerAndMicroserviceInstanceEvent(Model model, String name, boolean showInTrace) {
         super(model, name, showInTrace);
+        System.err.println("RestartStartContainerAndMicroserviceInstanceEvent");
         this.setSchedulingPriority(Priority.HIGH);
         counter++;
     }

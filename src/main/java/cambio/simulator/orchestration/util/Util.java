@@ -73,6 +73,7 @@ public class Util {
         } else if (loadBalancingStrategy instanceof GenericLoadBalancer) {
             String descriptor = ((GenericLoadBalancer) loadBalancingStrategy).getDescriptor();
             if (descriptor.equals("topology_aware")) {
+                System.err.println("Using topology aware load balancer strategy for microservice: " + microserviceOrchestration.getName());
                 convertedStrategy = new TopologyAwareLoadBalanceStrategyOrchestration();
                 name = LoadBalancerType.TOPOLOGY_AWARE.getDisplayName();
             } else {
